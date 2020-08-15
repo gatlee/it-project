@@ -22,10 +22,16 @@ app.get('/api/passwords', (req, res) => {
     console.log(`Sent ${count} passwords`);
 });
 
+app.get('/api/healthcheck', (req, res) => {
+    res.send({
+        "body": "OK"
+    });
+});
+
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname+'/client/build/index.html'));
+    res.sendFile(path.join(__dirname+'..frontend/build/index.html'));
 });
 
 const port = process.env.PORT || 5000;
