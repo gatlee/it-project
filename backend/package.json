@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc",
-    "start": "node index.ts"
-    "start:prod" "node index.ts"
+    "start": "node index.ts",
+    "start:prod": "node index.ts"
   },
   "keywords": [],
   "author": "",
