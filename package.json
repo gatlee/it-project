@@ -6,7 +6,7 @@
   "scripts": {
     "build": "concurrently \"cd frontend && npm run build\" \"cd backend && npm run build\"",
     "clean": "concurrently \"rimraf node_modules\" \"cd frontend && rimraf node_modules build\" \"cd backend && rimraf node_modules build\"",
-    "heroku-postbuild": "npm run build",
+    "heroku-postbuild": "cd frontend && npm run build",
     "install": "(cd frontend && npm install) && (cd backend && npm install)",
     "start": "concurrently \"cd frontend && PORT=3000 npm run start\" \"cd backend && PORT=3001 npm run start\"",
     "test": "echo \"Error: no test specified\" && exit 1",
