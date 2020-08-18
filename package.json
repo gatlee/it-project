@@ -9,8 +9,7 @@
     "heroku-postbuild": "cd frontend && npm run build",
     "install": "(cd frontend && npm install) && (cd backend && npm install)",
     "install-windows": "(cd frontend && npm install) && (cd ../backend && npm install)",
-    "start": "concurrently \"cd frontend && PORT=3000 npm run start\" \"cd backend && PORT=3001 npm run start\"",
-    "start-windows": "concurrently \"cd frontend && SET PORT=3000 && npm run start\" \"cd backend && SET PORT=3001 && npm run start\"",
+    "start": "concurrently \"cd frontend && cross-env PORT=3000 npm run start\" \"cd backend && cross-env PORT=3001 npm run start\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:prod": "cd backend && npm run start:prod"
   },
