@@ -5,9 +5,9 @@
   "scripts": {
     "nx": "nx",
     "start": "concurrently --names \"express,react\" \"nx serve api liveReload\" \"nx serve client liveReload\"",
-    "start:prod": "nx serve api",
+    "start:prod": "npx nx serve api",
     "build": "nx build",
-    "heroku-postbuild": "nx build client",
+    "heroku-postbuild": "nx build api --prod && nx build client --prod",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
