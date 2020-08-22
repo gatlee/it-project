@@ -30,13 +30,13 @@
     }
   },
   "projects": {
-    "portfolio": {
+    "client": {
       "tags": []
     },
-    "portfolio-e2e": {
+    "client-e2e": {
       "tags": [],
       "implicitDependencies": [
-        "portfolio"
+        "client"
       ]
     },
     "api": {
