@@ -9,4 +9,4 @@ npm install
 npm start
 ```
 
-Frontend should be accessible at https://localhost:4200 and api at https://localhost:4200/api
+Frontend should be accessible at http://localhost:4200 and api at http://localhost:4200/api
