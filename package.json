@@ -8,7 +8,7 @@
     "start:prod": "npx nx serve api",
     "build": "nx build",
     "heroku-postbuild": "nx build api --prod && nx build client --prod",
-    "test": "nx test",
+    "test": "npx nx run-many --all --target=test --code-coverage",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
     "affected:apps": "nx affected:apps",
