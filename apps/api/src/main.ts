@@ -2,7 +2,9 @@ import * as express from 'express';
 import * as path from 'path';
 import { Message } from '@pure-and-lazy/api-interfaces';
 
-require("./models");
+import connectToDatabase from "./models/index";
+
+connectToDatabase();
 
 const app = express();
 
