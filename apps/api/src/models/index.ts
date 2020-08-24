@@ -7,10 +7,6 @@ const connectToDatabase = () => {
     '<password>',
     process.env.MONGODB_PASSWORD
   );
-  if (process.env.MONGODB_PASSWORD) {
-    // TODO: Remove this after testing
-    console.log(process.env.MONGODB_PASSWORD);
-  }
 
   mongoose.connect(CONNECTION_STRING, {
     useNewUrlParser: true,
