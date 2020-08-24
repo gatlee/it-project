@@ -2,6 +2,10 @@ import * as express from 'express';
 import * as path from 'path';
 import { Message } from '@pure-and-lazy/api-interfaces';
 
+import connectToDatabase from './models/index';
+
+connectToDatabase();
+
 const app = express();
 
 app.use(express.static(path.join(process.cwd(), '/dist/apps/client')));
@@ -12,9 +16,10 @@ app.get('/api', (req, res) => {
   res.send(greeting);
 });
 
-
-app.get('*', function(req, res) {
-  res.sendFile('index.html', {root: path.join(process.cwd(), '/dist/apps/client')});
+app.get('*', function (req, res) {
+  res.sendFile('index.html', {
+    root: path.join(process.cwd(), '/dist/apps/client'),
+  });
 });
 
 const port = process.env.PORT || 3001;
