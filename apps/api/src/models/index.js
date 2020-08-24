@@ -11,7 +11,7 @@ if (process.env.MONGODB_PASSWORD) {
   console.log(process.env.MONGODB_PASSWORD);
 }
 
-mongoose.connect(MONGO_URL, {
+mongoose.connect(CONNECTION_STRING, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
