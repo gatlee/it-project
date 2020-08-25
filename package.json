@@ -75,11 +75,17 @@
     "eslint-plugin-jsx-a11y": "6.3.1",
     "eslint-plugin-react": "7.20.0",
     "eslint-plugin-react-hooks": "4.0.4",
+    "husky": "^4.2.5",
     "jest": "25.2.3",
     "prettier": "2.0.4",
     "ts-jest": "25.2.1",
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",
     "typescript": "~3.9.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx nx format:write && npx nx affected:lint"
+    }
   }
 }
