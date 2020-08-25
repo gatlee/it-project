@@ -32,6 +32,7 @@
     "document-register-element": "1.13.1",
     "express": "4.17.1",
     "mongoose": "^5.10.0",
+    "pretty-quick": "^3.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-is": "16.13.1",
@@ -85,7 +86,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npx nx format:write && npx nx affected:lint"
+      "pre-commit": "pretty-quick --staged && npx nx affected:lint"
     }
   }
 }
