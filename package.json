@@ -29,6 +29,7 @@
   },
   "private": true,
   "dependencies": {
+    "@typegoose/typegoose": "^7.3.3",
     "document-register-element": "1.13.1",
     "express": "4.17.1",
     "mongoose": "^5.10.0",

@@ -1,20 +1,15 @@
-import * as mongoose from 'mongoose';
+import { prop, getModelForClass, Ref } from '@typegoose/typegoose';
+import { PortfolioItem } from './portfolioItem';
 
-const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    index: true,
-  },
-  email: String,
-  passwordHash: String,
-  name: String,
-  dateJoined: Date,
-  portfolio: [
-    {
-      type: mongoose.Types.ObjectId,
-      ref: 'PortfolioItem',
-    },
-  ],
-});
+class User {
+  @prop({ index: true }) username: string;
+  @prop() email: string;
+  @prop() passwordHash: string;
+  @prop() name: string;
+  @prop() dateJoined: Date;
+  @prop({ ref: PortfolioItem }) portfolio: [Ref<PortfolioItem>];
+}
 
-export default mongoose.model('User', userSchema);
+const UserModel = getModelForClass(User);
+
+export { User, UserModel };

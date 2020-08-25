@@ -1,27 +1,26 @@
-import * as mongoose from 'mongoose';
+import {
+  prop,
+  getModelForClass,
+  getDiscriminatorModelForClass,
+} from '@typegoose/typegoose';
 
-const options = { discriminatorKey: 'itemType' };
+class PortfolioItem {
+  @prop() name: string;
+  @prop() lastModified: Date;
+}
 
-const PortfolioItem = mongoose.model(
-  'PortfolioItem',
-  new mongoose.Schema(
-    {
-      id: {
-        type: mongoose.Types.ObjectId,
-        index: true,
-      },
-      name: String,
-      lastModified: Date,
-    },
-    options
-  )
-);
+const PortfolioItemModel = getModelForClass(PortfolioItem);
 
 // For now, portfolio items are just plain text
 // TODO: implement images, document files e.g. PDF, rich text documents with associated images
-const TextPortfolioItem = PortfolioItem.discriminator(
-  'TextPortfolioItem',
-  new mongoose.Schema({ content: String }, options)
+
+class TextItem extends PortfolioItem {
+  @prop() content: string;
+}
+
+const TextItemModel = getDiscriminatorModelForClass(
+  PortfolioItemModel,
+  TextItem
 );
 
-export { PortfolioItem, TextPortfolioItem };
+export { PortfolioItem, PortfolioItemModel, TextItem, TextItemModel };
