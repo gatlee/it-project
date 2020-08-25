@@ -3,6 +3,10 @@ import * as path from 'path';
 import { Message } from '@pure-and-lazy/api-interfaces';
 import userRouter from './routes/userRouter';
 
+import connectToDatabase from './models/index';
+
+connectToDatabase();
+
 const app = express();
 
 app.use(express.static(path.join(process.cwd(), '/dist/apps/client')));
