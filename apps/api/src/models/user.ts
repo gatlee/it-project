@@ -9,6 +9,12 @@ const userSchema = new mongoose.Schema({
   passwordHash: String,
   name: String,
   dateJoined: Date,
+  portfolio: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'PortfolioItem',
+    },
+  ],
 });
 
 export default mongoose.model('User', userSchema);
