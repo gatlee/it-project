@@ -10,3 +10,10 @@ npm start
 ```
 
 Frontend should be accessible at http://localhost:4200 and api at http://localhost:4200/api
+
+## Testing Instructions
+1. Ensure you have run `npm install` before
+2. Run `npm test`
+
+
+
