@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as path from 'path';
 import { Message } from '@pure-and-lazy/api-interfaces';
+import userRouter from './routes/userRouter';
 
 import connectToDatabase from './models/index';
 
@@ -15,6 +16,8 @@ const greeting: Message = { message: 'Welcome to api!' };
 app.get('/api', (req, res) => {
   res.send(greeting);
 });
+
+app.use('/api/users', userRouter);
 
 app.get('*', function (req, res) {
   res.sendFile('index.html', {
