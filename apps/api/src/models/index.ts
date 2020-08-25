@@ -1,9 +1,9 @@
 import * as mongoose from 'mongoose';
 
 const connectToDatabase = () => {
-  let connection_template =
+  const connectionTemplate =
     'mongodb+srv://admin:<password>@it-project-cluster.trdbq.mongodb.net/pureandlazydb?retryWrites=true&w=majority';
-  const CONNECTION_STRING = connection_template.replace(
+  const CONNECTION_STRING = connectionTemplate.replace(
     '<password>',
     process.env.MONGODB_PASSWORD
   );
