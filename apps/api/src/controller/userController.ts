@@ -1,6 +1,6 @@
 //Simply Testing
 
-let getOk = (req, res): void => {
+const getOk = (req, res): void => {
   res.send('ok');
 };
 

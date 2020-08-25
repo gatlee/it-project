@@ -9,11 +9,16 @@ app.use(express.static(path.join(process.cwd(), '/dist/apps/client')));
 
 const greeting: Message = { message: 'Welcome to api!' };
 
+app.get('/api', (req, res) => {
+  res.send(greeting);
+});
+
 app.use('/api/users', userRouter);
 
-
-app.get('*', function(req, res) {
-  res.sendFile('index.html', {root: path.join(process.cwd(), '/dist/apps/client')});
+app.get('*', function (req, res) {
+  res.sendFile('index.html', {
+    root: path.join(process.cwd(), '/dist/apps/client'),
+  });
 });
 
 const port = process.env.PORT || 3001;
