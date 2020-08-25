@@ -86,7 +86,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && npx nx affected:lint"
+      "pre-commit": "pretty-quick --staged && npx nx affected:lint --parallel"
     }
   }
 }
