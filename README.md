@@ -1,4 +1,4 @@
-<div align="center" style="padding-left:5%">
+<div align="center">
     <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Lambda_lc.svg" height="150"/>
 </div>
 <h1 align="center">
