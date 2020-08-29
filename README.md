@@ -1,7 +1,7 @@
 <p align="center">
     <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Lambda_lc.svg" width="150" height="150"/>
 </p>
-<h1 style="text-align:center">
+<h1 align="center">
     Pure && Lazy
 </h1>
 <p align="center">
