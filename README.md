@@ -1,12 +1,12 @@
-<p align="center">
+<div align="center" style="padding-left:20px">
     <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Lambda_lc.svg" height="150"/>
-</p>
+</div>
 <h1 align="center">
     Pure && Lazy
 </h1>
-<p align="center">
+<div align="center">
     <img src="https://pyheroku-badge.herokuapp.com/?app=pure-and-lazy&style=flat"/>
-</p>
+</div>
 
 # ePortfolio App
 
