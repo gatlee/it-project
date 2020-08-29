@@ -1,4 +1,18 @@
-# Pure and Lazy
+<p align="center">
+    <svg width="150" height="150">
+        <image xlink:href="https://upload.wikimedia.org/wikipedia/commons/3/39/Lambda_lc.svg" width="150" height="150"/>
+    </svg>
+</p>
+<h1 style="text-align:center">
+    Pure && Lazy
+</h1>
+<div align="center" style="margin:auto">
+    <svg width=59 height=20>
+        <image xlink:href="https://heroku-ci-badge-pure-and-lazy.herokuapp.com/last.svg"/>
+    </svg>
+</div>
+
+# ePortfolio App
 
 ## Install Instructions
 
