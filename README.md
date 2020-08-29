@@ -1,11 +1,11 @@
 <p align="center">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Lambda_lc.svg" width="150" height="150"/>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Lambda_lc.svg" height="150"/>
 </p>
 <h1 align="center">
     Pure && Lazy
 </h1>
 <p align="center">
-    <img src="https://heroku-ci-badge-pure-and-lazy.herokuapp.com/last.svg"/>
+    <img src="https://pyheroku-badge.herokuapp.com/?app=pure-and-lazy&style=flat"/>
 </p>
 
 # ePortfolio App
