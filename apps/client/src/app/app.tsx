@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Message } from '@pure-and-lazy/api-interfaces';
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './home';
 
 export const App = () => {
   const [m, setMessage] = useState<Message>({ message: '' });
@@ -12,20 +13,16 @@ export const App = () => {
   }, []);
 
   return (
-    <>
-      <div style={{ textAlign: 'center' }}>
-        <h1>Welcome to portfolio!</h1>
-        <img
-          width="450"
-          src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-          alt="nx logo"
-        />
-      </div>
-      <div>{m.message}</div>
-      <Link to="/test">
-        <h2>Click here to be routed to another page!</h2>
-      </Link>
-    </>
+    <Router>
+      <Switch>
+        <Route path="/test">
+          <h1>Hello World!</h1>
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   );
 };
 
