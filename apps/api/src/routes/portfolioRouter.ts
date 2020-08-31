@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import * as portfolioController from '../controller/portfolioController';
+import portfolioController from '../controller/portfolioController';
 
 const router = Router();
 router.get('/', portfolioController.viewAllItems);

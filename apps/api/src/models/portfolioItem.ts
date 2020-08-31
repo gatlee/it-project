@@ -23,4 +23,4 @@ const TextItemModel = getDiscriminatorModelForClass(
   TextItem
 );
 
-export { PortfolioItem, PortfolioItemModel, TextItem, TextItemModel };
+export default { PortfolioItem, PortfolioItemModel, TextItem, TextItemModel };
