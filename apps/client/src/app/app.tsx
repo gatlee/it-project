@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { Message } from '@pure-and-lazy/api-interfaces';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './home';
 
