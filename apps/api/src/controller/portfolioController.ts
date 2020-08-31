@@ -24,11 +24,4 @@ const editProfile = (req, res) => {
   // TODO
 };
 
-export default {
-  addItem,
-  viewItem,
-  editItem,
-  viewAllItems,
-  viewProfile,
-  editProfile,
-};
+export { addItem, viewItem, editItem, viewAllItems, viewProfile, editProfile };

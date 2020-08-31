@@ -12,4 +12,4 @@ const signUp = (req, res) => {
   // TODO
 };
 
-export default { logIn, logOut, signUp };
+export { logIn, logOut, signUp };
