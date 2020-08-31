@@ -10,8 +10,8 @@ const app = express();
 
 app.use(express.static(path.join(process.cwd(), '/dist/apps/client')));
 
-app.use('/auth', authRouter);
-app.use('/portfolio/:username', portfolioRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/portfolio/:username', portfolioRouter);
 
 app.get('*', (_req, res) => {
   res.sendFile('index.html', {
