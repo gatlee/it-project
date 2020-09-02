@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 const GetStartedButton = () => {
   return (
     <Link to="/signup">
-      <Button variant="primary">Get Started!</Button>;
+      <Button variant="primary">Get Started!</Button>
     </Link>
   );
 };
 
-export { GetStartedButton };
+export default GetStartedButton;
