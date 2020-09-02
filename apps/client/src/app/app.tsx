@@ -6,7 +6,7 @@ export const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/test">
+        <Route path="/signup">
           <h1>Hello World!</h1>
         </Route>
         <Route path="/">
