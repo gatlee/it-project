@@ -23,6 +23,9 @@ export const Home = () => {
         <Link to="/test">
           <h2>Click here to be routed to another page!</h2>
         </Link>
+        <Link to="/u">
+          <h2>Click here to be routed to u!</h2>
+        </Link>
       </div>
       <div>{m.message}</div>
     </>
