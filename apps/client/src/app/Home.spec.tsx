@@ -1,6 +1,6 @@
 import { cleanup, getByText, render, waitFor } from '@testing-library/react';
 import React from 'react';
-import App from './app';
+import App from './App';
 
 describe('Home', () => {
   afterEach(() => {
