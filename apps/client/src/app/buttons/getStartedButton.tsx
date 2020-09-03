@@ -1,12 +1,12 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const GetStartedButton = () => {
   return (
-    <Link to="/signup">
+    <LinkContainer to="/signup">
       <Button variant="primary">Get Started!</Button>
-    </Link>
+    </LinkContainer>
   );
 };
 
