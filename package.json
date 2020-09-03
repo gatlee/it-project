@@ -93,7 +93,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && npx nx affected:lint --parallel"
+      "pre-commit": "pretty-quick --staged && npx nx affected:lint --parallel --base=HEAD~1 --head=HEAD"
     }
   }
 }
