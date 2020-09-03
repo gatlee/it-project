@@ -28,12 +28,10 @@ export const Home = () => {
         <Link to="/u/foo">
           <h2>Click here to be routed to foo's portfolio!</h2>
         </Link>
+        <SignInButton />
+        <GetStartedButton />
       </div>
       <div>{m.message}</div>
-      <GetStartedButton />
-      <br />
-      <br />
-      <SignInButton />
     </>
   );
 };
