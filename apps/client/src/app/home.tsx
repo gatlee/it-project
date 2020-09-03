@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Message } from '@pure-and-lazy/api-interfaces';
 import { Link } from 'react-router-dom';
-import { GetStartedButton } from './buttons/getStarted';
+import GetStartedButton from './buttons/getStartedButton';
+import SignInButton from './buttons/signInButton';
 
 export const Home = () => {
   const [m, setMessage] = useState<Message>({ message: '' });
@@ -27,6 +28,9 @@ export const Home = () => {
       </div>
       <div>{m.message}</div>
       <GetStartedButton />
+      <br />
+      <br />
+      <SignInButton />
     </>
   );
 };
