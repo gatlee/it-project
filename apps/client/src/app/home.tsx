@@ -22,9 +22,6 @@ export const Home = () => {
           src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
           alt="nx logo"
         />
-        <Link to="/test">
-          <h2>Click here to be routed to another page!</h2>
-        </Link>
         <Link to="/u/foo">
           <h2>Click here to be routed to foo's portfolio!</h2>
         </Link>
