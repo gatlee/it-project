@@ -11,7 +11,7 @@ const PortfolioHome = () => {
       <PortfolioNavBar />
       <Container>
         <Row>
-          <h1>Your username is {id}</h1>
+          <h1>{id}'s ePortfolio</h1>
         </Row>
       </Container>
     </>
