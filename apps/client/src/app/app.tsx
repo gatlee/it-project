@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './home';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { PortfolioHome } from './portfolio-shared/portfolio-home';
+import { PortfolioIndex } from './portfolio-shared/PortfolioIndex';
 
 export const App = () => {
   return (
@@ -12,7 +12,7 @@ export const App = () => {
           <h1>Hello World!</h1>
         </Route>
         <Route path="/u/:id">
-          <PortfolioHome />
+          <PortfolioIndex />
         </Route>
         <Route path="/">
           <Home />
