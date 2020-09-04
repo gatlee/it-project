@@ -5,7 +5,7 @@ import SignUpButton from '../buttons/SignUpButton';
 const SignUpForm = () => {
   return (
     <Form>
-      <Col md={{ span: 2, offset: 5 }}>
+      <Col md={{ span: 4, offset: 4 }}>
         <Form.Group controlId="username">
           <Form.Label>Username</Form.Label>
           <Form.Control placeholder="Username" />
