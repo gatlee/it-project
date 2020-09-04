@@ -3,27 +3,20 @@ import { Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { PortfolioNavBar } from './portfolio-nav-bar';
 import CoolBackground from '../../assets/CoolBackground.png';
+import { BackgroundContainer } from '../BackgroundContainer';
 
 const PortfolioHome = () => {
   const { id } = useParams();
 
-  const backgroundContainer = {
-    backgroundImage: `url(${CoolBackground})`,
-    height: '100vh',
-    width: '100vw',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-  };
-
   return (
-    <div style={backgroundContainer}>
+    <BackgroundContainer background={CoolBackground}>
       <PortfolioNavBar />
       <Container>
         <Row>
           <h1>{id}'s ePortfolio</h1>
         </Row>
       </Container>
-    </div>
+    </BackgroundContainer>
   );
 };
 

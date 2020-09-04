@@ -1,7 +1,13 @@
 import React from 'react';
+import { BackgroundContainer } from './BackgroundContainer';
+import GradientBackground from '../assets/GradientBackground.png';
 
 const SignUp = () => {
-  return <h1>This will maybe be the sign up page!</h1>;
+  return (
+    <BackgroundContainer background={GradientBackground}>
+      <h1>This will maybe be the sign up page!</h1>
+    </BackgroundContainer>
+  );
 };
 
 export default SignUp;
