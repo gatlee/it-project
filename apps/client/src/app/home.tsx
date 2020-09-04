@@ -3,7 +3,7 @@ import { Message } from '@pure-and-lazy/api-interfaces';
 import { Link } from 'react-router-dom';
 import GetStartedButton from './buttons/GetStartedButton';
 import SignInButton from './buttons/SignInButton';
-import CoolBackground from '../assets/CoolBackground.png';
+import GradientBackground from '../assets/GradientBackground.png';
 
 export const Home = () => {
   const [m, setMessage] = useState<Message>({ message: '' });
@@ -19,7 +19,7 @@ export const Home = () => {
       <div
         style={{
           textAlign: 'center',
-          backgroundImage: `url(${CoolBackground})`,
+          backgroundImage: `url(${GradientBackground})`,
           height: '100vh',
           width: '100vw',
           backgroundSize: 'cover',
