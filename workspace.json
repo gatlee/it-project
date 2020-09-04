@@ -12,13 +12,10 @@
           "options": {
             "outputPath": "dist/apps/client",
             "index": "apps/client/src/index.html",
-            "main": "apps/client/src/main.tsx",
+            "main": "apps/client/src/Main.tsx",
             "polyfills": "apps/client/src/polyfills.ts",
             "tsConfig": "apps/client/tsconfig.app.json",
-            "assets": [
-              "apps/client/src/favicon.ico",
-              "apps/client/src/assets"
-            ],
+            "assets": ["apps/client/src/favicon.ico", "apps/client/src/assets"],
             "styles": [],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
