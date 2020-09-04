@@ -1,7 +1,12 @@
 import React from 'react';
+import SignUpForm from './input/SignUpForm';
 
 const SignUp = () => {
-  return <h1>This will maybe be the sign up page!</h1>;
+  return (
+    <div style={{ textAlign: 'center' }}>
+      <SignUpForm />
+    </div>
+  );
 };
 
 export default SignUp;
