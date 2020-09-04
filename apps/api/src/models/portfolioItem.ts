@@ -6,6 +6,7 @@ import {
 
 class PortfolioItem {
   @prop() name: string;
+  @prop() description: string;
   @prop() lastModified: Date;
 }
 
