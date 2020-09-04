@@ -1,12 +1,12 @@
 import React from 'react';
 
-interface ItemProps {
+interface BackgroundContainer {
   background: string;
   children: React.ReactNode;
   style?: React.CSSProperties;
 }
 
-const BackgroundContainer = (props: ItemProps) => {
+const BackgroundContainer = (props: BackgroundContainer) => {
   const { background, children, style } = props;
 
   const combinedStyles = {
