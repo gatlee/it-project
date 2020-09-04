@@ -1,10 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './home';
+import Home from './Home';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { PortfolioHome } from './portfolio-shared/portfolio-home';
 import SignUp from './signup';
-
+import { PortfolioIndex } from './portfolio-shared/PortfolioIndex';
 
 export const App = () => {
   return (
@@ -14,7 +13,7 @@ export const App = () => {
           <SignUp />
         </Route>
         <Route path="/u/:id">
-          <PortfolioHome />
+          <PortfolioIndex />
         </Route>
         <Route path="/">
           <Home />
