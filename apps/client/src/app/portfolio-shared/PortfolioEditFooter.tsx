@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 interface PortfolioEditFooter {
-  user: String;
+  user: string;
   handleViewPublic: () => void;
 }
 
