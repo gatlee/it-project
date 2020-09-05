@@ -20,7 +20,6 @@ const PortfolioEditFooter = (props) => {
 
   return (
     <>
-      <div style={{ display: 'block' }}></div>
       <footer style={footerStyle}>
         <Container style={{ textAlign: 'center' }}>
           <span>
