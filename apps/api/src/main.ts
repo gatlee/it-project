@@ -11,7 +11,7 @@ const app = express();
 app.use(express.static(path.join(process.cwd(), '/dist/apps/client')));
 
 app.use('/api/auth', authRouter);
-app.use('/api/portfolio/:username', portfolioRouter);
+app.use('/api/portfolio', portfolioRouter);
 
 app.get('*', (_req, res) => {
   res.sendFile('index.html', {
