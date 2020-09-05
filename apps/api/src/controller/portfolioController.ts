@@ -40,7 +40,7 @@ const addItem = async (req, res) => {
 
 const viewItem = async (req, res) => {
   const { portfolioItemId } = req.params;
-  const item = await PortfolioItemModel.findById(portfolioItemId).exec();
+  const item = await PortfolioItemModel.findById(portfolioItemId);
   if (item) {
     res.send(item);
   } else {
@@ -64,9 +64,9 @@ const editItem = async (req, res) => {
 
 const viewAllItems = async (req, res) => {
   const { username } = req.params;
-  const user = await UserModel.findOne({ username });
-  if (user) {
-    res.send(user.portfolio);
+  const portfolio = await UserModel.findOne({ username }).populate('portfolio');
+  if (portfolio) {
+    res.send(portfolio);
   } else {
     res.sendStatus(400);
   }
