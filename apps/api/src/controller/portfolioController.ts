@@ -1,9 +1,9 @@
 import { PortfolioItemModel, TextItemModel } from '../models/portfolioItem';
 import { UserModel } from '../models/user';
+import { UserProfile } from '@pure-and-lazy/api-interfaces';
 
 // TODO: check auth for view/add permissions
-// TODO: link interfaces with the frontend somehow
-// Need to standardise terms e.g. `title` vs `name`, `create` vs `add`
+// TODO: add basic tests for each endpoint
 
 const extractItemFromBody = (body) => {
   const item = { name: body.name, description: body.description };
@@ -22,7 +22,12 @@ const addItem = async (req, res) => {
   const { username } = req.params;
   const { model, item } = extractItemFromBody(req.body) || {};
   if (model) {
-    const newItem = await model.create({ ...item, lastModified: new Date() });
+    const now = new Date();
+    const newItem = await model.create({
+      ...item,
+      created: now,
+      lastModified: now,
+    });
     await UserModel.findOneAndUpdate(
       { username },
       { $push: { portfolio: newItem } }
@@ -34,7 +39,7 @@ const addItem = async (req, res) => {
 };
 
 const viewItem = async (req, res) => {
-  const { username, portfolioItemId } = req.params;
+  const { portfolioItemId } = req.params;
   const item = await PortfolioItemModel.findById(portfolioItemId).exec();
   if (item) {
     res.send(item);
@@ -44,7 +49,7 @@ const viewItem = async (req, res) => {
 };
 
 const editItem = async (req, res) => {
-  const { username, portfolioItemId } = req.params;
+  const { portfolioItemId } = req.params;
   const { model, item } = extractItemFromBody(req.body) || {};
   if (model) {
     await model.findByIdAndUpdate(portfolioItemId, {
@@ -71,11 +76,13 @@ const viewProfile = async (req, res) => {
   const { username } = req.params;
   const user = await UserModel.findOne({ username });
   if (user) {
-    res.send({
+    const profile: UserProfile = {
+      username,
       email: user.email,
       name: user.name,
       dateJoined: user.dateJoined,
-    });
+    };
+    res.send(profile);
   } else {
     res.sendStatus(400);
   }
