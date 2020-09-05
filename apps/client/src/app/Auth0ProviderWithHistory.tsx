@@ -10,7 +10,6 @@ const Auth0ProviderWithHistory = ({ children }) => {
   // Regarding environment variable naming: https://nx.dev/react/guides/environment-variables
   const domain = process.env.NX_AUTH0_DOMAIN;
   const clientId = process.env.NX_AUTH0_CLIENT_ID;
-  console.log(domain, clientId);
 
   const history = useHistory();
 
