@@ -2,6 +2,7 @@ import { PortfolioItemModel, TextItemModel } from '../models/portfolioItem';
 import { UserModel } from '../models/user';
 
 // TODO: check auth for view/add permissions
+// TODO: link interfaces with the frontend somehow
 
 const extractItemFromBody = (body) => {
   const item = ({ name, description } = req.body);
@@ -16,7 +17,7 @@ const extractItemFromBody = (body) => {
   }
 };
 
-const addItem = (req, res) => {
+const addItem = async (req, res) => {
   const { username } = req.params;
   const { model, item } = extractItemFromBody(req.body) || {};
   if (model) {
@@ -31,13 +32,13 @@ const addItem = (req, res) => {
   }
 };
 
-const viewItem = (req, res) => {
+const viewItem = async (req, res) => {
   const { username, portfolioItemId } = req.params;
   const item = await PortfolioItemModel.findById(portfolioItemId).exec();
   res.send(item);
 };
 
-const editItem = (req, res) => {
+const editItem = async (req, res) => {
   const { username, portfolioItemId } = req.params;
   const { model, item } = extractItemFromBody(req.body) || {};
   if (model) {
@@ -48,13 +49,13 @@ const editItem = (req, res) => {
   }
 };
 
-const viewAllItems = (req, res) => {
+const viewAllItems = async (req, res) => {
   const { username } = req.params;
   const { portfolio } = await UserModel.findOne({ username });
   res.send(portfolio);
 };
 
-const viewProfile = (req, res) => {
+const viewProfile = async (req, res) => {
   const { username } = req.params;
   const profile = ({ email, name, dateJoined } = await UserModel.findOne({
     username,
@@ -62,7 +63,7 @@ const viewProfile = (req, res) => {
   res.send(profile);
 };
 
-const editProfile = (req, res) => {
+const editProfile = async (req, res) => {
   // TODO
 };
 
