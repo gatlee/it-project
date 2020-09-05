@@ -1,6 +1,7 @@
-import { viewProfile } from './portfolioController';
+import connectToDatabase from '../models';
+import { viewItem, viewProfile } from './portfolioController';
 
-const testEndpoint = (endpoint, expected) => {
+const testEndpoint = (endpoint, req, expected) => {
   test(endpoint.name, async () => {
     let actual: string;
     const res = {
@@ -8,13 +9,12 @@ const testEndpoint = (endpoint, expected) => {
         actual = data;
       },
     };
-    const req = {};
     endpoint(req, res);
     expect(actual).toBe(expected);
   });
 };
 
-const tests = [
+const basicTests = [
   [
     viewProfile,
     {
@@ -24,11 +24,29 @@ const tests = [
       passwordHash: 'todo: remove',
       name: 'John Smith',
       dateJoined: { $date: { $numberLong: '1567605600000' } },
-      portfolio: [],
+      portfolio: [{ $oid: '5f53860f87434937981e8ce7' }],
+    },
+  ],
+  [
+    viewItem,
+    {
+      _id: { $oid: '5f53860f87434937981e8ce7' },
+      name: 'A Poem',
+      description: 'Good stuff',
+      content: 'Roses are red, violets are blue...',
     },
   ],
 ];
 
-for (const [endpoint, expected] of tests) {
-  testEndpoint(endpoint, expected);
-}
+const req = {
+  username: 'test',
+  portfolioItemId: { $oid: '5f53860f87434937981e8ce7' },
+};
+
+describe('Portfolio Test', () => {
+  beforeAll(connectToDatabase);
+
+  for (const [endpoint, expected] of basicTests) {
+    testEndpoint(endpoint, req, expected);
+  }
+});

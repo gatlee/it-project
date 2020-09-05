@@ -64,9 +64,9 @@ const editItem = async (req, res) => {
 
 const viewAllItems = async (req, res) => {
   const { username } = req.params;
-  const portfolio = await UserModel.findOne({ username }).populate('portfolio');
-  if (portfolio) {
-    res.send(portfolio);
+  const user = await UserModel.findOne({ username }).populate('portfolio');
+  if (user) {
+    res.send(user.portfolio);
   } else {
     res.sendStatus(400);
   }
