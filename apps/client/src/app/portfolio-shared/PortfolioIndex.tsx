@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { PortfolioHome } from './PortfolioHome';
@@ -10,9 +10,12 @@ import { PortfolioEditFooter } from './PortfolioEditFooter';
 import { Container } from 'react-bootstrap';
 
 const PortfolioIndex = () => {
+  const [isEditMode, setEditMode] = useState(true);
   const { path } = useRouteMatch();
 
-  const isEditMode = true;
+  const handleViewPublic = () => {
+    setEditMode(false);
+  };
 
   return (
     <>
@@ -35,7 +38,9 @@ const PortfolioIndex = () => {
               </Route>
             </Switch>
           </div>
-          {isEditMode && <PortfolioEditFooter />}
+          {isEditMode && (
+            <PortfolioEditFooter handleViewPublic={handleViewPublic} />
+          )}
         </PortfolioWrapper>
       </BackgroundContainer>
     </>
