@@ -7,7 +7,6 @@ import { PortfolioPortfolio } from './PortfolioPortfolio';
 import CoolBackground from '../../assets/CoolBackground.png';
 import { BackgroundContainer } from '../BackgroundContainer';
 import { PortfolioEditFooter } from './PortfolioEditFooter';
-import { Container } from 'react-bootstrap';
 
 const PortfolioIndex = () => {
   const [isEditMode, setEditMode] = useState(true);
