@@ -2,11 +2,10 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 
 interface PortfolioEditFooter {
-  user: string;
   handleViewPublic: () => void;
 }
 
-const PortfolioEditFooter = (props) => {
+const PortfolioEditFooter = (props: PortfolioEditFooter) => {
   const footerStyle = {
     backgroundColor: '#f8f9fa',
     color: 'black',
