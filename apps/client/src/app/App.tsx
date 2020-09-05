@@ -6,6 +6,7 @@ import SignUp from './signup';
 import { PortfolioIndex } from './portfolio-shared/PortfolioIndex';
 
 import Auth0ProviderWithHistory from './Auth0ProviderWithHistory';
+// Note: Auth0ProviderWithHistory needs to be a child of BrowserRouter
 
 export const App = () => {
   return (
