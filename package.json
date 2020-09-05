@@ -29,6 +29,7 @@
   },
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^1.0.0",
     "@typegoose/typegoose": "^7.3.3",
     "@types/react-bootstrap": "^0.32.22",
     "@types/react-router-dom": "^5.1.5",
