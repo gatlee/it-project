@@ -1,20 +1,17 @@
 const path = require('path');
 
 module.exports = {
-  '*.{html,js,tsx,ts,json,md,css,scss}': (files) => {
-    if (
-      files.length > 0 &&
-      files[0] !== '[filename]' &&
-      files[0] !== '[file]'
-    ) {
-      const cwd = process.cwd();
-      const relativePaths = files.map((f) => path.relative(cwd, f));
-      return [
-        `nx affected:lint --files="${relativePaths.join(',')}" --parallel`, //
-        `git add ${relativePaths.join(' ')}`,
-      ];
-    } else {
-      return [];
-    }
+  '{apps, libs}/**/*.{html,js,tsx,ts,json,md,css,scss}': (files) => {
+    const cwd = process.cwd();
+    const relPaths = files.map((file) => {
+      return path.relative(cwd, file);
+    });
+
+    return [
+      `npm run affected:lint -- --parallel --files=${relPaths.join(
+        ','
+      )} --maxWarnings=0`,
+      `git add ${files.join(' ')}`,
+    ];
   },
 };
