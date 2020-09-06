@@ -2,8 +2,14 @@ import {
   prop,
   getModelForClass,
   getDiscriminatorModelForClass,
+  modelOptions,
 } from '@typegoose/typegoose';
 
+@modelOptions({
+  schemaOptions: {
+    discriminatorKey: 'type',
+  },
+})
 class PortfolioItem {
   @prop() name: string;
   @prop() description: string;

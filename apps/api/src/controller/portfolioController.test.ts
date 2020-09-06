@@ -3,7 +3,7 @@ import { UserModel } from '../models/user';
 import { TextItem, UserProfile } from '@pure-and-lazy/api-interfaces';
 import {
   viewProfile,
-  addItem,
+  createItem,
   viewAllItems,
   viewItem,
 } from './portfolioController';
@@ -32,6 +32,7 @@ const userProfile: UserProfile = {
 };
 
 const textItem: TextItem = {
+  type: 'TextItem',
   name: 'A Poem',
   description: 'Good stuff',
   created: new Date(2020, 0, 2),
@@ -47,7 +48,7 @@ makeTestSuite('Portfolio Test', () => {
       portfolio: [],
     });
     const {
-      data: { id_: _, ...actualProfile },
+      data: { id_: _id, ...actualProfile },
       status,
     } = await callEndpoint(viewProfile, { params: { username } });
     expect(status).toEqual(200);
@@ -55,7 +56,7 @@ makeTestSuite('Portfolio Test', () => {
   });
 
   it('should add a text item to the portfolio correctly', async () => {
-    const { status } = await callEndpoint(addItem, {
+    const { status } = await callEndpoint(createItem, {
       params: { username },
       body: textItem,
     });
