@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 const Auth0ProviderWithHistory = ({ children }) => {
-  // Regarding environment variable naming: https://nx.dev/react/guides/environment-variables
   const domain = 'pure-and-lazy.au.auth0.com';
   const clientId = 'dvv0VQp1XRJGwhppPeUvMTTebM2zEDE8';
 
