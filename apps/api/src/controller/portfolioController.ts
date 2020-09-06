@@ -28,11 +28,15 @@ const addItem = async (req, res) => {
       created: now,
       lastModified: now,
     });
-    await UserModel.findOneAndUpdate(
+    const user = await UserModel.findOneAndUpdate(
       { username },
       { $push: { portfolio: newItem } }
     );
-    res.sendStatus(200);
+    if (user) {
+      res.sendStatus(201);
+    } else {
+      res.sendStatus(404);
+    }
   } else {
     res.sendStatus(400);
   }
@@ -40,11 +44,11 @@ const addItem = async (req, res) => {
 
 const viewItem = async (req, res) => {
   const { portfolioItemId } = req.params;
-  const item = await PortfolioItemModel.findById(portfolioItemId).exec();
+  const item = await PortfolioItemModel.findById(portfolioItemId);
   if (item) {
     res.send(item);
   } else {
-    res.sendStatus(400);
+    res.sendStatus(404);
   }
 };
 
@@ -52,11 +56,15 @@ const editItem = async (req, res) => {
   const { portfolioItemId } = req.params;
   const { model, item } = extractItemFromBody(req.body) || {};
   if (model) {
-    await model.findByIdAndUpdate(portfolioItemId, {
+    const result = await model.findByIdAndUpdate(portfolioItemId, {
       ...item,
       lastModified: new Date(),
     });
-    res.sendStatus(200);
+    if (result) {
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(404);
+    }
   } else {
     res.sendStatus(400);
   }
@@ -64,11 +72,11 @@ const editItem = async (req, res) => {
 
 const viewAllItems = async (req, res) => {
   const { username } = req.params;
-  const user = await UserModel.findOne({ username });
+  const user = await UserModel.findOne({ username }).populate('portfolio');
   if (user) {
     res.send(user.portfolio);
   } else {
-    res.sendStatus(400);
+    res.sendStatus(404);
   }
 };
 
@@ -84,7 +92,7 @@ const viewProfile = async (req, res) => {
     };
     res.send(profile);
   } else {
-    res.sendStatus(400);
+    res.sendStatus(404);
   }
 };
 
