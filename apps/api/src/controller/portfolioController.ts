@@ -26,13 +26,13 @@ const addItem = async (req, res) => {
       created: now,
       lastModified: now,
     });
-    const user = await UserModel.findOneAndUpdate(
-      { username },
-      { $push: { portfolio: newItem } }
-    );
-    if (user) {
+    try {
+      await UserModel.findOneAndUpdate(
+        { username },
+        { $push: { portfolio: newItem } }
+      );
       res.sendStatus(201);
-    } else {
+    } catch {
       res.sendStatus(404);
     }
   } else {
@@ -42,10 +42,10 @@ const addItem = async (req, res) => {
 
 const viewItem = async (req, res) => {
   const { portfolioItemId } = req.params;
-  const item = await PortfolioItemModel.findById(portfolioItemId);
-  if (item) {
+  try {
+    const item = await PortfolioItemModel.findById(portfolioItemId);
     res.send(item);
-  } else {
+  } catch {
     res.sendStatus(404);
   }
 };
@@ -54,13 +54,13 @@ const editItem = async (req, res) => {
   const { portfolioItemId } = req.params;
   const { model, item } = extractItemFromBody(req.body) || {};
   if (model) {
-    const result = await model.findByIdAndUpdate(portfolioItemId, {
-      ...item,
-      lastModified: new Date(),
-    });
-    if (result) {
+    try {
+      await model.findByIdAndUpdate(portfolioItemId, {
+        ...item,
+        lastModified: new Date(),
+      });
       res.sendStatus(200);
-    } else {
+    } catch {
       res.sendStatus(404);
     }
   } else {
@@ -70,18 +70,18 @@ const editItem = async (req, res) => {
 
 const viewAllItems = async (req, res) => {
   const { username } = req.params;
-  const user = await UserModel.findOne({ username }).populate('portfolio');
-  if (user) {
+  try {
+    const user = await UserModel.findOne({ username }).populate('portfolio');
     res.send(user.portfolio);
-  } else {
+  } catch {
     res.sendStatus(404);
   }
 };
 
 const viewProfile = async (req, res) => {
   const { username } = req.params;
-  const user = await UserModel.findOne({ username });
-  if (user) {
+  try {
+    const user = await UserModel.findOne({ username });
     const profile: UserProfile = {
       username,
       email: user.email,
@@ -89,7 +89,7 @@ const viewProfile = async (req, res) => {
       dateJoined: user.dateJoined,
     };
     res.send(profile);
-  } else {
+  } catch {
     res.sendStatus(404);
   }
 };
