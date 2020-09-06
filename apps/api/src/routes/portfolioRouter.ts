@@ -2,8 +2,8 @@ import { Router } from 'express';
 import * as portfolioController from '../controller/portfolioController';
 
 const router = Router();
-router.get('/:username', portfolioController.viewAllItems);
-router.post('/:username/add', portfolioController.addItem);
+router.get('/:username/all', portfolioController.viewAllItems);
+router.post('/:username/create', portfolioController.createItem);
 router.get('/:username/profile', portfolioController.viewProfile);
 router.put('/:username/profile', portfolioController.editProfile);
 router.get('/:username/:portfolioItemId', portfolioController.viewItem);

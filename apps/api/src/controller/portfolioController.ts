@@ -16,7 +16,7 @@ const extractItemFromBody = (body: PortfolioItemUnion) => {
   }
 };
 
-const addItem = async (req, res) => {
+const createItem = async (req, res) => {
   const { username } = req.params;
   const { model, item } = extractItemFromBody(req.body) || {};
   if (model) {
@@ -99,4 +99,11 @@ const editProfile = async (req, res) => {
   res.send('TODO');
 };
 
-export { addItem, viewItem, editItem, viewAllItems, viewProfile, editProfile };
+export {
+  createItem,
+  viewItem,
+  editItem,
+  viewAllItems,
+  viewProfile,
+  editProfile,
+};
