@@ -1,20 +1,18 @@
 import { PortfolioItemModel, TextItemModel } from '../models/portfolioItem';
 import { UserModel } from '../models/user';
-import { UserProfile } from '@pure-and-lazy/api-interfaces';
+import { UserProfile, PortfolioItemUnion } from '@pure-and-lazy/api-interfaces';
 
 // TODO: check auth for view/add permissions
 // TODO: add basic tests for each endpoint
 
-const extractItemFromBody = (body) => {
+const extractItemFromBody = (body: PortfolioItemUnion) => {
   const item = { name: body.name, description: body.description };
   switch (body.type) {
-    case 'text':
+    case 'TextItem':
       return {
         model: TextItemModel,
         item: { ...item, content: body.content },
       };
-    default:
-      return null;
   }
 };
 
