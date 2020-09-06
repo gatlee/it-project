@@ -1,52 +1,81 @@
-import connectToDatabase from '../models';
-import { viewItem, viewProfile } from './portfolioController';
+import makeTestSuite from './makeTestSuite';
+import { UserModel } from '../models/user';
+import { TextItem, UserProfile } from '@pure-and-lazy/api-interfaces';
+import {
+  viewProfile,
+  addItem,
+  viewAllItems,
+  viewItem,
+} from './portfolioController';
 
-const testEndpoint = (endpoint, req, expected) => {
-  test(endpoint.name, async () => {
-    let actual: string;
-    const res = {
-      send: (data) => {
-        actual = data;
-      },
-    };
-    endpoint(req, res);
-    expect(actual).toBe(expected);
-  });
+const callEndpoint = async (endpoint, req) => {
+  let data, status;
+  const res = {
+    send: (actualData) => {
+      data = actualData;
+    },
+    sendStatus: (actualStatus) => {
+      status = actualStatus;
+    },
+  };
+  await endpoint(req, res);
+  return { data, status };
 };
 
-const basicTests = [
-  [
-    viewProfile,
-    {
-      _id: { $oid: '5f534a7c74f01570b5b8821b' },
-      username: 'test',
-      email: 'example@gmail.com',
+const username = 'test';
+
+const userProfile: UserProfile = {
+  username,
+  email: 'example@gmail.com',
+  name: 'John Smith',
+  dateJoined: new Date(2020, 0, 1),
+};
+
+const textItem: TextItem = {
+  name: 'A Poem',
+  description: 'Good stuff',
+  created: new Date(2020, 0, 2),
+  lastModified: new Date(2020, 0, 3),
+  content: 'Roses are red, violets are blue...',
+};
+
+makeTestSuite('Portfolio Test', () => {
+  it('should return a user profile', async () => {
+    await UserModel.create({
+      ...userProfile,
       passwordHash: 'todo: remove',
-      name: 'John Smith',
-      dateJoined: { $date: { $numberLong: '1567605600000' } },
-      portfolio: [{ $oid: '5f53860f87434937981e8ce7' }],
-    },
-  ],
-  [
-    viewItem,
-    {
-      _id: { $oid: '5f53860f87434937981e8ce7' },
-      name: 'A Poem',
-      description: 'Good stuff',
-      content: 'Roses are red, violets are blue...',
-    },
-  ],
-];
+      portfolio: [],
+    });
+    const {
+      data: { id_: _, ...actualProfile },
+      status,
+    } = await callEndpoint(viewProfile, { params: { username } });
+    expect(status).toEqual(200);
+    expect(actualProfile).toEqual(userProfile);
+  });
 
-const req = {
-  username: 'test',
-  portfolioItemId: { $oid: '5f53860f87434937981e8ce7' },
-};
+  it('should add a text item to the portfolio correctly', async () => {
+    const { status } = await callEndpoint(addItem, {
+      params: { username },
+      body: textItem,
+    });
+    expect(status).toEqual(201);
+  });
 
-describe('Portfolio Test', () => {
-  beforeAll(connectToDatabase);
+  it("should display the user's portfolio items", async () => {
+    const { data: items, status } = await callEndpoint(viewAllItems, {
+      params: { username },
+    });
+    expect(status).toEqual(200);
+    expect(items).toHaveLength(1);
+    const [{ _id: portfolioItemId, ...actualItem }] = items;
+    expect(actualItem).toEqual(textItem);
 
-  for (const [endpoint, expected] of basicTests) {
-    testEndpoint(endpoint, req, expected);
-  }
+    const {
+      data: actualItemAgain,
+      status: statusAgain,
+    } = await callEndpoint(viewItem, { params: { username, portfolioItemId } });
+    expect(statusAgain).toEqual(200);
+    expect(actualItemAgain).toEqual(textItem);
+  });
 });
