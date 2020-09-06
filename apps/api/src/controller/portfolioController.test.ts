@@ -8,18 +8,25 @@ import {
   viewItem,
 } from './portfolioController';
 
+const jsonMangle = (object) => JSON.parse(JSON.stringify(object));
+
+const expectJSONMatching = (actual, expected) => {
+  expect(actual).toMatchObject(jsonMangle(expected));
+};
+
 const callEndpoint = async (endpoint, req) => {
-  let data, status;
+  const result: { data?; status?: number } = {};
   const res = {
-    send: (actualData) => {
-      data = actualData;
+    send: (object) => {
+      result.data = jsonMangle(object);
+      result.status = 200;
     },
-    sendStatus: (actualStatus) => {
-      status = actualStatus;
+    sendStatus: (status) => {
+      result.status = status;
     },
   };
   await endpoint(req, res);
-  return { data, status };
+  return result;
 };
 
 const username = 'test';
@@ -35,8 +42,6 @@ const textItem: TextItem = {
   type: 'TextItem',
   name: 'A Poem',
   description: 'Good stuff',
-  created: new Date(2020, 0, 2),
-  lastModified: new Date(2020, 0, 3),
   content: 'Roses are red, violets are blue...',
 };
 
@@ -44,15 +49,14 @@ makeTestSuite('Portfolio Test', () => {
   it('should return a user profile', async () => {
     await UserModel.create({
       ...userProfile,
-      passwordHash: 'todo: remove',
+      passwordHash: 'TODO: remove',
       portfolio: [],
     });
-    const {
-      data: { id_: _id, ...actualProfile },
-      status,
-    } = await callEndpoint(viewProfile, { params: { username } });
-    expect(status).toEqual(200);
-    expect(actualProfile).toEqual(userProfile);
+    const { data: actualProfile, status } = await callEndpoint(viewProfile, {
+      params: { username },
+    });
+    expect(status).toBe(200);
+    expectJSONMatching(actualProfile, userProfile);
   });
 
   it('should add a text item to the portfolio correctly', async () => {
@@ -60,23 +64,23 @@ makeTestSuite('Portfolio Test', () => {
       params: { username },
       body: textItem,
     });
-    expect(status).toEqual(201);
+    expect(status).toBe(201);
   });
 
   it("should display the user's portfolio items", async () => {
     const { data: items, status } = await callEndpoint(viewAllItems, {
       params: { username },
     });
-    expect(status).toEqual(200);
+    expect(status).toBe(200);
     expect(items).toHaveLength(1);
-    const [{ _id: portfolioItemId, ...actualItem }] = items;
-    expect(actualItem).toEqual(textItem);
+    expectJSONMatching(items[0], textItem);
 
+    const portfolioItemId = items[0]._id;
     const {
       data: actualItemAgain,
       status: statusAgain,
     } = await callEndpoint(viewItem, { params: { username, portfolioItemId } });
-    expect(statusAgain).toEqual(200);
-    expect(actualItemAgain).toEqual(textItem);
+    expect(statusAgain).toBe(200);
+    expectJSONMatching(actualItemAgain, textItem);
   });
 });
