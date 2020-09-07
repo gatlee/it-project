@@ -1,10 +1,12 @@
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import { Pencil } from 'react-bootstrap-icons';
+import React, { useState } from 'react';
+import { PortfolioItemEditor } from './PortfolioItemEditor';
+import { PortfolioItemDisplay } from './PortfolioItemDisplay';
+import { Container } from 'react-bootstrap';
 
 interface PortfolioItem {
   title: string;
   description: string;
+  editable?: boolean;
 }
 
 const PortfolioItem = (props: PortfolioItem) => {
@@ -14,21 +16,23 @@ const PortfolioItem = (props: PortfolioItem) => {
     padding: '2vh',
   };
 
-  return (
-    <Container style={outerStyle}>
-      <Row sm={10}>
-        <Col>
-          <h1>{props.title}</h1>
-          <i>{props.description}</i>
-        </Col>
-        <Col sm={'auto'}>
-          <Container style={{ padding: '1vh' }}>
-            <Pencil />
-          </Container>
-        </Col>
-      </Row>
-    </Container>
+  const [editorOpen, setEditorOpen] = useState(false);
+  const handleCancel = () => setEditorOpen(false);
+
+  const handleOpenEditor = () => setEditorOpen(true);
+
+  const foo = editorOpen ? (
+    <PortfolioItemEditor onCancel={handleCancel} />
+  ) : (
+    <PortfolioItemDisplay
+      title={props.title}
+      description={props.description}
+      editable={props.editable}
+      onOpenEditor={handleOpenEditor}
+    />
   );
+
+  return <Container style={outerStyle}>{foo}</Container>;
 };
 
 export { PortfolioItem };

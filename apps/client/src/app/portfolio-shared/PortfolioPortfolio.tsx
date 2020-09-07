@@ -9,6 +9,7 @@ const PortfolioPortfolio = () => {
         <PortfolioItem
           title="Worked at McDonalds"
           description="It was pretty cool I guess"
+          editable
         />
       </Row>
       <Row>
