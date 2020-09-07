@@ -29,6 +29,7 @@
   },
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^1.0.0",
     "@typegoose/typegoose": "^7.3.3",
     "@types/react-bootstrap": "^0.32.22",
     "@types/react-router-dom": "^5.1.5",
@@ -86,6 +87,7 @@
     "eslint-plugin-react-hooks": "4.0.4",
     "husky": "^4.2.5",
     "jest": "25.2.3",
+    "lint-staged": "^10.3.0",
     "prettier": "2.0.4",
     "ts-jest": "25.2.1",
     "ts-node": "~7.0.0",
@@ -94,7 +96,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && npx nx affected:lint --parallel"
+      "pre-commit": "pretty-quick --staged && lint-staged"
     }
   }
 }

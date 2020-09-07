@@ -1,11 +1,16 @@
 import React from 'react';
+import { BackgroundContainer } from './BackgroundContainer';
+import GradientBackground from '../assets/GradientBackground.png';
 import SignUpForm from './input/SignUpForm';
 
 const SignUp = () => {
   return (
-    <div style={{ textAlign: 'center' }}>
+    <BackgroundContainer
+      background={GradientBackground}
+      style={{ textAlign: 'center' }}
+    >
       <SignUpForm />
-    </div>
+    </BackgroundContainer>
   );
 };
 
