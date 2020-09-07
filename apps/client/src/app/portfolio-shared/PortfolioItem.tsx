@@ -13,20 +13,37 @@ const PortfolioItem = (props: PortfolioItem) => {
   const outerStyle = {
     backgroundColor: 'white',
     marginTop: '20px',
-    padding: '2vh',
+    padding: '3vh',
   };
 
   const [editorOpen, setEditorOpen] = useState(false);
-  const handleCancel = () => setEditorOpen(false);
+  const [title, setTitle] = useState(props.title);
+  const [description, setDescription] = useState(props.description);
 
+  const handleCancel = () => setEditorOpen(false);
   const handleOpenEditor = () => setEditorOpen(true);
 
+  const handleDescriptionChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setDescription(event.target.value);
+  };
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+
   const foo = editorOpen ? (
-    <PortfolioItemEditor onCancel={handleCancel} />
+    <PortfolioItemEditor
+      title={title}
+      description={description}
+      onCancel={handleCancel}
+      onTitleChange={handleTitleChange}
+      onDescriptionChange={handleDescriptionChange}
+    />
   ) : (
     <PortfolioItemDisplay
-      title={props.title}
-      description={props.description}
+      title={title}
+      description={description}
       editable={props.editable}
       onOpenEditor={handleOpenEditor}
     />

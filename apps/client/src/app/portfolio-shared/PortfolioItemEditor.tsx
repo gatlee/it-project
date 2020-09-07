@@ -4,8 +4,8 @@ import React from 'react';
 interface PortfolioItemEditor {
   title: string;
   description: string;
-  onTitleChange: () => void;
-  onDescriptionChange: () => void;
+  onTitleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onDescriptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onCancel: () => void;
 }
 const PortfolioItemEditor = (props: PortfolioItemEditor) => {
