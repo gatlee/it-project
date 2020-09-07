@@ -17,32 +17,30 @@ const PortfolioIndex = () => {
   };
 
   return (
-    <>
-      <BackgroundContainer background={CoolBackground}>
-        <PortfolioWrapper>
-          <div style={{ flex: 1 }}>
-            <PortfolioNavBar />
-            <Switch>
-              <Route exact path={`${path}`}>
-                <PortfolioHome />
-              </Route>
-              <Route exact path={`${path}/portfolio`}>
-                <PortfolioPortfolio />
-              </Route>
-              <Route exact path={`${path}/blog`}>
-                <h1>Blog</h1>
-              </Route>
-              <Route exact path={`${path}/about`}>
-                <h1>About</h1>
-              </Route>
-            </Switch>
-          </div>
-          {isEditMode && (
-            <PortfolioEditFooter handleViewPublic={handleViewPublic} />
-          )}
-        </PortfolioWrapper>
-      </BackgroundContainer>
-    </>
+    <BackgroundContainer background={CoolBackground}>
+      <PortfolioWrapper>
+        <div style={{ flex: 1 }}>
+          <PortfolioNavBar />
+          <Switch>
+            <Route exact path={`${path}`}>
+              <PortfolioHome />
+            </Route>
+            <Route exact path={`${path}/portfolio`}>
+              <PortfolioPortfolio />
+            </Route>
+            <Route exact path={`${path}/blog`}>
+              <h1>Blog</h1>
+            </Route>
+            <Route exact path={`${path}/about`}>
+              <h1>About</h1>
+            </Route>
+          </Switch>
+        </div>
+        {isEditMode && (
+          <PortfolioEditFooter handleViewPublic={handleViewPublic} />
+        )}
+      </PortfolioWrapper>
+    </BackgroundContainer>
   );
 };
 
