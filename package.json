@@ -87,6 +87,7 @@
     "eslint-plugin-react-hooks": "4.0.4",
     "husky": "^4.2.5",
     "jest": "25.2.3",
+    "lint-staged": "^10.3.0",
     "prettier": "2.0.4",
     "ts-jest": "25.2.1",
     "ts-node": "~7.0.0",
@@ -95,7 +96,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && npx nx affected:lint --parallel"
+      "pre-commit": "pretty-quick --staged && lint-staged"
     }
   }
 }
