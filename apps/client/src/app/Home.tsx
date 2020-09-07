@@ -10,13 +10,26 @@ import { BackgroundContainer } from './BackgroundContainer';
 
 export const Home = () => {
   const [m, setMessage] = useState<Message>({ message: '' });
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
+  // useAuth0 Hook: https://auth0.github.io/auth0-react/globals.html#useauth0
 
   useEffect(() => {
     fetch('/api')
       .then((r) => r.json())
       .then(setMessage);
   }, []);
+
+  const authenticationStatusMessage = () => {
+    // I just have this here to demonstrate the isLoading object from the useAuth0 hook
+    // Let me know if this way of defining what to display is not good practice
+    if (isLoading) {
+      return <div>Loading..</div>;
+    } else if (isAuthenticated) {
+      return <div>Signed In</div>;
+    } else {
+      return <div>Not Signed In</div>;
+    }
+  };
 
   return (
     <BackgroundContainer
@@ -35,7 +48,7 @@ export const Home = () => {
       <SignInButton />
       <SignOutButton />
       <GetStartedButton />
-      <div>{isAuthenticated ? 'Signed In' : 'Not Signed In'}</div>
+      {authenticationStatusMessage()}
       <div>{m.message}</div>
     </BackgroundContainer>
   );
