@@ -11,6 +11,9 @@ interface About {
 
 const About = (props: About) => {
   const [editorOpen, setEditorOpen] = useState(false);
+  const [about, setAbout] = useState(
+    '# This is a header\n\nAnd this is a paragraph'
+  );
 
   const containerStyle = {
     backgroundColor: 'white',
@@ -19,23 +22,28 @@ const About = (props: About) => {
     overflow: 'auto',
   };
 
-  const input = '# This is a header\n\nAnd this is a paragraph';
-
   const handleOpenEditor = () => setEditorOpen(true);
+  const handleAboutChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAbout(event.target.value);
+  };
+
+  const handleSave = () => setEditorOpen(false);
 
   return (
     <Container style={containerStyle}>
-      <Row>
-        {editorOpen ? (
-          <AboutEdit />
-        ) : (
-          <AboutDisplay
-            handleOpenEditor={handleOpenEditor}
-            editable={props.editable}
-            input={input}
-          />
-        )}
-      </Row>
+      {editorOpen ? (
+        <AboutEdit
+          about={about}
+          onSave={handleSave}
+          onAboutChange={handleAboutChange}
+        />
+      ) : (
+        <AboutDisplay
+          onOpenEditor={handleOpenEditor}
+          editable={props.editable}
+          about={about}
+        />
+      )}
     </Container>
   );
 };
