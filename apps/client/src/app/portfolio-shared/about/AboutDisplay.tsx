@@ -16,11 +16,11 @@ const AboutDisplay = (props: AboutDisplay) => {
 
   return (
     <Row sm={10}>
-      <Col>
+      <Col style={{wordWrap: "break-word"}}>
         <ReactMarkdown source={props.about} />
       </Col>
-      <Col sm="auto">
-        <Container style={{ padding: '1vh' }}>
+      <Col sm={"auto"}>
+        <Container style={{  padding: '1vh' }}>
           {props.editable && (
             <Pencil onClick={props.onOpenEditor} style={pencilStyle} />
           )}
