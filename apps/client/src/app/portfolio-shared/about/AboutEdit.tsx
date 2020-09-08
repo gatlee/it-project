@@ -10,7 +10,7 @@ interface AboutEdit {
 const AboutEdit = (props) => {
   return (
     <Form>
-      <Form.Group controlId="formGroupEmail">
+      <Form.Group controlId="formGroupAbout">
         <Form.Label>Edit Markdown</Form.Label>
         <Form.Control
           onChange={props.onAboutChange}
