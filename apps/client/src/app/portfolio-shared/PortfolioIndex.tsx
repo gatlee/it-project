@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { PortfolioHome } from './PortfolioHome';
 import { useRouteMatch } from 'react-router-dom';
-import { PortfolioPortfolio } from './PortfolioPortfolio';
+import { PortfolioItemList } from './PortfolioItemList';
 import CoolBackground from '../../assets/CoolBackground.png';
 import { BackgroundContainer } from '../BackgroundContainer';
 import { PortfolioEditFooter } from './PortfolioEditFooter';
@@ -26,7 +26,7 @@ const PortfolioIndex = () => {
               <PortfolioHome />
             </Route>
             <Route exact path={`${path}/portfolio`}>
-              <PortfolioPortfolio />
+              <PortfolioItemList />
             </Route>
             <Route exact path={`${path}/blog`}>
               <h1>Blog</h1>

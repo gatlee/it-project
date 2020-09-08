@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { PortfolioItem } from './PortfolioItem';
 
-const PortfolioPortfolio = () => {
+const PortfolioItemList = () => {
   return (
     <Container fluid>
       <Row>
@@ -22,4 +22,4 @@ const PortfolioPortfolio = () => {
   );
 };
 
-export { PortfolioPortfolio };
+export { PortfolioItemList };
