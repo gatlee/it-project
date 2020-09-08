@@ -3,7 +3,6 @@ import { UserModel } from '../models/user';
 import { UserProfile, PortfolioItemUnion } from '@pure-and-lazy/api-interfaces';
 
 // TODO: check auth for view/add permissions
-// TODO: add basic tests for each endpoint
 
 const extractItemFromBody = (body: PortfolioItemUnion) => {
   const item = { name: body.name, description: body.description };
@@ -16,31 +15,46 @@ const extractItemFromBody = (body: PortfolioItemUnion) => {
   }
 };
 
-const createItem = async (req, res) => {
+interface Req {
+  params: { username?: string; portfolioItemId?: string };
+  body?: PortfolioItemUnion;
+}
+
+interface Res<T> {
+  send: (T) => void;
+  sendStatus: (number) => void;
+}
+
+const createItem = async (req: Req, res: Res<never>) => {
   const { username } = req.params;
-  const { model, item } = extractItemFromBody(req.body) || {};
-  if (model) {
-    const now = new Date();
-    const newItem = await model.create({
-      ...item,
-      created: now,
-      lastModified: now,
-    });
-    try {
-      await UserModel.findOneAndUpdate(
-        { username },
-        { $push: { portfolio: newItem } }
-      );
-      res.sendStatus(201);
-    } catch {
-      res.sendStatus(404);
+  if (req.body) {
+    const { model, item } = extractItemFromBody(req.body);
+    if (model) {
+      const now = new Date();
+      const newItem = await model.create({
+        ...item,
+        created: now,
+        lastModified: now,
+      });
+      try {
+        await UserModel.findOneAndUpdate(
+          { username },
+          { $push: { portfolio: newItem } }
+        );
+        res.sendStatus(201);
+      } catch {
+        res.sendStatus(404);
+      }
+    } else {
+      res.sendStatus(400);
     }
   } else {
     res.sendStatus(400);
   }
 };
 
-const viewItem = async (req, res) => {
+// TODO: add methods to the model objects to convert to the proper interface types
+const viewItem = async (req: Req, res: Res<PortfolioItemUnion>) => {
   const { portfolioItemId } = req.params;
   try {
     const item = await PortfolioItemModel.findById(portfolioItemId);
@@ -50,9 +64,9 @@ const viewItem = async (req, res) => {
   }
 };
 
-const editItem = async (req, res) => {
+const editItem = async (req: Req, res: Res<never>) => {
   const { portfolioItemId } = req.params;
-  const { model, item } = extractItemFromBody(req.body) || {};
+  const { model, item } = extractItemFromBody(req.body);
   if (model) {
     try {
       await model.findByIdAndUpdate(portfolioItemId, {
@@ -68,7 +82,7 @@ const editItem = async (req, res) => {
   }
 };
 
-const viewAllItems = async (req, res) => {
+const viewAllItems = async (req: Req, res: Res<PortfolioItemUnion[]>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username }).populate('portfolio');
@@ -78,7 +92,7 @@ const viewAllItems = async (req, res) => {
   }
 };
 
-const viewProfile = async (req, res) => {
+const viewProfile = async (req: Req, res: Res<UserProfile>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username });
