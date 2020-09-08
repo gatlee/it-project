@@ -94,7 +94,7 @@ const viewProfile = async (req: Req, res: Res<UserProfile>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username });
-    res.send(user);
+    res.send(user.toProfile());
   } catch {
     res.sendStatus(404);
   }
