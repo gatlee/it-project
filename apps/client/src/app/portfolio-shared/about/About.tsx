@@ -21,13 +21,19 @@ const About = (props: About) => {
 
   const input = '# This is a header\n\nAnd this is a paragraph';
 
+  const handleOpenEditor = () => setEditorOpen(true);
+
   return (
     <Container style={containerStyle}>
       <Row>
         {editorOpen ? (
           <AboutEdit />
         ) : (
-          <AboutDisplay editable={props.editable} input={input} />
+          <AboutDisplay
+            handleOpenEditor={handleOpenEditor}
+            editable={props.editable}
+            input={input}
+          />
         )}
       </Row>
     </Container>

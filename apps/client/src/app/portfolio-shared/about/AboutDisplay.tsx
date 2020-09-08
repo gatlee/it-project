@@ -6,17 +6,20 @@ import { Pencil } from 'react-bootstrap-icons';
 interface AboutDisplay {
   editable?: boolean;
   input: string;
+  handleOpenEditor: () => void;
 }
 
 const AboutDisplay = (props: AboutDisplay) => {
-  const pencilStyle = {
+  const pencilStyle: React.CSSProperties = {
     cursor: 'pointer',
     float: 'right',
   };
 
   return (
     <Container style={{ overflow: 'auto' }}>
-      {props.editable && <Pencil style={pencilStyle} />}
+      {props.editable && (
+        <Pencil onClick={props.handleOpenEditor} style={pencilStyle} />
+      )}
       <ReactMarkdown source={props.input} />
     </Container>
   );
