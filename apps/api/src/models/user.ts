@@ -11,8 +11,12 @@ class User {
   @prop({ ref: PortfolioItem }) portfolio: Ref<PortfolioItem>[];
 
   toProfile(): UserProfile {
-    const { passwordHash: _pw, portfolio: _p, ...profile } = this;
-    return profile;
+    return {
+      username: this.username,
+      email: this.email,
+      name: this.name,
+      dateJoined: this.dateJoined,
+    };
   }
 }
 
