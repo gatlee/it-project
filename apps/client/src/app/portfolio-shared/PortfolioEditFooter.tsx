@@ -21,9 +21,9 @@ const PortfolioEditFooter = (props: PortfolioEditFooter) => {
       <Container style={{ textAlign: 'center' }}>
         <span>
           You are in edit mode. To see what this looks like to the public click{' '}
-          <a style={textLinkStyle} onClick={props.handleViewPublic} href="/">
+          <span style={textLinkStyle} onClick={props.handleViewPublic}>
             <b>here</b>
-          </a>
+          </span>
         </span>
       </Container>
     </footer>
