@@ -1,23 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { PortfolioItem } from './PortfolioItem';
 
 const PortfolioItemList = () => {
+  //TODO Supply this with some context provider
+  const username = 'test';
+  const editMode = true;
+
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    console.log();
+    fetch(`/api/portfolio/${username}/all`)
+      .then((r) => r.json())
+      .then((r) => setItems(r));
+  }, []);
+
   return (
     <Container fluid>
-      <Row>
-        <PortfolioItem
-          title="Worked at McDonalds"
-          description="It was pretty cool I guess"
-          editable
-        />
-      </Row>
-      <Row>
-        <PortfolioItem
-          title="Worked at a grocery store"
-          description="Not so cool but still kinda cool? "
-        />
-      </Row>
+      {items.map((item) => (
+        <Row>
+          <PortfolioItem
+            title={item.name}
+            description={item.description}
+            editable={editMode}
+          />
+        </Row>
+      ))}
     </Container>
   );
 };
