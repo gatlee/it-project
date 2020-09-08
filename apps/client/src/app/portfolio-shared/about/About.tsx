@@ -19,6 +19,7 @@ const About = (props: About) => {
     backgroundColor: 'white',
     marginTop: '20px',
     padding: '3vh',
+    overflow: 'auto',
   };
 
   const handleOpenEditor = () => setEditorOpen(true);
