@@ -4,7 +4,10 @@ import { UserProfile, PortfolioItemUnion } from '@pure-and-lazy/api-interfaces';
 
 // TODO: check auth for view/add permissions
 
-const extractItemFromBody = (body: PortfolioItemUnion) => {
+const extractItemFromBody = (body?: PortfolioItemUnion) => {
+  if (!body) {
+    return null;
+  }
   const item = { name: body.name, description: body.description };
   switch (body.type) {
     case 'TextItem':
@@ -27,33 +30,28 @@ interface Res<T> {
 
 const createItem = async (req: Req, res: Res<never>) => {
   const { username } = req.params;
-  if (req.body) {
-    const { model, item } = extractItemFromBody(req.body);
-    if (model) {
-      const now = new Date();
-      const newItem = await model.create({
-        ...item,
-        created: now,
-        lastModified: now,
-      });
-      try {
-        await UserModel.findOneAndUpdate(
-          { username },
-          { $push: { portfolio: newItem } }
-        );
-        res.sendStatus(201);
-      } catch {
-        res.sendStatus(404);
-      }
-    } else {
-      res.sendStatus(400);
+  const { model, item } = extractItemFromBody(req.body);
+  if (model) {
+    const now = new Date();
+    const newItem = await model.create({
+      ...item,
+      created: now,
+      lastModified: now,
+    });
+    try {
+      await UserModel.findOneAndUpdate(
+        { username },
+        { $push: { portfolio: newItem } }
+      );
+      res.sendStatus(201);
+    } catch {
+      res.sendStatus(404);
     }
   } else {
     res.sendStatus(400);
   }
 };
 
-// TODO: add methods to the model objects to convert to the proper interface types
 const viewItem = async (req: Req, res: Res<PortfolioItemUnion>) => {
   const { portfolioItemId } = req.params;
   try {
@@ -96,13 +94,7 @@ const viewProfile = async (req: Req, res: Res<UserProfile>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username });
-    const profile: UserProfile = {
-      username,
-      email: user.email,
-      name: user.name,
-      dateJoined: user.dateJoined,
-    };
-    res.send(profile);
+    res.send(user);
   } catch {
     res.sendStatus(404);
   }
@@ -120,4 +112,6 @@ export {
   viewAllItems,
   viewProfile,
   editProfile,
+  Req,
+  Res,
 };
