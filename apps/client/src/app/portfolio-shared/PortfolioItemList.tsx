@@ -21,6 +21,7 @@ const PortfolioItemList = () => {
       {items.map((item) => (
         <Row>
           <PortfolioItem
+            id={item._id}
             title={item.name}
             description={item.description}
             editable={editMode}

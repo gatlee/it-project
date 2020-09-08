@@ -1,4 +1,4 @@
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, ButtonGroup } from 'react-bootstrap';
 import React from 'react';
 
 interface PortfolioItemEditor {
@@ -7,6 +7,7 @@ interface PortfolioItemEditor {
   onTitleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onDescriptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onCancel: () => void;
+  onSave: () => void;
 }
 const PortfolioItemEditor = (props: PortfolioItemEditor) => {
   return (
@@ -27,7 +28,10 @@ const PortfolioItemEditor = (props: PortfolioItemEditor) => {
           onChange={props.onDescriptionChange}
         />
       </Form.Group>
-      <Button onClick={props.onCancel}>Cancel</Button>
+      <ButtonGroup>
+        <Button onClick={props.onSave}>Save</Button>
+        <Button onClick={props.onCancel}>Cancel(WIP)</Button>
+      </ButtonGroup>
     </Form>
   );
 };
