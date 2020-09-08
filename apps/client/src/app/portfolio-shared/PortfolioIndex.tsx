@@ -33,7 +33,7 @@ const PortfolioIndex = () => {
               <h1>Blog</h1>
             </Route>
             <Route exact path={`${path}/about`}>
-              <About />
+              <About editable={isEditMode} />
             </Route>
           </Switch>
         </div>
