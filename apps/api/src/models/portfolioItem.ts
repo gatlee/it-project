@@ -4,6 +4,7 @@ import {
   getDiscriminatorModelForClass,
   modelOptions,
 } from '@typegoose/typegoose';
+import { PortfolioItemUnion } from '@pure-and-lazy/api-interfaces';
 
 @modelOptions({
   schemaOptions: {
@@ -15,6 +16,15 @@ class PortfolioItem {
   @prop() description: string;
   @prop() created: Date;
   @prop() lastModified: Date;
+
+  toUnion(): PortfolioItemUnion {
+    if (this.constructor.name == 'PortfolioItem') {
+      throw new Error(
+        'PortfolioItem should be treated as abstract, but an instance of it was created'
+      );
+    }
+    return (this as unknown) as PortfolioItemUnion;
+  }
 }
 
 const PortfolioItemModel = getModelForClass(PortfolioItem);

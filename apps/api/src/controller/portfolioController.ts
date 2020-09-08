@@ -1,3 +1,4 @@
+import { isDocument } from '@typegoose/typegoose';
 import { PortfolioItemModel, TextItemModel } from '../models/portfolioItem';
 import { UserModel } from '../models/user';
 import { UserProfile, PortfolioItemUnion } from '@pure-and-lazy/api-interfaces';
@@ -24,8 +25,8 @@ interface Req {
 }
 
 interface Res<T> {
-  send: (T) => void;
-  sendStatus: (number) => void;
+  send: (res: T) => void;
+  sendStatus: (code: number) => void;
 }
 
 const createItem = async (req: Req, res: Res<never>) => {
@@ -56,7 +57,7 @@ const viewItem = async (req: Req, res: Res<PortfolioItemUnion>) => {
   const { portfolioItemId } = req.params;
   try {
     const item = await PortfolioItemModel.findById(portfolioItemId);
-    res.send(item);
+    res.send(item.toUnion());
   } catch {
     res.sendStatus(404);
   }
@@ -84,7 +85,7 @@ const viewAllItems = async (req: Req, res: Res<PortfolioItemUnion[]>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username }).populate('portfolio');
-    res.send(user.portfolio);
+    res.send(user.portfolio.filter(isDocument).map((item) => item.toUnion()));
   } catch {
     res.sendStatus(404);
   }
