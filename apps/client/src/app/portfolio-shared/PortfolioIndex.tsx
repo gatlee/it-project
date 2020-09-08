@@ -7,6 +7,7 @@ import { PortfolioPortfolio } from './PortfolioPortfolio';
 import CoolBackground from '../../assets/CoolBackground.png';
 import { BackgroundContainer } from '../BackgroundContainer';
 import { PortfolioEditFooter } from './PortfolioEditFooter';
+import { About } from './about/About';
 
 const PortfolioIndex = () => {
   const [isEditMode, setEditMode] = useState(true);
@@ -32,7 +33,7 @@ const PortfolioIndex = () => {
               <h1>Blog</h1>
             </Route>
             <Route exact path={`${path}/about`}>
-              <h1>About</h1>
+              <About />
             </Route>
           </Switch>
         </div>
