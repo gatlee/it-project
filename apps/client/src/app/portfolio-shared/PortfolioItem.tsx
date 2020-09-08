@@ -16,8 +16,6 @@ const PortfolioItem = (props: PortfolioItem) => {
 
   const outerStyle = {
     backgroundColor: 'white',
-    marginTop: '20px',
-    padding: '3vh',
     borderRadius: '3px',
   };
 
@@ -75,7 +73,11 @@ const PortfolioItem = (props: PortfolioItem) => {
     />
   );
 
-  return <Container style={outerStyle}>{foo}</Container>;
+  return (
+    <Container style={outerStyle} className="p-5">
+      {foo}
+    </Container>
+  );
 };
 
 export { PortfolioItem };

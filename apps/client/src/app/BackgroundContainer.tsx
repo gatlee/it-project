@@ -14,7 +14,7 @@ const BackgroundContainer = (props: BackgroundContainer) => {
     height: '100vh',
     width: '100vw',
     backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
+    backgroundRepeat: 'repeat-y',
     ...style,
   };
 
