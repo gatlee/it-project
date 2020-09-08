@@ -10,7 +10,7 @@ module.exports = {
     return [
       `npm run affected:lint -- --parallel --files=${relPaths.join(
         ','
-      )} --maxWarnings=0`,
+      )} --maxWarnings=1`,
       `git add ${files.join(' ')}`,
     ];
   },

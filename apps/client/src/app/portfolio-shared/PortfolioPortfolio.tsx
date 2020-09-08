@@ -1,13 +1,22 @@
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { PortfolioItem } from './PortfolioItem';
 
 const PortfolioPortfolio = () => {
-  const { id } = useParams();
   return (
-    <Container>
+    <Container fluid>
       <Row>
-        <h1>{id}'s Portfolio</h1>
+        <PortfolioItem
+          title="Worked at McDonalds"
+          description="It was pretty cool I guess"
+          editable
+        />
+      </Row>
+      <Row>
+        <PortfolioItem
+          title="Worked at a grocery store"
+          description="Not so cool but still kinda cool? "
+        />
       </Row>
     </Container>
   );

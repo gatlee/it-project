@@ -17,19 +17,16 @@ const PortfolioEditFooter = (props: PortfolioEditFooter) => {
   };
 
   return (
-    <>
-      <footer style={footerStyle}>
-        <Container style={{ textAlign: 'center' }}>
-          <span>
-            You are in edit mode. To see what this looks like to the public
-            click{' '}
-            <a style={textLinkStyle} onClick={props.handleViewPublic}>
-              <b>here</b>
-            </a>
+    <footer style={footerStyle}>
+      <Container style={{ textAlign: 'center' }}>
+        <span>
+          You are in edit mode. To see what this looks like to the public click{' '}
+          <span style={textLinkStyle} onClick={props.handleViewPublic}>
+            <b>here</b>
           </span>
-        </Container>
-      </footer>
-    </>
+        </span>
+      </Container>
+    </footer>
   );
 };
 
