@@ -18,6 +18,7 @@ const About = (props: About) => {
   const containerStyle = {
     backgroundColor: 'white',
     marginTop: '20px',
+    marginBottom: '20px',
     padding: '3vh',
     overflow: 'auto',
   };

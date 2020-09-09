@@ -17,7 +17,7 @@ const AboutEdit = (props) => {
           size="lg"
           value={props.content}
           as="textarea"
-          style={{ height: '70vh' }}
+          style={{ height: '68vh' }}
         />
       </Form.Group>
       <Button onClick={props.onSave}>Save</Button>

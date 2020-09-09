@@ -20,7 +20,7 @@ const AboutDisplay = (props: AboutDisplay) => {
         <ReactMarkdown source={props.content} />
       </Col>
       <Col sm="auto">
-        <Container style={{ padding: '1vh' }}>
+        <Container className="p-3">
           {props.editable && (
             <Pencil onClick={props.onOpenEditor} style={pencilStyle} />
           )}
