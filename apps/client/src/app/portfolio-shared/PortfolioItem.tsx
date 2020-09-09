@@ -39,7 +39,8 @@ const PortfolioItem = (props: PortfolioItem) => {
     });
   };
 
-  const foo = editorOpen ? (
+
+  return editorOpen ? (
     <PortfolioItemEditor
       title={props.title}
       description={props.description}
@@ -54,8 +55,6 @@ const PortfolioItem = (props: PortfolioItem) => {
       onOpenEditor={handleOpenEditor}
     />
   );
-
-  return foo;
 };
 
 export { PortfolioItem };
