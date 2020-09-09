@@ -47,7 +47,9 @@ const PortfolioItemEditor = (props: PortfolioItemEditor) => {
         </Form.Group>
         <ButtonGroup>
           <Button onClick={handleSave}>Save</Button>
-          <Button onClick={props.onCancel}>Cancel(WIP)</Button>
+          <Button onClick={props.onCancel} variant="Secondary">
+            Cancel
+          </Button>
         </ButtonGroup>
       </Form>
     </Container>
