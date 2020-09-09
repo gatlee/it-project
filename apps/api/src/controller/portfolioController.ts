@@ -6,7 +6,7 @@ import { Res } from './controllerUtil';
 
 const extractItemFromBody = (body?: PortfolioItemUnion): { model; item } => {
   if (!body) {
-    return null;
+    return { model: null, item: null };
   }
   const item = { name: body.name, description: body.description };
   if ('type' in body) {
