@@ -1,13 +1,13 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 
-interface AboutEdit {
+interface AboutEditor {
   content: string;
   onContentChange: () => void;
   onSave: () => void;
 }
 
-const AboutEdit = (props) => {
+const AboutEditor = (props: AboutEditor) => {
   return (
     <Form>
       <Form.Group controlId="formGroupAbout">
@@ -25,4 +25,4 @@ const AboutEdit = (props) => {
   );
 };
 
-export { AboutEdit };
+export { AboutEditor };

@@ -3,7 +3,7 @@ import { Container, Row } from 'react-bootstrap';
 import { Pencil } from 'react-bootstrap-icons';
 import ReactMarkdown from 'react-markdown/umd/react-markdown';
 import { AboutDisplay } from './AboutDisplay';
-import { AboutEdit } from './AboutEdit';
+import { AboutEditor } from './AboutEditor';
 
 interface About {
   editable: boolean;
@@ -31,7 +31,7 @@ const About = (props: About) => {
   return (
     <Container className="my-3" style={containerStyle}>
       {editorOpen ? (
-        <AboutEdit
+        <AboutEditor
           content={content}
           onSave={handleSave}
           onContentChange={handleContentChange}
