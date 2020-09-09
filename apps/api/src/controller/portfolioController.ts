@@ -57,7 +57,7 @@ const viewItem = async (req: Req, res: Res<PortfolioItemUnion>) => {
   const { portfolioItemId } = req.params;
   try {
     const item = await PortfolioItemModel.findById(portfolioItemId);
-    res.send(item.toUnion());
+    res.send(item);
   } catch {
     res.sendStatus(404);
   }
@@ -85,7 +85,7 @@ const viewAllItems = async (req: Req, res: Res<PortfolioItemUnion[]>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username }).populate('portfolio');
-    res.send(user.portfolio.filter(isDocument).map((item) => item.toUnion()));
+    res.send(user.portfolio.filter(isDocument));
   } catch {
     res.sendStatus(404);
   }

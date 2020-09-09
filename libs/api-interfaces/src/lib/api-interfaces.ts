@@ -14,7 +14,7 @@ interface TextItem extends PortfolioItem {
   content: string;
 }
 
-type PortfolioItemUnion = TextItem;
+type PortfolioItemUnion = PortfolioItem | TextItem;
 
 interface UserProfile {
   username: string;
