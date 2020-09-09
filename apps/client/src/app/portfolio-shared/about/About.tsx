@@ -17,8 +17,6 @@ const About = (props: About) => {
 
   const containerStyle = {
     backgroundColor: 'white',
-    marginTop: '20px',
-    marginBottom: '20px',
     padding: '3vh',
     overflow: 'auto',
   };
@@ -31,7 +29,7 @@ const About = (props: About) => {
   const handleSave = () => setEditorOpen(false);
 
   return (
-    <Container style={containerStyle}>
+    <Container className="my-3" style={containerStyle}>
       {editorOpen ? (
         <AboutEdit
           content={content}
