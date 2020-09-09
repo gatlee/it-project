@@ -30,11 +30,12 @@ const PortfolioItemList = () => {
             title={item.name}
             description={item.description}
             editable={editMode}
+            onUpdate={updateItems}
           />
         </Row>
       ))}
       <Row className="align-items-center mt-5">
-        <PortfolioAddButton />
+        <PortfolioAddButton onAdd={updateItems} />
       </Row>
     </Container>
   );

@@ -1,15 +1,29 @@
 import { Form, Button, ButtonGroup, Container } from 'react-bootstrap';
-import React from 'react';
+import React, { useState } from 'react';
 
 interface PortfolioItemEditor {
   title: string;
   description: string;
-  onTitleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onDescriptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onCancel: () => void;
-  onSave: () => void;
+  onSave: (title: string, description: string) => void;
 }
 const PortfolioItemEditor = (props: PortfolioItemEditor) => {
+  const [title, setTitle] = useState(props.title);
+  const [description, setDescription] = useState(props.description);
+
+  const handleDescriptionChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setDescription(event.target.value);
+  };
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+
+  const handleSave = () => {
+    props.onSave(title, description);
+  };
+
   return (
     <Container
       style={{
@@ -21,22 +35,18 @@ const PortfolioItemEditor = (props: PortfolioItemEditor) => {
       <Form>
         <Form.Group controlId="formGroupEmail">
           <Form.Label>Title</Form.Label>
-          <Form.Control
-            onChange={props.onTitleChange}
-            size="lg"
-            value={props.title}
-          />
+          <Form.Control onChange={handleTitleChange} size="lg" value={title} />
         </Form.Group>
         <Form.Group controlId="formGroupPassword">
           <Form.Label>Description</Form.Label>
           <Form.Control
             as="textarea"
-            value={props.description}
-            onChange={props.onDescriptionChange}
+            value={description}
+            onChange={handleDescriptionChange}
           />
         </Form.Group>
         <ButtonGroup>
-          <Button onClick={props.onSave}>Save</Button>
+          <Button onClick={handleSave}>Save</Button>
           <Button onClick={props.onCancel}>Cancel(WIP)</Button>
         </ButtonGroup>
       </Form>

@@ -1,41 +1,25 @@
 import React, { useState } from 'react';
 import { PortfolioItemEditor } from './PortfolioItemEditor';
 import { PortfolioItemDisplay } from './PortfolioItemDisplay';
-import { Container } from 'react-bootstrap';
 
 interface PortfolioItem {
   id: string;
   title: string;
   description: string;
   editable?: boolean;
+  onUpdate: () => void;
 }
 
 const PortfolioItem = (props: PortfolioItem) => {
   // TODO: Hook in context provider
   const username = 'test';
 
-  const outerStyle = {
-    backgroundColor: 'white',
-    borderRadius: '3px',
-  };
-
   const [editorOpen, setEditorOpen] = useState(false);
-  const [title, setTitle] = useState(props.title);
-  const [description, setDescription] = useState(props.description);
 
   const handleCancel = () => setEditorOpen(false);
   const handleOpenEditor = () => setEditorOpen(true);
 
-  const handleDescriptionChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setDescription(event.target.value);
-  };
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
-
-  const handleSave = () => {
+  const handleSave = (title: string, description: string) => {
     const data = {
       type: 'TextItem',
       _id: props.id,
@@ -51,33 +35,27 @@ const PortfolioItem = (props: PortfolioItem) => {
       body: JSON.stringify(data),
     }).then((res) => {
       setEditorOpen(false);
-      console.log(res);
+      props.onUpdate();
     });
   };
 
   const foo = editorOpen ? (
     <PortfolioItemEditor
-      title={title}
-      description={description}
+      title={props.title}
+      description={props.description}
       onCancel={handleCancel}
-      onTitleChange={handleTitleChange}
-      onDescriptionChange={handleDescriptionChange}
       onSave={handleSave}
     />
   ) : (
     <PortfolioItemDisplay
-      title={title}
-      description={description}
+      title={props.title}
+      description={props.description}
       editable={props.editable}
       onOpenEditor={handleOpenEditor}
     />
   );
 
-  return (
-    <Container style={outerStyle} className="p-5">
-      {foo}
-    </Container>
-  );
+  return foo;
 };
 
 export { PortfolioItem };
