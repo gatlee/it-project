@@ -7,8 +7,8 @@ import {
   viewAllItems,
   viewItem,
   Req,
-  Res,
 } from './portfolioController';
+import { Res } from './controllerUtil';
 
 const jsonMangle = (object) => JSON.parse(JSON.stringify(object));
 
@@ -54,7 +54,6 @@ makeTestSuite('Portfolio Test', () => {
   it('should return a user profile', async () => {
     await UserModel.create({
       ...userProfile,
-      passwordHash: 'TODO: remove',
       portfolio: [],
     });
     const { data: actualProfile, status } = await callEndpoint(viewProfile, {

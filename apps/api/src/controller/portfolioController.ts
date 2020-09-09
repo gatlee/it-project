@@ -2,8 +2,7 @@ import { isDocument } from '@typegoose/typegoose';
 import { PortfolioItemModel, TextItemModel } from '../models/portfolioItem';
 import { UserModel } from '../models/user';
 import { UserProfile, PortfolioItemUnion } from '@pure-and-lazy/api-interfaces';
-
-// TODO: check auth for view/add permissions
+import { Res } from './controllerUtil';
 
 const extractItemFromBody = (body?: PortfolioItemUnion): { model; item } => {
   if (!body) {
@@ -25,11 +24,6 @@ const extractItemFromBody = (body?: PortfolioItemUnion): { model; item } => {
 interface Req {
   params: { username?: string; portfolioItemId?: string };
   body?: PortfolioItemUnion;
-}
-
-interface Res<T> {
-  send: (res: T) => void;
-  sendStatus: (code: number) => void;
 }
 
 const createItem = async (req: Req, res: Res<never>) => {
@@ -117,5 +111,4 @@ export {
   viewProfile,
   editProfile,
   Req,
-  Res,
 };
