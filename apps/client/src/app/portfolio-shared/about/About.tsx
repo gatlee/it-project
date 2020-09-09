@@ -11,7 +11,7 @@ interface About {
 
 const About = (props: About) => {
   const [editorOpen, setEditorOpen] = useState(false);
-  const [about, setAbout] = useState(
+  const [content, setContent] = useState(
     '# This is a header\n\nAnd this is a paragraph'
   );
 
@@ -23,8 +23,8 @@ const About = (props: About) => {
   };
 
   const handleOpenEditor = () => setEditorOpen(true);
-  const handleAboutChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAbout(event.target.value);
+  const handleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setContent(event.target.value);
   };
 
   const handleSave = () => setEditorOpen(false);
@@ -33,15 +33,15 @@ const About = (props: About) => {
     <Container style={containerStyle}>
       {editorOpen ? (
         <AboutEdit
-          about={about}
+          content={content}
           onSave={handleSave}
-          onAboutChange={handleAboutChange}
+          onContentChange={handleContentChange}
         />
       ) : (
         <AboutDisplay
           onOpenEditor={handleOpenEditor}
           editable={props.editable}
-          about={about}
+          content={content}
         />
       )}
     </Container>

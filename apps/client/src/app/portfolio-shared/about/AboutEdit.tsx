@@ -2,8 +2,8 @@ import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 interface AboutEdit {
-  about: string;
-  onAboutChange: () => void;
+  content: string;
+  onContentChange: () => void;
   onSave: () => void;
 }
 
@@ -13,9 +13,9 @@ const AboutEdit = (props) => {
       <Form.Group controlId="formGroupAbout">
         <Form.Label>Edit Markdown</Form.Label>
         <Form.Control
-          onChange={props.onAboutChange}
+          onChange={props.onContentChange}
           size="lg"
-          value={props.about}
+          value={props.content}
           as="textarea"
           style={{ height: '70vh' }}
         />
