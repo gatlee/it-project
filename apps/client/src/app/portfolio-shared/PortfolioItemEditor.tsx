@@ -11,7 +11,7 @@ interface PortfolioItemEditor {
 const PortfolioItemEditor = (props: PortfolioItemEditor) => {
   return (
     <Form>
-      <Form.Group controlId="formGroupEmail">
+      <Form.Group controlId="formGroupTitle">
         <Form.Label>Title</Form.Label>
         <Form.Control
           onChange={props.onTitleChange}
@@ -19,7 +19,7 @@ const PortfolioItemEditor = (props: PortfolioItemEditor) => {
           value={props.title}
         />
       </Form.Group>
-      <Form.Group controlId="formGroupPassword">
+      <Form.Group controlId="formGroupDescription">
         <Form.Label>Description</Form.Label>
         <Form.Control
           as="textarea"
