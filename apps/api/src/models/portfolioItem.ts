@@ -4,7 +4,6 @@ import {
   getDiscriminatorModelForClass,
   modelOptions,
 } from '@typegoose/typegoose';
-import { PortfolioItemUnion } from '@pure-and-lazy/api-interfaces';
 
 @modelOptions({
   schemaOptions: {

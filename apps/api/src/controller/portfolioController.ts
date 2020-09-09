@@ -5,18 +5,21 @@ import { UserProfile, PortfolioItemUnion } from '@pure-and-lazy/api-interfaces';
 
 // TODO: check auth for view/add permissions
 
-const extractItemFromBody = (body?: PortfolioItemUnion) => {
+const extractItemFromBody = (body?: PortfolioItemUnion): { model; item } => {
   if (!body) {
     return null;
   }
   const item = { name: body.name, description: body.description };
-  switch (body.type) {
-    case 'TextItem':
-      return {
-        model: TextItemModel,
-        item: { ...item, content: body.content },
-      };
+  if ('type' in body) {
+    switch (body.type) {
+      case 'TextItem':
+        return {
+          model: TextItemModel,
+          item: { ...item, content: body.content },
+        };
+    }
   }
+  return { model: PortfolioItemModel, item };
 };
 
 interface Req {
