@@ -23,8 +23,8 @@ const PortfolioItemList = () => {
 
   return (
     <Container fluid>
-      {items.map((item) => (
-        <Row className="mt-4">
+      {items.map((item, index) => (
+        <Row className="mt-4" key={index}>
           <PortfolioItem
             id={item._id}
             title={item.name}
