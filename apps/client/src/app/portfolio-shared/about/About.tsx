@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import { Pencil } from 'react-bootstrap-icons';
-import ReactMarkdown from 'react-markdown/umd/react-markdown';
 import { AboutDisplay } from './AboutDisplay';
 import { AboutEditor } from './AboutEditor';
 
