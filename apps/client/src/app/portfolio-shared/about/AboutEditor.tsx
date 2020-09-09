@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 
 interface AboutEditor {
   content: string;
-  onContentChange: () => void;
+  onContentChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSave: () => void;
 }
 
