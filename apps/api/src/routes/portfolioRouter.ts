@@ -7,6 +7,7 @@ import {
   editProfile,
   viewItem,
   editItem,
+  deleteItem,
 } from '../controller/portfolioController';
 
 // TODO: implement privacy settings for individual portfolio items and integrate with Auth0 permissions
@@ -18,5 +19,6 @@ router.get('/:username/profile', viewProfile);
 router.put('/:username/profile', checkJwt, editProfile);
 router.get('/:username/:portfolioItemId', viewItem);
 router.put('/:username/:portfolioItemId', checkJwt, editItem);
+router.delete('/:username/:portfolioItemId', checkJwt, deleteItem);
 
 export default router;

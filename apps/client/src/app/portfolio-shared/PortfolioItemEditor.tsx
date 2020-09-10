@@ -1,34 +1,58 @@
-import { Form, Button } from 'react-bootstrap';
-import React from 'react';
+import { Form, Button, ButtonGroup, Container } from 'react-bootstrap';
+import React, { useState } from 'react';
 
 interface PortfolioItemEditor {
   title: string;
   description: string;
-  onTitleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onDescriptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onCancel: () => void;
+  onSave: (title: string, description: string) => void;
 }
 const PortfolioItemEditor = (props: PortfolioItemEditor) => {
+  const [title, setTitle] = useState(props.title);
+  const [description, setDescription] = useState(props.description);
+
+  const handleDescriptionChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setDescription(event.target.value);
+  };
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+
+  const handleSave = () => {
+    props.onSave(title, description);
+  };
+
   return (
-    <Form>
-      <Form.Group controlId="formGroupTitle">
-        <Form.Label>Title</Form.Label>
-        <Form.Control
-          onChange={props.onTitleChange}
-          size="lg"
-          value={props.title}
-        />
-      </Form.Group>
-      <Form.Group controlId="formGroupDescription">
-        <Form.Label>Description</Form.Label>
-        <Form.Control
-          as="textarea"
-          value={props.description}
-          onChange={props.onDescriptionChange}
-        />
-      </Form.Group>
-      <Button onClick={props.onCancel}>Cancel</Button>
-    </Form>
+    <Container
+      style={{
+        backgroundColor: 'white',
+        borderRadius: '3px',
+      }}
+      className="p-5"
+    >
+      <Form>
+        <Form.Group controlId="formGroupTitle">
+          <Form.Label>Title</Form.Label>
+          <Form.Control onChange={handleTitleChange} size="lg" value={title} />
+        </Form.Group>
+        <Form.Group controlId="formGroupDescription">
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            as="textarea"
+            value={description}
+            onChange={handleDescriptionChange}
+          />
+        </Form.Group>
+        <ButtonGroup>
+          <Button onClick={handleSave}>Save</Button>
+          <Button onClick={props.onCancel} variant="Secondary">
+            Cancel
+          </Button>
+        </ButtonGroup>
+      </Form>
+    </Container>
   );
 };
 

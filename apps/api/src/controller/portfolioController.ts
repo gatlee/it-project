@@ -4,6 +4,9 @@ import { UserModel } from '../models/user';
 import { UserProfile, PortfolioItemUnion } from '@pure-and-lazy/api-interfaces';
 import { Res } from './controllerUtil';
 
+/** extractItemFromBody takes a request body containing portfolio item information
+    and extracts the appropriate fields based on the portfolio item type.
+    It returns the relevant DB model and the extracted fields. */
 const extractItemFromBody = (body?: PortfolioItemUnion): { model; item } => {
   if (!body) {
     return { model: null, item: null };
@@ -54,9 +57,13 @@ const viewItem = async (req: Req, res: Res<PortfolioItemUnion>) => {
   const { portfolioItemId } = req.params;
   try {
     const item = await PortfolioItemModel.findById(portfolioItemId);
-    res.send(item);
+    if (item) {
+      res.send(item);
+    } else {
+      res.sendStatus(404);
+    }
   } catch {
-    res.sendStatus(404);
+    res.sendStatus(400);
   }
 };
 
@@ -88,13 +95,30 @@ const viewAllItems = async (req: Req, res: Res<PortfolioItemUnion[]>) => {
   }
 };
 
+const deleteItem = async (req: Req, res: Res<never>) => {
+  const { portfolioItemId } = req.params;
+  try {
+    await PortfolioItemModel.findByIdAndDelete(portfolioItemId);
+    /* Note: the deleted item ID will remain in the user's portfolio array,
+       but will not be returned from queries like `viewAllItems` as it is
+       filtered by `isDocument`. */
+    res.sendStatus(200);
+  } catch {
+    res.sendStatus(404);
+  }
+};
+
 const viewProfile = async (req: Req, res: Res<UserProfile>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username });
-    res.send(user.toProfile());
+    if (user) {
+      res.send(user.toProfile());
+    } else {
+      res.sendStatus(404);
+    }
   } catch {
-    res.sendStatus(404);
+    res.sendStatus(400);
   }
 };
 
@@ -108,6 +132,7 @@ export {
   viewItem,
   editItem,
   viewAllItems,
+  deleteItem,
   viewProfile,
   editProfile,
   Req,
