@@ -3,6 +3,8 @@ import JaneDoe from '../../assets/JaneDoe.jpg';
 import { Image } from 'react-bootstrap';
 
 const PortfolioAvatar = () => {
+  // TODO: fetch image from the backend!
+
   const imageStyle = {
     maxHeight: '40vh',
   };
