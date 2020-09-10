@@ -5,6 +5,9 @@ import { UserProfile, PortfolioItemUnion } from '@pure-and-lazy/api-interfaces';
 
 // TODO: check auth for view/add permissions
 
+/** extractItemFromBody takes a request body containing portfolio item information
+    and extracts the appropriate fields based on the portfolio item type.
+    It returns the relevant DB model and the extracted fields. */
 const extractItemFromBody = (body?: PortfolioItemUnion): { model; item } => {
   if (!body) {
     return null;
@@ -94,6 +97,16 @@ const viewAllItems = async (req: Req, res: Res<PortfolioItemUnion[]>) => {
   }
 };
 
+const deleteItem = async (req: Res, res: Res<never>) => {
+  const { username, portfolioItemId } = req.params;
+  try {
+    await PortfolioItemModel.findByIdAndDelete(portfolioItemId);
+    res.sendStatus(200);
+  } catch {
+    res.sendStatus(404);
+  }
+};
+
 const viewProfile = async (req: Req, res: Res<UserProfile>) => {
   const { username } = req.params;
   try {
@@ -114,6 +127,7 @@ export {
   viewItem,
   editItem,
   viewAllItems,
+  deleteItem,
   viewProfile,
   editProfile,
   Req,
