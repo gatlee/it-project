@@ -1,5 +1,6 @@
 import * as jwt from 'express-jwt';
 import * as jwksRsa from 'jwks-rsa';
+import { UserModel } from './models/user';
 
 // See https://auth0.com/docs/quickstart/backend/nodejs/01-authorization
 const auth0Domain = 'pure-and-lazy.au.auth0.com';
@@ -22,4 +23,25 @@ const checkJwt = jwt({
   algorithms: ['RS256'],
 });
 
-export { checkJwt };
+const checkUser = async (req, res, next) => {
+  try {
+    const { username } = req.params;
+    const user = await UserModel.findOne({ username });
+    if (!user) {
+      res.sendStatus(404);
+    } else if (req.user.id != user.auth0Id) {
+      res.sendStatus(401);
+    } else {
+      console.log(req.user.id, user);
+      next();
+    }
+  } catch {
+    res.sendStatus(400);
+  }
+};
+
+const checkUserAuth = (req, res, next) => {
+  checkJwt(req, res, () => checkUser(req, res, next));
+};
+
+export { checkUserAuth };
