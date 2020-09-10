@@ -1,4 +1,3 @@
-import * as mongoose from 'mongoose';
 import { isDocument } from '@typegoose/typegoose';
 import { PortfolioItemModel, TextItemModel } from '../models/portfolioItem';
 import { UserModel } from '../models/user';
@@ -105,8 +104,7 @@ const viewAllItems = async (req: Req, res: Res<PortfolioItemUnion[]>) => {
 const deleteItem = async (req: Req, res: Res<never>) => {
   const { portfolioItemId } = req.params;
   try {
-    const id = mongoose.Types.ObjectId(portfolioItemId);
-    await PortfolioItemModel.findByIdAndDelete(id);
+    await PortfolioItemModel.findByIdAndDelete(portfolioItemId);
     /* Note: the deleted item ID will remain in the user's portfolio array,
        but will not be returned from queries like `viewAllItems` as it is
        filtered by `isDocument`. */
