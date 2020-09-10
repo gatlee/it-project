@@ -107,4 +107,12 @@ makeTestSuite('Portfolio Test', () => {
     });
     expect(status).toBe(404);
   });
+
+  it("should have removed the item from the user's portfolio", async () => {
+    const { data: items, status } = await callEndpoint(viewAllItems, {
+      params: { username },
+    });
+    expect(status).toBe(200);
+    expect(items).toHaveLength(0);
+  });
 });
