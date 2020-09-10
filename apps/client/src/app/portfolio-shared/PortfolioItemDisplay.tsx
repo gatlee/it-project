@@ -27,8 +27,12 @@ const PortfolioItemDisplay = (props: PortfolioItemDisplay) => {
           <Container style={{ padding: '1vh' }}>
             {props.editable && (
               <>
-                <Pencil onClick={props.onOpenEditor} className="m-1" />
-                <Trash onClick={props.onDelete} className="m-1" color="red" />
+                <Pencil onClick={props.onOpenEditor} className="m-2 pointer" />
+                <Trash
+                  onClick={props.onDelete}
+                  className="m-2 pointer"
+                  color="red"
+                />
               </>
             )}
           </Container>
