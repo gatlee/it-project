@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import * as authController from '../controller/authController';
+import { createUser } from '../controller/authController';
 
 const router = Router();
 // FIXME: authenticate that the request is coming from the Auth0 hook
-router.post('/create-user', authController.createUser);
+router.post('/create-user', createUser);
 
 export default router;

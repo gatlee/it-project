@@ -54,6 +54,7 @@ makeTestSuite('Portfolio Test', () => {
   it('should return a user profile', async () => {
     await UserModel.create({
       ...userProfile,
+      auth0Id: 'some_id',
       portfolio: [],
     });
     const { data: actualProfile, status } = await callEndpoint(viewProfile, {
