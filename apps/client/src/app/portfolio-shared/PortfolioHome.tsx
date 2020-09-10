@@ -1,15 +1,15 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
 import { PortfolioAvatar } from './PortfolioAvatar';
+import { CenteredRowContent } from '../layout/CenteredRowContent';
 
 const PortfolioHome = () => {
   return (
     <Container>
       <Row>
-        <Col className="m-5" style={{ textAlign: 'center' }}>
+        <CenteredRowContent>
           <PortfolioAvatar />
-        </Col>
+        </CenteredRowContent>
       </Row>
     </Container>
   );
