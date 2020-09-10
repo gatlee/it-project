@@ -34,7 +34,6 @@
     "@types/body-parser": "^1.19.0",
     "@types/react-bootstrap": "^0.32.22",
     "@types/react-router-dom": "^5.1.5",
-    "body-parser": "^1.19.0",
     "bootstrap": "^4.5.2",
     "document-register-element": "1.13.1",
     "express": "4.17.1",
