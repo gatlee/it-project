@@ -11,10 +11,11 @@ const BackgroundContainer = (props: BackgroundContainer) => {
 
   const combinedStyles = {
     backgroundImage: `url(${background})`,
-    height: '100vh',
+    minimumHeight: '100vh',
     width: '100vw',
     backgroundSize: 'cover',
-    backgroundRepeat: 'repeat-y',
+    //backgroundRepeat: 'repeat-y',
+    backgroundAttachment: 'fixed',
     ...style,
   };
 
