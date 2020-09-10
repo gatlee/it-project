@@ -1,14 +1,15 @@
 import React from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import { PortfolioAvatar } from './PortfolioAvatar';
 
 const PortfolioHome = () => {
-  const { id } = useParams();
-
   return (
     <Container>
       <Row>
-        <h1>{id}'s ePortfolio</h1>
+        <Col className="m-5" style={{ textAlign: 'center' }}>
+          <PortfolioAvatar />
+        </Col>
       </Row>
     </Container>
   );
