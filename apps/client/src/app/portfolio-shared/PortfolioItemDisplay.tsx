@@ -10,18 +10,25 @@ interface PortfolioItemDisplay {
 }
 
 const PortfolioItemDisplay = (props: PortfolioItemDisplay) => {
+  const outerStyle = {
+    backgroundColor: 'white',
+    borderRadius: '3px',
+  };
+
   return (
-    <Row sm={10}>
-      <Col>
-        <h1>{props.title}</h1>
-        <i>{props.description}</i>
-      </Col>
-      <Col sm={'auto'}>
-        <Container style={{ padding: '1vh' }}>
-          {props.editable && <Pencil onClick={props.onOpenEditor} />}
-        </Container>
-      </Col>
-    </Row>
+    <Container style={outerStyle} className="p-5">
+      <Row sm={10}>
+        <Col>
+          <h1>{props.title}</h1>
+          <i>{props.description}</i>
+        </Col>
+        <Col sm={'auto'}>
+          <Container style={{ padding: '1vh' }}>
+            {props.editable && <Pencil onClick={props.onOpenEditor} />}
+          </Container>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
