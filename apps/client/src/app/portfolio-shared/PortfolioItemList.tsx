@@ -34,7 +34,7 @@ const PortfolioItemList = () => {
           />
         </Row>
       ))}
-      <Row className="align-items-center mt-5">
+      <Row className="align-items-center my-5">
         <PortfolioAddButton onAdd={updateItems} />
       </Row>
     </Container>
