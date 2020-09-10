@@ -1,4 +1,4 @@
-import { Form, Button, ButtonGroup, Container } from 'react-bootstrap';
+import { Button, Container, Form } from 'react-bootstrap';
 import React, { useState } from 'react';
 
 interface PortfolioItemEditor {
@@ -45,12 +45,11 @@ const PortfolioItemEditor = (props: PortfolioItemEditor) => {
             onChange={handleDescriptionChange}
           />
         </Form.Group>
-        <ButtonGroup>
-          <Button onClick={handleSave}>Save</Button>
-          <Button onClick={props.onCancel} variant="Secondary">
-            Cancel
-          </Button>
-        </ButtonGroup>
+
+        <Button onClick={handleSave}>Save</Button>
+        <Button onClick={props.onCancel} variant="Secondary">
+          Cancel
+        </Button>
       </Form>
     </Container>
   );
