@@ -26,8 +26,6 @@ const PortfolioItemList = () => {
     updateItems();
   }, []);
 
-  console.log(loaded);
-
   const portfolioItems = items.map((item, index) => (
     <Row className="mt-4" key={index}>
       <PortfolioItem
