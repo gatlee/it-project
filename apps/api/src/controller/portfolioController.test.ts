@@ -6,6 +6,7 @@ import {
   createItem,
   viewAllItems,
   viewItem,
+  deleteItem,
   Req,
   Res,
 } from './portfolioController';
@@ -72,6 +73,8 @@ makeTestSuite('Portfolio Test', () => {
     expect(status).toBe(201);
   });
 
+  let textItemId;
+
   it("should display the user's portfolio items", async () => {
     const { data: items, status } = await callEndpoint(viewAllItems, {
       params: { username },
@@ -80,12 +83,36 @@ makeTestSuite('Portfolio Test', () => {
     expect(items).toHaveLength(1);
     expectJSONMatching(items[0], textItem);
 
-    const portfolioItemId = items[0]._id;
-    const {
-      data: actualItemAgain,
-      status: statusAgain,
-    } = await callEndpoint(viewItem, { params: { username, portfolioItemId } });
-    expect(statusAgain).toBe(200);
-    expectJSONMatching(actualItemAgain, textItem);
+    textItemId = items[0]._id;
+  });
+
+  it('should display a single portfolio item', async () => {
+    const { data: actualItem, status: status } = await callEndpoint(viewItem, {
+      params: { username, portfolioItemId: textItemId },
+    });
+    expect(status).toBe(200);
+    expectJSONMatching(actualItem, textItem);
+  });
+
+  it('should delete a portfolio item', async () => {
+    const { data: _, status } = await callEndpoint(deleteItem, {
+      params: { username, portfolioItemId: textItemId },
+    });
+    expect(status).toBe(200);
+  });
+
+  it('should give a 404 for a deleted portfolio item', async () => {
+    const { data: _, status } = await callEndpoint(viewItem, {
+      params: { username, portfolioItemId: textItemId },
+    });
+    expect(status).toBe(404);
+  });
+
+  it("should have removed the item from the user's portfolio", async () => {
+    const { data: items, status } = await callEndpoint(viewAllItems, {
+      params: { username },
+    });
+    expect(status).toBe(200);
+    expect(items).toHaveLength(0);
   });
 });
