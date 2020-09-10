@@ -6,6 +6,8 @@ import {
   createItem,
   viewAllItems,
   viewItem,
+  Req,
+  Res,
 } from './portfolioController';
 
 const jsonMangle = (object) => JSON.parse(JSON.stringify(object));
@@ -14,9 +16,12 @@ const expectJSONMatching = (actual, expected) => {
   expect(actual).toMatchObject(jsonMangle(expected));
 };
 
-const callEndpoint = async (endpoint, req) => {
+const callEndpoint = async <T>(
+  endpoint: (req: Req, res: Res<T>) => Promise<void>,
+  req: Req
+) => {
   const result: { data?; status?: number } = {};
-  const res = {
+  const res: Res<T> = {
     send: (object) => {
       result.data = jsonMangle(object);
       result.status = 200;
