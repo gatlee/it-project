@@ -33,11 +33,11 @@ const PortfolioItemEditor = (props: PortfolioItemEditor) => {
       className="p-5"
     >
       <Form>
-        <Form.Group controlId="formGroupEmail">
+        <Form.Group controlId="formGroupTitle">
           <Form.Label>Title</Form.Label>
           <Form.Control onChange={handleTitleChange} size="lg" value={title} />
         </Form.Group>
-        <Form.Group controlId="formGroupPassword">
+        <Form.Group controlId="formGroupDescription">
           <Form.Label>Description</Form.Label>
           <Form.Control
             as="textarea"
