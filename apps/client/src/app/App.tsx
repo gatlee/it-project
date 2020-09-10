@@ -6,6 +6,7 @@ import SignUp from './signup';
 import { PortfolioIndex } from './portfolio-shared/PortfolioIndex';
 import CoolBackground from '../assets/CoolBackground.png';
 import GradientBackground from '../assets/GradientBackground.png';
+import AdminPage from './AdminPage';
 
 import Auth0ProviderWithHistory from './Auth0ProviderWithHistory';
 // Note: Auth0ProviderWithHistory needs to be a child of BrowserRouter
@@ -29,6 +30,9 @@ export const App = () => {
     <Router>
       <Auth0ProviderWithHistory>
         <Switch>
+          <Route path="/admin">
+            <AdminPage />
+          </Route>
           <Route path="/signup">
             <SignUp />
           </Route>

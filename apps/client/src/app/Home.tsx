@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import GetStartedButton from './buttons/GetStartedButton';
 import SignInButton from './buttons/SignInButton';
 import SignOutButton from './buttons/SignOutButton';
+import AdminButton from './buttons/AdminButton';
 import { useAuth0 } from '@auth0/auth0-react';
 import GradientBackground from '../assets/GradientBackground.png';
 import { BackgroundContainer } from './BackgroundContainer';
@@ -47,6 +48,7 @@ export const Home = () => {
       </Link>
       <SignInButton />
       <SignOutButton />
+      <AdminButton />
       <GetStartedButton />
       {authenticationStatusMessage()}
       <div>{m.message}</div>
