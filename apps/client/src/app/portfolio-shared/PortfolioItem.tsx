@@ -39,6 +39,15 @@ const PortfolioItem = (props: PortfolioItem) => {
     });
   };
 
+  const handleDelete = () => {
+    fetch(`/api/portfolio/${username}/${props.id}`, {
+      method: 'DELETE',
+    }).then((res) => {
+      props.onUpdate();
+      setEditorOpen(false);
+    });
+  };
+
   return editorOpen ? (
     <PortfolioItemEditor
       title={props.title}
@@ -52,6 +61,7 @@ const PortfolioItem = (props: PortfolioItem) => {
       description={props.description}
       editable={props.editable}
       onOpenEditor={handleOpenEditor}
+      onDelete={handleDelete}
     />
   );
 };
