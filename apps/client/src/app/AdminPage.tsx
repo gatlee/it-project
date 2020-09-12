@@ -1,31 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BackgroundContainer } from './BackgroundContainer';
 import GradientBackground from '../assets/GradientBackground.png';
 import { useAuth0 } from '@auth0/auth0-react';
 
 export const AdminPage = () => {
-  const apiUrl = 'localhost:3001/api';
-  const { user, getAccessTokenSilently } = useAuth0();
-  // getAccessTokenSilently is for retrieving the signed in user's token
+  const { user } = useAuth0();
   const { name, picture, email } = user;
-  const [data, setData] = useState();
-
-  const callApi = async () => {
-    try {
-      const token = await getAccessTokenSilently();
-
-      const response = await fetch(`${apiUrl}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const responseData = await response.json();
-      setData(responseData);
-    } catch (error) {
-      setData(error.message);
-    }
-  };
 
   return (
     <BackgroundContainer
