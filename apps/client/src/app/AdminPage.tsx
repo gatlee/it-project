@@ -6,6 +6,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 export const AdminPage = () => {
   const apiUrl = 'localhost:3001/api';
   const { user, getAccessTokenSilently } = useAuth0();
+  // getAccessTokenSilently is for retrieving the signed in user's token
   const { name, picture, email } = user;
   const [data, setData] = useState();
 

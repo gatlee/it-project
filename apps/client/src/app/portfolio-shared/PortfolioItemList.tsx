@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { PortfolioItem } from './PortfolioItem';
 import { PortfolioAddButton } from './PortfolioAddButton';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const PortfolioItemList = () => {
   //TODO Supply this with some context provider
-  const username = 'test';
+  //const username = 'test';
+  const { user } = useAuth0();
+  const username = user.nickname;
   const editMode = true;
 
   const [items, setItems] = useState([]);
