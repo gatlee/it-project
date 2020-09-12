@@ -13,7 +13,7 @@ const PortfolioNavBar = () => {
   return (
     <Navbar sticky="top" bg="light" expand="sm" collapseOnSelect onSelect={foo}>
       <LinkContainer to={`${URL_PREFIX}/`}>
-        <Navbar.Brand>ePortfolio</Navbar.Brand>
+        <Navbar.Brand>{id}'s ePortfolio</Navbar.Brand>
       </LinkContainer>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Container>

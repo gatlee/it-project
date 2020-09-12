@@ -40,8 +40,22 @@ const PortfolioItem = (props: PortfolioItem) => {
       },
       body: JSON.stringify(data),
     });
+
     setEditorOpen(false);
     props.onUpdate();
+  };
+
+  const handleDelete = async () => {
+    const token = await getAccessTokenSilently();
+    await fetch(`/api/portfolio/${username}/${props.id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    props.onUpdate();
+    setEditorOpen(false);
   };
 
   return editorOpen ? (
@@ -57,6 +71,7 @@ const PortfolioItem = (props: PortfolioItem) => {
       description={props.description}
       editable={props.editable}
       onOpenEditor={handleOpenEditor}
+      onDelete={handleDelete}
     />
   );
 };
