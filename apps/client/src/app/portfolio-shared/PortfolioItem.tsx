@@ -12,10 +12,8 @@ interface PortfolioItem {
 }
 
 const PortfolioItem = (props: PortfolioItem) => {
-  // TODO: Hook in context provider
   const { user, getAccessTokenSilently } = useAuth0();
-  //const username = 'test';
-  const username = user.nickname;
+  const username = user ? user.nickname : 'test';
 
   const [editorOpen, setEditorOpen] = useState(false);
 
@@ -31,7 +29,13 @@ const PortfolioItem = (props: PortfolioItem) => {
       __v: 0,
     };
 
-    const token = await getAccessTokenSilently();
+    let token: string;
+    try {
+      token = await getAccessTokenSilently();
+    } catch (error) {
+      token = '';
+    }
+
     await fetch(`/api/portfolio/${username}/${props.id}`, {
       method: 'PUT',
       headers: {
@@ -46,7 +50,13 @@ const PortfolioItem = (props: PortfolioItem) => {
   };
 
   const handleDelete = async () => {
-    const token = await getAccessTokenSilently();
+    let token: string;
+    try {
+      token = await getAccessTokenSilently();
+    } catch (error) {
+      token = '';
+    }
+
     await fetch(`/api/portfolio/${username}/${props.id}`, {
       method: 'DELETE',
       headers: {

@@ -9,10 +9,8 @@ interface PortfolioAddButton {
 }
 
 const PortfolioAddButton = (props: PortfolioAddButton) => {
-  //TODO Hook in context provider
   const { user, getAccessTokenSilently } = useAuth0();
-  //const username = 'test';
-  const username = user.nickname;
+  const username = user ? user.nickname : 'test';
   const [editorOpen, setEditorOpen] = useState(false);
   const closeEditor = () => setEditorOpen(false);
 
@@ -23,7 +21,14 @@ const PortfolioAddButton = (props: PortfolioAddButton) => {
       content: 'Not Implemented',
       type: 'TextItem',
     };
-    const token = await getAccessTokenSilently();
+
+    let token: string;
+    try {
+      token = await getAccessTokenSilently();
+    } catch (error) {
+      token = '';
+    }
+
     await fetch(`/api/portfolio/${username}/create`, {
       method: 'POST',
       headers: {
