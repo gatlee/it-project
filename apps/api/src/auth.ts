@@ -29,10 +29,10 @@ const checkUser = async (req, res, next) => {
     const user = await UserModel.findOne({ username });
     if (!user) {
       res.sendStatus(404);
-    } else if (req.user.id != user.auth0Id) {
+    } else if (req.user.sub != user.auth0Id) {
       res.sendStatus(401);
     } else {
-      console.log(req.user.id, user);
+      console.log(req.user.sub, user);
       next();
     }
   } catch {
