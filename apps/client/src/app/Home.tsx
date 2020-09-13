@@ -21,33 +21,29 @@ export const Home = () => {
       .then(setMessage);
   }, []);
 
-  return (
-    <>
-      {isLoading ? (
-        <LoadingScreen />
-      ) : (
-        <BackgroundContainer
-          background={GradientBackground}
-          style={{ textAlign: 'center' }}
-        >
-          <h1>Welcome to portfolio!</h1>
-          <img
-            width="450"
-            src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-            alt="nx logo"
-          />
-          <Link to="/u/foo">
-            <h2>Click here to be routed to foo's portfolio!</h2>
-          </Link>
-          <SignInButton />
-          <SignOutButton />
-          <AdminButton />
-          <GetStartedButton />
-          {isAuthenticated ? <div>Signed In</div> : <div>Not Signed In</div>}
-          <div>{m.message}</div>
-        </BackgroundContainer>
-      )}
-    </>
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
+    <BackgroundContainer
+      background={GradientBackground}
+      style={{ textAlign: 'center' }}
+    >
+      <h1>Welcome to portfolio!</h1>
+      <img
+        width="450"
+        src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
+        alt="nx logo"
+      />
+      <Link to="/u/foo">
+        <h2>Click here to be routed to foo's portfolio!</h2>
+      </Link>
+      <SignInButton />
+      <SignOutButton />
+      <AdminButton />
+      <GetStartedButton />
+      {isAuthenticated ? <div>Signed In</div> : <div>Not Signed In</div>}
+      <div>{m.message}</div>
+    </BackgroundContainer>
   );
 };
 
