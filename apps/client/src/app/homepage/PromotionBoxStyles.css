@@ -4,4 +4,8 @@
     text-align: left;
     float: left;
   }
+
+  #promotion-box {
+    padding-top: 20vh !important;
+  }
 }

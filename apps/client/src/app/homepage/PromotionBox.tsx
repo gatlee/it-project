@@ -10,12 +10,12 @@ import './PromotionBoxStyles.css';
 
 const PromotionBox = () => {
   const containerStyle = {
-    paddingTop: '20vh',
+    paddingTop: '5vh',
     paddingBottom: '5vh',
   };
 
   const titleStyle = {
-    fontSize: '4rem',
+    fontSize: '3.5rem',
     fontFamily: 'Segoe UI Semibold',
     padding: '1vh 0 1vh 0',
   };
@@ -34,6 +34,7 @@ const PromotionBox = () => {
     <Container
       className="d-flex justify-content-center"
       style={containerStyle}
+      id="promotion-box"
       fluid
     >
       <Row>
