@@ -19,7 +19,7 @@ export const Home = () => {
   return (
     <BackgroundContainer
       background={GradientBackground}
-      style={{ textAlign: 'center' }}
+      style={{ textAlign: 'center', margin: 'auto' }}
     >
       <PromotionBox />
       <div>{isAuthenticated ? 'Signed In' : 'Not Signed In'}</div>
