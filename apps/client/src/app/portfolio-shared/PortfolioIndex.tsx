@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, Redirect, useParams } from 'react-router-dom';
+import { Route, Switch, useParams } from 'react-router-dom';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { PortfolioHome } from './PortfolioHome';
 import { useRouteMatch } from 'react-router-dom';
@@ -8,6 +8,7 @@ import CoolBackground from '../../assets/CoolBackground.png';
 import { BackgroundContainer } from '../BackgroundContainer';
 import { PortfolioEditFooter } from './PortfolioEditFooter';
 import { About } from './about/About';
+import { NotFound } from '../NotFound';
 
 const PortfolioIndex = () => {
   const [isEditMode, setEditMode] = useState(true);
@@ -35,7 +36,7 @@ const PortfolioIndex = () => {
   }, []);
 
   if (redirect) {
-    return <Redirect to="/" />;
+    return <Route component={NotFound} />;
   } else if (!loaded) {
     return <h1>Loading</h1>;
   }
