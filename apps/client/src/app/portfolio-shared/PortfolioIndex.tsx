@@ -38,7 +38,7 @@ const PortfolioIndex = () => {
   if (redirect) {
     return <Route component={NotFound} />;
   } else if (!loaded) {
-    return <h1>Loading</h1>;
+    return null;
   }
 
   return (
