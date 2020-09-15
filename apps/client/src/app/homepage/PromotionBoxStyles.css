@@ -1,0 +1,7 @@
+/* Style text to the left on large screens */
+@media (min-width: 992px) {
+  #title-column {
+    text-align: left;
+    float: left;
+  }
+}
