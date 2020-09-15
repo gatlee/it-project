@@ -28,7 +28,7 @@ const PromotionBox = () => {
   const imageStyle = {
     maxWidth: '700px',
     width: '100%',
-    imageRendering: '-webkit-optimize-contrast',
+    imageRendering: '-webkit-optimize-contrast' as const,
   };
 
   return (
