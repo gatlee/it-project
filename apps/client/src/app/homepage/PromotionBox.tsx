@@ -15,13 +15,13 @@ const PromotionBox = () => {
   };
 
   const titleStyle = {
-    fontSize: '3.5rem',
+    fontSize: '3.4em',
     fontFamily: 'Segoe UI Semibold',
     padding: '1vh 0 1vh 0',
   };
 
   const subtitleStyle = {
-    fontSize: '2rem',
+    fontSize: '1.7em',
     paddingBottom: '8vh',
   };
 

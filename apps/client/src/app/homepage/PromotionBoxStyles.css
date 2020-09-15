@@ -1,4 +1,4 @@
-/* Style text to the left on large screens */
+/* Style text to the left and increase top padding on large (bootstrap lg) screens */
 @media (min-width: 992px) {
   #title-column {
     text-align: left;
@@ -7,5 +7,6 @@
 
   #promotion-box {
     padding-top: 20vh !important;
+    font-size: 20px;
   }
 }
