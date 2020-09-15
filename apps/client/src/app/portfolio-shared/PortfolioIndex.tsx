@@ -51,7 +51,7 @@ const PortfolioIndex = () => {
             <Route exact path={`${path}`}>
               <PortfolioHome />
             </Route>
-            <Route exact path={`${path}/portfolio`}>
+            <Route exact path={`${path}/projects`}>
               <PortfolioItemList />
             </Route>
             <Route exact path={`${path}/blog`}>

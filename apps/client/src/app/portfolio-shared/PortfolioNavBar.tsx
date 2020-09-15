@@ -19,8 +19,8 @@ const PortfolioNavBar = () => {
       <Container>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto" activeKey="blog">
-            <LinkContainer to={`${URL_PREFIX}/portfolio`}>
-              <Nav.Link eventKey="/portfolio">Portfolio</Nav.Link>
+            <LinkContainer to={`${URL_PREFIX}/projects`}>
+              <Nav.Link eventKey="/projects">Projects</Nav.Link>
             </LinkContainer>
             <LinkContainer to={`${URL_PREFIX}/blog`}>
               <Nav.Link eventKey="/blog">Blog</Nav.Link>
