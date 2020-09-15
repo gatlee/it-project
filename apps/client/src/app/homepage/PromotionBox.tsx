@@ -10,7 +10,8 @@ import './PromotionBoxStyles.css';
 
 const PromotionBox = () => {
   const containerStyle = {
-    paddingTop: '10vh',
+    paddingTop: '20vh',
+    paddingBottom: '5vh',
   };
 
   const titleStyle = {
@@ -29,10 +30,6 @@ const PromotionBox = () => {
     width: '100%',
   };
 
-  const buttonStyle = {
-    display: 'inline',
-  };
-
   return (
     <Container
       className="d-flex justify-content-center"
@@ -43,11 +40,9 @@ const PromotionBox = () => {
         <Col lg={6} md={12} className="py-3" id="title-column">
           <h1 style={titleStyle}>Pure &amp;&amp; Lazy</h1>
           <h2 style={subtitleStyle}>Create your own ePortfolio in minutes.</h2>
-          <div id="buttons" style={buttonStyle}>
-            <SignInButton />
-            <SignOutButton />
-            <GetStartedButton />
-          </div>
+          <SignInButton />
+          <SignOutButton />
+          <GetStartedButton />
         </Col>
 
         <Col lg={6} md={12} className="py-3">
