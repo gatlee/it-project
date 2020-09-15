@@ -29,7 +29,7 @@ export const Home = () => {
         src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
         alt="nx logo"
       />
-      <Link to="/u/foo">
+      <Link to="/u/jdoe">
         <h2>Click here to be routed to foo's portfolio!</h2>
       </Link>
       <SignInButton />
