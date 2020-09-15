@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Route, Switch, Redirect, useParams } from 'react-router-dom';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { PortfolioHome } from './PortfolioHome';
 import { useRouteMatch } from 'react-router-dom';
@@ -11,11 +11,34 @@ import { About } from './about/About';
 
 const PortfolioIndex = () => {
   const [isEditMode, setEditMode] = useState(true);
+  const [redirect, setRedirect] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const { path } = useRouteMatch();
+  const { id } = useParams();
 
   const handleViewPublic = () => {
     setEditMode(false);
   };
+
+  useEffect(() => {
+    const findUser = async () => {
+      await fetch(`/api/portfolio/${id}/profile`).then((r) => {
+        if (r.status !== 200) {
+          setRedirect(true);
+        }
+      });
+
+      setLoaded(true);
+    };
+
+    findUser();
+  }, []);
+
+  if (redirect) {
+    return <Redirect to="/" />;
+  } else if (!loaded) {
+    return <h1>Loading</h1>;
+  }
 
   return (
     <BackgroundContainer background={CoolBackground}>
