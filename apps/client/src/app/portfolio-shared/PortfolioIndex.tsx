@@ -34,7 +34,7 @@ const PortfolioIndex = () => {
 
   useEffect(() => {
     findUser();
-  }, []);
+  });
 
   if (redirect) {
     return <Route component={NotFound} />;
