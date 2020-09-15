@@ -16,9 +16,7 @@ const PortfolioItemList = () => {
     fetch(`/api/portfolio/${username}/all`)
       .then((r) => r.json())
       .then((r) => setItems(r))
-      .then(() => {
-        setLoaded(true);
-      });
+      .then(() => setLoaded(true));
   };
 
   //Update Items on Load

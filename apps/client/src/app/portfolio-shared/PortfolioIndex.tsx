@@ -21,18 +21,18 @@ const PortfolioIndex = () => {
     setEditMode(false);
   };
 
-  useEffect(() => {
-    const findUser = async () => {
-      await fetch(`/api/portfolio/${id}/profile`).then((r) => {
+  const findUser = () => {
+    fetch(`/api/portfolio/${id}/profile`)
+      .then((r) => {
         // User not found, we should redirect
         if (r.status !== 200) {
           setRedirect(true);
         }
-      });
+      })
+      .then(() => setLoaded(true));
+  };
 
-      setLoaded(true);
-    };
-
+  useEffect(() => {
     findUser();
   }, []);
 
