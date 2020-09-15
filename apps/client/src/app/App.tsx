@@ -7,9 +7,10 @@ import SignUp from './signup';
 import { PortfolioIndex } from './portfolio-shared/PortfolioIndex';
 import CoolBackground from '../assets/CoolBackground.png';
 import GradientBackground from '../assets/GradientBackground.png';
+import { NotFound } from './NotFound';
 
-import Auth0ProviderWithHistory from './Auth0ProviderWithHistory';
 // Note: Auth0ProviderWithHistory needs to be a child of BrowserRouter
+import Auth0ProviderWithHistory from './Auth0ProviderWithHistory';
 
 export const App = () => {
   // Backgrounds for home page and portfolio currently
@@ -30,14 +31,17 @@ export const App = () => {
     <Router>
       <Auth0ProviderWithHistory>
         <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
           <Route path="/signup">
             <SignUp />
           </Route>
           <Route path="/u/:id">
             <PortfolioIndex />
           </Route>
-          <Route path="/">
-            <Home />
+          <Route>
+            <NotFound />
           </Route>
         </Switch>
       </Auth0ProviderWithHistory>
