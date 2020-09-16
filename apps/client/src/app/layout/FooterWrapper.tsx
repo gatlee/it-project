@@ -2,7 +2,7 @@ import React from 'react';
 
 interface FooterWrapper {
   footer: React.ReactNode;
-  children: React.ReactElement;
+  children: React.ReactNode;
   hidden?: boolean;
 }
 
