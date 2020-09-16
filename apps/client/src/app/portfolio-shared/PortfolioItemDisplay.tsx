@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Card, Col } from 'react-bootstrap';
 
 interface PortfolioItemDisplay {
   title: string;
@@ -16,16 +16,19 @@ const PortfolioItemDisplay = (props: PortfolioItemDisplay) => {
     webkitBoxOrient: 'vertical',
     overflow: 'hidden',
   };
+  const cardNew = {};
   return (
-    <Card>
-      <Card.Img variant="top" src="https://picsum.photos/180/100" />
-      <Card.Body>
-        <Card.Title>
-          <strong>{props.title}</strong>
-        </Card.Title>
-        <Card.Text style={clamp}>{props.description}</Card.Text>
-      </Card.Body>
-    </Card>
+    <Col sm="4" className="py-2">
+      <Card style={cardNew} className="h-100">
+        <Card.Img variant="top" src="https://picsum.photos/180/100" />
+        <Card.Body>
+          <Card.Title>
+            <strong>{props.title}</strong>
+          </Card.Title>
+          <Card.Text style={clamp}>{props.description}</Card.Text>
+        </Card.Body>
+      </Card>
+    </Col>
   );
 };
 
