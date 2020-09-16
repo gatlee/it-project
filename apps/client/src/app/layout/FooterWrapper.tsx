@@ -2,7 +2,7 @@ import React from 'react';
 
 interface FooterWrapper {
   footer: React.ReactNode;
-  children: React.ReactNode;
+  children: React.ReactElement;
   hidden?: boolean;
 }
 
@@ -20,7 +20,7 @@ const FooterWrapper = (props: FooterWrapper): React.ReactElement => {
       {props.footer}
     </div>
   ) : (
-    <>{props.children}</>
+    props.children
   );
 };
 
