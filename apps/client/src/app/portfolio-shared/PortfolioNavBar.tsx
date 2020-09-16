@@ -11,7 +11,14 @@ const PortfolioNavBar = () => {
     console.log(eventKey, event);
   };
   return (
-    <Navbar sticky="top" bg="light" expand="sm" collapseOnSelect onSelect={foo}>
+    <Navbar
+      sticky="top"
+      bg="primary"
+      variant="dark"
+      expand="sm"
+      collapseOnSelect
+      onSelect={foo}
+    >
       <LinkContainer to={`${URL_PREFIX}/`}>
         <Navbar.Brand>{id}'s ePortfolio</Navbar.Brand>
       </LinkContainer>
