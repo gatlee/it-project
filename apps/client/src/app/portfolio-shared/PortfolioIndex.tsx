@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Switch, useParams, useRouteMatch } from 'react-router-dom';
-import CoolBackground from '../../assets/CoolBackground.png';
-import { BackgroundContainer } from '../BackgroundContainer';
+import { FooterWrapper } from '../layout/FooterWrapper';
 import { NotFound } from '../NotFound';
 import { About } from './about/About';
 import { PortfolioEditFooter } from './PortfolioEditFooter';
 import { PortfolioHome } from './PortfolioHome';
 import { PortfolioItemList } from './PortfolioItemList';
 import { PortfolioNavBar } from './PortfolioNavBar';
-import { FooterWrapper } from '../layout/FooterWrapper';
 
 const PortfolioIndex = () => {
   const [isEditMode, setEditMode] = useState(true);
@@ -46,25 +44,23 @@ const PortfolioIndex = () => {
     <PortfolioEditFooter handleViewPublic={handleViewPublic} />
   );
   return (
-    <BackgroundContainer background={CoolBackground}>
-      <FooterWrapper footer={footer} hidden={!isEditMode}>
-        <PortfolioNavBar />
-        <Switch>
-          <Route exact path={`${path}`}>
-            <PortfolioHome />
-          </Route>
-          <Route exact path={`${path}/projects`}>
-            <PortfolioItemList />
-          </Route>
-          <Route exact path={`${path}/blog`}>
-            <h1>Blog</h1>
-          </Route>
-          <Route exact path={`${path}/about`}>
-            <About editable={isEditMode} />
-          </Route>
-        </Switch>
-      </FooterWrapper>
-    </BackgroundContainer>
+    <FooterWrapper footer={footer} hidden={!isEditMode}>
+      <PortfolioNavBar />
+      <Switch>
+        <Route exact path={`${path}`}>
+          <PortfolioHome />
+        </Route>
+        <Route exact path={`${path}/projects`}>
+          <PortfolioItemList />
+        </Route>
+        <Route exact path={`${path}/blog`}>
+          <h1>Blog</h1>
+        </Route>
+        <Route exact path={`${path}/about`}>
+          <About editable={isEditMode} />
+        </Route>
+      </Switch>
+    </FooterWrapper>
   );
 };
 
