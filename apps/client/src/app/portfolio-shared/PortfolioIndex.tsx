@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Route, Switch, useParams } from 'react-router-dom';
-import { PortfolioNavBar } from './PortfolioNavBar';
-import { PortfolioHome } from './PortfolioHome';
-import { useRouteMatch } from 'react-router-dom';
-import { PortfolioItemList } from './PortfolioItemList';
-import CoolBackground from '../../assets/CoolBackground.png';
-import { BackgroundContainer } from '../BackgroundContainer';
-import { PortfolioEditFooter } from './PortfolioEditFooter';
-import { About } from './about/About';
+import React, { useEffect, useState } from 'react';
+import { Route, Switch, useParams, useRouteMatch } from 'react-router-dom';
+import { FooterWrapper } from '../layout/FooterWrapper';
 import { NotFound } from '../NotFound';
+import { About } from './about/About';
+import { PortfolioEditFooter } from './PortfolioEditFooter';
+import { PortfolioHome } from './PortfolioHome';
+import { PortfolioItemList } from './PortfolioItemList';
+import { PortfolioNavBar } from './PortfolioNavBar';
 
 const PortfolioIndex = () => {
   const [isEditMode, setEditMode] = useState(true);
@@ -34,7 +32,7 @@ const PortfolioIndex = () => {
 
   useEffect(() => {
     findUser();
-  }, []);
+  });
 
   if (redirect) {
     return <Route component={NotFound} />;
@@ -42,49 +40,27 @@ const PortfolioIndex = () => {
     return null;
   }
 
-  return (
-    <BackgroundContainer background={CoolBackground}>
-      <PortfolioWrapper>
-        <div style={{ flex: 1 }}>
-          <PortfolioNavBar />
-          <Switch>
-            <Route exact path={`${path}`}>
-              <PortfolioHome />
-            </Route>
-            <Route exact path={`${path}/portfolio`}>
-              <PortfolioItemList />
-            </Route>
-            <Route exact path={`${path}/blog`}>
-              <h1>Blog</h1>
-            </Route>
-            <Route exact path={`${path}/about`}>
-              <About editable={isEditMode} />
-            </Route>
-          </Switch>
-        </div>
-        {isEditMode && (
-          <PortfolioEditFooter handleViewPublic={handleViewPublic} />
-        )}
-      </PortfolioWrapper>
-    </BackgroundContainer>
+  const footer: React.ReactNode = (
+    <PortfolioEditFooter handleViewPublic={handleViewPublic} />
   );
-};
-
-interface PortfolioWrapper {
-  children: React.ReactNode;
-}
-
-const PortfolioWrapper = (props: PortfolioWrapper) => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        minHeight: '100vh',
-        flexDirection: 'column',
-      }}
-    >
-      {props.children}
-    </div>
+    <FooterWrapper footer={footer} hidden={!isEditMode}>
+      <PortfolioNavBar />
+      <Switch>
+        <Route exact path={`${path}`}>
+          <PortfolioHome />
+        </Route>
+        <Route exact path={`${path}/projects`}>
+          <PortfolioItemList />
+        </Route>
+        <Route exact path={`${path}/blog`}>
+          <h1>Blog</h1>
+        </Route>
+        <Route exact path={`${path}/about`}>
+          <About editable={isEditMode} />
+        </Route>
+      </Switch>
+    </FooterWrapper>
   );
 };
 
