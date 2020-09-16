@@ -11,10 +11,10 @@ interface PortfolioItemDisplay {
 
 const PortfolioItemDisplay = (props: PortfolioItemDisplay) => {
   // Restricts description to 3 lines of text. Anything after gets shortened and gets ... appended
-  const clamp = {
+  const clamp: React.CSSProperties = {
     display: '-webkit-box',
     WebkitLineClamp: 3,
-    webkitBoxOrient: 'vertical',
+    WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
   };
   const cardNew = {};
