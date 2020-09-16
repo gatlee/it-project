@@ -61,7 +61,7 @@ const PortfolioItemList = () => {
       </Container>
 
       <Container className="pt-5">
-        <Row>{loaded ? portfolioItems : spinner}</Row>
+        {loaded ? <Row>{portfolioItems} </Row> : spinner}
         <Row className="align-items-center my-5">
           <PortfolioAddButton onAdd={updateItems} />
         </Row>
