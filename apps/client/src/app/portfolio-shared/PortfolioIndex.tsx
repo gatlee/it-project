@@ -5,8 +5,8 @@ import { NotFound } from '../NotFound';
 import { About } from './about/About';
 import { PortfolioEditFooter } from './PortfolioEditFooter';
 import { PortfolioHome } from './PortfolioHome';
-import { PortfolioItemList } from './PortfolioItemList';
 import { PortfolioNavBar } from './PortfolioNavBar';
+import { ProjectPage } from './ProjectPage';
 
 const PortfolioIndex = () => {
   const [isEditMode, setEditMode] = useState(true);
@@ -51,7 +51,7 @@ const PortfolioIndex = () => {
           <PortfolioHome />
         </Route>
         <Route exact path={`${path}/projects`}>
-          <PortfolioItemList />
+          <ProjectPage />
         </Route>
         <Route exact path={`${path}/blog`}>
           <h1>Blog</h1>
