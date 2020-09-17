@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { PortfolioItemEditor } from './PortfolioItemEditor';
-import { PortfolioItemDisplay } from './PortfolioItemDisplay';
+import { ProjectItemEditor } from './ProjectItemEditor';
+import { ProjectItemDisplay } from './ProjectItemDisplay';
 
-interface PortfolioItem {
+interface ProjectItem {
   id: string;
   title: string;
   description: string;
@@ -10,7 +10,7 @@ interface PortfolioItem {
   onUpdate: () => void;
 }
 
-const PortfolioItem = (props: PortfolioItem) => {
+const ProjectItem = (props: ProjectItem) => {
   // TODO: Hook in context provider
   const username = 'test';
 
@@ -49,14 +49,14 @@ const PortfolioItem = (props: PortfolioItem) => {
   };
 
   return editorOpen ? (
-    <PortfolioItemEditor
+    <ProjectItemEditor
       title={props.title}
       description={props.description}
       onCancel={handleCancel}
       onSave={handleSave}
     />
   ) : (
-    <PortfolioItemDisplay
+    <ProjectItemDisplay
       title={props.title}
       description={props.description}
       editable={props.editable}
@@ -66,4 +66,4 @@ const PortfolioItem = (props: PortfolioItem) => {
   );
 };
 
-export { PortfolioItem };
+export { ProjectItem };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProjectItemList } from './ProjectItemList';
+import { ProjectItemList } from '../projects/ProjectItemList';
 import { TitleBox } from './TitleBox';
 
 // Content of the project tab

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { CenteredRowContent } from '../layout/CenteredRowContent';
 import { Button } from 'react-bootstrap';
-import { PortfolioItemEditor } from './PortfolioItemEditor';
+import { ProjectItemEditor } from './ProjectItemEditor';
 
-interface PortfolioAddButton {
+interface ProjectAddButton {
   onAdd: () => void;
 }
 
-const PortfolioAddButton = (props: PortfolioAddButton) => {
+const ProjectAddButton = (props: ProjectAddButton) => {
   //TODO Hook in context provider
   const username = 'test';
   const [editorOpen, setEditorOpen] = useState(false);
@@ -39,7 +39,7 @@ const PortfolioAddButton = (props: PortfolioAddButton) => {
       </Button>
     </CenteredRowContent>
   ) : (
-    <PortfolioItemEditor
+    <ProjectItemEditor
       title=""
       description=""
       onCancel={() => setEditorOpen(false)}
@@ -48,4 +48,4 @@ const PortfolioAddButton = (props: PortfolioAddButton) => {
   );
 };
 
-export { PortfolioAddButton };
+export { ProjectAddButton };

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Spinner } from 'react-bootstrap';
 import { CenteredRowContent } from '../layout/CenteredRowContent';
-import { PortfolioAddButton } from './PortfolioAddButton';
-import { PortfolioItem } from './PortfolioItem';
+import { ProjectAddButton } from './ProjectAddButton';
+import { ProjectItem } from './ProjectItem';
 
 const ProjectItemList = () => {
   //TODO Supply this with some context provider
@@ -25,7 +25,7 @@ const ProjectItemList = () => {
   }, []);
 
   const portfolioItems = items.map((item, index) => (
-    <PortfolioItem
+    <ProjectItem
       id={item._id}
       key={index}
       title={item.name}
@@ -47,7 +47,7 @@ const ProjectItemList = () => {
     <Container className="pt-5">
       {loaded ? <Row>{portfolioItems} </Row> : spinner}
       <Row className="align-items-center my-5">
-        <PortfolioAddButton onAdd={updateItems} />
+        <ProjectAddButton onAdd={updateItems} />
       </Row>
     </Container>
   );
