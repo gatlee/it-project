@@ -11,7 +11,14 @@ const PortfolioNavBar = () => {
     console.log(eventKey, event);
   };
   return (
-    <Navbar sticky="top" bg="light" expand="sm" collapseOnSelect onSelect={foo}>
+    <Navbar
+      sticky="top"
+      bg="primary"
+      variant="dark"
+      expand="sm"
+      collapseOnSelect
+      onSelect={foo}
+    >
       <LinkContainer to={`${URL_PREFIX}/`}>
         <Navbar.Brand>{id}'s ePortfolio</Navbar.Brand>
       </LinkContainer>
@@ -19,8 +26,8 @@ const PortfolioNavBar = () => {
       <Container>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto" activeKey="blog">
-            <LinkContainer to={`${URL_PREFIX}/portfolio`}>
-              <Nav.Link eventKey="/portfolio">Portfolio</Nav.Link>
+            <LinkContainer to={`${URL_PREFIX}/projects`}>
+              <Nav.Link eventKey="/projects">Projects</Nav.Link>
             </LinkContainer>
             <LinkContainer to={`${URL_PREFIX}/blog`}>
               <Nav.Link eventKey="/blog">Blog</Nav.Link>

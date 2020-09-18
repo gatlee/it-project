@@ -1,6 +1,5 @@
 import React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
-import { Pencil, Trash } from 'react-bootstrap-icons';
+import { Card, Col } from 'react-bootstrap';
 
 interface PortfolioItemDisplay {
   title: string;
@@ -11,34 +10,26 @@ interface PortfolioItemDisplay {
 }
 
 const PortfolioItemDisplay = (props: PortfolioItemDisplay) => {
-  const outerStyle = {
-    backgroundColor: 'white',
-    borderRadius: '3px',
+  // Restricts description to 3 lines of text. Anything after gets shortened and gets ... appended
+  const clamp: React.CSSProperties = {
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
   };
-
+  const cardNew = {};
   return (
-    <Container style={outerStyle} className="p-5">
-      <Row sm={10}>
-        <Col>
-          <h1>{props.title}</h1>
-          <i>{props.description}</i>
-        </Col>
-        <Col sm={'auto'}>
-          <Container style={{ padding: '1vh' }}>
-            {props.editable && (
-              <>
-                <Pencil onClick={props.onOpenEditor} className="m-2 pointer" />
-                <Trash
-                  onClick={props.onDelete}
-                  className="m-2 pointer"
-                  color="red"
-                />
-              </>
-            )}
-          </Container>
-        </Col>
-      </Row>
-    </Container>
+    <Col sm="4" className="py-2">
+      <Card style={cardNew} className="h-100">
+        <Card.Img variant="top" src="https://picsum.photos/180/100" />
+        <Card.Body>
+          <Card.Title>
+            <strong>{props.title}</strong>
+          </Card.Title>
+          <Card.Text style={clamp}>{props.description}</Card.Text>
+        </Card.Body>
+      </Card>
+    </Col>
   );
 };
 

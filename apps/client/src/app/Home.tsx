@@ -4,13 +4,16 @@ import { Link } from 'react-router-dom';
 import GetStartedButton from './buttons/GetStartedButton';
 import SignInButton from './buttons/SignInButton';
 import SignOutButton from './buttons/SignOutButton';
+import AdminButton from './buttons/AdminButton';
+import LoadingScreen from './LoadingScreen';
 import { useAuth0 } from '@auth0/auth0-react';
 import GradientBackground from '../assets/GradientBackground.png';
 import { BackgroundContainer } from './BackgroundContainer';
 
 export const Home = () => {
   const [m, setMessage] = useState<Message>({ message: '' });
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
+  // useAuth0 Hook: https://auth0.github.io/auth0-react/globals.html#useauth0
 
   useEffect(() => {
     fetch('/api')
@@ -18,7 +21,9 @@ export const Home = () => {
       .then(setMessage);
   }, []);
 
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <BackgroundContainer
       background={GradientBackground}
       style={{ textAlign: 'center' }}
@@ -29,13 +34,14 @@ export const Home = () => {
         src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
         alt="nx logo"
       />
-      <Link to="/u/foo">
+      <Link to="/u/jdoe">
         <h2>Click here to be routed to foo's portfolio!</h2>
       </Link>
       <SignInButton />
       <SignOutButton />
+      <AdminButton />
       <GetStartedButton />
-      <div>{isAuthenticated ? 'Signed In' : 'Not Signed In'}</div>
+      {isAuthenticated ? <div>Signed In</div> : <div>Not Signed In</div>}
       <div>{m.message}</div>
     </BackgroundContainer>
   );
