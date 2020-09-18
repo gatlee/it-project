@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Container, Row, Spinner } from 'react-bootstrap';
 import { CenteredRowContent } from '../layout/CenteredRowContent';
 import { ProjectAddButton } from './ProjectAddButton';
@@ -13,17 +13,17 @@ const ProjectItemList = () => {
   const [items, setItems] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
-  const updateItems = () => {
+  const loadItems = useCallback(() => {
     fetch(`/api/portfolio/${username}/all`)
       .then((r) => r.json())
       .then((r) => setItems(r))
       .then(() => setLoaded(true));
-  };
+  }, [username]);
 
   //Update Items on Load
   useEffect(() => {
-    updateItems();
-  });
+    loadItems();
+  }, [loadItems]);
 
   const portfolioItems = items.map((item, index) => (
     <ProjectItem
@@ -32,7 +32,7 @@ const ProjectItemList = () => {
       title={item.name}
       description={item.description}
       editable={editMode}
-      onUpdate={updateItems}
+      onUpdate={loadItems}
     />
   ));
 
@@ -48,7 +48,7 @@ const ProjectItemList = () => {
     <Container className="pt-5">
       {loaded ? <Row>{portfolioItems} </Row> : spinner}
       <Row className="align-items-center my-5">
-        <ProjectAddButton onAdd={updateItems} />
+        <ProjectAddButton onAdd={loadItems} />
       </Row>
     </Container>
   );
