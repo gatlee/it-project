@@ -9,7 +9,6 @@ import CoolBackground from '../assets/CoolBackground.png';
 import GradientBackground from '../assets/GradientBackground.png';
 import AdminPage from './AdminPage';
 import PrivateRoute from './PrivateRoute';
-import Auth0ProviderWithHistory from './Auth0ProviderWithHistory';
 import { NotFound } from './NotFound';
 
 // Note: Auth0ProviderWithHistory needs to be a child of BrowserRouter
