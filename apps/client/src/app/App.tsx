@@ -7,6 +7,8 @@ import SignUp from './signup';
 import { PortfolioIndex } from './portfolio-shared/PortfolioIndex';
 import CoolBackground from '../assets/CoolBackground.png';
 import GradientBackground from '../assets/GradientBackground.png';
+import AdminPage from './AdminPage';
+import PrivateRoute from './PrivateRoute';
 import { NotFound } from './NotFound';
 
 // Note: Auth0ProviderWithHistory needs to be a child of BrowserRouter
@@ -34,6 +36,7 @@ export const App = () => {
           <Route exact path="/">
             <Home />
           </Route>
+          <PrivateRoute path="/admin" component={AdminPage} />
           <Route path="/signup">
             <SignUp />
           </Route>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PortfolioItemEditor } from './PortfolioItemEditor';
 import { PortfolioItemDisplay } from './PortfolioItemDisplay';
+import { useAuth0 } from '@auth0/auth0-react';
 
 interface PortfolioItem {
   id: string;
@@ -11,15 +12,15 @@ interface PortfolioItem {
 }
 
 const PortfolioItem = (props: PortfolioItem) => {
-  // TODO: Hook in context provider
-  const username = 'test';
+  const { user, getAccessTokenSilently } = useAuth0();
+  const username = user ? user.nickname : 'test';
 
   const [editorOpen, setEditorOpen] = useState(false);
 
   const handleCancel = () => setEditorOpen(false);
   const handleOpenEditor = () => setEditorOpen(true);
 
-  const handleSave = (title: string, description: string) => {
+  const handleSave = async (title: string, description: string) => {
     const data = {
       type: 'TextItem',
       _id: props.id,
@@ -27,25 +28,44 @@ const PortfolioItem = (props: PortfolioItem) => {
       description: description,
       __v: 0,
     };
-    fetch(`/api/portfolio/${username}/${props.id}`, {
+
+    let token: string;
+    try {
+      token = await getAccessTokenSilently();
+    } catch (error) {
+      token = '';
+    }
+
+    await fetch(`/api/portfolio/${username}/${props.id}`, {
       method: 'PUT',
       headers: {
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
-    }).then((res) => {
-      setEditorOpen(false);
-      props.onUpdate();
     });
+
+    setEditorOpen(false);
+    props.onUpdate();
   };
 
-  const handleDelete = () => {
-    fetch(`/api/portfolio/${username}/${props.id}`, {
+  const handleDelete = async () => {
+    let token: string;
+    try {
+      token = await getAccessTokenSilently();
+    } catch (error) {
+      token = '';
+    }
+
+    await fetch(`/api/portfolio/${username}/${props.id}`, {
       method: 'DELETE',
-    }).then((res) => {
-      props.onUpdate();
-      setEditorOpen(false);
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
+
+    props.onUpdate();
+    setEditorOpen(false);
   };
 
   return editorOpen ? (
