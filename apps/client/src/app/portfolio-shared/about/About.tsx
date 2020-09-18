@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Container } from "react-bootstrap";
-import { AboutDisplay } from "./AboutDisplay";
-import { AboutEditor } from "./AboutEditor";
+import React, { useState } from 'react';
+import { Container } from 'react-bootstrap';
+import { AboutDisplay } from './AboutDisplay';
+import { AboutEditor } from './AboutEditor';
 
 interface About {
   editable: boolean;

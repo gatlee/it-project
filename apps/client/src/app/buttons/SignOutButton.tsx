@@ -12,6 +12,9 @@ const SignOutButton = () => {
       onClick={() =>
         logout({
           returnTo: window.location.origin,
+          // window.location.origin stores the domain of the current page/window
+          // https://developer.mozilla.org/en-US/docs/Web/API/Location/origin
+          // thus, logging out redirects to the origin.
         })
       }
     >

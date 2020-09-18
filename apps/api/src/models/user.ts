@@ -5,9 +5,9 @@ import { UserProfile } from '@pure-and-lazy/api-interfaces';
 class User {
   @prop({ unique: true }) username: string;
   @prop() email: string;
-  @prop() passwordHash: string;
-  @prop() name: string;
+  @prop() name?: string;
   @prop() dateJoined: Date;
+  @prop({ unique: true }) auth0Id: string;
   @prop({ ref: PortfolioItem }) portfolio: Ref<PortfolioItem>[];
 
   toProfile(): UserProfile {

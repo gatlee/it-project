@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Spinner } from 'react-bootstrap';
 import { CenteredRowContent } from '../layout/CenteredRowContent';
@@ -5,8 +6,8 @@ import { ProjectAddButton } from './ProjectAddButton';
 import { ProjectItem } from './ProjectItem';
 
 const ProjectItemList = () => {
-  //TODO Supply this with some context provider
-  const username = 'test';
+  const { user } = useAuth0();
+  const username = user ? user.nickname : 'test';
   const editMode = true;
 
   const [items, setItems] = useState([]);
@@ -22,7 +23,7 @@ const ProjectItemList = () => {
   //Update Items on Load
   useEffect(() => {
     updateItems();
-  }, []);
+  });
 
   const portfolioItems = items.map((item, index) => (
     <ProjectItem
