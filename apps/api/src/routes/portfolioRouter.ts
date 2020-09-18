@@ -10,8 +10,6 @@ import {
   deleteItem,
 } from '../controller/portfolioController';
 
-// TODO: implement privacy settings for individual portfolio items and integrate with Auth0 permissions
-
 const router = Router();
 
 router.all('/:username/*', (req, res, next) => {
@@ -22,6 +20,23 @@ router.all('/:username/*', (req, res, next) => {
   }
 });
 
+/**
+ * @swagger
+ * /{username}/all:
+ *   get:
+ *     description: Get all portfolio items for a user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: username
+ *         description: Username to use for login.
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: A list of portfolio items
+ */
 router.get('/:username/all', viewAllItems);
 router.post('/:username/create', createItem);
 router.route('/:username/profile').get(viewProfile).put(editProfile);
