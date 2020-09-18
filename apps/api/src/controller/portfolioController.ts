@@ -2,15 +2,14 @@ import { isDocument } from '@typegoose/typegoose';
 import { PortfolioItemModel, TextItemModel } from '../models/portfolioItem';
 import { UserModel } from '../models/user';
 import { UserProfile, PortfolioItemUnion } from '@pure-and-lazy/api-interfaces';
-
-// TODO: check auth for view/add permissions
+import { Res } from './controllerUtil';
 
 /** extractItemFromBody takes a request body containing portfolio item information
     and extracts the appropriate fields based on the portfolio item type.
     It returns the relevant DB model and the extracted fields. */
 const extractItemFromBody = (body?: PortfolioItemUnion): { model; item } => {
   if (!body) {
-    return null;
+    return { model: null, item: null };
   }
   const item = { name: body.name, description: body.description };
   if ('type' in body) {
@@ -28,11 +27,6 @@ const extractItemFromBody = (body?: PortfolioItemUnion): { model; item } => {
 interface Req {
   params: { username?: string; portfolioItemId?: string };
   body?: PortfolioItemUnion;
-}
-
-interface Res<T> {
-  send: (res: T) => void;
-  sendStatus: (code: number) => void;
 }
 
 const createItem = async (req: Req, res: Res<never>) => {
@@ -142,5 +136,4 @@ export {
   viewProfile,
   editProfile,
   Req,
-  Res,
 };

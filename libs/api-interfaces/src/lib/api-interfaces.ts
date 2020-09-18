@@ -19,7 +19,7 @@ type PortfolioItemUnion = PortfolioItem | TextItem;
 interface UserProfile {
   username: string;
   email: string;
-  name: string;
+  name?: string;
   dateJoined: Date;
 }
 
