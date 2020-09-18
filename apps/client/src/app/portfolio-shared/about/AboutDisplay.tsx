@@ -10,10 +10,6 @@ interface AboutDisplay {
 }
 
 const AboutDisplay = (props: AboutDisplay) => {
-  const pencilStyle: React.CSSProperties = {
-    cursor: 'pointer',
-  };
-
   return (
     <Row sm={10}>
       <Col style={{ wordWrap: 'break-word' }}>
@@ -22,7 +18,7 @@ const AboutDisplay = (props: AboutDisplay) => {
       <Col sm="auto">
         <Container className="p-3">
           {props.editable && (
-            <Pencil onClick={props.onOpenEditor} style={pencilStyle} />
+            <Pencil onClick={props.onOpenEditor} className="pointer" />
           )}
         </Container>
       </Col>

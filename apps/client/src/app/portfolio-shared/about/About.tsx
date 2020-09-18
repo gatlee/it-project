@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { AboutDisplay } from './AboutDisplay';
 import { AboutEditor } from './AboutEditor';
 
