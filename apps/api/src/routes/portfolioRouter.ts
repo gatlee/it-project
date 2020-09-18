@@ -10,18 +10,8 @@ import {
   deleteItem,
 } from '../controller/portfolioController';
 
-const router = Router();
-
-router.all('/:username/*', (req, res, next) => {
-  if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
-    checkUserAuth(req, res, next);
-  } else {
-    next();
-  }
-});
-
 /**
- * These components/schemas should match the interfaces defined in '@pure-and-lazy/api-interfaces'.
+ * The following schemas should match the interfaces defined in '@pure-and-lazy/api-interfaces'.
  * @swagger
  * components:
  *   schemas:
@@ -93,6 +83,51 @@ router.all('/:username/*', (req, res, next) => {
  *         $ref: '#/components/schemas/UserProfile'
  */
 
+const router = Router();
+
+router.all('/:username/*', (req, res, next) => {
+  if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
+    checkUserAuth(req, res, next);
+  } else {
+    next();
+  }
+});
+
+/**
+ * @swagger
+ * /{username}/profile:
+ *   get:
+ *     description: View user profile information.
+ *     parameters:
+ *       - $ref: '#/components/parameters/usernameParam'
+ *     responses:
+ *       200:
+ *         description: The user's profile.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserProfile'
+ *       404:
+ *         description: Unknown user.
+ *     tags:
+ *       - /api/portfolio
+ *   put:
+ *     description: Edit a user's profile.
+ *     parameters:
+ *       - $ref: '#/components/parameters/usernameParam'
+ *       - $ref: '#/components/parameters/userProfileParam'
+ *     responses:
+ *       200:
+ *         description: Profile edited successfully.
+ *       404:
+ *         description: Unknown user.
+ *       400:
+ *         description: Malformed input.
+ *     tags:
+ *       - /api/portfolio
+ */
+router.route('/:username/profile').get(viewProfile).put(editProfile);
+
 /**
  * @swagger
  * /{username}/all:
@@ -112,7 +147,7 @@ router.all('/:username/*', (req, res, next) => {
  *       404:
  *         description: Unknown user.
  *     tags:
- *       - Portfolio Items
+ *       - /api/portfolio
  */
 router.get('/:username/all', viewAllItems);
 
@@ -132,44 +167,9 @@ router.get('/:username/all', viewAllItems);
  *       400:
  *         description: Malformed input.
  *     tags:
- *       - Portfolio Items
+ *       - /api/portfolio
  */
 router.post('/:username/create', createItem);
-
-/**
- * @swagger
- * /{username}/profile:
- *   get:
- *     description: View user profile information.
- *     parameters:
- *       - $ref: '#/components/parameters/usernameParam'
- *     responses:
- *       200:
- *         description: The user's profile.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/UserProfile'
- *       404:
- *         description: Unknown user.
- *     tags:
- *       - User Profiles
- *   put:
- *     description: Edit a user's profile.
- *     parameters:
- *       - $ref: '#/components/parameters/usernameParam'
- *       - $ref: '#/components/parameters/userProfileParam'
- *     responses:
- *       200:
- *         description: Profile edited successfully.
- *       404:
- *         description: Unknown user.
- *       400:
- *         description: Malformed input.
- *     tags:
- *       - User Profiles
- */
-router.route('/:username/profile').get(viewProfile).put(editProfile);
 
 /**
  * @swagger
@@ -189,7 +189,7 @@ router.route('/:username/profile').get(viewProfile).put(editProfile);
  *       404:
  *         description: Unknown portfolio item.
  *     tags:
- *       - Portfolio Items
+ *       - /api/portfolio
  *   put:
  *     description: Edit a portfolio item.
  *     parameters:
@@ -204,7 +204,7 @@ router.route('/:username/profile').get(viewProfile).put(editProfile);
  *       400:
  *         description: Malformed input.
  *     tags:
- *       - Portfolio Items
+ *       - /api/portfolio
  *   delete:
  *     description: Delete a portfolio item.
  *     parameters:
@@ -216,7 +216,7 @@ router.route('/:username/profile').get(viewProfile).put(editProfile);
  *       404:
  *         description: Unknown portfolio item.
  *     tags:
- *       - Portfolio Items
+ *       - /api/portfolio
  */
 router
   .route('/:username/:portfolioItemId')
