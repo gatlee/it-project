@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { PortfolioItemEditor } from './PortfolioItemEditor';
-import { PortfolioItemDisplay } from './PortfolioItemDisplay';
 import { useAuth0 } from '@auth0/auth0-react';
+import React, { useState } from 'react';
+import { ProjectItemDisplay } from './ProjectItemDisplay';
+import { ProjectItemEditor } from './ProjectItemEditor';
 
-interface PortfolioItem {
+interface ProjectItem {
   id: string;
   title: string;
   description: string;
@@ -11,7 +11,7 @@ interface PortfolioItem {
   onUpdate: () => void;
 }
 
-const PortfolioItem = (props: PortfolioItem) => {
+const ProjectItem = (props: ProjectItem) => {
   const { user, getAccessTokenSilently } = useAuth0();
   const username = user ? user.nickname : 'test';
 
@@ -69,14 +69,14 @@ const PortfolioItem = (props: PortfolioItem) => {
   };
 
   return editorOpen ? (
-    <PortfolioItemEditor
+    <ProjectItemEditor
       title={props.title}
       description={props.description}
       onCancel={handleCancel}
       onSave={handleSave}
     />
   ) : (
-    <PortfolioItemDisplay
+    <ProjectItemDisplay
       title={props.title}
       description={props.description}
       editable={props.editable}
@@ -86,4 +86,4 @@ const PortfolioItem = (props: PortfolioItem) => {
   );
 };
 
-export { PortfolioItem };
+export { ProjectItem };

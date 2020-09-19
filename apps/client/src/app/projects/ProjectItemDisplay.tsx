@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Col } from 'react-bootstrap';
 
-interface PortfolioItemDisplay {
+interface ProjectItemDisplay {
   title: string;
   description: string;
   editable?: boolean;
@@ -9,7 +9,7 @@ interface PortfolioItemDisplay {
   onDelete: () => void;
 }
 
-const PortfolioItemDisplay = (props: PortfolioItemDisplay) => {
+const ProjectItemDisplay = (props: ProjectItemDisplay) => {
   // Restricts description to 3 lines of text. Anything after gets shortened and gets ... appended
   const clamp: React.CSSProperties = {
     display: '-webkit-box',
@@ -33,4 +33,4 @@ const PortfolioItemDisplay = (props: PortfolioItemDisplay) => {
   );
 };
 
-export { PortfolioItemDisplay };
+export { ProjectItemDisplay };

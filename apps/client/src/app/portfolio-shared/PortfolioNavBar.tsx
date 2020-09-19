@@ -1,25 +1,34 @@
-import React, { SyntheticEvent } from 'react';
-import { Nav, Navbar, Container } from 'react-bootstrap';
+import { css } from 'emotion';
+import React from 'react';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useParams } from 'react-router-dom';
 
 const PortfolioNavBar = () => {
   const { id } = useParams();
   const URL_PREFIX = `/u/${id}`;
+  const logoStyle = css`
+    position: relative;
+    @media (min-width: 1430px) {
+      position: absolute;
+    }
+  `;
 
-  const foo = (eventKey: string, event?: SyntheticEvent) => {
-    console.log(eventKey, event);
-  };
   return (
     <Navbar
       sticky="top"
-      bg="primary"
+      bg="dark"
       variant="dark"
       expand="sm"
       collapseOnSelect
-      onSelect={foo}
+      className="shadow"
     >
-      <LinkContainer to={`${URL_PREFIX}/`}>
+      <LinkContainer
+        to={`${URL_PREFIX}/`}
+        className={css`
+          ${logoStyle}
+        `}
+      >
         <Navbar.Brand>{id}'s ePortfolio</Navbar.Brand>
       </LinkContainer>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />

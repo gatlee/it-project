@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { CenteredRowContent } from '../layout/CenteredRowContent';
 import { Button } from 'react-bootstrap';
-import { PortfolioItemEditor } from './PortfolioItemEditor';
+import { ProjectItemEditor } from './ProjectItemEditor';
 import { useAuth0 } from '@auth0/auth0-react';
 
-interface PortfolioAddButton {
+interface ProjectAddButton {
   onAdd: () => void;
 }
 
-const PortfolioAddButton = (props: PortfolioAddButton) => {
+const ProjectAddButton = (props: ProjectAddButton) => {
   const { user, getAccessTokenSilently } = useAuth0();
   const username = user ? user.nickname : 'test';
   const [editorOpen, setEditorOpen] = useState(false);
@@ -49,7 +49,7 @@ const PortfolioAddButton = (props: PortfolioAddButton) => {
       </Button>
     </CenteredRowContent>
   ) : (
-    <PortfolioItemEditor
+    <ProjectItemEditor
       title=""
       description=""
       onCancel={() => setEditorOpen(false)}
@@ -58,4 +58,4 @@ const PortfolioAddButton = (props: PortfolioAddButton) => {
   );
 };
 
-export { PortfolioAddButton };
+export { ProjectAddButton };

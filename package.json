@@ -37,6 +37,7 @@
     "body-parser": "^1.19.0",
     "bootstrap": "^4.5.2",
     "document-register-element": "1.13.1",
+    "emotion": "^10.0.27",
     "express": "4.17.1",
     "express-jwt": "^6.0.0",
     "express-jwt-authz": "^2.4.1",
