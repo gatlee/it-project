@@ -71,16 +71,22 @@ const editItem = async (req: Req, res: Res<never>) => {
   const { portfolioItemId } = req.params;
   const { model, item } = extractItemFromBody(req.body);
   if (model && req.user && req.user.sub) {
-    try {
-      const user = await UserModel.findOne({ auth0Id: req.user.sub });
-      // check if portfolioItemId in user portfolio
-      await model.findByIdAndUpdate(portfolioItemId, {
-        ...item,
-        lastModified: new Date(),
-      });
-      res.sendStatus(200);
-    } catch {
-      res.sendStatus(404);
+    const user = await UserModel.findOne({
+      auth0Id: req.user.sub,
+      $elemMatch: { portfolio: portfolioItemId },
+    });
+    if (user) {
+      try {
+        await model.findByIdAndUpdate(portfolioItemId, {
+          ...item,
+          lastModified: new Date(),
+        });
+        res.sendStatus(200);
+      } catch {
+        res.sendStatus(404);
+      }
+    } else {
+      res.sendStatus(401);
     }
   } else {
     res.sendStatus(400);
@@ -97,17 +103,24 @@ const viewAllItems = async (req: Req, res: Res<PortfolioItemUnion[]>) => {
   }
 };
 
-// TODO: update auth
 const deleteItem = async (req: Req, res: Res<never>) => {
   const { portfolioItemId } = req.params;
-  try {
-    await PortfolioItemModel.findByIdAndDelete(portfolioItemId);
-    /* Note: the deleted item ID will remain in the user's portfolio array,
-       but will not be returned from queries like `viewAllItems` as it is
-       filtered by `isDocument`. */
-    res.sendStatus(200);
-  } catch {
-    res.sendStatus(404);
+  const user = await UserModel.findOne({
+    auth0Id: req.user.sub,
+    $elemMatch: { portfolio: portfolioItemId },
+  });
+  if (user) {
+    try {
+      await PortfolioItemModel.findByIdAndDelete(portfolioItemId);
+      /* Note: the deleted item ID will remain in the user's portfolio array,
+         but will not be returned from queries like `viewAllItems` as it is
+         filtered by `isDocument`. */
+      res.sendStatus(200);
+    } catch {
+      res.sendStatus(404);
+    }
+  } else {
+    res.sendStatus(401);
   }
 };
 
