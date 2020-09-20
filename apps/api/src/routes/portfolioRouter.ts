@@ -124,8 +124,6 @@ router.get('/:username/profile', viewProfile);
  *     responses:
  *       200:
  *         description: Profile edited successfully.
- *       404:
- *         description: Unknown user.
  *       400:
  *         description: Malformed input.
  *     tags:
@@ -205,6 +203,8 @@ router.post('/create', createItem);
  *         description: Unknown portfolio item.
  *       400:
  *         description: Malformed input.
+ *       401:
+ *         description: Portfolio item belongs to another user.
  *     tags:
  *       - /api/portfolio
  *   delete:
@@ -216,6 +216,8 @@ router.post('/create', createItem);
  *         description: Portfolio item deleted successfully.
  *       404:
  *         description: Unknown portfolio item.
+ *       401:
+ *         description: Portfolio item belongs to another user.
  *     tags:
  *       - /api/portfolio
  */
