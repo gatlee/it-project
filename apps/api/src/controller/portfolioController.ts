@@ -1,3 +1,4 @@
+import * as mongoose from 'mongoose';
 import { isDocument } from '@typegoose/typegoose';
 import { PortfolioItemModel, TextItemModel } from '../models/portfolioItem';
 import { UserModel } from '../models/user';
@@ -73,7 +74,7 @@ const editItem = async (req: Req, res: Res<never>) => {
   if (model && req.user && req.user.sub) {
     const user = await UserModel.findOne({
       auth0Id: req.user.sub,
-      $elemMatch: { portfolio: portfolioItemId },
+      portfolio: mongoose.Types.ObjectId(portfolioItemId),
     });
     if (user) {
       try {
@@ -107,7 +108,7 @@ const deleteItem = async (req: Req, res: Res<never>) => {
   const { portfolioItemId } = req.params;
   const user = await UserModel.findOne({
     auth0Id: req.user.sub,
-    $elemMatch: { portfolio: portfolioItemId },
+    portfolio: mongoose.Types.ObjectId(portfolioItemId),
   });
   if (user) {
     try {
