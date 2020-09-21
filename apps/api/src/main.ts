@@ -1,9 +1,11 @@
 import * as express from 'express';
 import * as path from 'path';
+import * as bodyParser from 'body-parser';
+import swaggerUi from 'swagger-ui-express';
+import connectToDatabase from './models/index';
 import authRouter from './routes/authRouter';
 import portfolioRouter from './routes/portfolioRouter';
-import connectToDatabase from './models/index';
-import * as bodyParser from 'body-parser';
+import swaggerSpec from './swaggerSpec';
 
 connectToDatabase();
 
@@ -21,6 +23,7 @@ app.use(bodyParser.json());
 
 app.use('/api/auth', authRouter);
 app.use('/api/portfolio', portfolioRouter);
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get('*', (_req, res) => {
   res.sendFile('index.html', {

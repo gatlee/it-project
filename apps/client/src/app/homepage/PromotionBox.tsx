@@ -3,8 +3,9 @@ import { Col, Container, Row, Image } from 'react-bootstrap';
 import GetStartedButton from '../buttons/GetStartedButton';
 import SignInButton from '../buttons/SignInButton';
 import SignOutButton from '../buttons/SignOutButton';
+import AdminButton from '../buttons/AdminButton';
 import DemoImage from '../../assets/PortfolioDemo.png';
-import { css, jsx } from '@emotion/core';
+import { css } from 'emotion';
 
 const PromotionBox = () => {
   const titleStyle = css`
@@ -59,6 +60,7 @@ const PromotionBox = () => {
           <SignInButton />
           <SignOutButton />
           <GetStartedButton />
+          <AdminButton />
         </Col>
 
         <Col lg={6} md={12} className="py-3">

@@ -1,13 +1,13 @@
 import { Button, Container, Form } from 'react-bootstrap';
 import React, { useState } from 'react';
 
-interface PortfolioItemEditor {
+interface ProjectItemEditor {
   title: string;
   description: string;
   onCancel: () => void;
   onSave: (title: string, description: string) => void;
 }
-const PortfolioItemEditor = (props: PortfolioItemEditor) => {
+const ProjectItemEditor = (props: ProjectItemEditor) => {
   const [title, setTitle] = useState(props.title);
   const [description, setDescription] = useState(props.description);
 
@@ -55,4 +55,4 @@ const PortfolioItemEditor = (props: PortfolioItemEditor) => {
   );
 };
 
-export { PortfolioItemEditor };
+export { ProjectItemEditor };

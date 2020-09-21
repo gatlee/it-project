@@ -1,35 +1,45 @@
 import React, { useState } from 'react';
 import { CenteredRowContent } from '../layout/CenteredRowContent';
 import { Button } from 'react-bootstrap';
-import { PortfolioItemEditor } from './PortfolioItemEditor';
+import { ProjectItemEditor } from './ProjectItemEditor';
+import { useAuth0 } from '@auth0/auth0-react';
 
-interface PortfolioAddButton {
+interface ProjectAddButton {
   onAdd: () => void;
 }
 
-const PortfolioAddButton = (props: PortfolioAddButton) => {
-  //TODO Hook in context provider
-  const username = 'test';
+const ProjectAddButton = (props: ProjectAddButton) => {
+  const { user, getAccessTokenSilently } = useAuth0();
+  const username = user ? user.nickname : 'test';
   const [editorOpen, setEditorOpen] = useState(false);
   const closeEditor = () => setEditorOpen(false);
 
-  const handleSave = (title: string, description: string) => {
+  const handleSave = async (title: string, description: string) => {
     const body = {
       name: title,
       description: description,
       content: 'Not Implemented',
       type: 'TextItem',
     };
-    fetch(`/api/portfolio/${username}/create`, {
+
+    let token: string;
+    try {
+      token = await getAccessTokenSilently();
+    } catch (error) {
+      token = '';
+    }
+
+    await fetch(`/api/portfolio/${username}/create`, {
       method: 'POST',
       headers: {
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
-    }).then(() => {
-      props.onAdd();
-      closeEditor();
     });
+
+    props.onAdd();
+    closeEditor();
   };
 
   return !editorOpen ? (
@@ -39,7 +49,7 @@ const PortfolioAddButton = (props: PortfolioAddButton) => {
       </Button>
     </CenteredRowContent>
   ) : (
-    <PortfolioItemEditor
+    <ProjectItemEditor
       title=""
       description=""
       onCancel={() => setEditorOpen(false)}
@@ -48,4 +58,4 @@ const PortfolioAddButton = (props: PortfolioAddButton) => {
   );
 };
 
-export { PortfolioAddButton };
+export { ProjectAddButton };

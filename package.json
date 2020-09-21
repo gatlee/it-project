@@ -37,7 +37,11 @@
     "body-parser": "^1.19.0",
     "bootstrap": "^4.5.2",
     "document-register-element": "1.13.1",
+    "emotion": "^10.0.27",
     "express": "4.17.1",
+    "express-jwt": "^6.0.0",
+    "express-jwt-authz": "^2.4.1",
+    "jwks-rsa": "^1.9.0",
     "mongodb": "^3.6.1",
     "mongoose": "^5.10.0",
     "pretty-quick": "^3.0.0",
@@ -50,6 +54,8 @@
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.2.0",
     "styled-components": "5.1.1",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4",
     "tslib": "^2.0.1"
   },
   "devDependencies": {
