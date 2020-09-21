@@ -4,51 +4,65 @@ import GetStartedButton from '../buttons/GetStartedButton';
 import SignInButton from '../buttons/SignInButton';
 import SignOutButton from '../buttons/SignOutButton';
 import DemoImage from '../../assets/PortfolioDemo.png';
-import { Justify } from 'react-bootstrap-icons';
-import { Auth0Context } from '@auth0/auth0-react';
-import './PromotionBoxStyles.css';
+import { css, jsx } from '@emotion/core';
 
 const PromotionBox = () => {
-  const containerStyle = {
-    paddingTop: '5vh',
-    paddingBottom: '5vh',
-  };
-
-  const titleStyle = {
+  const titleStyle = css`
     fontSize: '3.4em',
     fontFamily: 'Segoe UI Semibold',
     padding: '1vh 0 1vh 0',
-  };
+  `;
 
-  const subtitleStyle = {
+  const subtitleStyle = css({
     fontSize: '1.7em',
     paddingBottom: '8vh',
-  };
+  });
 
-  const imageStyle = {
+  const imageStyle = css({
     maxWidth: '700px',
     width: '100%',
     imageRendering: '-webkit-optimize-contrast' as const,
-  };
+  });
+
+  const containerStyle = css`
+    padding-bottom: '5vh';
+    @media (max-width: 992px) {
+      padding-top: '5vh';
+    }
+    @media (min-width: 992px) {
+      padding-top: 20vh;
+      font-size: 20px;
+    }
+  `;
+
+  const red = css`
+    color: red;
+  `;
 
   return (
     <Container
       className="d-flex justify-content-center"
-      style={containerStyle}
-      id="promotion-box"
+      css={containerStyle}
       fluid
     >
       <Row>
-        <Col lg={6} md={12} className="py-3" id="title-column">
-          <h1 style={titleStyle}>Pure &amp;&amp; Lazy</h1>
-          <h2 style={subtitleStyle}>Create your own ePortfolio in minutes.</h2>
+        <Col lg={6} md={12} className="py-3 text-lg-left float-right">
+          <h1
+            className="display-2"
+            css={css`
+              ${titleStyle}
+            `}
+          >
+            Pure &amp;&amp; Lazy
+          </h1>
+          <h2 className="display-3">Create your own ePortfolio in minutes.</h2>
           <SignInButton />
           <SignOutButton />
           <GetStartedButton />
         </Col>
 
         <Col lg={6} md={12} className="py-3">
-          <Image src={DemoImage} style={imageStyle} fluid />
+          <Image src={DemoImage} className={imageStyle + ' '} fluid />
         </Col>
       </Row>
     </Container>
