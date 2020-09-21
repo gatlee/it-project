@@ -4,9 +4,12 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useParams } from 'react-router-dom';
 
-const PortfolioNavBar = () => {
+interface PortfolioNavBar {
+  editMode?: boolean;
+}
+const PortfolioNavBar = (props: PortfolioNavBar) => {
   const { id } = useParams();
-  const URL_PREFIX = `/u/${id}`;
+  const URL_PREFIX = props.editMode ? `/edit` : `/u/${id}`;
   const logoStyle = css`
     position: relative;
     @media (min-width: 1430px) {

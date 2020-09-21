@@ -20,7 +20,7 @@ const EditIndex = (_props: _EditIndex) => {
 
   return (
     <FooterWrapper footer={footer} hidden={!isEditMode}>
-      <PortfolioNavBar />
+      <PortfolioNavBar editMode />
       <Switch>
         <Route exact path={`${path}`}>
           <PortfolioHome />
