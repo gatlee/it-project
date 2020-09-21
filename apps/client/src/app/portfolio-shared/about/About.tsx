@@ -4,7 +4,7 @@ import { AboutDisplay } from './AboutDisplay';
 import { AboutEditor } from './AboutEditor';
 
 interface About {
-  editable: boolean;
+  editable?: boolean;
 }
 
 const About = (props: About) => {
