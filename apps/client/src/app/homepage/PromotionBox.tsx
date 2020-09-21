@@ -5,40 +5,36 @@ import SignInButton from '../buttons/SignInButton';
 import SignOutButton from '../buttons/SignOutButton';
 import AdminButton from '../buttons/AdminButton';
 import DemoImage from '../../assets/PortfolioDemo.png';
-import { css } from 'emotion';
+import { css } from '@emotion/core';
 
 const PromotionBox = () => {
-  const titleStyle = css`
+  const titleStyle = {
     fontSize: '3.4em',
     fontFamily: 'Segoe UI Semibold',
     padding: '1vh 0 1vh 0',
-  `;
+  };
 
-  const subtitleStyle = css({
+  const subtitleStyle = {
     fontSize: '1.7em',
     paddingBottom: '8vh',
-  });
+  };
 
-  const imageStyle = css({
+  const imageStyle = {
     maxWidth: '700px',
     width: '100%',
     imageRendering: '-webkit-optimize-contrast' as const,
-  });
+  };
 
-  const containerStyle = css`
-    padding-bottom: '5vh';
-    @media (max-width: 992px) {
-      padding-top: '5vh';
-    }
-    @media (min-width: 992px) {
-      padding-top: 20vh;
-      font-size: 20px;
-    }
-  `;
-
-  const red = css`
-    color: red;
-  `;
+  const containerStyle = {
+    paddingBottom: '5vh',
+    '@media (max-width: 992px)': {
+      paddingTop: '5vh',
+    },
+    '@media (min-width: 992px)': {
+      paddingTop: '20vh',
+      fontSize: '20px',
+    },
+  };
 
   return (
     <Container
@@ -48,15 +44,12 @@ const PromotionBox = () => {
     >
       <Row>
         <Col lg={6} md={12} className="py-3 text-lg-left float-right">
-          <h1
-            className="display-2"
-            css={css`
-              ${titleStyle}
-            `}
-          >
+          <h1 className="display-2" css={titleStyle}>
             Pure &amp;&amp; Lazy
           </h1>
-          <h2 className="display-3">Create your own ePortfolio in minutes.</h2>
+          <h2 className="display-3" css={subtitleStyle}>
+            Create your own ePortfolio in minutes.
+          </h2>
           <SignInButton />
           <SignOutButton />
           <GetStartedButton />
@@ -64,7 +57,7 @@ const PromotionBox = () => {
         </Col>
 
         <Col lg={6} md={12} className="py-3">
-          <Image src={DemoImage} className={imageStyle + ' '} fluid />
+          <Image src={DemoImage} css={imageStyle} fluid />
         </Col>
       </Row>
     </Container>
