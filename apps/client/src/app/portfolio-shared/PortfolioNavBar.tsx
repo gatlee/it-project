@@ -9,7 +9,7 @@ const PortfolioNavBar = () => {
   const URL_PREFIX = `/u/${id}`;
   const logoStyle = css`
     position: relative;
-    @media (min-width: 1430px) {
+    @media (min-width: 576px) {
       position: absolute;
     }
   `;
@@ -34,7 +34,7 @@ const PortfolioNavBar = () => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Container>
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="mr-auto" activeKey="blog">
+          <Nav className="ml-auto" activeKey="blog">
             <LinkContainer to={`${URL_PREFIX}/projects`}>
               <Nav.Link eventKey="/projects">Projects</Nav.Link>
             </LinkContainer>
