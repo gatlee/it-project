@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 const GetStartedButton = () => {
   return (
-    <LinkContainer to="/signup" style={{ marginRight: '0.5vw' }}>
+    <LinkContainer to="/signup" className="mr-2">
       <Button variant="primary">Get Started!</Button>
     </LinkContainer>
   );

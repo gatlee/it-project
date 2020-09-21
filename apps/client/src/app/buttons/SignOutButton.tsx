@@ -7,7 +7,7 @@ const SignOutButton = () => {
 
   return (
     <Button
-      style={{ background: '#E5E5E5', margin: '0 0.5vw 0 0' }}
+      className="mr-2"
       variant="light"
       onClick={() =>
         logout({
