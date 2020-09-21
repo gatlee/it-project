@@ -28,7 +28,7 @@ export const Home = () => {
       <PromotionBox />
       <div>{isAuthenticated ? 'Signed In' : 'Not Signed In'}</div>
       <div>{m.message}</div>
-      <Link to="/u/foo">
+      <Link to="/u/jdoe">
         <h2>Click here to be routed to foo's portfolio!</h2>
       </Link>
     </BackgroundContainer>
