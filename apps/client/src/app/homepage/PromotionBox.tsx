@@ -15,7 +15,7 @@ const PromotionBox = () => {
 
   const subtitleStyle = {
     fontSize: '1.7em',
-    paddingBottom: '7vh',
+    paddingBottom: '10vh',
   };
 
   const imageStyle = {
@@ -35,8 +35,9 @@ const PromotionBox = () => {
   };
 
   const containerStyle = {
+    minWidth: '75vw',
     marginBottom: '5vh',
-    '@media (min-width: 992px)': {
+    '@media (min-width: 576px)': {
       fontSize: '20px',
     },
   };
@@ -48,7 +49,7 @@ const PromotionBox = () => {
     >
       <Row css={topMarginStyle} />
       <Row>
-        <Col lg={6} md={12} className="py-3 text-lg-left float-right">
+        <Col lg={6} md={12} className="py-3 text-lg-left">
           <h1 className="display-2 pb-2" css={titleStyle}>
             Pure &amp;&amp; Lazy
           </h1>
@@ -61,7 +62,7 @@ const PromotionBox = () => {
           <AdminButton />
         </Col>
 
-        <Col lg={6} md={12} className="py-3">
+        <Col lg={6} md={12} className="py-3 align-self-center">
           <Image src={DemoImage} css={imageStyle} fluid />
         </Col>
       </Row>
