@@ -11,12 +11,11 @@ const PromotionBox = () => {
   const titleStyle = {
     fontSize: '3.4em',
     fontFamily: 'Segoe UI Semibold',
-    padding: '1vh 0 1vh 0',
   };
 
   const subtitleStyle = {
     fontSize: '1.7em',
-    paddingBottom: '8vh',
+    paddingBottom: '7vh',
   };
 
   const imageStyle = {
@@ -25,29 +24,35 @@ const PromotionBox = () => {
     imageRendering: '-webkit-optimize-contrast' as const,
   };
 
-  const containerStyle = {
-    paddingBottom: '5vh',
+  const topMarginStyle = {
+    margin: '0px',
     '@media (max-width: 992px)': {
-      paddingTop: '5vh',
+      height: '5vh',
     },
     '@media (min-width: 992px)': {
-      paddingTop: '20vh',
+      height: '20vh',
+    },
+  };
+
+  const containerStyle = {
+    marginBottom: '5vh',
+    '@media (min-width: 992px)': {
       fontSize: '20px',
     },
   };
 
   return (
     <Container
-      className="d-flex justify-content-center"
+      className="d-flex flex-column justify-content-center"
       css={containerStyle}
-      fluid
     >
+      <Row css={topMarginStyle} />
       <Row>
         <Col lg={6} md={12} className="py-3 text-lg-left float-right">
-          <h1 className="display-2" css={titleStyle}>
+          <h1 className="display-2 pb-2" css={titleStyle}>
             Pure &amp;&amp; Lazy
           </h1>
-          <h2 className="display-3" css={subtitleStyle}>
+          <h2 className="display-4" css={subtitleStyle}>
             Create your own ePortfolio in minutes.
           </h2>
           <SignInButton />
