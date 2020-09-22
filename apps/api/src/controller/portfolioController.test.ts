@@ -7,6 +7,7 @@ import {
   viewAllItems,
   viewItem,
   deleteItem,
+  // TODO: add tests for `editItem` and `editProfile`
   Req,
 } from './portfolioController';
 import { Res } from './controllerUtil';
@@ -36,6 +37,7 @@ const callEndpoint = async <T>(
 };
 
 const username = 'test';
+const auth0Id = 'some_id';
 
 const userProfile: UserProfile = {
   username,
@@ -55,7 +57,7 @@ makeTestSuite('Portfolio Test', () => {
   it('should return a user profile', async () => {
     await UserModel.create({
       ...userProfile,
-      auth0Id: 'some_id',
+      auth0Id,
       portfolio: [],
     });
     const { data: actualProfile, status } = await callEndpoint(viewProfile, {
@@ -67,8 +69,9 @@ makeTestSuite('Portfolio Test', () => {
 
   it('should add a text item to the portfolio correctly', async () => {
     const { status } = await callEndpoint(createItem, {
-      params: { username },
+      params: {},
       body: textItem,
+      user: { sub: auth0Id },
     });
     expect(status).toBe(201);
   });
@@ -88,7 +91,7 @@ makeTestSuite('Portfolio Test', () => {
 
   it('should display a single portfolio item', async () => {
     const { data: actualItem, status: status } = await callEndpoint(viewItem, {
-      params: { username, portfolioItemId: textItemId },
+      params: { portfolioItemId: textItemId },
     });
     expect(status).toBe(200);
     expectJSONMatching(actualItem, textItem);
@@ -96,14 +99,15 @@ makeTestSuite('Portfolio Test', () => {
 
   it('should delete a portfolio item', async () => {
     const { data: _, status } = await callEndpoint(deleteItem, {
-      params: { username, portfolioItemId: textItemId },
+      params: { portfolioItemId: textItemId },
+      user: { sub: auth0Id },
     });
     expect(status).toBe(200);
   });
 
   it('should give a 404 for a deleted portfolio item', async () => {
     const { data: _, status } = await callEndpoint(viewItem, {
-      params: { username, portfolioItemId: textItemId },
+      params: { portfolioItemId: textItemId },
     });
     expect(status).toBe(404);
   });

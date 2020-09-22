@@ -36,7 +36,7 @@ const ProjectItem = (props: ProjectItem) => {
       token = '';
     }
 
-    await fetch(`/api/portfolio/${username}/${props.id}`, {
+    await fetch(`/api/portfolio/${props.id}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -57,7 +57,7 @@ const ProjectItem = (props: ProjectItem) => {
       token = '';
     }
 
-    await fetch(`/api/portfolio/${username}/${props.id}`, {
+    await fetch(`/api/portfolio/${props.id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
