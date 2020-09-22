@@ -1,7 +1,7 @@
 import { isDocument } from '@typegoose/typegoose';
-import { PortfolioItemModel, TextItemModel } from '../models/portfolioItem';
+import { PortfolioItemModel } from '../models/portfolioItem';
 import { UserModel } from '../models/user';
-import { UserProfile, PortfolioItemUnion } from '@pure-and-lazy/api-interfaces';
+import { UserProfile, PortfolioItem } from '@pure-and-lazy/api-interfaces';
 import { Res } from './controllerUtil';
 
 /** extractItemFromBody takes a request body containing portfolio item information
