@@ -18,10 +18,14 @@ import {
  *     PortfolioItem:
  *       type: object
  *       required:
+ *         - category
  *         - name
  *         - description
  *         - content
  *       properties:
+ *         category:
+ *           type: string
+ *           enum: [projects, blog]
  *         name:
  *           type: string
  *         description:
