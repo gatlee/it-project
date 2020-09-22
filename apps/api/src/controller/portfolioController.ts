@@ -4,38 +4,17 @@ import { UserModel } from '../models/user';
 import { UserProfile, PortfolioItem } from '@pure-and-lazy/api-interfaces';
 import { Res } from './controllerUtil';
 
-/** extractItemFromBody takes a request body containing portfolio item information
-    and extracts the appropriate fields based on the portfolio item type.
-    It returns the relevant DB model and the extracted fields. */
-const extractItemFromBody = (body?: PortfolioItemUnion): { model; item } => {
-  if (!body) {
-    return { model: null, item: null };
-  }
-  const item = { name: body.name, description: body.description };
-  if ('type' in body) {
-    switch (body.type) {
-      case 'TextItem':
-        return {
-          model: TextItemModel,
-          item: { ...item, content: body.content },
-        };
-    }
-  }
-  return { model: PortfolioItemModel, item };
-};
-
 interface Req {
   params: { username?: string; portfolioItemId?: string };
-  body?: PortfolioItemUnion;
+  body?: PortfolioItem;
 }
 
 const createItem = async (req: Req, res: Res<never>) => {
   const { username } = req.params;
-  const { model, item } = extractItemFromBody(req.body);
-  if (model) {
+  try {
     const now = new Date();
-    const newItem = await model.create({
-      ...item,
+    const newItem = await PortfolioItemModel.create({
+      ...req.body,
       created: now,
       lastModified: now,
     });
@@ -48,12 +27,12 @@ const createItem = async (req: Req, res: Res<never>) => {
     } catch {
       res.sendStatus(404);
     }
-  } else {
+  } catch {
     res.sendStatus(400);
   }
 };
 
-const viewItem = async (req: Req, res: Res<PortfolioItemUnion>) => {
+const viewItem = async (req: Req, res: Res<PortfolioItem>) => {
   const { portfolioItemId } = req.params;
   try {
     const item = await PortfolioItemModel.findById(portfolioItemId);
@@ -69,23 +48,22 @@ const viewItem = async (req: Req, res: Res<PortfolioItemUnion>) => {
 
 const editItem = async (req: Req, res: Res<never>) => {
   const { portfolioItemId } = req.params;
-  const { model, item } = extractItemFromBody(req.body);
-  if (model) {
+  try {
     try {
-      await model.findByIdAndUpdate(portfolioItemId, {
-        ...item,
+      await PortfolioItemModel.findByIdAndUpdate(portfolioItemId, {
+        ...req.body,
         lastModified: new Date(),
       });
       res.sendStatus(200);
     } catch {
       res.sendStatus(404);
     }
-  } else {
+  } catch {
     res.sendStatus(400);
   }
 };
 
-const viewAllItems = async (req: Req, res: Res<PortfolioItemUnion[]>) => {
+const viewAllItems = async (req: Req, res: Res<PortfolioItem[]>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username }).populate('portfolio');
