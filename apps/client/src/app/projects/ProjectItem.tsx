@@ -22,11 +22,10 @@ const ProjectItem = (props: ProjectItem) => {
 
   const handleSave = async (title: string, description: string) => {
     const data = {
-      type: 'TextItem',
+      category: 'projects',
       _id: props.id,
       name: title,
       description: description,
-      __v: 0,
     };
 
     let token: string;
