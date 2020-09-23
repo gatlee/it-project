@@ -18,6 +18,7 @@ const Auth0ProviderWithHistory = ({ children }) => {
     history.push(appState?.returnTo || window.location.pathname);
   };
 
+  // Documentation: https://auth0.github.io/auth0-react/interfaces/auth0provideroptions.html
   return (
     <Auth0Provider
       domain={auth0Domain}
@@ -25,6 +26,8 @@ const Auth0ProviderWithHistory = ({ children }) => {
       redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
       audience={auth0ApiIdentifier}
+      useRefreshTokens
+      cacheLocation="localstorage"
     >
       {children}
     </Auth0Provider>
