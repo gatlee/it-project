@@ -1,15 +1,14 @@
 import { css } from 'emotion';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useParams } from 'react-router-dom';
+import { EditContext } from './EditContext';
 
-interface PortfolioNavBar {
-  editMode?: boolean;
-}
-const PortfolioNavBar = (props: PortfolioNavBar) => {
+const PortfolioNavBar = () => {
   const { id } = useParams();
-  const URL_PREFIX = props.editMode ? `/edit` : `/u/${id}`;
+  const editMode = useContext(EditContext);
+  const URL_PREFIX = editMode ? `/edit` : `/u/${id}`;
   const logoStyle = css`
     position: relative;
     @media (min-width: 1430px) {

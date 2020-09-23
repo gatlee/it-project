@@ -2,8 +2,11 @@ import React from 'react';
 import { ProjectItemList } from '../projects/ProjectItemList';
 import { TitleBox } from './TitleBox';
 
+interface ProjectPage {
+  editable?: boolean;
+}
 // Content of the project tab
-const ProjectPage = () => (
+const ProjectPage = (props: ProjectPage) => (
   <>
     <TitleBox
       title="Projects"

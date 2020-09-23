@@ -3,10 +3,6 @@ import { Container } from 'react-bootstrap';
 import { AboutDisplay } from './AboutDisplay';
 import { AboutEditor } from './AboutEditor';
 
-interface About {
-  editable?: boolean;
-}
-
 const About = (props: About) => {
   const [editorOpen, setEditorOpen] = useState(false);
   const [content, setContent] = useState(
