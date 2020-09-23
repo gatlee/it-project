@@ -2,6 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState } from 'react';
 import { ProjectItemDisplay } from './ProjectItemDisplay';
 import { ProjectItemEditor } from './ProjectItemEditor';
+import { deleteProjectItem, updateProjectItem } from './ProjectUtils';
 
 interface ProjectItem {
   id: string;
@@ -11,8 +12,7 @@ interface ProjectItem {
 }
 
 const ProjectItem = (props: ProjectItem) => {
-  const { user, getAccessTokenSilently } = useAuth0();
-  const username = user ? user.nickname : 'test';
+  const { getAccessTokenSilently } = useAuth0();
 
   const [editorOpen, setEditorOpen] = useState(false);
 
@@ -20,48 +20,18 @@ const ProjectItem = (props: ProjectItem) => {
   const handleOpenEditor = () => setEditorOpen(true);
 
   const handleSave = async (title: string, description: string) => {
-    const data = {
-      type: 'TextItem',
-      _id: props.id,
-      name: title,
-      description: description,
-      __v: 0,
-    };
-
-    let token: string;
-    try {
-      token = await getAccessTokenSilently();
-    } catch (error) {
-      token = '';
-    }
-
-    await fetch(`/api/portfolio/${props.id}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-
+    await updateProjectItem(
+      title,
+      description,
+      props.id,
+      getAccessTokenSilently
+    );
     setEditorOpen(false);
     props.onUpdate();
   };
 
   const handleDelete = async () => {
-    let token: string;
-    try {
-      token = await getAccessTokenSilently();
-    } catch (error) {
-      token = '';
-    }
-
-    await fetch(`/api/portfolio/${props.id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    deleteProjectItem(props.id, getAccessTokenSilently);
 
     props.onUpdate();
     setEditorOpen(false);
