@@ -8,14 +8,12 @@ import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
 import { EditContext } from './EditContext';
 
-const EditIndex = (_props: _EditIndex) => {
+const EditIndex = () => {
   const isEditMode = true;
   const { path } = useRouteMatch();
   console.log(path);
 
-  const footer: React.ReactNode = (
-    <PortfolioEditFooter handleViewPublic={() => console.log('TODO')} />
-  );
+  const footer: React.ReactNode = <PortfolioEditFooter />;
 
   return (
     <EditContext.Provider value={true}>
@@ -32,7 +30,7 @@ const EditIndex = (_props: _EditIndex) => {
             <h1>Blog</h1>
           </Route>
           <Route exact path={`${path}/about`}>
-            <About editable />
+            <About />
           </Route>
         </Switch>
       </FooterWrapper>
