@@ -4,11 +4,14 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useParams } from 'react-router-dom';
 import { EditContext } from './EditContext';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const PortfolioNavBar = () => {
   const { id } = useParams();
+  const { user } = useAuth0();
   const editMode = useContext(EditContext);
   const URL_PREFIX = editMode ? `/edit` : `/u/${id}`;
+  const name = editMode ? user.nickname : id;
   const logoStyle = css`
     position: relative;
     @media (min-width: 1430px) {
@@ -31,7 +34,7 @@ const PortfolioNavBar = () => {
           ${logoStyle}
         `}
       >
-        <Navbar.Brand>{id}'s ePortfolio</Navbar.Brand>
+        <Navbar.Brand>{name}</Navbar.Brand>
       </LinkContainer>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Container>
