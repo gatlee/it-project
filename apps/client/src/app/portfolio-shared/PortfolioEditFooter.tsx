@@ -1,11 +1,12 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import { BoxArrowUpRight } from 'react-bootstrap-icons';
+import { useAuth0 } from '@auth0/auth0-react';
+import { LinkContainer } from 'react-router-bootstrap';
 
-interface PortfolioEditFooter {
-  handleViewPublic: () => void;
-}
-
-const PortfolioEditFooter = (props: PortfolioEditFooter) => {
+const PortfolioEditFooter = () => {
+  const { user } = useAuth0();
+  const link = `/u/${user.nickname}`;
   const footerStyle = {
     backgroundColor: '#f8f9fa',
     color: 'black',
@@ -21,9 +22,12 @@ const PortfolioEditFooter = (props: PortfolioEditFooter) => {
       <Container style={{ textAlign: 'center' }}>
         <span>
           You are in edit mode. To see what this looks like to the public click{' '}
-          <span style={textLinkStyle} onClick={props.handleViewPublic}>
-            <b>here</b>
-          </span>
+          <LinkContainer to={link} style={{ cursor: 'pointer' }}>
+            <span style={textLinkStyle}>
+              <b>here</b>
+              <BoxArrowUpRight />
+            </span>
+          </LinkContainer>
         </span>
       </Container>
     </footer>
