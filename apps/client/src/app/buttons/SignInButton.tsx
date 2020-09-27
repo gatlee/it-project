@@ -7,7 +7,7 @@ const SignInButton = () => {
 
   return (
     <Button
-      style={{ background: '#E5E5E5' }}
+      className="mr-2"
       variant="light"
       onClick={() => loginWithRedirect()}
     >
