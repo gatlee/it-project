@@ -26,6 +26,7 @@ const createItem = async (req: Req<PortfolioItem>, res: Res<never>) => {
       );
       res.sendStatus(201);
     } catch {
+      await PortfolioItemModel.deleteOne(newItem);
       res.sendStatus(404);
     }
   } catch {
