@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Button,
   Col,
@@ -13,26 +13,27 @@ import { EditorBody } from './EditorBody';
 
 interface ProjectItemEditor {
   title: string;
+  onTitleChange: (title: string) => void;
   description: string;
+  onDescriptionChange: (description: string) => void;
+  content: string;
+  onContentChange: (content: string) => void;
   onCancel: () => void;
-  onSave: (title: string, description: string) => void;
+  onSave: () => void;
   show: boolean;
 }
 const ProjectItemEditor = (props: ProjectItemEditor) => {
-  const [title, setTitle] = useState(props.title);
-  const [description, setDescription] = useState(props.description);
-
   const handleDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setDescription(event.target.value);
+    props.onDescriptionChange(event.target.value);
   };
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
+    props.onTitleChange(event.target.value);
   };
 
   const handleSave = () => {
-    props.onSave(title, description);
+    props.onSave();
   };
 
   return (
@@ -55,7 +56,7 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
             <Image
               src="https://picsum.photos/180/180"
               fluid
-              className="w-100"
+              className="w-100 p-3"
             />
           </Col>
           <Col xs={12} sm={12} md={8}>
@@ -65,14 +66,14 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
                 <Form.Control
                   onChange={handleTitleChange}
                   size="lg"
-                  value={title}
+                  value={props.title}
                 />
               </Form.Group>
               <Form.Group controlId="formGroupDescription">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   as="textarea"
-                  value={description}
+                  value={props.description}
                   onChange={handleDescriptionChange}
                   style={{ minHeight: '100px' }}
                 />
@@ -81,7 +82,10 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
           </Col>
         </Row>
         <Row className="w-100 mx-0 py-3">
-          <EditorBody />
+          <EditorBody
+            content={props.content}
+            onContentChange={props.onContentChange}
+          />
         </Row>
         <Row>
           <Col>

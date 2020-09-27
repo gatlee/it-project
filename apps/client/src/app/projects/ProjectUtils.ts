@@ -7,6 +7,7 @@
 const updateProjectItem = async (
   title: string,
   description: string,
+  content: string,
   id: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getAccessTokenSilently: (options?: any) => Promise<string>
@@ -23,6 +24,7 @@ const updateProjectItem = async (
     _id: id,
     name: title,
     description: description,
+    content: content,
     __v: 0,
   };
 

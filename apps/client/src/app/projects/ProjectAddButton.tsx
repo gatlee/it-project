@@ -11,14 +11,21 @@ interface ProjectAddButton {
 const ProjectAddButton = (props: ProjectAddButton) => {
   const { getAccessTokenSilently } = useAuth0();
   const [editorOpen, setEditorOpen] = useState(false);
-  const closeEditor = () => setEditorOpen(false);
+  const [editorTitle, setEditorTitle] = useState('');
+  const [editorDescription, setEditorDescription] = useState('');
+  const [editorContent, setEditorContent] = useState('');
+  const closeEditor = () => {
+    setEditorOpen(false);
+    setEditorTitle('');
+    setEditorDescription('');
+  };
 
-  const handleSave = async (title: string, description: string) => {
+  const handleSave = async () => {
     //TODO Extract this out
     const body = {
-      name: title,
-      description: description,
-      content: 'Not Implemented',
+      name: editorTitle,
+      description: editorDescription,
+      content: editorContent,
       type: 'TextItem',
     };
 
@@ -42,19 +49,25 @@ const ProjectAddButton = (props: ProjectAddButton) => {
     closeEditor();
   };
 
-  return !editorOpen ? (
-    <CenteredRowContent>
-      <Button size="lg" onClick={() => setEditorOpen(true)}>
-        +
-      </Button>
-    </CenteredRowContent>
-  ) : (
-    <ProjectItemEditor
-      title=""
-      description=""
-      onCancel={() => setEditorOpen(false)}
-      onSave={handleSave}
-    />
+  return (
+    <>
+      <CenteredRowContent>
+        <Button size="lg" onClick={() => setEditorOpen(true)}>
+          +
+        </Button>
+      </CenteredRowContent>
+      <ProjectItemEditor
+        title={editorTitle}
+        onTitleChange={setEditorTitle}
+        description={editorDescription}
+        onDescriptionChange={setEditorDescription}
+        content={editorContent}
+        onContentChange={setEditorContent}
+        onCancel={closeEditor}
+        onSave={handleSave}
+        show={editorOpen}
+      />
+    </>
   );
 };
 

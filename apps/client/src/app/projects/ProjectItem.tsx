@@ -8,6 +8,7 @@ interface ProjectItem {
   id: string;
   title: string;
   description: string;
+  content: string;
   onUpdate: () => void;
 }
 
@@ -15,14 +16,19 @@ const ProjectItem = (props: ProjectItem) => {
   const { getAccessTokenSilently } = useAuth0();
 
   const [editorOpen, setEditorOpen] = useState(false);
+  const [editorTitle, setEditorTitle] = useState(props.title);
+  const [editorDescription, setEditorDescription] = useState(props.description);
+  const [editorContent, setEditorContent] = useState(props.content);
+  //TODO pull in body
 
   const handleCancel = () => setEditorOpen(false);
   const handleOpenEditor = () => setEditorOpen(true);
 
-  const handleSave = async (title: string, description: string) => {
+  const handleSave = async () => {
     await updateProjectItem(
-      title,
-      description,
+      editorTitle,
+      editorDescription,
+      editorContent,
       props.id,
       getAccessTokenSilently
     );
@@ -40,8 +46,12 @@ const ProjectItem = (props: ProjectItem) => {
   return (
     <>
       <ProjectItemEditor
-        title={props.title}
-        description={props.description}
+        title={editorTitle}
+        onTitleChange={setEditorTitle}
+        description={editorDescription}
+        onDescriptionChange={setEditorDescription}
+        content={editorContent}
+        onContentChange={setEditorContent}
         onCancel={handleCancel}
         onSave={handleSave}
         show={editorOpen}

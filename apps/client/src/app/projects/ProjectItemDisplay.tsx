@@ -7,7 +7,6 @@ interface ProjectItemDisplay {
   description: string;
   onOpenEditor: () => void;
   onDelete: () => void;
-  show: boolean;
 }
 
 // Card display that shows the project item
