@@ -28,7 +28,7 @@ const createItem = async (req: Req, res: Res<never>) => {
     } catch {
       res.sendStatus(404);
     }
-  } else {
+  } catch {
     res.sendStatus(400);
   }
 };
@@ -63,8 +63,9 @@ const editItem = async (req: Req, res: Res<never>) => {
         res.sendStatus(200);
       } catch {
         res.sendStatus(404);
+      }
     } else {
-      res.sendStatus(404); 
+      res.sendStatus(404);
     }
   } catch {
     res.sendStatus(400);
