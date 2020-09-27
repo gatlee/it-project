@@ -17,7 +17,8 @@ const Loader = (props: Loader) => {
     </Row>
   );
 
-  return props.loaded ? props.children : spinner;
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  return props.loaded ? <>{props.children}</> : spinner;
 };
 
 export { Loader };
