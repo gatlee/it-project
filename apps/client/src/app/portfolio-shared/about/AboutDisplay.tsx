@@ -2,9 +2,9 @@ import React from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import ReactMarkdown from 'react-markdown/umd/react-markdown';
 import { Pencil } from 'react-bootstrap-icons';
+import { EditContext } from '../EditContext';
 
 interface AboutDisplay {
-  editable?: boolean;
   content: string;
   onOpenEditor: () => void;
 }
@@ -17,9 +17,13 @@ const AboutDisplay = (props: AboutDisplay) => {
       </Col>
       <Col sm="auto">
         <Container className="p-3">
-          {props.editable && (
-            <Pencil onClick={props.onOpenEditor} className="pointer" />
-          )}
+          <EditContext.Consumer>
+            {(editMode) =>
+              editMode && (
+                <Pencil onClick={props.onOpenEditor} className="pointer" />
+              )
+            }
+          </EditContext.Consumer>
         </Container>
       </Col>
     </Row>

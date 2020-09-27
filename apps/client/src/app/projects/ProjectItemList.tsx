@@ -1,14 +1,14 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useEffect, useState, useCallback } from 'react';
-import { Container, Row, Spinner } from 'react-bootstrap';
-import { CenteredRowContent } from '../layout/CenteredRowContent';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Container, Row } from 'react-bootstrap';
+import { Loader } from '../layout/Loader';
+import { EditContext } from '../portfolio-shared/EditContext';
 import { ProjectAddButton } from './ProjectAddButton';
 import { ProjectItem } from './ProjectItem';
 
 const ProjectItemList = () => {
   const { user } = useAuth0();
   const username = user ? user.nickname : 'test';
-  const editMode = true;
 
   const [items, setItems] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -31,25 +31,24 @@ const ProjectItemList = () => {
       key={index}
       title={item.name}
       description={item.description}
-      editable={editMode}
       onUpdate={loadItems}
     />
   ));
 
-  const spinner = (
-    <Row className="align-tiems-center mt-5">
-      <CenteredRowContent>
-        <Spinner animation="grow" variant="primary" />
-      </CenteredRowContent>
-    </Row>
-  );
-
   return (
     <Container className="pt-5">
-      {loaded ? <Row>{portfolioItems} </Row> : spinner}
-      <Row className="align-items-center my-5">
-        <ProjectAddButton onAdd={loadItems} />
-      </Row>
+      <Loader loaded={loaded}>
+        <Row>{portfolioItems} </Row>
+      </Loader>
+      <EditContext.Consumer>
+        {(editMode) =>
+          editMode && (
+            <Row className="align-items-center my-5">
+              <ProjectAddButton onAdd={loadItems} />
+            </Row>
+          )
+        }
+      </EditContext.Consumer>
     </Container>
   );
 };
