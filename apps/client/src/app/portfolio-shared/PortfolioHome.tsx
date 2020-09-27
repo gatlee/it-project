@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { PortfolioAvatar } from './PortfolioAvatar';
 import { CenteredRowContent } from '../layout/CenteredRowContent';
 import { UploadBox } from '../UploadBox';
+import { EditContext } from './EditContext';
 
 const PortfolioHome = () => {
+  const editMode = useContext(EditContext);
+
   return (
     <Container>
       <Row>
@@ -12,11 +15,13 @@ const PortfolioHome = () => {
           <PortfolioAvatar />
         </CenteredRowContent>
       </Row>
-      <Row>
-        <CenteredRowContent>
-          <UploadBox />
-        </CenteredRowContent>
-      </Row>
+      {editMode && (
+        <Row>
+          <CenteredRowContent>
+            <UploadBox />
+          </CenteredRowContent>
+        </Row>
+      )}
     </Container>
   );
 };
