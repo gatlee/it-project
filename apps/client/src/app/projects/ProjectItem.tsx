@@ -31,26 +31,28 @@ const ProjectItem = (props: ProjectItem) => {
   };
 
   const handleDelete = async () => {
-    deleteProjectItem(props.id, getAccessTokenSilently);
+    await deleteProjectItem(props.id, getAccessTokenSilently);
 
     props.onUpdate();
     setEditorOpen(false);
   };
 
-  return editorOpen ? (
-    <ProjectItemEditor
-      title={props.title}
-      description={props.description}
-      onCancel={handleCancel}
-      onSave={handleSave}
-    />
-  ) : (
-    <ProjectItemDisplay
-      title={props.title}
-      description={props.description}
-      onOpenEditor={handleOpenEditor}
-      onDelete={handleDelete}
-    />
+  return (
+    <>
+      <ProjectItemEditor
+        title={props.title}
+        description={props.description}
+        onCancel={handleCancel}
+        onSave={handleSave}
+        show={editorOpen}
+      />
+      <ProjectItemDisplay
+        title={props.title}
+        description={props.description}
+        onOpenEditor={handleOpenEditor}
+        onDelete={handleDelete}
+      />
+    </>
   );
 };
 

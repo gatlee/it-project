@@ -16,6 +16,7 @@ interface ProjectItemEditor {
   description: string;
   onCancel: () => void;
   onSave: (title: string, description: string) => void;
+  show: boolean;
 }
 const ProjectItemEditor = (props: ProjectItemEditor) => {
   const [title, setTitle] = useState(props.title);
@@ -35,7 +36,7 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
   };
 
   return (
-    <Modal show={true} centered dialogClassName="modal-xl">
+    <Modal show={props.show} centered dialogClassName="modal-xl">
       <Container
         style={{
           backgroundColor: 'white',

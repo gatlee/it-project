@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Col } from 'react-bootstrap';
+import { Button, Card, Col, ButtonGroup } from 'react-bootstrap';
 import { EditContext } from '../portfolio-shared/EditContext';
 
 interface ProjectItemDisplay {
@@ -7,6 +7,7 @@ interface ProjectItemDisplay {
   description: string;
   onOpenEditor: () => void;
   onDelete: () => void;
+  show: boolean;
 }
 
 // Card display that shows the project item
@@ -31,10 +32,17 @@ const ProjectItemDisplay = (props: ProjectItemDisplay) => {
           <EditContext.Consumer>
             {(editMode) =>
               editMode && (
-                <>
-                  <Button onClick={props.onOpenEditor}>Edit</Button>
-                  <Button onClick={props.onDelete}>Delete</Button>
-                </>
+                <ButtonGroup>
+                  <Button
+                    onClick={props.onOpenEditor}
+                    variant="outline-primary"
+                  >
+                    Edit
+                  </Button>
+                  <Button onClick={props.onDelete} variant="outline-danger">
+                    Delete
+                  </Button>
+                </ButtonGroup>
               )
             }
           </EditContext.Consumer>
