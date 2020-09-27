@@ -7,7 +7,8 @@ import {
   viewAllItems,
   viewItem,
   deleteItem,
-  // TODO: add tests for `editItem` and `editProfile`
+  editItem,
+  editProfile,
   Req,
 } from './portfolioController';
 import { Res } from './controllerUtil';
@@ -18,12 +19,12 @@ const expectJSONMatching = (actual, expected) => {
   expect(actual).toMatchObject(jsonMangle(expected));
 };
 
-const callEndpoint = async <T>(
-  endpoint: (req: Req, res: Res<T>) => Promise<void>,
-  req: Req
+const callEndpoint = async <T, U>(
+  endpoint: (req: Req<T>, res: Res<U>) => Promise<void>,
+  req: Req<T>
 ) => {
   const result: { data?; status?: number } = {};
-  const res: Res<T> = {
+  const res: Res<U> = {
     send: (object) => {
       result.data = jsonMangle(object);
       result.status = 200;
@@ -91,7 +92,7 @@ makeTestSuite('Portfolio Test', () => {
 
   it('should display a single portfolio item', async () => {
     const { data: actualItem, status: status } = await callEndpoint(viewItem, {
-      params: { username, portfolioItemId }
+      params: { username, portfolioItemId },
     });
     expect(status).toBe(200);
     expectJSONMatching(actualItem, portfolioItem);

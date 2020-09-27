@@ -33,7 +33,7 @@ const createItem = async (req: Req<PortfolioItem>, res: Res<never>) => {
   }
 };
 
-const viewItem = async (req: Req<never>, res: Res<PortfolioItem>) => {
+const viewItem = async (req: Req<{}>, res: Res<PortfolioItem>) => {
   const { portfolioItemId } = req.params;
   try {
     const item = await PortfolioItemModel.findById(portfolioItemId);
@@ -72,7 +72,7 @@ const editItem = async (req: Req<PortfolioItem>, res: Res<never>) => {
   }
 };
 
-const viewAllItems = async (req: Req<never>, res: Res<PortfolioItem[]>) => {
+const viewAllItems = async (req: Req<{}>, res: Res<PortfolioItem[]>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username }).populate('portfolio');
@@ -82,7 +82,7 @@ const viewAllItems = async (req: Req<never>, res: Res<PortfolioItem[]>) => {
   }
 };
 
-const deleteItem = async (req: Req<never>, res: Res<never>) => {
+const deleteItem = async (req: Req<{}>, res: Res<never>) => {
   const { portfolioItemId } = req.params;
   const user = await UserModel.findOne({
     auth0Id: req.user.sub,
@@ -103,7 +103,7 @@ const deleteItem = async (req: Req<never>, res: Res<never>) => {
   }
 };
 
-const viewProfile = async (req: Req<never>, res: Res<UserProfile>) => {
+const viewProfile = async (req: Req<{}>, res: Res<UserProfile>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username });
