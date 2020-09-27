@@ -111,11 +111,31 @@ makeTestSuite('Portfolio Test', () => {
   });
 
   it('should display a single portfolio item', async () => {
-    const { data: actualItem, status: status } = await callEndpoint(viewItem, {
+    const { data: actualItem, status } = await callEndpoint(viewItem, {
       params: { username, portfolioItemId },
     });
     expect(status).toBe(200);
     expectJSONMatching(actualItem, portfolioItem);
+  });
+
+  it('should allow editing a portfolio item', async () => {
+    const newItem = {
+      ...portfolioItem,
+      name: 'A Poem, Revised',
+      content: '... (there is no poem)',
+    };
+    const { status } = await callEndpoint(editItem, {
+      params: { portfolioItemId },
+      body: newItem,
+      user: { sub: auth0Id },
+    });
+    expect(status).toBe(200);
+
+    const { data, status: status2 } = await callEndpoint(viewItem, {
+      params: { username, portfolioItemId },
+    });
+    expect(status2).toBe(200);
+    expectJSONMatching(data, newItem);
   });
 
   it('should delete a portfolio item', async () => {
