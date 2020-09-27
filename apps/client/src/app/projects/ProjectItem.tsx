@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState } from 'react';
 import { ProjectItemDisplay } from './ProjectItemDisplay';
-import { ProjectItemEditor } from './ProjectItemEditor';
+import { ProjectItemEditor } from './editor/ProjectItemEditor';
 import { deleteProjectItem, updateProjectItem } from './ProjectUtils';
 
 interface ProjectItem {

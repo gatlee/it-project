@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CenteredRowContent } from '../layout/CenteredRowContent';
 import { Button } from 'react-bootstrap';
-import { ProjectItemEditor } from './ProjectItemEditor';
+import { ProjectItemEditor } from './editor/ProjectItemEditor';
 import { useAuth0 } from '@auth0/auth0-react';
 import { addProjectItem } from './ProjectUtils';
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import ReactMde from 'react-mde';
-import * as ReactMarkdown from 'react-markdown/umd/react-markdown';
+import ReactMarkdown from 'react-markdown/umd/react-markdown';
 
 interface EditorBody {
   content: string;
