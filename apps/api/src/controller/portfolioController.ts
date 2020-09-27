@@ -124,6 +124,7 @@ const editProfile = async (req: Req<UserProfile>, res: Res<never>) => {
       { auth0Id: req.user.sub },
       { email, name }
     );
+    res.sendStatus(200);
   } catch {
     res.sendStatus(400);
   }

@@ -68,6 +68,26 @@ makeTestSuite('Portfolio Test', () => {
     expectJSONMatching(actualProfile, userProfile);
   });
 
+  it('should allow editing the user profile', async () => {
+    const newProfile = {
+      ...userProfile,
+      name: 'Jane Doe',
+      email: 'anotherexample@gmail.com',
+    };
+    const { status } = await callEndpoint(editProfile, {
+      params: {},
+      body: newProfile,
+      user: { sub: auth0Id },
+    });
+    expect(status).toBe(200);
+
+    const { data, status: status2 } = await callEndpoint(viewProfile, {
+      params: { username },
+    });
+    expect(status2).toBe(200);
+    expectJSONMatching(data, newProfile);
+  });
+
   it('should add a portfolio item to the portfolio correctly', async () => {
     const { status } = await callEndpoint(createItem, {
       params: {},
