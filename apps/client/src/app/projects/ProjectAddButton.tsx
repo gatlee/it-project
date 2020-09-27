@@ -3,6 +3,7 @@ import { CenteredRowContent } from '../layout/CenteredRowContent';
 import { Button } from 'react-bootstrap';
 import { ProjectItemEditor } from './ProjectItemEditor';
 import { useAuth0 } from '@auth0/auth0-react';
+import { addProjectItem } from './ProjectUtils';
 
 interface ProjectAddButton {
   onAdd: () => void;
@@ -21,29 +22,12 @@ const ProjectAddButton = (props: ProjectAddButton) => {
   };
 
   const handleSave = async () => {
-    //TODO Extract this out
-    const body = {
-      name: editorTitle,
-      description: editorDescription,
-      content: editorContent,
-      type: 'TextItem',
-    };
-
-    let token: string;
-    try {
-      token = await getAccessTokenSilently();
-    } catch (error) {
-      token = '';
-    }
-
-    await fetch(`/api/portfolio/create`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
+    await addProjectItem(
+      editorTitle,
+      editorDescription,
+      editorContent,
+      getAccessTokenSilently
+    );
 
     props.onAdd();
     closeEditor();

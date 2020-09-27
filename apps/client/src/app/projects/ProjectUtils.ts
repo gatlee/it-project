@@ -51,7 +51,7 @@ const deleteProjectItem = async (
     token = '';
   }
 
-  await fetch(`/api/portfolio/${id}`, {
+  return fetch(`/api/portfolio/${id}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -59,4 +59,35 @@ const deleteProjectItem = async (
   });
 };
 
-export { updateProjectItem, deleteProjectItem };
+const addProjectItem = async (
+  title: string,
+  description: string,
+  content: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getAccessTokenSilently: (options?: any) => Promise<string>
+) => {
+  const body = {
+    name: title,
+    description: description,
+    content: content,
+    type: 'TextItem',
+  };
+
+  let token: string;
+  try {
+    token = await getAccessTokenSilently();
+  } catch (error) {
+    token = '';
+  }
+
+  return fetch(`/api/portfolio/create`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+};
+
+export { updateProjectItem, deleteProjectItem, addProjectItem };
