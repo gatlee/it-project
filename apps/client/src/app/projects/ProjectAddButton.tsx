@@ -29,7 +29,7 @@ const ProjectAddButton = (props: ProjectAddButton) => {
       token = '';
     }
 
-    await fetch(`/api/portfolio/${username}/create`, {
+    await fetch(`/api/portfolio/create`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,

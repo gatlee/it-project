@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { checkUserAuth } from '../auth';
+import { checkJwt } from '../auth';
 import {
   viewAllItems,
   createItem,
@@ -89,9 +89,9 @@ import {
 
 const router = Router();
 
-router.all('/:username/*', (req, res, next) => {
+router.all('/*', (req, res, next) => {
   if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
-    checkUserAuth(req, res, next);
+    checkJwt(req, res, next);
   } else {
     next();
   }
@@ -115,22 +115,25 @@ router.all('/:username/*', (req, res, next) => {
  *         description: Unknown user.
  *     tags:
  *       - /api/portfolio
+ */
+router.get('/:username/profile', viewProfile);
+
+/**
+ * @swagger
+ * /profile:
  *   put:
  *     description: Edit a user's profile.
  *     parameters:
- *       - $ref: '#/components/parameters/usernameParam'
  *       - $ref: '#/components/parameters/userProfileParam'
  *     responses:
  *       200:
  *         description: Profile edited successfully.
- *       404:
- *         description: Unknown user.
  *       400:
  *         description: Malformed input.
  *     tags:
  *       - /api/portfolio
  */
-router.route('/:username/profile').get(viewProfile).put(editProfile);
+router.put('/profile', editProfile);
 
 /**
  * @swagger
@@ -157,11 +160,10 @@ router.get('/:username/all', viewAllItems);
 
 /**
  * @swagger
- * /{username}/create:
+ * /create:
  *   post:
  *     description: Create a portfolio item.
  *     parameters:
- *       - $ref: '#/components/parameters/usernameParam'
  *       - $ref: '#/components/parameters/portfolioItemParam'
  *     responses:
  *       201:
@@ -173,15 +175,14 @@ router.get('/:username/all', viewAllItems);
  *     tags:
  *       - /api/portfolio
  */
-router.post('/:username/create', createItem);
+router.post('/create', createItem);
 
 /**
  * @swagger
- * /{username}/{portfolioItemId}:
+ * /{portfolioItemId}:
  *   get:
  *     description: Get an individual portfolio item.
  *     parameters:
- *       - $ref: '#/components/parameters/usernameParam'
  *       - $ref: '#/components/parameters/portfolioItemIdParam'
  *     responses:
  *       200:
@@ -197,7 +198,6 @@ router.post('/:username/create', createItem);
  *   put:
  *     description: Edit a portfolio item.
  *     parameters:
- *       - $ref: '#/components/parameters/usernameParam'
  *       - $ref: '#/components/parameters/portfolioItemIdParam'
  *       - $ref: '#/components/parameters/portfolioItemParam'
  *     responses:
@@ -207,23 +207,26 @@ router.post('/:username/create', createItem);
  *         description: Unknown portfolio item.
  *       400:
  *         description: Malformed input.
+ *       401:
+ *         description: Portfolio item belongs to another user.
  *     tags:
  *       - /api/portfolio
  *   delete:
  *     description: Delete a portfolio item.
  *     parameters:
- *       - $ref: '#/components/parameters/usernameParam'
  *       - $ref: '#/components/parameters/portfolioItemIdParam'
  *     responses:
  *       200:
  *         description: Portfolio item deleted successfully.
  *       404:
  *         description: Unknown portfolio item.
+ *       401:
+ *         description: Portfolio item belongs to another user.
  *     tags:
  *       - /api/portfolio
  */
 router
-  .route('/:username/:portfolioItemId')
+  .route('/:portfolioItemId')
   .get(viewItem)
   .put(editItem)
   .delete(deleteItem);

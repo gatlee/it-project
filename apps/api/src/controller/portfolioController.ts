@@ -1,3 +1,4 @@
+import * as mongoose from 'mongoose';
 import { isDocument } from '@typegoose/typegoose';
 import { PortfolioItemModel } from '../models/portfolioItem';
 import { UserModel } from '../models/user';
@@ -7,10 +8,10 @@ import { Res } from './controllerUtil';
 interface Req {
   params: { username?: string; portfolioItemId?: string };
   body?: PortfolioItem;
+  user?: { sub: string };
 }
 
 const createItem = async (req: Req, res: Res<never>) => {
-  const { username } = req.params;
   try {
     const now = new Date();
     const newItem = await PortfolioItemModel.create({
@@ -20,14 +21,14 @@ const createItem = async (req: Req, res: Res<never>) => {
     });
     try {
       await UserModel.findOneAndUpdate(
-        { username },
+        { auth0Id: req.user.sub },
         { $push: { portfolio: newItem } }
       );
       res.sendStatus(201);
     } catch {
       res.sendStatus(404);
     }
-  } catch {
+  } else {
     res.sendStatus(400);
   }
 };
@@ -49,14 +50,21 @@ const viewItem = async (req: Req, res: Res<PortfolioItem>) => {
 const editItem = async (req: Req, res: Res<never>) => {
   const { portfolioItemId } = req.params;
   try {
-    try {
-      await PortfolioItemModel.findByIdAndUpdate(portfolioItemId, {
-        ...req.body,
-        lastModified: new Date(),
-      });
-      res.sendStatus(200);
-    } catch {
-      res.sendStatus(404);
+    const user = await UserModel.findOne({
+      auth0Id: req.user.sub,
+      portfolio: mongoose.Types.ObjectId(portfolioItemId),
+    });
+    if (user) {
+      try {
+        await PortfolioItemModel.findByIdAndUpdate(portfolioItemId, {
+          ...req.body,
+          lastModified: new Date(),
+        });
+        res.sendStatus(200);
+      } catch {
+        res.sendStatus(404);
+    } else {
+      res.sendStatus(404); 
     }
   } catch {
     res.sendStatus(400);
@@ -75,14 +83,22 @@ const viewAllItems = async (req: Req, res: Res<PortfolioItem[]>) => {
 
 const deleteItem = async (req: Req, res: Res<never>) => {
   const { portfolioItemId } = req.params;
-  try {
-    await PortfolioItemModel.findByIdAndDelete(portfolioItemId);
-    /* Note: the deleted item ID will remain in the user's portfolio array,
-       but will not be returned from queries like `viewAllItems` as it is
-       filtered by `isDocument`. */
-    res.sendStatus(200);
-  } catch {
-    res.sendStatus(404);
+  const user = await UserModel.findOne({
+    auth0Id: req.user.sub,
+    portfolio: mongoose.Types.ObjectId(portfolioItemId),
+  });
+  if (user) {
+    try {
+      await PortfolioItemModel.findByIdAndDelete(portfolioItemId);
+      /* Note: the deleted item ID will remain in the user's portfolio array,
+         but will not be returned from queries like `viewAllItems` as it is
+         filtered by `isDocument`. */
+      res.sendStatus(200);
+    } catch {
+      res.sendStatus(404);
+    }
+  } else {
+    res.sendStatus(401);
   }
 };
 
