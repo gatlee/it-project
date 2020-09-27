@@ -9,12 +9,12 @@ interface ProjectAddButton {
 }
 
 const ProjectAddButton = (props: ProjectAddButton) => {
-  const { user, getAccessTokenSilently } = useAuth0();
-  const username = user ? user.nickname : 'test';
+  const { getAccessTokenSilently } = useAuth0();
   const [editorOpen, setEditorOpen] = useState(false);
   const closeEditor = () => setEditorOpen(false);
 
   const handleSave = async (title: string, description: string) => {
+    //TODO Extract this out
     const body = {
       name: title,
       description: description,

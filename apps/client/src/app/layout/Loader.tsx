@@ -17,7 +17,7 @@ const Loader = (props: Loader) => {
     </Row>
   );
 
-  return props.loaded ? <>{props.children}</> : spinner;
+  return props.loaded ? props.children : spinner;
 };
 
 export { Loader };

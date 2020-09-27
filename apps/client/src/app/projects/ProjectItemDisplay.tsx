@@ -30,7 +30,12 @@ const ProjectItemDisplay = (props: ProjectItemDisplay) => {
           <Card.Text style={clamp}>{props.description}</Card.Text>
           <EditContext.Consumer>
             {(editMode) =>
-              editMode && <Button onClick={props.onOpenEditor}>Edit</Button>
+              editMode && (
+                <>
+                  <Button onClick={props.onOpenEditor}>Edit</Button>
+                  <Button onClick={props.onDelete}>Delete</Button>
+                </>
+              )
             }
           </EditContext.Consumer>
         </Card.Body>
