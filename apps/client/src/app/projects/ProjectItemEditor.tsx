@@ -45,6 +45,11 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
         fluid
       >
         <Row>
+          <Col>
+            <h2>Edit Portfolio Item</h2>
+          </Col>
+        </Row>
+        <Row className="py-3">
           <Col xs={12} sm={12} md={4}>
             <Image
               src="https://picsum.photos/180/180"
@@ -68,12 +73,13 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
                   as="textarea"
                   value={description}
                   onChange={handleDescriptionChange}
+                  style={{ minHeight: '100px' }}
                 />
               </Form.Group>
             </Form>
           </Col>
         </Row>
-        <Row className="w-100 mx-0">
+        <Row className="w-100 mx-0 py-3">
           <EditorBody />
         </Row>
         <Row>
