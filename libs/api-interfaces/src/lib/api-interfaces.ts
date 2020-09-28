@@ -2,7 +2,10 @@ interface Message {
   message: string;
 }
 
-type PortfolioCategory = 'projects' | 'blog';
+enum PortfolioCategory {
+  PROJECTS = 'projects',
+  BLOG = 'blog',
+}
 
 interface PortfolioItem {
   category: PortfolioCategory;
