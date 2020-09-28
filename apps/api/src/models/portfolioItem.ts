@@ -1,34 +1,15 @@
-import {
-  prop,
-  getModelForClass,
-  getDiscriminatorModelForClass,
-  modelOptions,
-} from '@typegoose/typegoose';
+import { prop, getModelForClass } from '@typegoose/typegoose';
+import { PortfolioCategory } from '@pure-and-lazy/api-interfaces';
 
-@modelOptions({
-  schemaOptions: {
-    discriminatorKey: 'type',
-  },
-})
 class PortfolioItem {
+  @prop() category: PortfolioCategory;
   @prop() name: string;
   @prop() description: string;
+  @prop() content: string;
   @prop() created: Date;
   @prop() lastModified: Date;
 }
 
 const PortfolioItemModel = getModelForClass(PortfolioItem);
 
-// For now, portfolio items are just plain text
-// TODO: implement images, document files e.g. PDF, rich text documents with associated images
-
-class TextItem extends PortfolioItem {
-  @prop() content: string;
-}
-
-const TextItemModel = getDiscriminatorModelForClass(
-  PortfolioItemModel,
-  TextItem
-);
-
-export { PortfolioItem, PortfolioItemModel, TextItem, TextItemModel };
+export { PortfolioItem, PortfolioItemModel };

@@ -19,7 +19,7 @@ const ProjectAddButton = (props: ProjectAddButton) => {
       name: title,
       description: description,
       content: 'Not Implemented',
-      type: 'TextItem',
+      category: 'projects',
     };
 
     let token: string;

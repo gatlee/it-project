@@ -1,42 +1,21 @@
 import * as mongoose from 'mongoose';
 import { isDocument } from '@typegoose/typegoose';
-import { PortfolioItemModel, TextItemModel } from '../models/portfolioItem';
+import { PortfolioItemModel } from '../models/portfolioItem';
 import { UserModel } from '../models/user';
-import { UserProfile, PortfolioItemUnion } from '@pure-and-lazy/api-interfaces';
+import { UserProfile, PortfolioItem } from '@pure-and-lazy/api-interfaces';
 import { Res } from './controllerUtil';
-
-/** extractItemFromBody takes a request body containing portfolio item information
-    and extracts the appropriate fields based on the portfolio item type.
-    It returns the relevant DB model and the extracted fields. */
-const extractItemFromBody = (body?: PortfolioItemUnion): { model; item } => {
-  if (!body) {
-    return { model: null, item: null };
-  }
-  const item = { name: body.name, description: body.description };
-  if ('type' in body) {
-    switch (body.type) {
-      case 'TextItem':
-        return {
-          model: TextItemModel,
-          item: { ...item, content: body.content },
-        };
-    }
-  }
-  return { model: PortfolioItemModel, item };
-};
 
 interface Req {
   params: { username?: string; portfolioItemId?: string };
-  body?: PortfolioItemUnion;
+  body?: PortfolioItem;
   user?: { sub: string };
 }
 
 const createItem = async (req: Req, res: Res<never>) => {
-  const { model, item } = extractItemFromBody(req.body);
-  if (model && req.user && req.user.sub) {
+  try {
     const now = new Date();
-    const newItem = await model.create({
-      ...item,
+    const newItem = await PortfolioItemModel.create({
+      ...req.body,
       created: now,
       lastModified: now,
     });
@@ -49,12 +28,12 @@ const createItem = async (req: Req, res: Res<never>) => {
     } catch {
       res.sendStatus(404);
     }
-  } else {
+  } catch {
     res.sendStatus(400);
   }
 };
 
-const viewItem = async (req: Req, res: Res<PortfolioItemUnion>) => {
+const viewItem = async (req: Req, res: Res<PortfolioItem>) => {
   const { portfolioItemId } = req.params;
   try {
     const item = await PortfolioItemModel.findById(portfolioItemId);
@@ -70,16 +49,15 @@ const viewItem = async (req: Req, res: Res<PortfolioItemUnion>) => {
 
 const editItem = async (req: Req, res: Res<never>) => {
   const { portfolioItemId } = req.params;
-  const { model, item } = extractItemFromBody(req.body);
-  if (model && req.user && req.user.sub) {
+  try {
     const user = await UserModel.findOne({
       auth0Id: req.user.sub,
       portfolio: mongoose.Types.ObjectId(portfolioItemId),
     });
     if (user) {
       try {
-        await model.findByIdAndUpdate(portfolioItemId, {
-          ...item,
+        await PortfolioItemModel.findByIdAndUpdate(portfolioItemId, {
+          ...req.body,
           lastModified: new Date(),
         });
         res.sendStatus(200);
@@ -87,14 +65,14 @@ const editItem = async (req: Req, res: Res<never>) => {
         res.sendStatus(404);
       }
     } else {
-      res.sendStatus(401);
+      res.sendStatus(404);
     }
-  } else {
+  } catch {
     res.sendStatus(400);
   }
 };
 
-const viewAllItems = async (req: Req, res: Res<PortfolioItemUnion[]>) => {
+const viewAllItems = async (req: Req, res: Res<PortfolioItem[]>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username }).populate('portfolio');

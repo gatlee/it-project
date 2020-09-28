@@ -1,6 +1,6 @@
 import makeTestSuite from './makeTestSuite';
 import { UserModel } from '../models/user';
-import { TextItem, UserProfile } from '@pure-and-lazy/api-interfaces';
+import { PortfolioItem, UserProfile } from '@pure-and-lazy/api-interfaces';
 import {
   viewProfile,
   createItem,
@@ -46,8 +46,8 @@ const userProfile: UserProfile = {
   dateJoined: new Date(2020, 0, 1),
 };
 
-const textItem: TextItem = {
-  type: 'TextItem',
+const portfolioItem: PortfolioItem = {
+  category: 'projects',
   name: 'A Poem',
   description: 'Good stuff',
   content: 'Roses are red, violets are blue...',
@@ -67,16 +67,16 @@ makeTestSuite('Portfolio Test', () => {
     expectJSONMatching(actualProfile, userProfile);
   });
 
-  it('should add a text item to the portfolio correctly', async () => {
+  it('should add a portfolio item to the portfolio correctly', async () => {
     const { status } = await callEndpoint(createItem, {
       params: {},
-      body: textItem,
+      body: portfolioItem,
       user: { sub: auth0Id },
     });
     expect(status).toBe(201);
   });
 
-  let textItemId;
+  let portfolioItemId;
 
   it("should display the user's portfolio items", async () => {
     const { data: items, status } = await callEndpoint(viewAllItems, {
@@ -84,22 +84,22 @@ makeTestSuite('Portfolio Test', () => {
     });
     expect(status).toBe(200);
     expect(items).toHaveLength(1);
-    expectJSONMatching(items[0], textItem);
+    expectJSONMatching(items[0], portfolioItem);
 
-    textItemId = items[0]._id;
+    portfolioItemId = items[0]._id;
   });
 
   it('should display a single portfolio item', async () => {
     const { data: actualItem, status: status } = await callEndpoint(viewItem, {
-      params: { portfolioItemId: textItemId },
+      params: { username, portfolioItemId }
     });
     expect(status).toBe(200);
-    expectJSONMatching(actualItem, textItem);
+    expectJSONMatching(actualItem, portfolioItem);
   });
 
   it('should delete a portfolio item', async () => {
     const { data: _, status } = await callEndpoint(deleteItem, {
-      params: { portfolioItemId: textItemId },
+      params: { portfolioItemId },
       user: { sub: auth0Id },
     });
     expect(status).toBe(200);
@@ -107,7 +107,7 @@ makeTestSuite('Portfolio Test', () => {
 
   it('should give a 404 for a deleted portfolio item', async () => {
     const { data: _, status } = await callEndpoint(viewItem, {
-      params: { portfolioItemId: textItemId },
+      params: { username, portfolioItemId },
     });
     expect(status).toBe(404);
   });

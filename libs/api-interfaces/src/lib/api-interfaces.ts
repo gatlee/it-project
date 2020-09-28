@@ -2,19 +2,16 @@ interface Message {
   message: string;
 }
 
+type PortfolioCategory = 'projects' | 'blog';
+
 interface PortfolioItem {
+  category: PortfolioCategory;
   name: string;
   description: string;
+  content: string;
   created?: Date;
   lastModified?: Date;
 }
-
-interface TextItem extends PortfolioItem {
-  type: 'TextItem';
-  content: string;
-}
-
-type PortfolioItemUnion = PortfolioItem | TextItem;
 
 interface UserProfile {
   username: string;
@@ -23,4 +20,4 @@ interface UserProfile {
   dateJoined: Date;
 }
 
-export { Message, PortfolioItem, TextItem, PortfolioItemUnion, UserProfile };
+export { Message, PortfolioItem, PortfolioCategory, UserProfile };
