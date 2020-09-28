@@ -85,6 +85,14 @@ import {
  *       type: object
  *       schema:
  *         $ref: '#/components/schemas/UserProfile'
+ *     categoryParam:
+ *       name: category
+ *       description: Portfolio category
+ *       in: query
+ *       required: false
+ *       type: string
+ *       schema:
+ *         enum: [projects, blog]
  */
 
 const router = Router();
@@ -142,6 +150,7 @@ router.put('/profile', editProfile);
  *     description: Get all portfolio items for a user.
  *     parameters:
  *       - $ref: '#/components/parameters/usernameParam'
+ *       - $ref: '#/components/parameters/categoryParam'
  *     responses:
  *       200:
  *         description: An array of portfolio items.

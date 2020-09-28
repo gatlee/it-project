@@ -2,7 +2,11 @@ import * as mongoose from 'mongoose';
 import { isDocument } from '@typegoose/typegoose';
 import { PortfolioItemModel } from '../models/portfolioItem';
 import { UserModel } from '../models/user';
-import { UserProfile, PortfolioItem } from '@pure-and-lazy/api-interfaces';
+import {
+  UserProfile,
+  PortfolioItem,
+  PortfolioCategory,
+} from '@pure-and-lazy/api-interfaces';
 import { Res } from './controllerUtil';
 
 interface Req<T> {
@@ -73,11 +77,17 @@ const editItem = async (req: Req<PortfolioItem>, res: Res<never>) => {
   }
 };
 
-const viewAllItems = async (req: Req<{}>, res: Res<PortfolioItem[]>) => {
+const viewAllItems = async (
+  req: Req<{}> & { query: { category?: PortfolioCategory } },
+  res: Res<PortfolioItem[]>
+) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username }).populate('portfolio');
-    res.send(user.portfolio.filter(isDocument));
+    const docFilter = req.query.category
+      ? isDocument
+      : (doc) => isDocument(doc) && doc.category == req.query.category;
+    res.send(user.portfolio.filter(docFilter) as PortfolioItem[]);
   } catch {
     res.sendStatus(404);
   }
