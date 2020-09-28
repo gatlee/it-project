@@ -6,6 +6,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { PromotionBox } from './homepage/PromotionBox';
 import GradientBackground from '../assets/GradientBackground.png';
 import { BackgroundContainer } from './BackgroundContainer';
+import { UploadBox } from './UploadBox';
 
 export const Home = () => {
   const [m, setMessage] = useState<Message>({ message: '' });
@@ -28,7 +29,7 @@ export const Home = () => {
       <PromotionBox />
       <div>{isAuthenticated ? 'Signed In' : 'Not Signed In'}</div>
       <div>{m.message}</div>
-      <Link to="/u/jdoe">
+      <Link to="/u/gkaw">
         <h2>Click here to be routed to foo's portfolio!</h2>
       </Link>
     </BackgroundContainer>
