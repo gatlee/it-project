@@ -7,6 +7,7 @@ class User {
   @prop() email: string;
   @prop() name?: string;
   @prop() dateJoined: Date;
+  @prop() description: string;
   @prop({ unique: true }) auth0Id: string;
   @prop({ ref: PortfolioItem }) portfolio: Ref<PortfolioItem>[];
 
@@ -16,6 +17,7 @@ class User {
       email: this.email,
       name: this.name,
       dateJoined: this.dateJoined,
+      description: this.description,
     };
   }
 }
