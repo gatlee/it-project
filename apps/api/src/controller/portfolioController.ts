@@ -5,13 +5,13 @@ import { UserModel } from '../models/user';
 import { UserProfile, PortfolioItem } from '@pure-and-lazy/api-interfaces';
 import { Res } from './controllerUtil';
 
-interface Req {
+interface Req<T> {
   params: { username?: string; portfolioItemId?: string };
-  body?: PortfolioItem;
+  body?: T;
   user?: { sub: string };
 }
 
-const createItem = async (req: Req, res: Res<never>) => {
+const createItem = async (req: Req<PortfolioItem>, res: Res<never>) => {
   try {
     const now = new Date();
     const newItem = await PortfolioItemModel.create({
@@ -26,6 +26,7 @@ const createItem = async (req: Req, res: Res<never>) => {
       );
       res.sendStatus(201);
     } catch {
+      await PortfolioItemModel.deleteOne(newItem);
       res.sendStatus(404);
     }
   } catch {
@@ -33,7 +34,7 @@ const createItem = async (req: Req, res: Res<never>) => {
   }
 };
 
-const viewItem = async (req: Req, res: Res<PortfolioItem>) => {
+const viewItem = async (req: Req<{}>, res: Res<PortfolioItem>) => {
   const { portfolioItemId } = req.params;
   try {
     const item = await PortfolioItemModel.findById(portfolioItemId);
@@ -47,7 +48,7 @@ const viewItem = async (req: Req, res: Res<PortfolioItem>) => {
   }
 };
 
-const editItem = async (req: Req, res: Res<never>) => {
+const editItem = async (req: Req<PortfolioItem>, res: Res<never>) => {
   const { portfolioItemId } = req.params;
   try {
     const user = await UserModel.findOne({
@@ -72,7 +73,7 @@ const editItem = async (req: Req, res: Res<never>) => {
   }
 };
 
-const viewAllItems = async (req: Req, res: Res<PortfolioItem[]>) => {
+const viewAllItems = async (req: Req<{}>, res: Res<PortfolioItem[]>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username }).populate('portfolio');
@@ -82,7 +83,7 @@ const viewAllItems = async (req: Req, res: Res<PortfolioItem[]>) => {
   }
 };
 
-const deleteItem = async (req: Req, res: Res<never>) => {
+const deleteItem = async (req: Req<{}>, res: Res<never>) => {
   const { portfolioItemId } = req.params;
   const user = await UserModel.findOne({
     auth0Id: req.user.sub,
@@ -103,7 +104,7 @@ const deleteItem = async (req: Req, res: Res<never>) => {
   }
 };
 
-const viewProfile = async (req: Req, res: Res<UserProfile>) => {
+const viewProfile = async (req: Req<{}>, res: Res<UserProfile>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username });
@@ -117,9 +118,17 @@ const viewProfile = async (req: Req, res: Res<UserProfile>) => {
   }
 };
 
-const editProfile = async (req, res) => {
-  // TODO
-  res.send('TODO');
+const editProfile = async (req: Req<UserProfile>, res: Res<never>) => {
+  try {
+    const { email, name } = req.body;
+    await UserModel.findOneAndUpdate(
+      { auth0Id: req.user.sub },
+      { email, name }
+    );
+    res.sendStatus(200);
+  } catch {
+    res.sendStatus(400);
+  }
 };
 
 export {

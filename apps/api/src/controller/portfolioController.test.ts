@@ -7,7 +7,8 @@ import {
   viewAllItems,
   viewItem,
   deleteItem,
-  // TODO: add tests for `editItem` and `editProfile`
+  editItem,
+  editProfile,
   Req,
 } from './portfolioController';
 import { Res } from './controllerUtil';
@@ -18,12 +19,12 @@ const expectJSONMatching = (actual, expected) => {
   expect(actual).toMatchObject(jsonMangle(expected));
 };
 
-const callEndpoint = async <T>(
-  endpoint: (req: Req, res: Res<T>) => Promise<void>,
-  req: Req
+const callEndpoint = async <T, U>(
+  endpoint: (req: Req<T>, res: Res<U>) => Promise<void>,
+  req: Req<T>
 ) => {
   const result: { data?; status?: number } = {};
-  const res: Res<T> = {
+  const res: Res<U> = {
     send: (object) => {
       result.data = jsonMangle(object);
       result.status = 200;
@@ -67,6 +68,26 @@ makeTestSuite('Portfolio Test', () => {
     expectJSONMatching(actualProfile, userProfile);
   });
 
+  it('should allow editing the user profile', async () => {
+    const newProfile = {
+      ...userProfile,
+      name: 'Jane Doe',
+      email: 'anotherexample@gmail.com',
+    };
+    const { status } = await callEndpoint(editProfile, {
+      params: {},
+      body: newProfile,
+      user: { sub: auth0Id },
+    });
+    expect(status).toBe(200);
+
+    const { data, status: status2 } = await callEndpoint(viewProfile, {
+      params: { username },
+    });
+    expect(status2).toBe(200);
+    expectJSONMatching(data, newProfile);
+  });
+
   it('should add a portfolio item to the portfolio correctly', async () => {
     const { status } = await callEndpoint(createItem, {
       params: {},
@@ -90,11 +111,31 @@ makeTestSuite('Portfolio Test', () => {
   });
 
   it('should display a single portfolio item', async () => {
-    const { data: actualItem, status: status } = await callEndpoint(viewItem, {
+    const { data: actualItem, status } = await callEndpoint(viewItem, {
       params: { username, portfolioItemId },
     });
     expect(status).toBe(200);
     expectJSONMatching(actualItem, portfolioItem);
+  });
+
+  it('should allow editing a portfolio item', async () => {
+    const newItem = {
+      ...portfolioItem,
+      name: 'A Poem, Revised',
+      content: '... (there is no poem)',
+    };
+    const { status } = await callEndpoint(editItem, {
+      params: { portfolioItemId },
+      body: newItem,
+      user: { sub: auth0Id },
+    });
+    expect(status).toBe(200);
+
+    const { data, status: status2 } = await callEndpoint(viewItem, {
+      params: { username, portfolioItemId },
+    });
+    expect(status2).toBe(200);
+    expectJSONMatching(data, newItem);
   });
 
   it('should delete a portfolio item', async () => {
