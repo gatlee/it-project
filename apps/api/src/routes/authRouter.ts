@@ -5,7 +5,7 @@ const router = Router();
 
 /**
  * @swagger
- * /create-user:
+ * /api/auth/create-user:
  *   post:
  *     description:
  *       Create a new user.
@@ -38,7 +38,7 @@ const router = Router();
  *       404:
  *         description: Unknown user.
  *     tags:
- *       - /api/auth
+ *       - Auth
  */
 // FIXME: authenticate that the request is coming from the Auth0 rule
 router.post('/create-user', createUser);
