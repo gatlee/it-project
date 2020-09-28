@@ -178,7 +178,7 @@ makeTestSuite('Portfolio Test', () => {
   });
 
   it('should delete a portfolio item', async () => {
-    const { data: _, status } = await callEndpoint(deleteItem, {
+    const { status } = await callEndpoint(deleteItem, {
       ...authReq,
       params: { portfolioItemId },
     });
@@ -186,7 +186,7 @@ makeTestSuite('Portfolio Test', () => {
   });
 
   it('should give a 404 for a deleted portfolio item', async () => {
-    const { data: _, status } = await callEndpoint(viewItem, {
+    const { status } = await callEndpoint(viewItem, {
       ...defaultReq,
       params: { username, portfolioItemId },
     });
