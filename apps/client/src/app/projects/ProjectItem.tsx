@@ -7,7 +7,6 @@ interface ProjectItem {
   id: string;
   title: string;
   description: string;
-  editable?: boolean;
   onUpdate: () => void;
 }
 
@@ -78,7 +77,6 @@ const ProjectItem = (props: ProjectItem) => {
     <ProjectItemDisplay
       title={props.title}
       description={props.description}
-      editable={props.editable}
       onOpenEditor={handleOpenEditor}
       onDelete={handleDelete}
     />

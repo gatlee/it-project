@@ -1,14 +1,15 @@
 import React from 'react';
-import { Card, Col } from 'react-bootstrap';
+import { Button, Card, Col } from 'react-bootstrap';
+import { EditContext } from '../portfolio-shared/EditContext';
 
 interface ProjectItemDisplay {
   title: string;
   description: string;
-  editable?: boolean;
   onOpenEditor: () => void;
   onDelete: () => void;
 }
 
+// Card display that shows the project item
 const ProjectItemDisplay = (props: ProjectItemDisplay) => {
   // Restricts description to 3 lines of text. Anything after gets shortened and gets ... appended
   const clamp: React.CSSProperties = {
@@ -27,6 +28,11 @@ const ProjectItemDisplay = (props: ProjectItemDisplay) => {
             <strong>{props.title}</strong>
           </Card.Title>
           <Card.Text style={clamp}>{props.description}</Card.Text>
+          <EditContext.Consumer>
+            {(editMode) =>
+              editMode && <Button onClick={props.onOpenEditor}>Edit</Button>
+            }
+          </EditContext.Consumer>
         </Card.Body>
       </Card>
     </Col>

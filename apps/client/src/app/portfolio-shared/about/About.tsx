@@ -3,11 +3,7 @@ import { Container } from 'react-bootstrap';
 import { AboutDisplay } from './AboutDisplay';
 import { AboutEditor } from './AboutEditor';
 
-interface About {
-  editable: boolean;
-}
-
-const About = (props: About) => {
+const About = () => {
   const [editorOpen, setEditorOpen] = useState(false);
   const [content, setContent] = useState(
     '# This is a header\n\nAnd this is a paragraph'
@@ -34,11 +30,7 @@ const About = (props: About) => {
           onContentChange={handleContentChange}
         />
       ) : (
-        <AboutDisplay
-          onOpenEditor={handleOpenEditor}
-          editable={props.editable}
-          content={content}
-        />
+        <AboutDisplay onOpenEditor={handleOpenEditor} content={content} />
       )}
     </Container>
   );
