@@ -20,6 +20,9 @@ export const AdminPage = () => {
       <h4>Other User Content:</h4>
       <p>{JSON.stringify(user, null, 2)}</p>
       <LinkContainer to={`/u/${nickname}`}>
+        <Button>View Portfolio</Button>
+      </LinkContainer>
+      <LinkContainer to={`/edit`}>
         <Button>Edit Portfolio</Button>
       </LinkContainer>
     </BackgroundContainer>

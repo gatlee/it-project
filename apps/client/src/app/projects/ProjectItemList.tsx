@@ -31,6 +31,7 @@ const ProjectItemList = () => {
       key={index}
       title={item.name}
       description={item.description}
+      content={item.content}
       onUpdate={loadItems}
     />
   ));
