@@ -11,6 +11,7 @@ import { Res } from './controllerUtil';
 
 interface Req<T> {
   params: { username?: string; portfolioItemId?: string };
+  query: { category?: PortfolioCategory };
   body?: T;
   user?: { sub: string };
 }
@@ -77,16 +78,13 @@ const editItem = async (req: Req<PortfolioItem>, res: Res<never>) => {
   }
 };
 
-const viewAllItems = async (
-  req: Req<{}> & { query: { category?: PortfolioCategory } },
-  res: Res<PortfolioItem[]>
-) => {
+const viewAllItems = async (req: Req<{}>, res: Res<PortfolioItem[]>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username }).populate('portfolio');
     const docFilter = req.query.category
-      ? isDocument
-      : (doc) => isDocument(doc) && doc.category == req.query.category;
+      ? (doc) => isDocument(doc) && doc.category == req.query.category
+      : isDocument;
     res.send(user.portfolio.filter(docFilter) as PortfolioItem[]);
   } catch {
     res.sendStatus(404);
