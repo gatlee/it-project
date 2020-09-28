@@ -91,7 +91,7 @@ makeTestSuite('Portfolio Test', () => {
 
   it('should display a single portfolio item', async () => {
     const { data: actualItem, status: status } = await callEndpoint(viewItem, {
-      params: { username, portfolioItemId }
+      params: { username, portfolioItemId },
     });
     expect(status).toBe(200);
     expectJSONMatching(actualItem, portfolioItem);
