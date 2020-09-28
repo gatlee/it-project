@@ -7,7 +7,7 @@ const UploadBox = () => {
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
-      let img = event.target.files[0];
+      const img = event.target.files[0];
 
       const data = new FormData();
       data.append('file', img);
