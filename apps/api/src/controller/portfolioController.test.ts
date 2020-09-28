@@ -45,6 +45,7 @@ const userProfile: UserProfile = {
   email: 'example@gmail.com',
   name: 'John Smith',
   dateJoined: new Date(2020, 0, 1),
+  description: 'nice profile description',
 };
 
 const portfolioItem: PortfolioItem = {

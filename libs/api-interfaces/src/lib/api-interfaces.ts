@@ -18,7 +18,7 @@ interface UserProfile {
   email: string;
   name?: string;
   dateJoined: Date;
-  description: string;
+  description?: string;
 }
 
 export { Message, PortfolioItem, PortfolioCategory, UserProfile };
