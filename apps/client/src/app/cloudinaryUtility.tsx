@@ -10,8 +10,13 @@ const generateCloudinaryUrl = async (data: Blob): Promise<string> => {
     method: 'post',
     body: payload,
   });
-  const body = await response.json();
-  return body.url;
+
+  if (response.ok) {
+    const body = await response.json();
+    return body.url;
+  } else {
+    throw new Error(response.statusText);
+  }
 };
 
 export { generateCloudinaryUrl };
