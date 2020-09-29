@@ -22,13 +22,16 @@ const ProjectAddButton = (props: ProjectAddButton) => {
   };
 
   const handleSave = async () => {
-    await addProjectItem(
-      editorTitle,
-      editorDescription,
-      editorContent,
-      getAccessTokenSilently
-    );
-
+    try {
+      await addProjectItem(
+        editorTitle,
+        editorDescription,
+        editorContent,
+        getAccessTokenSilently
+      );
+    } catch (e) {
+      console.log(e);
+    }
     props.onAdd();
     closeEditor();
   };

@@ -16,8 +16,7 @@ const updateProjectItem = async (
   try {
     token = await getAccessTokenSilently();
   } catch (error) {
-    console.log('Unable to get token');
-    token = '';
+    return Promise.reject('Failed to get access token');
   }
   const data = {
     type: 'TextItem',
@@ -48,7 +47,7 @@ const deleteProjectItem = async (
   try {
     token = await getAccessTokenSilently();
   } catch (error) {
-    token = '';
+    return Promise.reject('Failed to get access token');
   }
 
   return fetch(`/api/portfolio/${id}`, {
@@ -77,7 +76,7 @@ const addProjectItem = async (
   try {
     token = await getAccessTokenSilently();
   } catch (error) {
-    token = '';
+    return Promise.reject('Failed to get access token');
   }
 
   return fetch(`/api/portfolio/create`, {
