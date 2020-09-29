@@ -207,4 +207,13 @@ makeTestSuite('Portfolio Test', () => {
     expect(items).toHaveLength(1);
     expectJSONMatching(items[0], portfolioItem2);
   });
+
+  it('should reject portfolio items with missing fields', async () => {
+    const badPortfolioItem = { name: 'bad', description: 'hmmm' };
+    const { status } = await callEndpoint(createItem, {
+      ...authReq,
+      body: badPortfolioItem,
+    });
+    expect(status).toBe(400);
+  });
 });
