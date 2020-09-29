@@ -4,10 +4,11 @@ import GradientBackground from '../assets/GradientBackground.png';
 import { useAuth0 } from '@auth0/auth0-react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button } from 'react-bootstrap';
+import ViewPortfolioButton from './buttons/ViewPortfolioButton';
 
 export const AdminPage = () => {
   const { user } = useAuth0();
-  const { name, picture, email, nickname } = user;
+  const { name, picture, email } = user;
 
   return (
     <BackgroundContainer
@@ -19,9 +20,7 @@ export const AdminPage = () => {
       <p>{email}</p>
       <h4>Other User Content:</h4>
       <p>{JSON.stringify(user, null, 2)}</p>
-      <LinkContainer to={`/u/${nickname}`}>
-        <Button>View Portfolio</Button>
-      </LinkContainer>
+      <ViewPortfolioButton />
       <LinkContainer to={`/edit`}>
         <Button>Edit Portfolio</Button>
       </LinkContainer>

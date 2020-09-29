@@ -3,11 +3,15 @@ import { Col, Container, Row, Image } from 'react-bootstrap';
 import GetStartedButton from '../buttons/GetStartedButton';
 import SignInButton from '../buttons/SignInButton';
 import SignOutButton from '../buttons/SignOutButton';
+import ViewPortfolioButton from '../buttons/ViewPortfolioButton';
 import AdminButton from '../buttons/AdminButton';
 import DemoImage from '../../assets/PortfolioDemo.png';
+import { useAuth0 } from '@auth0/auth0-react';
 import { css } from '@emotion/core';
 
 const PromotionBox = () => {
+  const { isAuthenticated, user } = useAuth0();
+
   const titleStyle = {
     fontSize: '3.4em',
     fontFamily: 'Segoe UI Semibold',
@@ -56,10 +60,19 @@ const PromotionBox = () => {
           <h2 className="display-4" css={subtitleStyle}>
             Create your own ePortfolio in minutes.
           </h2>
-          <SignInButton />
-          <SignOutButton />
-          <GetStartedButton />
-          <AdminButton />
+
+          {isAuthenticated ? (
+            <>
+              <ViewPortfolioButton />
+              <AdminButton />
+              <SignOutButton />
+            </>
+          ) : (
+            <>
+              <GetStartedButton />
+              <SignInButton />
+            </>
+          )}
         </Col>
 
         <Col lg={6} md={12} className="py-3 align-self-center">
