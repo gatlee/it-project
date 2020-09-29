@@ -135,7 +135,7 @@ makeTestSuite('Portfolio Test', () => {
 
     const { data: items, status: status2 } = await callEndpoint(viewAllItems, {
       ...usernameReq,
-      query: { category: 'projects' },
+      query: { category: PortfolioCategory.PROJECTS },
     });
     expect(status2).toBe(200);
     expect(items).toHaveLength(2);
@@ -146,7 +146,7 @@ makeTestSuite('Portfolio Test', () => {
   it('should display 0 portfolio items (filtered by blog)', async () => {
     const { data: items, status } = await callEndpoint(viewAllItems, {
       ...usernameReq,
-      query: { category: 'blog' },
+      query: { category: PortfolioCategory.BLOG },
     });
     expect(status).toBe(200);
     expect(items).toHaveLength(0);
