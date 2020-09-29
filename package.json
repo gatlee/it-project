@@ -115,9 +115,9 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,css}": [
+    "apps/**/*.{js}*.{js,jsx,ts,tsx,json,css}": [
       "prettier --write",
-      "eslint"
+      "eslint --fix"
     ]
   },
   "config": {
