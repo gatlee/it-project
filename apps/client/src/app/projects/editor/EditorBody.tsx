@@ -18,6 +18,8 @@ const EditorBody = (props: EditorBody) => {
   ): AsyncGenerator<string, boolean, void> {
     const url = await generateCloudinaryUrl(new Blob([data]));
     yield url;
+
+    // Return true on a success
     return true;
   };
 
