@@ -10,7 +10,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { css } from '@emotion/core';
 
 const PromotionBox = () => {
-  const { isAuthenticated, user } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   const titleStyle = {
     fontSize: '3.4em',
