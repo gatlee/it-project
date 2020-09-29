@@ -2,7 +2,10 @@ interface Message {
   message: string;
 }
 
-type PortfolioCategory = 'projects' | 'blog';
+enum PortfolioCategory {
+  PROJECTS = 'projects',
+  BLOG = 'blog',
+}
 
 interface PortfolioItem {
   category: PortfolioCategory;
@@ -18,6 +21,7 @@ interface UserProfile {
   email: string;
   name?: string;
   dateJoined: Date;
+  description?: string;
 }
 
 export { Message, PortfolioItem, PortfolioCategory, UserProfile };

@@ -1,15 +1,19 @@
 import makeTestSuite from './makeTestSuite';
 import { UserModel } from '../models/user';
-import { PortfolioItem, UserProfile } from '@pure-and-lazy/api-interfaces';
 import {
-  viewProfile,
+  PortfolioCategory,
+  PortfolioItem,
+  UserProfile,
+} from '@pure-and-lazy/api-interfaces';
+import {
   createItem,
-  viewAllItems,
-  viewItem,
   deleteItem,
   editItem,
   editProfile,
   Req,
+  viewAllItems,
+  viewItem,
+  viewProfile,
 } from './portfolioController';
 import { Res } from './controllerUtil';
 
@@ -45,10 +49,11 @@ const userProfile: UserProfile = {
   email: 'example@gmail.com',
   name: 'John Smith',
   dateJoined: new Date(2020, 0, 1),
+  description: 'nice profile description',
 };
 
 const portfolioItem: PortfolioItem = {
-  category: 'projects',
+  category: PortfolioCategory.PROJECTS,
   name: 'A Poem',
   description: 'Good stuff',
   content: 'Roses are red, violets are blue...',

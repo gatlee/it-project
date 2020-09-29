@@ -54,6 +54,8 @@ import {
  *         dateJoined:
  *           type: string
  *           format: date-time
+ *         description:
+ *           type: string
  *   parameters:
  *     usernameParam:
  *       name: username
