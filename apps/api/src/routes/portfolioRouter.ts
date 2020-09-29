@@ -101,7 +101,7 @@ router.all('/*', (req, res, next) => {
 
 /**
  * @swagger
- * /{username}/profile:
+ * /api/portfolio/{username}/profile:
  *   get:
  *     description: View user profile information.
  *     parameters:
@@ -116,13 +116,13 @@ router.all('/*', (req, res, next) => {
  *       404:
  *         description: Unknown user.
  *     tags:
- *       - /api/portfolio
+ *       - Portfolio
  */
 router.get('/:username/profile', viewProfile);
 
 /**
  * @swagger
- * /profile:
+ * /api/portfolio/profile:
  *   put:
  *     description: Edit a user's profile.
  *     parameters:
@@ -133,13 +133,13 @@ router.get('/:username/profile', viewProfile);
  *       400:
  *         description: Malformed input.
  *     tags:
- *       - /api/portfolio
+ *       - Portfolio
  */
 router.put('/profile', editProfile);
 
 /**
  * @swagger
- * /{username}/all:
+ * /api/portfolio/{username}/all:
  *   get:
  *     description: Get all portfolio items for a user.
  *     parameters:
@@ -156,13 +156,13 @@ router.put('/profile', editProfile);
  *       404:
  *         description: Unknown user.
  *     tags:
- *       - /api/portfolio
+ *       - Portfolio
  */
 router.get('/:username/all', viewAllItems);
 
 /**
  * @swagger
- * /create:
+ * /api/portfolio/create:
  *   post:
  *     description: Create a portfolio item.
  *     parameters:
@@ -175,13 +175,13 @@ router.get('/:username/all', viewAllItems);
  *       400:
  *         description: Malformed input.
  *     tags:
- *       - /api/portfolio
+ *       - Portfolio
  */
 router.post('/create', createItem);
 
 /**
  * @swagger
- * /{portfolioItemId}:
+ * /api/portfolio/{portfolioItemId}:
  *   get:
  *     description: Get an individual portfolio item.
  *     parameters:
@@ -196,7 +196,7 @@ router.post('/create', createItem);
  *       404:
  *         description: Unknown portfolio item.
  *     tags:
- *       - /api/portfolio
+ *       - Portfolio
  *   put:
  *     description: Edit a portfolio item.
  *     parameters:
@@ -212,7 +212,7 @@ router.post('/create', createItem);
  *       401:
  *         description: Portfolio item belongs to another user.
  *     tags:
- *       - /api/portfolio
+ *       - Portfolio
  *   delete:
  *     description: Delete a portfolio item.
  *     parameters:
@@ -225,7 +225,7 @@ router.post('/create', createItem);
  *       401:
  *         description: Portfolio item belongs to another user.
  *     tags:
- *       - /api/portfolio
+ *       - Portfolio
  */
 router
   .route('/:portfolioItemId')
