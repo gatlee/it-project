@@ -111,8 +111,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && lint-staged"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css}": [
+      "prettier --write",
+      "eslint"
+    ]
   },
   "config": {
     "mongodbMemoryServer": {
