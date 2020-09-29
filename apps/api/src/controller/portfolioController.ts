@@ -2,11 +2,16 @@ import * as mongoose from 'mongoose';
 import { isDocument } from '@typegoose/typegoose';
 import { PortfolioItemModel } from '../models/portfolioItem';
 import { UserModel } from '../models/user';
-import { UserProfile, PortfolioItem } from '@pure-and-lazy/api-interfaces';
+import {
+  UserProfile,
+  PortfolioItem,
+  PortfolioCategory,
+} from '@pure-and-lazy/api-interfaces';
 import { Res } from './controllerUtil';
 
 interface Req<T> {
   params: { username?: string; portfolioItemId?: string };
+  query: { category?: PortfolioCategory };
   body?: T;
   user?: { sub: string };
 }
@@ -77,7 +82,10 @@ const viewAllItems = async (req: Req<{}>, res: Res<PortfolioItem[]>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username }).populate('portfolio');
-    res.send(user.portfolio.filter(isDocument));
+    const docFilter = req.query.category
+      ? (doc) => isDocument(doc) && doc.category == req.query.category
+      : isDocument;
+    res.send(user.portfolio.filter(docFilter) as PortfolioItem[]);
   } catch {
     res.sendStatus(404);
   }

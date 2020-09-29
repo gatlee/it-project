@@ -43,6 +43,9 @@ const callEndpoint = async <T, U>(
 
 const username = 'test';
 const auth0Id = 'some_id';
+const defaultReq = { params: {}, query: {} };
+const usernameReq = { ...defaultReq, params: { username } };
+const authReq = { ...defaultReq, user: { sub: auth0Id } };
 
 const userProfile: UserProfile = {
   username,
@@ -59,6 +62,13 @@ const portfolioItem: PortfolioItem = {
   content: 'Roses are red, violets are blue...',
 };
 
+const portfolioItem2: PortfolioItem = {
+  ...portfolioItem,
+  name: 'Good first line',
+  content:
+    'The Waystone Inn lay in silence, and it was a silence of three parts.',
+};
+
 makeTestSuite('Portfolio Test', () => {
   it('should return a user profile', async () => {
     await UserModel.create({
@@ -66,9 +76,10 @@ makeTestSuite('Portfolio Test', () => {
       auth0Id,
       portfolio: [],
     });
-    const { data: actualProfile, status } = await callEndpoint(viewProfile, {
-      params: { username },
-    });
+    const { data: actualProfile, status } = await callEndpoint(
+      viewProfile,
+      usernameReq
+    );
     expect(status).toBe(200);
     expectJSONMatching(actualProfile, userProfile);
   });
@@ -80,24 +91,23 @@ makeTestSuite('Portfolio Test', () => {
       email: 'anotherexample@gmail.com',
     };
     const { status } = await callEndpoint(editProfile, {
-      params: {},
+      ...authReq,
       body: newProfile,
-      user: { sub: auth0Id },
     });
     expect(status).toBe(200);
 
-    const { data, status: status2 } = await callEndpoint(viewProfile, {
-      params: { username },
-    });
+    const { data, status: status2 } = await callEndpoint(
+      viewProfile,
+      usernameReq
+    );
     expect(status2).toBe(200);
     expectJSONMatching(data, newProfile);
   });
 
   it('should add a portfolio item to the portfolio correctly', async () => {
     const { status } = await callEndpoint(createItem, {
-      params: {},
+      ...authReq,
       body: portfolioItem,
-      user: { sub: auth0Id },
     });
     expect(status).toBe(201);
   });
@@ -105,9 +115,10 @@ makeTestSuite('Portfolio Test', () => {
   let portfolioItemId;
 
   it("should display the user's portfolio items", async () => {
-    const { data: items, status } = await callEndpoint(viewAllItems, {
-      params: { username },
-    });
+    const { data: items, status } = await callEndpoint(
+      viewAllItems,
+      usernameReq
+    );
     expect(status).toBe(200);
     expect(items).toHaveLength(1);
     expectJSONMatching(items[0], portfolioItem);
@@ -115,8 +126,35 @@ makeTestSuite('Portfolio Test', () => {
     portfolioItemId = items[0]._id;
   });
 
+  it('should display multiple portfolio items (filtered by projects)', async () => {
+    const { status } = await callEndpoint(createItem, {
+      ...authReq,
+      body: portfolioItem2,
+    });
+    expect(status).toBe(201);
+
+    const { data: items, status: status2 } = await callEndpoint(viewAllItems, {
+      ...usernameReq,
+      query: { category: 'projects' },
+    });
+    expect(status2).toBe(200);
+    expect(items).toHaveLength(2);
+    expectJSONMatching(items[0], portfolioItem);
+    expectJSONMatching(items[1], portfolioItem2);
+  });
+
+  it('should display 0 portfolio items (filtered by blog)', async () => {
+    const { data: items, status } = await callEndpoint(viewAllItems, {
+      ...usernameReq,
+      query: { category: 'blog' },
+    });
+    expect(status).toBe(200);
+    expect(items).toHaveLength(0);
+  });
+
   it('should display a single portfolio item', async () => {
     const { data: actualItem, status } = await callEndpoint(viewItem, {
+      ...defaultReq,
       params: { username, portfolioItemId },
     });
     expect(status).toBe(200);
@@ -130,13 +168,14 @@ makeTestSuite('Portfolio Test', () => {
       content: '... (there is no poem)',
     };
     const { status } = await callEndpoint(editItem, {
+      ...authReq,
       params: { portfolioItemId },
       body: newItem,
-      user: { sub: auth0Id },
     });
     expect(status).toBe(200);
 
     const { data, status: status2 } = await callEndpoint(viewItem, {
+      ...defaultReq,
       params: { username, portfolioItemId },
     });
     expect(status2).toBe(200);
@@ -144,25 +183,28 @@ makeTestSuite('Portfolio Test', () => {
   });
 
   it('should delete a portfolio item', async () => {
-    const { data: _, status } = await callEndpoint(deleteItem, {
+    const { status } = await callEndpoint(deleteItem, {
+      ...authReq,
       params: { portfolioItemId },
-      user: { sub: auth0Id },
     });
     expect(status).toBe(200);
   });
 
   it('should give a 404 for a deleted portfolio item', async () => {
-    const { data: _, status } = await callEndpoint(viewItem, {
+    const { status } = await callEndpoint(viewItem, {
+      ...defaultReq,
       params: { username, portfolioItemId },
     });
     expect(status).toBe(404);
   });
 
   it("should have removed the item from the user's portfolio", async () => {
-    const { data: items, status } = await callEndpoint(viewAllItems, {
-      params: { username },
-    });
+    const { data: items, status } = await callEndpoint(
+      viewAllItems,
+      usernameReq
+    );
     expect(status).toBe(200);
-    expect(items).toHaveLength(0);
+    expect(items).toHaveLength(1);
+    expectJSONMatching(items[0], portfolioItem2);
   });
 });
