@@ -6,7 +6,7 @@ interface Req {
 }
 
 const createUser = async (req: Req, res: Res<never>) => {
-  if (req.body && req.body.username && req.body.email && req.body.auth0Id) {
+  try {
     const { username, email, auth0Id } = req.body;
     await UserModel.create({
       username,
@@ -16,7 +16,7 @@ const createUser = async (req: Req, res: Res<never>) => {
       portfolio: [],
     });
     res.sendStatus(200);
-  } else {
+  } catch {
     res.sendStatus(400);
   }
 };
