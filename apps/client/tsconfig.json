@@ -4,7 +4,9 @@
     "jsx": "react",
     "allowJs": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "lib": ["es2018", "dom", "esnext"]
   },
   "files": [],
   "include": [],

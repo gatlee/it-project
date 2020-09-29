@@ -13,9 +13,12 @@ interface EditorBody {
 const EditorBody = (props: EditorBody) => {
   const [selectedTab, setSelectedTab] = useState<'write' | 'preview'>('write');
 
-  const saveImage = async function* (data: ArrayBuffer) {
+  const saveImage = async function* (
+    data: ArrayBuffer
+  ): AsyncGenerator<string, boolean, void> {
     const url = await generateCloudinaryUrl(new Blob([data]));
     yield url;
+    return true;
   };
 
   return (
