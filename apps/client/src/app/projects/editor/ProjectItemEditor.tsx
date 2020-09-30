@@ -53,11 +53,7 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
         </Row>
         <Row className="py-3">
           <Col xs={12} sm={12} md={4}>
-            <Image
-              src="https://picsum.photos/180/180"
-              fluid
-              className="w-100 p-3"
-            />
+            <ProjectItemImage />
           </Col>
           <Col xs={12} sm={12} md={8}>
             <Form>
