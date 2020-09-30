@@ -25,19 +25,27 @@ const ProjectItem = (props: ProjectItem) => {
   const handleOpenEditor = () => setEditorOpen(true);
 
   const handleSave = async () => {
-    await updateProjectItem(
-      editorTitle,
-      editorDescription,
-      editorContent,
-      props.id,
-      getAccessTokenSilently
-    );
+    try {
+      await updateProjectItem(
+        editorTitle,
+        editorDescription,
+        editorContent,
+        props.id,
+        getAccessTokenSilently
+      );
+    } catch (e) {
+      console.log(e);
+    }
     setEditorOpen(false);
     props.onUpdate();
   };
 
   const handleDelete = async () => {
-    await deleteProjectItem(props.id, getAccessTokenSilently);
+    try {
+      await deleteProjectItem(props.id, getAccessTokenSilently);
+    } catch (e) {
+      console.log(e);
+    }
 
     props.onUpdate();
     setEditorOpen(false);

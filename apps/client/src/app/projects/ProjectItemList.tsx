@@ -1,24 +1,27 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import { Loader } from '../layout/Loader';
 import { EditContext } from '../portfolio-shared/EditContext';
 import { ProjectAddButton } from './ProjectAddButton';
 import { ProjectItem } from './ProjectItem';
 
 const ProjectItemList = () => {
+  const editMode = useContext(EditContext);
+  const { id } = useParams();
   const { user } = useAuth0();
-  const username = user ? user.nickname : 'test';
+  const desiredUser = editMode ? user.nickname : id;
 
   const [items, setItems] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   const loadItems = useCallback(() => {
-    fetch(`/api/portfolio/${username}/all`)
+    fetch(`/api/portfolio/${desiredUser}/all`)
       .then((r) => r.json())
       .then((r) => setItems(r))
       .then(() => setLoaded(true));
-  }, [username]);
+  }, [desiredUser]);
 
   //Update Items on Load
   useEffect(() => {
@@ -41,15 +44,11 @@ const ProjectItemList = () => {
       <Loader loaded={loaded}>
         <Row>{portfolioItems} </Row>
       </Loader>
-      <EditContext.Consumer>
-        {(editMode) =>
-          editMode && (
-            <Row className="align-items-center my-5">
-              <ProjectAddButton onAdd={loadItems} />
-            </Row>
-          )
-        }
-      </EditContext.Consumer>
+      {editMode && (
+        <Row className="align-items-center my-5">
+          <ProjectAddButton onAdd={loadItems} />
+        </Row>
+      )}
     </Container>
   );
 };
