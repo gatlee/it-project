@@ -209,3 +209,7 @@ makeTestSuite('Portfolio Tests', () => {
     expect(status).toBe(400);
   });
 });
+
+it('should be alright', async () => {
+  return;
+});
