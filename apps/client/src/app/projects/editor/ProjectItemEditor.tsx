@@ -1,15 +1,8 @@
 import React from 'react';
-import {
-  Button,
-  Col,
-  Container,
-  Form,
-  Image,
-  Modal,
-  Row,
-} from 'react-bootstrap';
+import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import { EditorBody } from './EditorBody';
+import { ProjectItemImage } from './ProjectItemImage';
 
 interface ProjectItemEditor {
   title: string;
