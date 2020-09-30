@@ -1,8 +1,11 @@
-import { PortfolioItem } from '@pure-and-lazy/api-interfaces';
+import {
+  PortfolioItem,
+  PortfolioCategory,
+} from '@pure-and-lazy/api-interfaces';
 import React from 'react';
 import { ItemList } from './ItemList';
 import { ProjectItem } from './ProjectItem';
-import { ProjectAddButton } from './ProjectAddButton';
+import { PortfolioAddButton } from '../portfolio-shared/PortfolioAddButton';
 
 const ProjectItemList = () => {
   const fetchProjects = async (username: string): Promise<Response> => {
@@ -24,7 +27,9 @@ const ProjectItemList = () => {
   );
 
   const createProjectButton = (onAdd: () => void) => {
-    return <ProjectAddButton onAdd={onAdd} />;
+    return (
+      <PortfolioAddButton onAdd={onAdd} category={PortfolioCategory.PROJECTS} />
+    );
   };
   return (
     <ItemList
