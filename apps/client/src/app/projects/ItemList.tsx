@@ -19,7 +19,7 @@ interface ItemList {
     index: React.Key,
     onUpdate: () => void
   ) => ReactElement;
-  callBack: (username: string) => Promise<PortfolioItem>;
+  callBack: (username: string) => Promise<Response>;
 }
 const ItemList = (props: ItemList) => {
   const editMode = useContext(EditContext);

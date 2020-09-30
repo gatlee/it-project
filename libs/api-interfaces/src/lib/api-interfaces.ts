@@ -8,6 +8,7 @@ enum PortfolioCategory {
 }
 
 interface PortfolioItem {
+  _id?: string;
   category: PortfolioCategory;
   name: string;
   description: string;
