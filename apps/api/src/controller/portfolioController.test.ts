@@ -1,45 +1,20 @@
-import makeTestSuite from './makeTestSuite';
 import { UserModel } from '../models/user';
 import {
   PortfolioCategory,
   PortfolioItem,
   UserProfile,
 } from '@pure-and-lazy/api-interfaces';
+import { makeTestSuite, expectJSONMatching } from './testUtil';
+import { callEndpoint } from './controllerUtil';
 import {
   createItem,
   deleteItem,
   editItem,
   editProfile,
-  Req,
   viewAllItems,
   viewItem,
   viewProfile,
 } from './portfolioController';
-import { Res } from './controllerUtil';
-
-const jsonMangle = (object) => JSON.parse(JSON.stringify(object));
-
-const expectJSONMatching = (actual, expected) => {
-  expect(actual).toMatchObject(jsonMangle(expected));
-};
-
-const callEndpoint = async <T, U>(
-  endpoint: (req: Req<T>, res: Res<U>) => Promise<void>,
-  req: Req<T>
-) => {
-  const result: { data?; status?: number } = {};
-  const res: Res<U> = {
-    send: (object) => {
-      result.data = jsonMangle(object);
-      result.status = 200;
-    },
-    sendStatus: (status) => {
-      result.status = status;
-    },
-  };
-  await endpoint(req, res);
-  return result;
-};
 
 const username = 'test';
 const auth0Id = 'some_id';
@@ -69,7 +44,7 @@ const portfolioItem2: PortfolioItem = {
     'The Waystone Inn lay in silence, and it was a silence of three parts.',
 };
 
-makeTestSuite('Portfolio Test', () => {
+makeTestSuite('Portfolio Tests', () => {
   it('should return a user profile', async () => {
     await UserModel.create({
       ...userProfile,
@@ -220,7 +195,7 @@ makeTestSuite('Portfolio Test', () => {
     const badPortfolioItem = { name: 'bad', description: 'hmmm' };
     const { status } = await callEndpoint(createItem, {
       ...authReq,
-      body: badPortfolioItem,
+      body: badPortfolioItem as PortfolioItem,
     });
     expect(status).toBe(400);
   });
@@ -229,7 +204,7 @@ makeTestSuite('Portfolio Test', () => {
     const badCategory = { ...portfolioItem, category: 'bad category' };
     const { status } = await callEndpoint(createItem, {
       ...authReq,
-      body: badCategory,
+      body: badCategory as PortfolioItem,
     });
     expect(status).toBe(400);
   });
