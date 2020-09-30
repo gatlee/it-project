@@ -10,6 +10,7 @@ export const AdminPage = () => {
   const { user, getAccessTokenSilently } = useAuth0();
   const { name, given_name, picture, email, nickname } = user;
   const [userData, setUserData] = useState(null);
+  const [registrationComplete, setRegistrationComplete] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -33,7 +34,10 @@ export const AdminPage = () => {
 
         console.log('got user response');
 
-        setUserData(await userDataResponse.json());
+        const data = await userDataResponse.json();
+        // data.app_metadata.registration_complete = true;
+        setUserData(data);
+        setRegistrationComplete(data.app_metadata.registration_complete);
         setIsLoaded(true);
       } catch (e) {
         console.log(e.message);
@@ -43,11 +47,9 @@ export const AdminPage = () => {
     getUserData();
   }, []);
 
-  // if (!isLoaded) {
-  //   return (
-  //     <LoadingScreen />
-  //   )
-  // }
+  if (!isLoaded) {
+    return <LoadingScreen />;
+  }
 
   return (
     <BackgroundContainer
@@ -57,31 +59,40 @@ export const AdminPage = () => {
       <img src={picture} alt="Profile" style={{ maxWidth: '100px' }} />
       {/*<h2>{name}</h2>*/}
       <p>{email}</p>
-      {/*<h4>Other User Content:</h4>*/}
-      <p>{JSON.stringify(userData, null, 2)}</p>
+      {/*/!*<h4>Other User Content:</h4>*!/*/}
+      {/*<p>{JSON.stringify(userData, null, 2)}</p>*/}
       <h2>Hi {given_name}, welcome to ePortfolio Maker by Pure && Lazy</h2>
 
-      <label htmlFor="public-url-form">
-        <h4>To get started, please decide on a public facing URL:</h4>
-      </label>
-      <InputGroup className="mb-3" style={{ width: '100%' }}>
-        <InputGroup.Prepend>
-          <InputGroup.Text id="base-url-prepend">
-            https://pure-and-lazy.herokuapp.com/u/
-          </InputGroup.Text>
-        </InputGroup.Prepend>
-        <FormControl id="public-url-form" aria-describedby="base-url-prepend" />
-        <InputGroup.Append>
-          <Button variant="primary">Submit</Button>
-        </InputGroup.Append>
-      </InputGroup>
-
-      <LinkContainer to={`/u/${nickname}`}>
-        <Button>View Portfolio</Button>
-      </LinkContainer>
-      <LinkContainer to={`/edit`}>
-        <Button>Edit Portfolio</Button>
-      </LinkContainer>
+      {!registrationComplete ? (
+        <>
+          <label htmlFor="public-url-form">
+            <h4>To get started, please decide on a public facing URL:</h4>
+          </label>
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="base-url-prepend">
+                https://pure-and-lazy.herokuapp.com/u/
+              </InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              id="public-url-form"
+              aria-describedby="base-url-prepend"
+            />
+            <InputGroup.Append>
+              <Button variant="primary">Submit</Button>
+            </InputGroup.Append>
+          </InputGroup>
+        </>
+      ) : (
+        <>
+          <LinkContainer to={`/u/${nickname}`}>
+            <Button>View Portfolio</Button>
+          </LinkContainer>
+          <LinkContainer to={`/edit`}>
+            <Button>Edit Portfolio</Button>
+          </LinkContainer>
+        </>
+      )}
     </BackgroundContainer>
   );
 };
