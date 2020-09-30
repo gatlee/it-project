@@ -1,13 +1,27 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { PortfolioItem } from '@pure-and-lazy/api-interfaces';
+import React, {
+  ReactElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { Loader } from '../layout/Loader';
 import { EditContext } from '../portfolio-shared/EditContext';
 import { ProjectAddButton } from './ProjectAddButton';
-import { ProjectItem } from './ProjectItem';
 
-const ProjectItemList = () => {
+interface ItemList {
+  createItem: (
+    item: PortfolioItem,
+    index: React.Key,
+    onUpdate: () => void
+  ) => ReactElement;
+  callBack: (username: string) => Promise<PortfolioItem>;
+}
+const ItemList = (props: ItemList) => {
   const editMode = useContext(EditContext);
   const { id } = useParams();
   const { user } = useAuth0();
@@ -17,32 +31,29 @@ const ProjectItemList = () => {
   const [loaded, setLoaded] = useState(false);
 
   const loadItems = useCallback(() => {
-    fetch(`/api/portfolio/${desiredUser}/all`)
+    props
+      .callBack(desiredUser)
       .then((r) => r.json())
       .then((r) => setItems(r))
-      .then(() => setLoaded(true));
-  }, [desiredUser]);
+      .then(() => setLoaded(true))
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [props, desiredUser]);
 
   //Update Items on Load
   useEffect(() => {
     loadItems();
   }, [loadItems]);
 
-  const portfolioItems = items.map((item, index) => (
-    <ProjectItem
-      id={item._id}
-      key={index}
-      title={item.name}
-      description={item.description}
-      content={item.content}
-      onUpdate={loadItems}
-    />
-  ));
+  const itemComponents = items.map((item, index) =>
+    props.createItem(item, index, loadItems)
+  );
 
   return (
     <Container className="pt-5">
       <Loader loaded={loaded}>
-        <Row>{portfolioItems} </Row>
+        <Row>{itemComponents} </Row>
       </Loader>
       {editMode && (
         <Row className="align-items-center my-5">
@@ -53,4 +64,4 @@ const ProjectItemList = () => {
   );
 };
 
-export { ProjectItemList };
+export { ItemList };
