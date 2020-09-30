@@ -1,7 +1,11 @@
+import {
+  PortfolioCategory,
+  PortfolioItem,
+} from '@pure-and-lazy/api-interfaces';
 // Functions which manage API requests about projects
 //
-// useAuth0 hook must be passed in since it can't be called outside of a
-//
+// getAccessTokenSilently hook must be passed in since it can't be called
+// outside of a functional component
 
 // Update the title and description of a project item with the given id
 const updateProjectItem = async (
@@ -18,13 +22,11 @@ const updateProjectItem = async (
   } catch (error) {
     return Promise.reject('Failed to get access token');
   }
-  const data = {
-    type: 'TextItem',
-    _id: id,
+  const data: PortfolioItem = {
     name: title,
     description: description,
     content: content,
-    __v: 0,
+    category: PortfolioCategory.PROJECTS,
   };
 
   return fetch(`/api/portfolio/${id}`, {
@@ -37,7 +39,7 @@ const updateProjectItem = async (
   });
 };
 
-// Delete the projectItem
+// Delete the projectItem specified by id
 const deleteProjectItem = async (
   id: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -58,6 +60,7 @@ const deleteProjectItem = async (
   });
 };
 
+// Create new project
 const addProjectItem = async (
   title: string,
   description: string,
@@ -65,11 +68,11 @@ const addProjectItem = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getAccessTokenSilently: (options?: any) => Promise<string>
 ) => {
-  const body = {
+  const body: PortfolioItem = {
     name: title,
     description: description,
     content: content,
-    type: 'TextItem',
+    category: PortfolioCategory.PROJECTS,
   };
 
   let token: string;
