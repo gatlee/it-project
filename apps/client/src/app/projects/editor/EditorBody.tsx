@@ -28,9 +28,11 @@ const EditorBody = (props: EditorBody) => {
     buttonProps: { 'aria-label': 'Add Youtube Embed' },
     icon: () => <PlayFill />,
     execute: (opts) => {
-      const youtubeEmbed = `<div class="embed-responsive embed-responsive-16by9">
-      <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{ID-GOES-HERE}" allowfullscreen></iframe>
-    </div>`;
+      const youtubeEmbed =
+        `<div class="embed-responsive embed-responsive-16by9">\n` +
+        ` <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{ID-GOES-HERE}" allowfullscreen></iframe>\n` +
+        `</div>`;
+
       opts.textApi.replaceSelection(youtubeEmbed);
     },
   };
