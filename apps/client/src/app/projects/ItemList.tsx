@@ -11,7 +11,6 @@ import { Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { Loader } from '../layout/Loader';
 import { EditContext } from '../portfolio-shared/EditContext';
-import { ProjectAddButton } from './ProjectAddButton';
 
 interface ItemList {
   createItem: (
@@ -20,6 +19,7 @@ interface ItemList {
     onUpdate: () => void
   ) => ReactElement;
   callBack: (username: string) => Promise<Response>;
+  createAddButton: (onAdd: () => void) => React.ReactElement;
 }
 const ItemList = (props: ItemList) => {
   const editMode = useContext(EditContext);
@@ -57,7 +57,7 @@ const ItemList = (props: ItemList) => {
       </Loader>
       {editMode && (
         <Row className="align-items-center my-5">
-          <ProjectAddButton onAdd={loadItems} />
+          {props.createAddButton(loadItems)}
         </Row>
       )}
     </Container>

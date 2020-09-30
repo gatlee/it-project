@@ -2,6 +2,7 @@ import React from 'react';
 import { ProjectItem } from '../projects/ProjectItem';
 import { PortfolioItem } from '@pure-and-lazy/api-interfaces';
 import { ItemList } from '../projects/ItemList';
+import { ProjectAddButton } from '../projects/ProjectAddButton';
 
 const BlogItemList = () => {
   const fetchProjects = async (username: string): Promise<Response> => {
@@ -21,7 +22,17 @@ const BlogItemList = () => {
       onUpdate={onUpdate}
     />
   );
-  return <ItemList callBack={fetchProjects} createItem={createProjectItem} />;
+
+  const createBlogButton = (onAdd: () => void) => {
+    return <ProjectAddButton onAdd={onAdd} />;
+  };
+  return (
+    <ItemList
+      callBack={fetchProjects}
+      createItem={createProjectItem}
+      createAddButton={createBlogButton}
+    />
+  );
 };
 
 export { BlogItemList };
