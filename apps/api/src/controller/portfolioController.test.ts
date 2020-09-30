@@ -86,13 +86,12 @@ makeTestSuite('Portfolio Test', () => {
 
   it('should allow editing the user profile', async () => {
     const newProfile = {
-      ...userProfile,
-      name: 'Jane Doe',
-      email: 'anotherexample@gmail.com',
+      name: 'A better name',
+      description: 'A better description',
     };
     const { status } = await callEndpoint(editProfile, {
       ...authReq,
-      body: newProfile,
+      body: newProfile as UserProfile,
     });
     expect(status).toBe(200);
 
@@ -101,7 +100,16 @@ makeTestSuite('Portfolio Test', () => {
       usernameReq
     );
     expect(status2).toBe(200);
-    expectJSONMatching(data, newProfile);
+    expectJSONMatching(data, { ...userProfile, ...newProfile });
+  });
+
+  it('should reject invalid user profiles for editing', async () => {
+    const badProfile = { ...userProfile, name: '' };
+    const { status } = await callEndpoint(editProfile, {
+      ...authReq,
+      body: badProfile,
+    });
+    expect(status).toBe(400);
   });
 
   it('should add a portfolio item to the portfolio correctly', async () => {
@@ -213,6 +221,15 @@ makeTestSuite('Portfolio Test', () => {
     const { status } = await callEndpoint(createItem, {
       ...authReq,
       body: badPortfolioItem,
+    });
+    expect(status).toBe(400);
+  });
+
+  it('should reject portfolio items with an incorrect category', async () => {
+    const badCategory = { ...portfolioItem, category: 'bad category' };
+    const { status } = await callEndpoint(createItem, {
+      ...authReq,
+      body: badCategory,
     });
     expect(status).toBe(400);
   });
