@@ -42,9 +42,9 @@ const AdminPage = () => {
       console.log('got user response');
 
       const data = await userDataResponse.json();
-      // data.app_metadata.registration_complete = true;
+      // data.user_metadata.registration_complete = true;
       // setUserData(data);
-      setRegistrationComplete(data.app_metadata.registration_complete);
+      setRegistrationComplete(data.user_metadata.registration_complete);
       setIsLoaded(true);
     } catch (e) {
       console.log(e.message);
