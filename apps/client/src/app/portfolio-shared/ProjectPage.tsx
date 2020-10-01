@@ -1,19 +1,18 @@
 import React from 'react';
-import { ProjectItemList } from '../projects/ProjectItemList';
 import { TitleBox } from './TitleBox';
+import { ProjectItemList } from '../projects/ProjectItemList';
 
-interface ProjectPage {
-  editable?: boolean;
-}
 // Content of the project tab
-const ProjectPage = (props: ProjectPage) => (
-  <>
-    <TitleBox
-      title="Projects"
-      subtitle="Lorem Ipsum Dolor (who knows what to write here?)"
-    />
-    <ProjectItemList />
-  </>
-);
+const ProjectPage = () => {
+  return (
+    <>
+      <TitleBox
+        title="Projects"
+        subtitle="Lorem Ipsum Dolor (who knows what to write here?)"
+      />
+      <ProjectItemList />
+    </>
+  );
+};
 
 export { ProjectPage };

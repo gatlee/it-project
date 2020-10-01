@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
-import { CenteredRowContent } from '../layout/CenteredRowContent';
-import { Button } from 'react-bootstrap';
-import { ProjectItemEditor } from './editor/ProjectItemEditor';
 import { useAuth0 } from '@auth0/auth0-react';
-import { addProjectItem } from './ProjectUtils';
+import { PortfolioCategory } from '@pure-and-lazy/api-interfaces';
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { CenteredRowContent } from '../layout/CenteredRowContent';
+import { ProjectItemEditor } from '../projects/editor/ProjectItemEditor';
+import { addPortfolioItem } from '../projects/ProjectUtils';
 
 interface ProjectAddButton {
   onAdd: () => void;
+  category: PortfolioCategory;
 }
 
-const ProjectAddButton = (props: ProjectAddButton) => {
+// Add button at the bottom of projects tab and blog tab
+const PortfolioAddButton = (props: ProjectAddButton) => {
   const { getAccessTokenSilently } = useAuth0();
   const [editorOpen, setEditorOpen] = useState(false);
   const [editorTitle, setEditorTitle] = useState('');
@@ -23,10 +26,11 @@ const ProjectAddButton = (props: ProjectAddButton) => {
 
   const handleSave = async () => {
     try {
-      await addProjectItem(
+      await addPortfolioItem(
         editorTitle,
         editorDescription,
         editorContent,
+        props.category,
         getAccessTokenSilently
       );
     } catch (e) {
@@ -58,4 +62,4 @@ const ProjectAddButton = (props: ProjectAddButton) => {
   );
 };
 
-export { ProjectAddButton };
+export { PortfolioAddButton };
