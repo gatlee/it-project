@@ -6,12 +6,24 @@ import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
 import { BlogPage } from '../blog/BlogPage';
+import { FooterWrapper } from '../layout/FooterWrapper';
+import { PortfolioViewFooter } from './PortfolioViewFooter';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const PortfolioIndex = () => {
   const [redirect, setRedirect] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const { path } = useRouteMatch();
+  const { isAuthenticated, user } = useAuth0();
+  /*   if (isAuthenticated) {
+    const { user } = useAuth0();
+  }  */
   const { id } = useParams();
+  //const { user, isAuthenticated } = useAuth0();
+  //console.log(link)
+  //console.log(user.nickname)
+  console.log(id);
+  const footer: React.ReactNode = <PortfolioViewFooter />;
 
   const findUser = () => {
     fetch(`/api/portfolio/${id}/profile`)
@@ -35,7 +47,10 @@ const PortfolioIndex = () => {
   }
 
   return (
-    <>
+    <FooterWrapper
+      footer={footer}
+      hidden={!isAuthenticated || id !== user.nickname}
+    >
       <PortfolioNavBar />
       <Switch>
         <Route exact path={`${path}`}>
@@ -51,7 +66,7 @@ const PortfolioIndex = () => {
           <About />
         </Route>
       </Switch>
-    </>
+    </FooterWrapper>
   );
 };
 

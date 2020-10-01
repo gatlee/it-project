@@ -12,7 +12,6 @@ import { BlogPage } from '../blog/BlogPage';
 const EditIndex = () => {
   const isEditMode = true;
   const { path } = useRouteMatch();
-  console.log(path);
 
   const footer: React.ReactNode = <PortfolioEditFooter />;
 

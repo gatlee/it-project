@@ -20,7 +20,7 @@ const FooterWrapper = (props: FooterWrapper): React.ReactElement => {
       {props.footer}
     </div>
   ) : (
-    <>props.children</>
+    <>{props.children}</>
   );
 };
 
