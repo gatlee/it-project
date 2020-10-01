@@ -18,7 +18,7 @@ interface ItemList {
     index: React.Key,
     onUpdate: () => void
   ) => ReactElement;
-  callBack: (username: string) => Promise<Response>;
+  fetchUrl: (username: string) => string;
   createAddButton: (onAdd: () => void) => React.ReactElement;
 }
 const ItemList = (props: ItemList) => {
@@ -31,8 +31,7 @@ const ItemList = (props: ItemList) => {
   const [loaded, setLoaded] = useState(false);
 
   const loadItems = useCallback(() => {
-    props
-      .callBack(desiredUser)
+    fetch(props.fetchUrl(desiredUser))
       .then((r) => r.json())
       .then((r) => setItems(r))
       .then(() => setLoaded(true))

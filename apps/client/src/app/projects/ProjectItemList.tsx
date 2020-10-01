@@ -8,9 +8,8 @@ import { ProjectItem } from './ProjectItem';
 import { PortfolioAddButton } from '../portfolio-shared/PortfolioAddButton';
 
 const ProjectItemList = () => {
-  const fetchProjects = async (username: string): Promise<Response> => {
-    return fetch(`/api/portfolio/${username}/all?category=projects`);
-  };
+  const getUrl = (username: string): string =>
+    `/api/portfolio/${username}/all?category=projects`;
   const createProjectItem = (
     item: PortfolioItem,
     index: React.Key,
@@ -33,7 +32,7 @@ const ProjectItemList = () => {
   };
   return (
     <ItemList
-      callBack={fetchProjects}
+      fetchUrl={getUrl}
       createItem={createProjectItem}
       createAddButton={createProjectButton}
     />
