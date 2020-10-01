@@ -7,7 +7,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 const PortfolioEditFooter = () => {
   const { user } = useAuth0();
   const link = `/u/${user.nickname}`;
-  console.log(user);
+
   const footerStyle = {
     backgroundColor: '#f8f9fa',
     color: 'black',
