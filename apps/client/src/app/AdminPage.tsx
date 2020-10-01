@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { BackgroundContainer } from './BackgroundContainer';
 import GradientBackground from '../assets/GradientBackground.png';
 import { useAuth0 } from '@auth0/auth0-react';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Button, FormControl, InputGroup } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import LoadingScreen from './LoadingScreen';
 import UrlForm from './input/UrlForm';
 
 const AdminPage = () => {
   const { user, getAccessTokenSilently } = useAuth0();
-  const { name, given_name, picture, email, nickname } = user;
+  const { given_name, picture, email, nickname } = user;
 
   // Auth0 Management API constants
   const auth0Domain = 'pure-and-lazy.au.auth0.com';
@@ -19,6 +20,7 @@ const AdminPage = () => {
   const [userData, setUserData] = useState(null);
   const [registrationComplete, setRegistrationComplete] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const getUserData = async () => {
     try {
@@ -70,9 +72,39 @@ const AdminPage = () => {
         body: JSON.stringify(payload),
       });
       console.log('patch response:', (await patchResponse.json()).message);
-
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  const registerUser = async (username: String) => {
+    // const apiUrl = "/api/auth/create-user"
+    const requestOptions = {
+      method: 'POST',
+      url: '/api/auth/create-user',
+      data: {
+        username: username,
+        email: email,
+        auth0Id: user.sub,
+      },
+    };
+    try {
+      // @ts-ignore
+      const response = await axios(requestOptions);
+      // const response = await axios.post(apiUrl, {
+      //   username: username,
+      //   email: email,
+      //   auth0Id: user.sub,
+      // })
+      console.log('response:', response);
+    } catch (error) {
+      console.log(error.response);
+      const errorData = error.response.data;
+      if (errorData === 'username taken') {
+        setErrorMessage('URL is already taken');
+      } else if (errorData === 'auth0Id conflict') {
+        setErrorMessage('ID conflict. Please contact Pure && Lazy.');
+      }
     }
   };
 
@@ -97,7 +129,11 @@ const AdminPage = () => {
       <h2>Hi {given_name}, welcome to ePortfolio Maker by Pure && Lazy</h2>
 
       {!registrationComplete ? (
-        <UrlForm handleSubmit={updateRegistrationStatus} />
+        <UrlForm
+          onSubmit={registerUser}
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
+        />
       ) : (
         <>
           <LinkContainer to={`/u/${nickname}`}>
