@@ -26,6 +26,7 @@ const createUser = async (req: Req, res: Res<String>) => {
       dateJoined: new Date(),
       portfolio: [],
     });
+
     res.sendStatus(200);
   } else {
     res.sendStatus(400);

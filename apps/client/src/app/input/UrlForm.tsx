@@ -7,6 +7,8 @@ interface UrlForm {
   setErrorMessage(errorMessage: string);
 }
 
+// Form Validation reference: https://react-bootstrap.github.io/components/forms/#forms-validation
+
 export const UrlForm = (props: UrlForm) => {
   const [urlPath, setUrlPath] = useState('');
   const [isInvalid, setIsInvalid] = useState(false);
