@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Image } from 'react-bootstrap';
 import Dropzone from 'react-dropzone';
 import { Upload } from 'react-bootstrap-icons';
-import './ProjectItemimage.css';
+import './ProjectItemImage.css';
 import { generateCloudinaryUrl } from '../../cloudinaryUtility';
 
 interface ProjectItemImage {
