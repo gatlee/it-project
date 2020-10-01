@@ -41,7 +41,7 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
       >
         <Row>
           <Col>
-            <h2>Edit Portfolio Item</h2>
+            <h2>{props.title === '' ? 'Create New' : `Edit ${props.title}`}</h2>
           </Col>
         </Row>
         <Row className="py-3">

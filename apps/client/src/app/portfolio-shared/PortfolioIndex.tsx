@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Route, Switch, useParams, useRouteMatch } from 'react-router-dom';
+import { BlogPage } from '../blog/BlogPage';
 import { NotFound } from '../NotFound';
 import { About } from './about/About';
 import { PortfolioHome } from './PortfolioHome';
@@ -56,7 +57,7 @@ const PortfolioIndex = () => {
           <ProjectPage />
         </Route>
         <Route exact path={`${path}/blog`}>
-          <h1>Blog</h1>
+          <BlogPage />
         </Route>
         <Route exact path={`${path}/about`}>
           <About />

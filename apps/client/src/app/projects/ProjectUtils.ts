@@ -61,10 +61,11 @@ const deleteProjectItem = async (
 };
 
 // Create new project
-const addProjectItem = async (
+const addPortfolioItem = async (
   title: string,
   description: string,
   content: string,
+  category: PortfolioCategory,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getAccessTokenSilently: (options?: any) => Promise<string>
 ) => {
@@ -72,7 +73,7 @@ const addProjectItem = async (
     name: title,
     description: description,
     content: content,
-    category: PortfolioCategory.PROJECTS,
+    category: category,
   };
 
   let token: string;
@@ -91,5 +92,4 @@ const addProjectItem = async (
     body: JSON.stringify(body),
   });
 };
-
-export { updateProjectItem, deleteProjectItem, addProjectItem };
+export { updateProjectItem, deleteProjectItem, addPortfolioItem };

@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { BlogPage } from '../blog/BlogPage';
 import { FooterWrapper } from '../layout/FooterWrapper';
 import { About } from './about/About';
+import { EditContext } from './EditContext';
 import { PortfolioEditFooter } from './PortfolioEditFooter';
 import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
-import { EditContext } from './EditContext';
 import { UserContext } from './UserContext';
-import { useAuth0 } from '@auth0/auth0-react';
 
 const EditIndex = () => {
   const isEditMode = true;
@@ -47,7 +48,7 @@ const EditIndex = () => {
               <ProjectPage />
             </Route>
             <Route exact path={`${path}/blog`}>
-              <h1>Blog</h1>
+              <BlogPage />
             </Route>
             <Route exact path={`${path}/about`}>
               <About />
