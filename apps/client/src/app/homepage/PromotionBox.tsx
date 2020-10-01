@@ -6,11 +6,13 @@ import SignOutButton from '../buttons/SignOutButton';
 import ViewPortfolioButton from '../buttons/ViewPortfolioButton';
 import AdminButton from '../buttons/AdminButton';
 import DemoImage from '../../assets/PortfolioDemo.png';
+import MobileDemo from '../../assets/MobileDemo.png';
 import { useAuth0 } from '@auth0/auth0-react';
 import { css } from '@emotion/core';
 
 const PromotionBox = () => {
-  const { isAuthenticated } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
+  const { name } = user;
 
   const titleStyle = {
     fontSize: '3.4em',
@@ -63,20 +65,33 @@ const PromotionBox = () => {
 
           {isAuthenticated ? (
             <>
+              <p> Welcome back, {name}!</p>
               <ViewPortfolioButton />
               <AdminButton />
               <SignOutButton />
             </>
           ) : (
             <>
+              <p></p>
               <GetStartedButton />
               <SignInButton />
             </>
           )}
         </Col>
 
-        <Col lg={6} md={12} className="py-3 align-self-center">
-          <Image src={DemoImage} css={imageStyle} fluid />
+        <Col lg={6} md={12} className="p-4 align-self-center">
+          <Image
+            src={DemoImage}
+            css={imageStyle}
+            className="shadow-lg d-none d-lg-block"
+            fluid
+          />
+          <Image
+            src={MobileDemo}
+            css={imageStyle}
+            className="shadow-lg d-block d-lg-none"
+            fluid
+          />
         </Col>
       </Row>
     </Container>
