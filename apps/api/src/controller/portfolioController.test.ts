@@ -33,6 +33,9 @@ const callEndpoint = async <T, U>(
       result.data = jsonMangle(object);
       result.status = 200;
     },
+    status: (status) => {
+      result.status = status;
+    },
     sendStatus: (status) => {
       result.status = status;
     },
