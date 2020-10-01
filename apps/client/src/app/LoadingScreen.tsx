@@ -19,7 +19,7 @@ const LoadingScreen = () => {
           <h1>Loading</h1>
         </CenteredRowContent>
       </Row>
-      <Row className="pt-5">
+      <Row className="mt-5">
         <CenteredRowContent>
           <Spinner animation="border" />
         </CenteredRowContent>
