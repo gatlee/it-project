@@ -8,6 +8,7 @@ import { Button } from 'react-bootstrap';
 import ViewPortfolioButton from './buttons/ViewPortfolioButton';
 import LoadingScreen from './LoadingScreen';
 import UrlForm from './input/UrlForm';
+import SignOutButton from "./buttons/SignOutButton";
 
 // Axios Documentation: https://github.com/axios/axios
 
@@ -20,7 +21,7 @@ const AdminPage = () => {
   const audience = `https://${auth0Domain}/api/v2/`;
   const userDetailsByIdUrl = `https://${auth0Domain}/api/v2/users/${user.sub}`;
 
-  const [userData, setUserData] = useState(null);
+  // const [userData, setUserData] = useState(null);
   const [registrationComplete, setRegistrationComplete] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -42,7 +43,7 @@ const AdminPage = () => {
 
       const data = await userDataResponse.json();
       // data.app_metadata.registration_complete = true;
-      setUserData(data);
+      // setUserData(data);
       setRegistrationComplete(data.app_metadata.registration_complete);
       setIsLoaded(true);
     } catch (e) {
@@ -61,7 +62,7 @@ const AdminPage = () => {
       console.log('got access token');
 
       const payload = {
-        app_metadata: {
+        user_metadata: {
           registration_complete: true,
         },
       };
@@ -74,7 +75,8 @@ const AdminPage = () => {
         },
         body: JSON.stringify(payload),
       });
-      console.log('patch response:', (await patchResponse.json()).message);
+      console.log('patch response:', (await patchResponse.json()));
+
     } catch (e) {
       console.log(e);
     }
@@ -100,8 +102,15 @@ const AdminPage = () => {
       //   auth0Id: user.sub,
       // })
       console.log('response:', response);
+
+      if (response.status === 200) {
+        await updateRegistrationStatus();
+        window.location.reload();
+      }
+
     } catch (error) {
       console.log(error.response);
+
       const errorData = error.response.data;
       if (errorData === 'username taken') {
         setErrorMessage('URL is already taken');
@@ -112,7 +121,7 @@ const AdminPage = () => {
   };
 
   useEffect(() => {
-    getUserData();
+    getUserData().then();
   }, []);
 
   if (!isLoaded) {
@@ -138,13 +147,19 @@ const AdminPage = () => {
           setErrorMessage={setErrorMessage}
         />
       ) : (
-        <>
+        <div className="mb-5 mt-4">
           <ViewPortfolioButton />
           <LinkContainer to={`/edit`}>
             <Button>Edit Portfolio</Button>
           </LinkContainer>
-        </>
+        </div>
       )}
+      <div className="mb-3">
+        <LinkContainer to={`/`}>
+          <Button variant="info">Return to Homepage</Button>
+        </LinkContainer>
+      </div>
+      <SignOutButton />
     </BackgroundContainer>
   );
 };
