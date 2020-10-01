@@ -27,18 +27,15 @@ const ProjectItemImage = (props: ProjectItemImage) => {
       accept="image/*"
     >
       {({ getRootProps, getInputProps }) => (
-        <section>
-          <div {...getRootProps()}>
-            <input {...getInputProps()} />
-
-            <div className="project-image-container">
-              <Image src={imgUrl} fluid className="w-100" />
-              <div className="project-image-overlay">
-                <Upload className="fa fa-user upload-icon" />
-              </div>
+        <div {...getRootProps()}>
+          <input {...getInputProps()} />
+          <div className="w-100 project-image-container">
+            <Image src={imgUrl} fluid className="w-100" />
+            <div className="project-image-overlay">
+              <Upload className="upload-icon" />
             </div>
           </div>
-        </section>
+        </div>
       )}
     </Dropzone>
   );
