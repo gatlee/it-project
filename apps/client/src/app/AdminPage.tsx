@@ -5,6 +5,7 @@ import GradientBackground from '../assets/GradientBackground.png';
 import { useAuth0 } from '@auth0/auth0-react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button } from 'react-bootstrap';
+import ViewPortfolioButton from './buttons/ViewPortfolioButton';
 import LoadingScreen from './LoadingScreen';
 import UrlForm from './input/UrlForm';
 
@@ -12,7 +13,7 @@ import UrlForm from './input/UrlForm';
 
 const AdminPage = () => {
   const { user, getAccessTokenSilently } = useAuth0();
-  const { given_name, picture, email, nickname } = user;
+  const { given_name, picture, email } = user;
 
   // Auth0 Management API constants
   const auth0Domain = 'pure-and-lazy.au.auth0.com';
@@ -138,9 +139,7 @@ const AdminPage = () => {
         />
       ) : (
         <>
-          <LinkContainer to={`/u/${nickname}`}>
-            <Button>View Portfolio</Button>
-          </LinkContainer>
+          <ViewPortfolioButton />
           <LinkContainer to={`/edit`}>
             <Button>Edit Portfolio</Button>
           </LinkContainer>

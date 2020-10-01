@@ -5,6 +5,7 @@ import { About } from './about/About';
 import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
+import { BlogPage } from '../blog/BlogPage';
 
 const PortfolioIndex = () => {
   const [redirect, setRedirect] = useState(false);
@@ -44,7 +45,7 @@ const PortfolioIndex = () => {
           <ProjectPage />
         </Route>
         <Route exact path={`${path}/blog`}>
-          <h1>Blog</h1>
+          <BlogPage />
         </Route>
         <Route exact path={`${path}/about`}>
           <About />

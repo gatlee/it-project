@@ -7,6 +7,7 @@ import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
 import { EditContext } from './EditContext';
+import { BlogPage } from '../blog/BlogPage';
 
 const EditIndex = () => {
   const isEditMode = true;
@@ -27,7 +28,7 @@ const EditIndex = () => {
             <ProjectPage />
           </Route>
           <Route exact path={`${path}/blog`}>
-            <h1>Blog</h1>
+            <BlogPage />
           </Route>
           <Route exact path={`${path}/about`}>
             <About />

@@ -20,8 +20,7 @@ const updateProjectItem = async (
   try {
     token = await getAccessTokenSilently();
   } catch (error) {
-    console.log('Unable to get token');
-    token = '';
+    return Promise.reject('Failed to get access token');
   }
   const data: PortfolioItem = {
     name: title,
@@ -50,7 +49,7 @@ const deleteProjectItem = async (
   try {
     token = await getAccessTokenSilently();
   } catch (error) {
-    token = '';
+    return Promise.reject('Failed to get access token');
   }
 
   return fetch(`/api/portfolio/${id}`, {
@@ -62,10 +61,11 @@ const deleteProjectItem = async (
 };
 
 // Create new project
-const addProjectItem = async (
+const addPortfolioItem = async (
   title: string,
   description: string,
   content: string,
+  category: PortfolioCategory,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getAccessTokenSilently: (options?: any) => Promise<string>
 ) => {
@@ -73,14 +73,14 @@ const addProjectItem = async (
     name: title,
     description: description,
     content: content,
-    category: PortfolioCategory.PROJECTS,
+    category: category,
   };
 
   let token: string;
   try {
     token = await getAccessTokenSilently();
   } catch (error) {
-    token = '';
+    return Promise.reject('Failed to get access token');
   }
 
   return fetch(`/api/portfolio/create`, {
@@ -92,5 +92,4 @@ const addProjectItem = async (
     body: JSON.stringify(body),
   });
 };
-
-export { updateProjectItem, deleteProjectItem, addProjectItem };
+export { updateProjectItem, deleteProjectItem, addPortfolioItem };
