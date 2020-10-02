@@ -48,7 +48,8 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
         </Button>
       </CenteredRowContent>
       <ProjectItemEditor
-        title={editorTitle}
+        title=""
+        editorTitle={editorTitle}
         onTitleChange={setEditorTitle}
         description={editorDescription}
         onDescriptionChange={setEditorDescription}
