@@ -208,8 +208,14 @@ makeTestSuite('Portfolio Tests', () => {
     });
     expect(status).toBe(400);
   });
-});
 
-it('should be alright', async () => {
-  return;
+  it('should reject editing with invalid authentication', async () => {
+    const { status } = await callEndpoint(editItem, {
+      ...defaultReq,
+      params: { portfolioItemId },
+      body: portfolioItem,
+      user: { sub: 'wrong id' },
+    });
+    expect(status).toBe(404);
+  });
 });

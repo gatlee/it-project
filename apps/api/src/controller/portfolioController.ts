@@ -139,7 +139,7 @@ const editProfile = async (req: Req<UserProfile>, res: Res<never>) => {
       res.sendStatus(400);
     }
   } catch {
-    res.sendStatus(400);
+    res.sendStatus(404);
   }
 };
 
