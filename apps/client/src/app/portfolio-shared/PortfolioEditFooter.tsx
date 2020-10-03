@@ -8,15 +8,11 @@ const PortfolioEditFooter = () => {
   const { user } = useAuth0();
   const link = `/u/${user.nickname}`;
 
-  const textLinkStyle = {
-    cursor: 'pointer',
-  };
-
   return (
     <span>
       You are in edit mode. To see what this looks like to the public,{' '}
       <LinkContainer to={link} style={{ cursor: 'pointer' }}>
-        <span style={textLinkStyle}>
+        <span>
           <b>click here</b>
           <BoxArrowUpRight className="ml-1" />
         </span>

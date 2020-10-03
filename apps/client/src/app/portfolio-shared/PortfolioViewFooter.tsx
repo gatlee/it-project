@@ -5,15 +5,12 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 const PortfolioViewFooter = () => {
   const link = `/edit`;
-  const textLinkStyle = {
-    cursor: 'pointer',
-  };
 
   return (
     <span>
       You are in view mode. To edit your portfolio,{' '}
       <LinkContainer to={link} style={{ cursor: 'pointer' }}>
-        <span style={textLinkStyle}>
+        <span>
           <b>click here</b>
           <BoxArrowUpRight className="ml-1" />
         </span>
