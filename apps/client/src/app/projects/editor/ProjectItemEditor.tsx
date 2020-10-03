@@ -7,6 +7,7 @@ import { ProjectItemImage } from './ProjectItemImage';
 interface ProjectItemEditor {
   title: string;
   editorTitle: string;
+  editorSaveButtonDisabled: boolean;
   onTitleChange: (title: string) => void;
   description: string;
   onDescriptionChange: (description: string) => void;
@@ -80,7 +81,12 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
         </Row>
         <Row>
           <Col>
-            <Button onClick={handleSave}>Save</Button>
+            <Button
+              disabled={props.editorSaveButtonDisabled}
+              onClick={handleSave}
+            >
+              Save
+            </Button>
             <Button onClick={props.onCancel} variant="Secondary">
               Cancel
             </Button>
