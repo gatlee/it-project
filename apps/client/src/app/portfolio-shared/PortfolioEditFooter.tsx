@@ -8,30 +8,20 @@ const PortfolioEditFooter = () => {
   const { user } = useAuth0();
   const link = `/u/${user.nickname}`;
 
-  const footerStyle = {
-    backgroundColor: '#f8f9fa',
-    color: 'black',
-    padding: '5px',
-  };
-
   const textLinkStyle = {
     cursor: 'pointer',
   };
 
   return (
-    <footer style={footerStyle}>
-      <Container style={{ textAlign: 'center' }}>
-        <span>
-          You are in edit mode. To see what this looks like to the public,{' '}
-          <LinkContainer to={link} style={{ cursor: 'pointer' }}>
-            <span style={textLinkStyle}>
-              <b>click here</b>
-              <BoxArrowUpRight className="ml-1" />
-            </span>
-          </LinkContainer>
+    <span>
+      You are in edit mode. To see what this looks like to the public,{' '}
+      <LinkContainer to={link} style={{ cursor: 'pointer' }}>
+        <span style={textLinkStyle}>
+          <b>click here</b>
+          <BoxArrowUpRight className="ml-1" />
         </span>
-      </Container>
-    </footer>
+      </LinkContainer>
+    </span>
   );
 };
 

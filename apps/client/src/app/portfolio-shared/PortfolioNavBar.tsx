@@ -49,12 +49,10 @@ const PortfolioNavBar = () => {
             <LinkContainer to={`${URL_PREFIX}/about`}>
               <Nav.Link eventKey="/about">About</Nav.Link>
             </LinkContainer>
-            {editMode ? (
+            {editMode && (
               <LinkContainer to={`/admin`}>
                 <Nav.Link eventKey="/admin">Admin</Nav.Link>
               </LinkContainer>
-            ) : (
-              <></>
             )}
           </Nav>
         </Navbar.Collapse>
