@@ -10,7 +10,7 @@ const PortfolioEditFooter = () => {
   return (
     <span>
       You are in edit mode. To see what this looks like to the public,{' '}
-      <LinkContainer to={link} style={{ cursor: 'pointer' }}>
+      <LinkContainer to={link} className="pointer">
         <span>
           <b>click here</b>
           <BoxArrowUpRight className="ml-1" />

@@ -8,7 +8,7 @@ const PortfolioViewFooter = () => {
   return (
     <span>
       You are in view mode. To edit your portfolio,{' '}
-      <LinkContainer to={link} style={{ cursor: 'pointer' }}>
+      <LinkContainer to={link} className="pointer">
         <span>
           <b>click here</b>
           <BoxArrowUpRight className="ml-1" />
