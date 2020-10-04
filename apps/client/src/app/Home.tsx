@@ -29,7 +29,7 @@ export const Home = () => {
       <div>{isAuthenticated ? 'Signed In' : 'Not Signed In'}</div>
       <div>{m.message}</div>
       <Link to="/u/gkaw">
-        <h2>Click here to be routed to foo's portfolio!</h2>
+        <h2>Example</h2>
       </Link>
     </BackgroundContainer>
   );

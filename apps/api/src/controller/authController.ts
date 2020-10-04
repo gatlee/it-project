@@ -6,17 +6,21 @@ interface Req {
 }
 
 const createUser = async (req: Req, res: Res<never>) => {
-  if (req.body && req.body.username && req.body.email && req.body.auth0Id) {
+  try {
     const { username, email, auth0Id } = req.body;
-    await UserModel.create({
-      username,
-      email,
-      auth0Id,
-      dateJoined: new Date(),
-      portfolio: [],
-    });
-    res.sendStatus(200);
-  } else {
+    if (username && email && auth0Id) {
+      await UserModel.create({
+        username,
+        email,
+        auth0Id,
+        dateJoined: new Date(),
+        portfolio: [],
+      });
+      res.sendStatus(201);
+    } else {
+      res.sendStatus(400);
+    }
+  } catch {
     res.sendStatus(400);
   }
 };

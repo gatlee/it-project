@@ -29,18 +29,13 @@ const router = Router();
  *             auth0Id:
  *               type: string
  *     responses:
- *       200:
- *         description: The user's profile.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/UserProfile'
+ *       201:
+ *         description: User successfully created.
  *       404:
- *         description: Unknown user.
+ *         description: Malformed input.
  *     tags:
  *       - Auth
  */
-// FIXME: authenticate that the request is coming from the Auth0 rule
 router.post('/create-user', createUser);
 
 export default router;
