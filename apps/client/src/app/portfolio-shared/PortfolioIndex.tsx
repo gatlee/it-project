@@ -7,6 +7,7 @@ import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
 import { UserContext } from './UserContext';
+import { Container } from 'react-bootstrap';
 
 const PortfolioIndex = () => {
   const [redirect, setRedirect] = useState(false);
@@ -48,21 +49,23 @@ const PortfolioIndex = () => {
 
   return (
     <UserContext.Provider value={user}>
-      <PortfolioNavBar />
-      <Switch>
-        <Route exact path={`${path}`}>
-          <PortfolioHome />
-        </Route>
-        <Route exact path={`${path}/projects`}>
-          <ProjectPage />
-        </Route>
-        <Route exact path={`${path}/blog`}>
-          <BlogPage />
-        </Route>
-        <Route exact path={`${path}/about`}>
-          <About />
-        </Route>
-      </Switch>
+      <Container className="d-flex flex-column min-vh-100 p-0" fluid>
+        <PortfolioNavBar />
+        <Switch>
+          <Route exact path={`${path}`}>
+            <PortfolioHome />
+          </Route>
+          <Route exact path={`${path}/projects`}>
+            <ProjectPage />
+          </Route>
+          <Route exact path={`${path}/blog`}>
+            <BlogPage />
+          </Route>
+          <Route exact path={`${path}/about`}>
+            <About />
+          </Route>
+        </Switch>
+      </Container>
     </UserContext.Provider>
   );
 };

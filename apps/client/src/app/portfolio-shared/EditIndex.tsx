@@ -10,6 +10,7 @@ import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
 import { UserContext } from './UserContext';
+import { Container } from 'react-bootstrap';
 
 const EditIndex = () => {
   const isEditMode = true;
@@ -38,23 +39,25 @@ const EditIndex = () => {
   return (
     <UserContext.Provider value={desiredUser}>
       <EditContext.Provider value={true}>
-        <FooterWrapper footer={footer} hidden={!isEditMode}>
-          <PortfolioNavBar />
-          <Switch>
-            <Route exact path={`${path}`}>
-              <PortfolioHome />
-            </Route>
-            <Route exact path={`${path}/projects`}>
-              <ProjectPage />
-            </Route>
-            <Route exact path={`${path}/blog`}>
-              <BlogPage />
-            </Route>
-            <Route exact path={`${path}/about`}>
-              <About />
-            </Route>
-          </Switch>
-        </FooterWrapper>
+        <Container className="d-flex flex-column min-vh-100 p-0" fluid>
+          <FooterWrapper footer={footer} hidden={!isEditMode}>
+            <PortfolioNavBar />
+            <Switch>
+              <Route exact path={`${path}`}>
+                <PortfolioHome />
+              </Route>
+              <Route exact path={`${path}/projects`}>
+                <ProjectPage />
+              </Route>
+              <Route exact path={`${path}/blog`}>
+                <BlogPage />
+              </Route>
+              <Route exact path={`${path}/about`}>
+                <About />
+              </Route>
+            </Switch>
+          </FooterWrapper>
+        </Container>
       </EditContext.Provider>
     </UserContext.Provider>
   );
