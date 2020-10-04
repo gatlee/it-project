@@ -22,6 +22,7 @@ interface UserProfile {
   name?: string;
   dateJoined: Date;
   description?: string;
+  profilePicture?: string;
 }
 
 export { Message, PortfolioItem, PortfolioCategory, UserProfile };
