@@ -1,17 +1,16 @@
 import { css } from 'emotion';
 import React, { useContext } from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Nav, Navbar, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useParams } from 'react-router-dom';
 import { EditContext } from './EditContext';
-import { useAuth0 } from '@auth0/auth0-react';
+import { UserContext } from './UserContext';
 
 const PortfolioNavBar = () => {
   const { id } = useParams();
-  const { user } = useAuth0();
   const editMode = useContext(EditContext);
+  const { name } = useContext(UserContext);
   const URL_PREFIX = editMode ? `/edit` : `/u/${id}`;
-  const name = editMode ? user.nickname : id;
   const logoStyle = css`
     position: relative;
     @media (min-width: 576px) {
