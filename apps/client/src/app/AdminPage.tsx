@@ -8,7 +8,7 @@ import { Button } from 'react-bootstrap';
 import ViewPortfolioButton from './buttons/ViewPortfolioButton';
 import LoadingScreen from './LoadingScreen';
 import UrlForm from './input/UrlForm';
-import SignOutButton from "./buttons/SignOutButton";
+import SignOutButton from './buttons/SignOutButton';
 
 // Axios Documentation: https://github.com/axios/axios
 
@@ -21,12 +21,11 @@ const AdminPage = () => {
   const audience = `https://${auth0Domain}/api/v2/`;
   const userDetailsByIdUrl = `https://${auth0Domain}/api/v2/users/${user.sub}`;
 
-  // const [userData, setUserData] = useState(null);
   const [registrationComplete, setRegistrationComplete] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const getUserData = async () => {
+  const getUserRegistrationStatus = async () => {
     try {
       const accessToken = await getAccessTokenSilently({
         audience: audience,
@@ -42,8 +41,6 @@ const AdminPage = () => {
       console.log('got user response');
 
       const data = await userDataResponse.json();
-      // data.user_metadata.registration_complete = true;
-      // setUserData(data);
       setRegistrationComplete(data.user_metadata.registration_complete);
       setIsLoaded(true);
     } catch (e) {
@@ -53,8 +50,6 @@ const AdminPage = () => {
 
   const updateRegistrationStatus = async () => {
     try {
-      console.log('audience:', audience);
-      console.log('userDetailsByIdUrl:', userDetailsByIdUrl);
       const accessToken = await getAccessTokenSilently({
         audience: audience,
         scope: 'update:current_user_metadata',
@@ -75,15 +70,13 @@ const AdminPage = () => {
         },
         body: JSON.stringify(payload),
       });
-      console.log('patch response:', (await patchResponse.json()));
-
+      console.log('patch response:', await patchResponse.json());
     } catch (e) {
       console.log(e);
     }
   };
 
   const registerUser = async (username: String) => {
-    // const apiUrl = "/api/auth/create-user"
     const requestOptions = {
       method: 'POST',
       url: '/api/auth/create-user',
@@ -94,20 +87,16 @@ const AdminPage = () => {
       },
     };
     try {
-      // @ts-ignore
+      // @ts-ignore // my IDE is buggy
       const response = await axios(requestOptions);
-      // const response = await axios.post(apiUrl, {
-      //   username: username,
-      //   email: email,
-      //   auth0Id: user.sub,
-      // })
+
       console.log('response:', response);
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         await updateRegistrationStatus();
-        window.location.reload();
+        // window.location.reload();
+        // instead of reloading we can call `await getUserRegistrationStatus()`
       }
-
     } catch (error) {
       console.log(error.response);
 
@@ -121,7 +110,7 @@ const AdminPage = () => {
   };
 
   useEffect(() => {
-    getUserData().then();
+    getUserRegistrationStatus().then();
   }, []);
 
   if (!isLoaded) {
@@ -134,10 +123,7 @@ const AdminPage = () => {
       style={{ textAlign: 'center' }}
     >
       <img src={picture} alt="Profile" style={{ maxWidth: '100px' }} />
-      {/*<h2>{name}</h2>*/}
       <p>{email}</p>
-      {/*/!*<h4>Other User Content:</h4>*!/*/}
-      {/*<p>{JSON.stringify(userData, null, 2)}</p>*/}
       <h2>Hi {given_name}, welcome to ePortfolio Maker by Pure && Lazy</h2>
 
       {!registrationComplete ? (
@@ -154,6 +140,7 @@ const AdminPage = () => {
           </LinkContainer>
         </div>
       )}
+
       <div className="mb-3">
         <LinkContainer to={`/`}>
           <Button variant="info">Return to Homepage</Button>

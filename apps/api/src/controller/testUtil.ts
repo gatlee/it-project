@@ -1,5 +1,11 @@
 import * as mongoose from 'mongoose';
 
+const jsonMangle = (object) => JSON.parse(JSON.stringify(object));
+
+const expectJSONMatching = (actual, expected) => {
+  expect(actual).toMatchObject(jsonMangle(expected));
+};
+
 const makeTestSuite = (name, tests) =>
   describe(name, () => {
     let connection;
@@ -20,4 +26,4 @@ const makeTestSuite = (name, tests) =>
     tests();
   });
 
-export default makeTestSuite;
+export { jsonMangle, expectJSONMatching, makeTestSuite };

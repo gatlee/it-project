@@ -37,6 +37,12 @@ const EditorBody = (props: EditorBody) => {
     },
   };
 
+  const editorImageStyle = {
+    img: {
+      maxWidth: '100%',
+    },
+  };
+
   const toolbarCommands = [...getDefaultToolbarCommands(), ['youtube-embed']];
 
   return (
@@ -52,7 +58,11 @@ const EditorBody = (props: EditorBody) => {
         onTabChange={setSelectedTab}
         generateMarkdownPreview={(markdown) =>
           Promise.resolve(
-            <ReactMarkdown escapeHtml={false} source={markdown} />
+            <ReactMarkdown
+              escapeHtml={false}
+              source={markdown}
+              css={editorImageStyle}
+            />
           )
         }
         paste={{

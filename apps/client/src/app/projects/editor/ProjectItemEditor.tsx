@@ -6,6 +6,7 @@ import { ProjectItemImage } from './ProjectItemImage';
 
 interface ProjectItemEditor {
   title: string;
+  editorTitle: string;
   onTitleChange: (title: string) => void;
   description: string;
   onDescriptionChange: (description: string) => void;
@@ -56,7 +57,7 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
                 <Form.Control
                   onChange={handleTitleChange}
                   size="lg"
-                  value={props.title}
+                  value={props.editorTitle}
                 />
               </Form.Group>
               <Form.Group controlId="formGroupDescription">

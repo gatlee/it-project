@@ -128,14 +128,18 @@ const viewProfile = async (req: Req<{}>, res: Res<UserProfile>) => {
 
 const editProfile = async (req: Req<UserProfile>, res: Res<never>) => {
   try {
-    const { email, name } = req.body;
-    await UserModel.findOneAndUpdate(
-      { auth0Id: req.user.sub },
-      { email, name }
-    );
-    res.sendStatus(200);
+    const { name, description } = req.body;
+    if (name && description != undefined) {
+      await UserModel.findOneAndUpdate(
+        { auth0Id: req.user.sub },
+        { name, description }
+      );
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(400);
+    }
   } catch {
-    res.sendStatus(400);
+    res.sendStatus(404);
   }
 };
 
