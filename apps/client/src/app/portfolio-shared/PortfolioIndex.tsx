@@ -1,32 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Route, Switch, useParams, useRouteMatch } from 'react-router-dom';
+import { BlogPage } from '../blog/BlogPage';
 import { NotFound } from '../NotFound';
 import { About } from './about/About';
 import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
-import { BlogPage } from '../blog/BlogPage';
+import { UserContext } from './UserContext';
 
 const PortfolioIndex = () => {
   const [redirect, setRedirect] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [user, setUser] = useState({
+    username: '',
+    email: '',
+    name: '',
+    dateJoined: undefined,
+    description: '',
+  });
   const { path } = useRouteMatch();
   const { id } = useParams();
 
-  const findUser = () => {
+  const findUser = useCallback(() => {
     fetch(`/api/portfolio/${id}/profile`)
       .then((r) => {
         // User not found, we should redirect
         if (r.status !== 200) {
           setRedirect(true);
         }
+        return r.json();
       })
-      .then(() => setLoaded(true));
-  };
+      .then((r) => {
+        setUser(r);
+        setLoaded(true);
+      });
+  }, [setRedirect, setUser, setLoaded, id]);
 
   useEffect(() => {
     findUser();
-  });
+  }, [findUser]);
 
   if (redirect) {
     return <Route component={NotFound} />;
@@ -35,7 +47,7 @@ const PortfolioIndex = () => {
   }
 
   return (
-    <>
+    <UserContext.Provider value={user}>
       <PortfolioNavBar />
       <Switch>
         <Route exact path={`${path}`}>
@@ -51,7 +63,7 @@ const PortfolioIndex = () => {
           <About />
         </Route>
       </Switch>
-    </>
+    </UserContext.Provider>
   );
 };
 

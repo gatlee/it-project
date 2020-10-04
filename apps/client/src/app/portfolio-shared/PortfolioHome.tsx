@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import { PortfolioAvatar } from './PortfolioAvatar';
+import BackgroundImage from '../../assets/landscape.png';
+import { BackgroundContainer } from '../BackgroundContainer';
 import { CenteredRowContent } from '../layout/CenteredRowContent';
 import { UploadBox } from '../UploadBox';
 import { EditContext } from './EditContext';
-import { BackgroundContainer } from '../BackgroundContainer';
+import { PortfolioAvatar } from './PortfolioAvatar';
+import { UserContext } from './UserContext';
 
-import BackgroundImage from '../../assets/landscape.png';
-import { useAuth0 } from '@auth0/auth0-react';
 const PortfolioHome = () => {
-  const { user } = useAuth0();
-  const { name } = user;
+  const { name, username } = useContext(UserContext);
   const editMode = useContext(EditContext);
 
   return (
@@ -28,7 +27,9 @@ const PortfolioHome = () => {
         </Row>
         <Row>
           <CenteredRowContent>
-            <h1 className="text-white display-1 mt-5 text-center"> {name} </h1>
+            <h1 className="text-white display-1 mt-5 text-center">
+              {name || username}
+            </h1>
           </CenteredRowContent>
         </Row>
         {editMode && (
