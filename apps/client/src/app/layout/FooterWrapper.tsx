@@ -11,7 +11,7 @@ const FooterWrapper = (props: FooterWrapper): React.ReactElement => {
   return !props.hidden ? (
     <div className="d-flex flex-column min-vh-100">
       {props.children}
-      {props.footer}
+      <div className="fixed-bottom">{props.footer} </div>
     </div>
   ) : (
     <>props.children</>

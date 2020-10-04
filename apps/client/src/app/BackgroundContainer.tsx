@@ -11,7 +11,6 @@ const BackgroundContainer = (props: BackgroundContainer) => {
 
   const combinedStyles = {
     backgroundImage: `url(${background})`,
-    overflow: 'hidden',
     height: '100%',
     width: '100%',
     backgroundSize: 'cover',
