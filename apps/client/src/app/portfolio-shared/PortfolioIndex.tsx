@@ -7,6 +7,7 @@ import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
 import { UserContext } from './UserContext';
+import { ContentPage } from '../content/ContentPage';
 
 const PortfolioIndex = () => {
   const [redirect, setRedirect] = useState(false);
@@ -58,6 +59,12 @@ const PortfolioIndex = () => {
         </Route>
         <Route exact path={`${path}/blog`}>
           <BlogPage />
+        </Route>
+        <Route exact path={`${path}/projects/:contentID`}>
+          <ContentPage />
+        </Route>
+        <Route exact path={`${path}/blog/:contentID`}>
+          <ContentPage />
         </Route>
         <Route exact path={`${path}/about`}>
           <About />

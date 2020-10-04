@@ -6,11 +6,12 @@ import BackgroundImage from './../../assets/landscape.png';
 interface TitleBox {
   title: string;
   subtitle?: string;
+  date?: string;
 }
 
 // Pretty box with title and subheading
 const TitleBox = (props: TitleBox) => {
-  const foo = css({
+  const style = css({
     background: 'white',
     backgroundImage: ` linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${BackgroundImage})`,
     backgroundPosition: 'center',
@@ -20,7 +21,7 @@ const TitleBox = (props: TitleBox) => {
   });
 
   return (
-    <div className={foo + ' shadow-lg'}>
+    <div className={style + ' shadow-lg'}>
       <Container fluid>
         <Container>
           <Row>
@@ -31,6 +32,16 @@ const TitleBox = (props: TitleBox) => {
           <Row>
             <h4 className="text-light my-5 mx-3 text-lg-left text-center   w-100">
               <em>{props.subtitle}</em>
+            </h4>
+          </Row>
+          <Row>
+            <h4 className="text-light my-2 mx-3">
+              {props.date && (
+                <>
+                  <b>Created: </b>
+                  {props.date}
+                </>
+              )}
             </h4>
           </Row>
         </Container>
