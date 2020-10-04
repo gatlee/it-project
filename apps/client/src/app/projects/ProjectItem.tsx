@@ -54,7 +54,8 @@ const ProjectItem = (props: ProjectItem) => {
   return (
     <>
       <ProjectItemEditor
-        title={editorTitle}
+        title={props.title}
+        editorTitle={editorTitle}
         onTitleChange={setEditorTitle}
         description={editorDescription}
         onDescriptionChange={setEditorDescription}
