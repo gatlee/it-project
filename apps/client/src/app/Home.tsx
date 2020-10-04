@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Message } from '@pure-and-lazy/api-interfaces';
 import { Link } from 'react-router-dom';
-import LoadingScreen from './LoadingScreen';
 import { useAuth0 } from '@auth0/auth0-react';
 import { PromotionBox } from './homepage/PromotionBox';
 import GradientBackground from '../assets/GradientBackground.png';
@@ -18,9 +17,7 @@ export const Home = () => {
       .then(setMessage);
   }, []);
 
-  return isLoading ? (
-    <LoadingScreen />
-  ) : (
+  return isLoading ? null : (
     <BackgroundContainer
       background={GradientBackground}
       style={{ textAlign: 'center' }}
