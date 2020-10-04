@@ -13,7 +13,7 @@ import SignOutButton from './buttons/SignOutButton';
 // Axios Documentation: https://github.com/axios/axios
 
 const AdminPage = () => {
-  const { user, getAccessTokenSilently } = useAuth0();
+  const { user, getAccessTokenWithPopup } = useAuth0();
   const { given_name, picture, email } = user;
 
   // Auth0 Management API constants
@@ -27,9 +27,9 @@ const AdminPage = () => {
 
   const getUserRegistrationStatus = async () => {
     try {
-      const accessToken = await getAccessTokenSilently({
+      const accessToken = await getAccessTokenWithPopup({
         audience: audience,
-        scope: 'read:current_user',
+        scope: 'read:current_user update:current_user_metadata',
       });
       console.log('got access token');
 
@@ -50,9 +50,9 @@ const AdminPage = () => {
 
   const updateRegistrationStatus = async () => {
     try {
-      const accessToken = await getAccessTokenSilently({
+      const accessToken = await getAccessTokenWithPopup({
         audience: audience,
-        scope: 'update:current_user_metadata',
+        scope: 'read:current_user update:current_user_metadata',
       });
       console.log('got access token');
 
@@ -94,7 +94,7 @@ const AdminPage = () => {
 
       if (response.status === 201) {
         await updateRegistrationStatus();
-        // window.location.reload();
+        window.location.reload();
         // instead of reloading we can call `await getUserRegistrationStatus()`
       }
     } catch (error) {
