@@ -28,6 +28,7 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
   };
 
   const handleSave = async () => {
+    setSaveButtonDisabled(true);
     try {
       await addPortfolioItem(
         editorTitle,
