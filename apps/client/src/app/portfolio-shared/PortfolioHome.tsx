@@ -20,39 +20,37 @@ const PortfolioHome = () => {
   };
 
   return (
-    <Row className="flex-grow-1 overflow-auto m-0">
-      <BackgroundContainer
-        background={BackgroundImage}
-        style={{
-          backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${BackgroundImage})`,
-        }}
-      >
-        <Container>
+    <BackgroundContainer
+      background={BackgroundImage}
+      style={{
+        backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${BackgroundImage})`,
+      }}
+    >
+      <Container>
+        <Row>
+          <CenteredRowContent>
+            <PortfolioAvatar />
+          </CenteredRowContent>
+        </Row>
+        <Row>
+          <CenteredRowContent>
+            <h1
+              className="text-white display-1 mt-5 text-center"
+              css={nameStyle}
+            >
+              {name || username}
+            </h1>
+          </CenteredRowContent>
+        </Row>
+        {editMode && (
           <Row>
             <CenteredRowContent>
-              <PortfolioAvatar />
+              <UploadBox />
             </CenteredRowContent>
           </Row>
-          <Row>
-            <CenteredRowContent>
-              <h1
-                className="text-white display-1 mt-5 text-center"
-                css={nameStyle}
-              >
-                {name || username}
-              </h1>
-            </CenteredRowContent>
-          </Row>
-          {editMode && (
-            <Row>
-              <CenteredRowContent>
-                <UploadBox />
-              </CenteredRowContent>
-            </Row>
-          )}
-        </Container>
-      </BackgroundContainer>
-    </Row>
+        )}
+      </Container>
+    </BackgroundContainer>
   );
 };
 

@@ -6,6 +6,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { PromotionBox } from './homepage/PromotionBox';
 import GradientBackground from '../assets/GradientBackground.png';
 import { BackgroundContainer } from './BackgroundContainer';
+import { Container } from 'react-bootstrap';
 
 export const Home = () => {
   const [m, setMessage] = useState<Message>({ message: '' });
@@ -21,17 +22,19 @@ export const Home = () => {
   return isLoading ? (
     <LoadingScreen />
   ) : (
-    <BackgroundContainer
-      background={GradientBackground}
-      style={{ textAlign: 'center' }}
-    >
-      <PromotionBox />
-      <div>{isAuthenticated ? 'Signed In' : 'Not Signed In'}</div>
-      <div>{m.message}</div>
-      <Link to="/u/gkaw">
-        <h2>Example</h2>
-      </Link>
-    </BackgroundContainer>
+    <Container className="d-flex flex-column min-vh-100 p-0" fluid>
+      <BackgroundContainer
+        background={GradientBackground}
+        style={{ textAlign: 'center' }}
+      >
+        <PromotionBox />
+        <div>{isAuthenticated ? 'Signed In' : 'Not Signed In'}</div>
+        <div>{m.message}</div>
+        <Link to="/u/gkaw">
+          <h2>Example</h2>
+        </Link>
+      </BackgroundContainer>
+    </Container>
   );
 };
 
