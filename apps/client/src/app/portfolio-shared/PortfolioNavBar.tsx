@@ -37,15 +37,29 @@ const PortfolioNavBar = () => {
       </LinkContainer>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="ml-auto" activeKey="blog">
+        <Nav
+          className="ml-auto"
+          activeKey="blog"
+          css={{
+            '& .active': {
+              fontWeight: 'bold !important',
+            },
+          }}
+        >
           <LinkContainer to={`${URL_PREFIX}/projects`}>
-            <Nav.Link eventKey="/projects">Projects</Nav.Link>
+            <Nav.Link eventKey="/projects" className="mx-2 px-1">
+              Projects
+            </Nav.Link>
           </LinkContainer>
           <LinkContainer to={`${URL_PREFIX}/blog`}>
-            <Nav.Link eventKey="/blog">Blog</Nav.Link>
+            <Nav.Link eventKey="/blog" className="mx-2 px-1">
+              Blog
+            </Nav.Link>
           </LinkContainer>
           <LinkContainer to={`${URL_PREFIX}/about`}>
-            <Nav.Link eventKey="/about">About</Nav.Link>
+            <Nav.Link eventKey="/about" className="mx-2 px-1">
+              About
+            </Nav.Link>
           </LinkContainer>
         </Nav>
       </Navbar.Collapse>
