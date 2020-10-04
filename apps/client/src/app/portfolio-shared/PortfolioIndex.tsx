@@ -6,6 +6,9 @@ import { About } from './about/About';
 import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
+import { FooterWrapper } from '../layout/FooterWrapper';
+import { PortfolioViewFooter } from './PortfolioViewFooter';
+import { useAuth0 } from '@auth0/auth0-react';
 import { UserContext } from './UserContext';
 
 const PortfolioIndex = () => {
@@ -20,6 +23,9 @@ const PortfolioIndex = () => {
   });
   const { path } = useRouteMatch();
   const { id } = useParams();
+  const { isAuthenticated, user: authUser } = useAuth0();
+
+  const footer: React.ReactNode = <PortfolioViewFooter />;
 
   const findUser = useCallback(() => {
     fetch(`/api/portfolio/${id}/profile`)
@@ -48,21 +54,26 @@ const PortfolioIndex = () => {
 
   return (
     <UserContext.Provider value={user}>
-      <PortfolioNavBar />
-      <Switch>
-        <Route exact path={`${path}`}>
-          <PortfolioHome />
-        </Route>
-        <Route exact path={`${path}/projects`}>
-          <ProjectPage />
-        </Route>
-        <Route exact path={`${path}/blog`}>
-          <BlogPage />
-        </Route>
-        <Route exact path={`${path}/about`}>
-          <About />
-        </Route>
-      </Switch>
+      <FooterWrapper
+        footer={footer}
+        hidden={!isAuthenticated || authUser.nickname !== user.username}
+      >
+        <PortfolioNavBar />
+        <Switch>
+          <Route exact path={`${path}`}>
+            <PortfolioHome />
+          </Route>
+          <Route exact path={`${path}/projects`}>
+            <ProjectPage />
+          </Route>
+          <Route exact path={`${path}/blog`}>
+            <BlogPage />
+          </Route>
+          <Route exact path={`${path}/about`}>
+            <About />
+          </Route>
+        </Switch>
+      </FooterWrapper>
     </UserContext.Provider>
   );
 };
