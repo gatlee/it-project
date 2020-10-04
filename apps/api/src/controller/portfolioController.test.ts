@@ -1,45 +1,20 @@
-import makeTestSuite from './makeTestSuite';
 import { UserModel } from '../models/user';
 import {
   PortfolioCategory,
   PortfolioItem,
   UserProfile,
 } from '@pure-and-lazy/api-interfaces';
+import { makeTestSuite, expectJSONMatching } from './testUtil';
+import { callEndpoint } from './controllerUtil';
 import {
   createItem,
   deleteItem,
   editItem,
   editProfile,
-  Req,
   viewAllItems,
   viewItem,
   viewProfile,
 } from './portfolioController';
-import { Res } from './controllerUtil';
-
-const jsonMangle = (object) => JSON.parse(JSON.stringify(object));
-
-const expectJSONMatching = (actual, expected) => {
-  expect(actual).toMatchObject(jsonMangle(expected));
-};
-
-const callEndpoint = async <T, U>(
-  endpoint: (req: Req<T>, res: Res<U>) => Promise<void>,
-  req: Req<T>
-) => {
-  const result: { data?; status?: number } = {};
-  const res: Res<U> = {
-    send: (object) => {
-      result.data = jsonMangle(object);
-      result.status = 200;
-    },
-    sendStatus: (status) => {
-      result.status = status;
-    },
-  };
-  await endpoint(req, res);
-  return result;
-};
 
 const username = 'test';
 const auth0Id = 'some_id';
@@ -69,7 +44,7 @@ const portfolioItem2: PortfolioItem = {
     'The Waystone Inn lay in silence, and it was a silence of three parts.',
 };
 
-makeTestSuite('Portfolio Test', () => {
+makeTestSuite('Portfolio Tests', () => {
   it('should return a user profile', async () => {
     await UserModel.create({
       ...userProfile,
@@ -86,13 +61,12 @@ makeTestSuite('Portfolio Test', () => {
 
   it('should allow editing the user profile', async () => {
     const newProfile = {
-      ...userProfile,
-      name: 'Jane Doe',
-      email: 'anotherexample@gmail.com',
+      name: 'A better name',
+      description: 'A better description',
     };
     const { status } = await callEndpoint(editProfile, {
       ...authReq,
-      body: newProfile,
+      body: newProfile as UserProfile,
     });
     expect(status).toBe(200);
 
@@ -101,7 +75,16 @@ makeTestSuite('Portfolio Test', () => {
       usernameReq
     );
     expect(status2).toBe(200);
-    expectJSONMatching(data, newProfile);
+    expectJSONMatching(data, { ...userProfile, ...newProfile });
+  });
+
+  it('should reject invalid user profiles for editing', async () => {
+    const badProfile = { ...userProfile, name: '' };
+    const { status } = await callEndpoint(editProfile, {
+      ...authReq,
+      body: badProfile,
+    });
+    expect(status).toBe(400);
   });
 
   it('should add a portfolio item to the portfolio correctly', async () => {
@@ -206,5 +189,33 @@ makeTestSuite('Portfolio Test', () => {
     expect(status).toBe(200);
     expect(items).toHaveLength(1);
     expectJSONMatching(items[0], portfolioItem2);
+  });
+
+  it('should reject portfolio items with missing fields', async () => {
+    const badPortfolioItem = { name: 'bad', description: 'hmmm' };
+    const { status } = await callEndpoint(createItem, {
+      ...authReq,
+      body: badPortfolioItem as PortfolioItem,
+    });
+    expect(status).toBe(400);
+  });
+
+  it('should reject portfolio items with an incorrect category', async () => {
+    const badCategory = { ...portfolioItem, category: 'bad category' };
+    const { status } = await callEndpoint(createItem, {
+      ...authReq,
+      body: badCategory as PortfolioItem,
+    });
+    expect(status).toBe(400);
+  });
+
+  it('should reject editing with invalid authentication', async () => {
+    const { status } = await callEndpoint(editItem, {
+      ...defaultReq,
+      params: { portfolioItemId },
+      body: portfolioItem,
+      user: { sub: 'wrong id' },
+    });
+    expect(status).toBe(404);
   });
 });
