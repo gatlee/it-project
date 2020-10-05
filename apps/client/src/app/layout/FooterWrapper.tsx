@@ -9,11 +9,14 @@ interface FooterWrapper {
 const FooterWrapper = (props: FooterWrapper): React.ReactElement => {
   const footerStyle = {
     backgroundColor: '#f8f9fa',
-    color: 'black',
+    color: 'white',
+    height: '50px',
+    lineHeight: '47px',
+    background: '#0275D8',
   };
 
   return !props.hidden ? (
-    <footer className="fixed-bottom text-center p-1" style={footerStyle}>
+    <footer className="fixed-bottom text-center pb-2" style={footerStyle}>
       {props.footer}
     </footer>
   ) : null;
