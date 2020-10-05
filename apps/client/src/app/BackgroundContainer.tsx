@@ -11,14 +11,18 @@ const BackgroundContainer = (props: BackgroundContainer) => {
 
   const combinedStyles = {
     backgroundImage: `url(${background})`,
-    minHeight: '100vh',
-    width: '100vw',
+    height: '100%',
+    width: '100%',
     backgroundSize: 'cover',
     backgroundAttachment: 'fixed',
     ...style,
   };
 
-  return <div style={combinedStyles}>{children}</div>;
+  return (
+    <div style={combinedStyles} className="flex-grow-1 overflow-auto">
+      {children}
+    </div>
+  );
 };
 
 export { BackgroundContainer };

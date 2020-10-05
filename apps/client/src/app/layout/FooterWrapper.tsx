@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
 
 interface FooterWrapper {
   footer: React.ReactNode;
@@ -12,24 +11,17 @@ const FooterWrapper = (props: FooterWrapper): React.ReactElement => {
   const footerStyle = {
     backgroundColor: '#f8f9fa',
     color: 'black',
-    padding: '5px',
   };
 
   return !props.hidden ? (
-    <div
-      style={{
-        display: 'flex',
-        minHeight: '100vh',
-        flexDirection: 'column',
-      }}
-    >
-      <div style={{ flex: 1 }}> {props.children} </div>
-      <footer style={footerStyle}>
-        <Container style={{ textAlign: 'center' }}>{props.footer}</Container>
+    <div className="d-flex flex-column min-vh-100">
+      {props.children}
+      <footer className="fixed-bottom text-center p-1" style={footerStyle}>
+        {props.footer}
       </footer>
     </div>
   ) : (
-    <>{props.children}</>
+    <div className="d-flex flex-column min-vh-100">{props.children}</div>
   );
 };
 

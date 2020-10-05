@@ -7,16 +7,23 @@ import { UploadBox } from '../UploadBox';
 import { EditContext } from './EditContext';
 import { PortfolioAvatar } from './PortfolioAvatar';
 import { UserContext } from './UserContext';
+import { css } from '@emotion/core';
 
 const PortfolioHome = () => {
   const { name, username } = useContext(UserContext);
   const editMode = useContext(EditContext);
 
+  const nameStyle = {
+    '@media (max-width: 576px)': {
+      fontSize: '4rem',
+    },
+  };
+
   return (
     <BackgroundContainer
       background={BackgroundImage}
       style={{
-        backgroundImage: ` linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${BackgroundImage})`,
+        backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${BackgroundImage})`,
       }}
     >
       <Container>
@@ -27,7 +34,10 @@ const PortfolioHome = () => {
         </Row>
         <Row>
           <CenteredRowContent>
-            <h1 className="text-white display-1 mt-5 text-center">
+            <h1
+              className="text-white display-1 mt-5 text-center"
+              css={nameStyle}
+            >
               {name || username}
             </h1>
           </CenteredRowContent>
