@@ -31,8 +31,10 @@ const router = Router();
  *     responses:
  *       201:
  *         description: User successfully created.
- *       404:
+ *       400:
  *         description: Malformed input.
+ *       409:
+ *         description: \"username taken\" or \"auth0Id conflict\".
  *     tags:
  *       - Auth
  */
