@@ -9,93 +9,37 @@ import ViewPortfolioButton from './buttons/ViewPortfolioButton';
 import LoadingScreen from './LoadingScreen';
 import UrlForm from './input/UrlForm';
 import SignOutButton from './buttons/SignOutButton';
+import useAuth0Api from './api/useAuth0Api';
 
 // Axios Documentation: https://github.com/axios/axios
 
 const AdminPage = () => {
-  const { user, getAccessTokenWithPopup } = useAuth0();
+  const { user } = useAuth0();
   const { given_name, picture, email } = user;
-
-  // Auth0 Management API constants
-  const auth0Domain = 'pure-and-lazy.au.auth0.com';
-  const audience = `https://${auth0Domain}/api/v2/`;
-  const userDetailsByIdUrl = `https://${auth0Domain}/api/v2/users/${user.sub}`;
+  const { getRegistrationStatus, updateRegistrationStatus } = useAuth0Api();
 
   const [registrationComplete, setRegistrationComplete] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const getUserRegistrationStatus = async () => {
-    try {
-      const accessToken = await getAccessTokenWithPopup({
-        audience: audience,
-        scope: 'read:current_user update:current_user_metadata',
-      });
-      console.log('got access token');
-
-      const userDataResponse = await fetch(userDetailsByIdUrl, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      console.log('got user response');
-
-      const data = await userDataResponse.json();
-      setRegistrationComplete(data.user_metadata.registration_complete);
-      setIsLoaded(true);
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-
-  const updateRegistrationStatus = async () => {
-    try {
-      const accessToken = await getAccessTokenWithPopup({
-        audience: audience,
-        scope: 'read:current_user update:current_user_metadata',
-      });
-      console.log('got access token');
-
-      const payload = {
-        user_metadata: {
-          registration_complete: true,
-        },
-      };
-
-      const patchResponse = await fetch(userDetailsByIdUrl, {
-        method: 'PATCH',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-      console.log('patch response:', await patchResponse.json());
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const registerUser = async (username: String) => {
-    const requestOptions = {
-      method: 'POST',
-      url: '/api/auth/create-user',
-      data: {
-        username: username,
-        email: email,
-        auth0Id: user.sub,
-      },
-    };
     try {
-      // @ts-ignore // my IDE is buggy
-      const response = await axios(requestOptions);
+      const response = await axios({
+        method: 'POST',
+        url: '/api/auth/create-user',
+        data: {
+          username: username,
+          email: email,
+          auth0Id: user.sub,
+        },
+      });
 
       console.log('response:', response);
 
       if (response.status === 201) {
         await updateRegistrationStatus();
         window.location.reload();
-        // instead of reloading we can call `await getUserRegistrationStatus()`
+        // instead of reloading we can call `await getRegistrationStatus()`
       }
     } catch (error) {
       console.log(error.response);
@@ -110,7 +54,12 @@ const AdminPage = () => {
   };
 
   useEffect(() => {
-    getUserRegistrationStatus().then();
+    getRegistrationStatus()
+      .then((registrationStatus) => {
+        setRegistrationComplete(registrationStatus);
+        setIsLoaded(true);
+      })
+      .catch();
   }, []);
 
   if (!isLoaded) {
