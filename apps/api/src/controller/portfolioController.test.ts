@@ -79,10 +79,10 @@ makeTestSuite('Portfolio Tests', () => {
   });
 
   it('should reject invalid user profiles for editing', async () => {
-    const badProfile = { ...userProfile, name: '' };
+    const badProfile = { bad: 'no valid fields listed' };
     const { status } = await callEndpoint(editProfile, {
       ...authReq,
-      body: badProfile,
+      body: (badProfile as unknown) as UserProfile,
     });
     expect(status).toBe(400);
   });

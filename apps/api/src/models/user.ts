@@ -9,6 +9,7 @@ class User {
   @prop({ required: true }) dateJoined!: Date;
   @prop() description?: string;
   @prop({ required: true, unique: true }) auth0Id!: string;
+  @prop() profilePicture?: string;
   @prop({ ref: PortfolioItem }) portfolio: Ref<PortfolioItem>[];
 
   toProfile(): UserProfile {
@@ -18,6 +19,7 @@ class User {
       name: this.name,
       dateJoined: this.dateJoined,
       description: this.description,
+      profilePicture: this.profilePicture,
     };
   }
 }
