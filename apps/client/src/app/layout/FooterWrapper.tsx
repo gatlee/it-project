@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
 
 interface FooterWrapper {
   footer: React.ReactNode;

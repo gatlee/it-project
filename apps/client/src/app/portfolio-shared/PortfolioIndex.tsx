@@ -10,7 +10,6 @@ import { FooterWrapper } from '../layout/FooterWrapper';
 import { PortfolioViewFooter } from './PortfolioViewFooter';
 import { useAuth0 } from '@auth0/auth0-react';
 import { UserContext } from './UserContext';
-import { Container } from 'react-bootstrap';
 
 const PortfolioIndex = () => {
   const [redirect, setRedirect] = useState(false);
