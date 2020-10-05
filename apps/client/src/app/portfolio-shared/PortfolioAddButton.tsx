@@ -18,13 +18,17 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
   const [editorTitle, setEditorTitle] = useState('');
   const [editorDescription, setEditorDescription] = useState('');
   const [editorContent, setEditorContent] = useState('');
+  const [editorSaveButtonDisabled, setSaveButtonDisabled] = useState(false);
+
   const closeEditor = () => {
     setEditorOpen(false);
     setEditorTitle('');
     setEditorDescription('');
+    setSaveButtonDisabled(false);
   };
 
   const handleSave = async () => {
+    setSaveButtonDisabled(true);
     try {
       await addPortfolioItem(
         editorTitle,
@@ -50,6 +54,7 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
       <ProjectItemEditor
         title=""
         editorTitle={editorTitle}
+        editorSaveButtonDisabled={editorSaveButtonDisabled}
         onTitleChange={setEditorTitle}
         description={editorDescription}
         onDescriptionChange={setEditorDescription}

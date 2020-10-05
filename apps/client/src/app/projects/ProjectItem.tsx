@@ -19,12 +19,14 @@ const ProjectItem = (props: ProjectItem) => {
   const [editorTitle, setEditorTitle] = useState(props.title);
   const [editorDescription, setEditorDescription] = useState(props.description);
   const [editorContent, setEditorContent] = useState(props.content);
+  const [editorSaveButtonDisabled, setSaveButtonDisabled] = useState(false);
   //TODO pull in body
 
   const handleCancel = () => setEditorOpen(false);
   const handleOpenEditor = () => setEditorOpen(true);
 
   const handleSave = async () => {
+    setSaveButtonDisabled(true);
     try {
       await updateProjectItem(
         editorTitle,
@@ -37,6 +39,7 @@ const ProjectItem = (props: ProjectItem) => {
       console.log(e);
     }
     setEditorOpen(false);
+    setSaveButtonDisabled(false);
     props.onUpdate();
   };
 
@@ -56,6 +59,7 @@ const ProjectItem = (props: ProjectItem) => {
       <ProjectItemEditor
         title={props.title}
         editorTitle={editorTitle}
+        editorSaveButtonDisabled={editorSaveButtonDisabled}
         onTitleChange={setEditorTitle}
         description={editorDescription}
         onDescriptionChange={setEditorDescription}
