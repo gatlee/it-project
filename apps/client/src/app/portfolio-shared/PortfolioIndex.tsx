@@ -10,6 +10,7 @@ import { FooterWrapper } from '../layout/FooterWrapper';
 import { PortfolioViewFooter } from './PortfolioViewFooter';
 import { useAuth0 } from '@auth0/auth0-react';
 import { UserContext } from './UserContext';
+import { Container } from 'react-bootstrap';
 
 const PortfolioIndex = () => {
   const [redirect, setRedirect] = useState(false);
@@ -54,10 +55,7 @@ const PortfolioIndex = () => {
 
   return (
     <UserContext.Provider value={user}>
-      <FooterWrapper
-        footer={footer}
-        hidden={!isAuthenticated || authUser.nickname !== user.username}
-      >
+      <Container className="d-flex flex-column min-vh-100 p-0" fluid>
         <PortfolioNavBar />
         <Switch>
           <Route exact path={`${path}`}>
@@ -73,7 +71,11 @@ const PortfolioIndex = () => {
             <About />
           </Route>
         </Switch>
-      </FooterWrapper>
+        <FooterWrapper
+          footer={footer}
+          hidden={!isAuthenticated || authUser.nickname !== user.username}
+        />
+      </Container>
     </UserContext.Provider>
   );
 };

@@ -2,7 +2,6 @@ import React from 'react';
 
 interface FooterWrapper {
   footer: React.ReactNode;
-  children: React.ReactNode;
   hidden?: boolean;
 }
 
@@ -14,15 +13,10 @@ const FooterWrapper = (props: FooterWrapper): React.ReactElement => {
   };
 
   return !props.hidden ? (
-    <div className="d-flex flex-column min-vh-100">
-      {props.children}
-      <footer className="fixed-bottom text-center p-1" style={footerStyle}>
-        {props.footer}
-      </footer>
-    </div>
-  ) : (
-    <div className="d-flex flex-column min-vh-100">{props.children}</div>
-  );
+    <footer className="fixed-bottom text-center p-1" style={footerStyle}>
+      {props.footer}
+    </footer>
+  ) : null;
 };
 
 export { FooterWrapper };
