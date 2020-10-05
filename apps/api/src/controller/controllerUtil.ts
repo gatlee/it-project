@@ -14,7 +14,9 @@ const callEndpoint = async <T, U>(
   const res: Res<U> = {
     send: (object) => {
       result.data = jsonMangle(object);
-      result.status = 200;
+      if (!result.status) {
+        result.status = 200;
+      }
     },
     status: (status) => {
       result.status = status;
