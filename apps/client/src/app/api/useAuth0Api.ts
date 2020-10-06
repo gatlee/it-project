@@ -1,5 +1,5 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
+import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios';
 
 // I will remove comments from here before merging to master
 
@@ -20,7 +20,7 @@ export const useAuth0Api = () => {
       console.log('got access token silently');
       return Promise.resolve(accessToken);
     } catch (e) {
-      console.log("failed silent attempt", e.message);
+      console.log('failed silent attempt', e.message);
       try {
         const accessToken = await getAccessTokenWithPopup({
           audience: audience,
@@ -33,24 +33,26 @@ export const useAuth0Api = () => {
         return Promise.reject(e);
       }
     }
-  }
+  };
 
   const getRegistrationStatus = async () => {
     try {
       const accessToken = await getAccessToken();
 
-      console.log("userDetailsByIdUrl:", userDetailsByIdUrl)
+      console.log('userDetailsByIdUrl:', userDetailsByIdUrl);
 
-      const response = await axios(userDetailsByIdUrl, {
+      const response = await fetch(userDetailsByIdUrl, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
       console.log('got userData response', response);
 
-      return Promise.resolve(response.data.user_metadata.registration_complete)
+      const data = await response.json();
+
+      return Promise.resolve(data.user_metadata.registration_complete);
     } catch (e) {
-      console.log("getRegistrationStatus error", e.message);
+      console.log('getRegistrationStatus error', e.message);
       return Promise.reject(e);
     }
   };
@@ -77,7 +79,7 @@ export const useAuth0Api = () => {
 
       console.log('patch response:', response);
     } catch (e) {
-      console.log("updateRegistrationStatus error", e.message);
+      console.log('updateRegistrationStatus error', e.message);
       return Promise.reject(e);
     }
   };
@@ -85,7 +87,7 @@ export const useAuth0Api = () => {
   return {
     getRegistrationStatus,
     updateRegistrationStatus,
-  }
-}
+  };
+};
 
 export default useAuth0Api;
