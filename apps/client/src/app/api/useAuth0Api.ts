@@ -39,6 +39,8 @@ export const useAuth0Api = () => {
     try {
       const accessToken = await getAccessToken();
 
+      console.log("userDetailsByIdUrl:", userDetailsByIdUrl)
+
       const response = await axios(userDetailsByIdUrl, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
