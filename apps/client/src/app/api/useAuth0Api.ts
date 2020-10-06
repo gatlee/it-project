@@ -41,16 +41,16 @@ export const useAuth0Api = () => {
 
       console.log('userDetailsByIdUrl:', userDetailsByIdUrl);
 
-      const response = await fetch(userDetailsByIdUrl, {
+      const response = await axios( {
+        method: "GET",
+        url: userDetailsByIdUrl,
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
       console.log('got userData response', response);
 
-      const data = await response.json();
-
-      return Promise.resolve(data.user_metadata.registration_complete);
+      return Promise.resolve(response.data.user_metadata.registration_complete);
     } catch (e) {
       console.log('getRegistrationStatus error', e.message);
       return Promise.reject(e);
@@ -61,7 +61,7 @@ export const useAuth0Api = () => {
     try {
       const accessToken = await getAccessToken();
 
-      const payload = {
+      const updatedData = {
         user_metadata: {
           registration_complete: true,
         },
@@ -74,7 +74,7 @@ export const useAuth0Api = () => {
           Authorization: `Bearer ${accessToken}`,
           'content-type': 'application/json',
         },
-        data: payload,
+        data: updatedData,
       });
 
       console.log('patch response:', response);
