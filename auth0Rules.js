@@ -1,9 +1,5 @@
 /**
- * Indicate user needs to complete registration details and redirect to registration completion page
- * @param user
- * @param context
- * @param callback
- * @returns {*}
+ * Auth0 Rule: Indicate user needs to complete registration details and redirect to registration completion page
  */
 function (user, context, callback) {
   // Short-circuit if the user is signed up already, is using a refresh token,
