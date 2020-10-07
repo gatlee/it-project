@@ -4,11 +4,12 @@ import { BackgroundContainer } from '../BackgroundContainer';
 import GradientBackground from '../../assets/GradientBackground.png';
 import { useAuth0 } from '@auth0/auth0-react';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Button } from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'react-bootstrap';
 import ViewPortfolioButton from '../buttons/ViewPortfolioButton';
 import UrlForm from '../input/UrlForm';
 import SignOutButton from '../buttons/SignOutButton';
 import useAuth0Api from '../api/useAuth0Api';
+import { AdminButton } from './AdminButton';
 
 // Axios Documentation: https://github.com/axios/axios
 
@@ -62,36 +63,62 @@ const AdminPage = () => {
     return null;
   }
 
+  const topMarginStyle = {
+    marginTop: '20vh',
+  };
+
   return (
-    <BackgroundContainer
-      background={GradientBackground}
-      style={{ textAlign: 'center' }}
-    >
-      <img src={picture} alt="Profile" style={{ maxWidth: '100px' }} />
-      <p>{email}</p>
-      <h2>Hi {given_name}, welcome to ePortfolio Maker by Pure && Lazy</h2>
-
-      {!registrationComplete ? (
-        <UrlForm
-          onSubmit={registerUser}
-          errorMessage={errorMessage}
-          setErrorMessage={setErrorMessage}
-        />
-      ) : (
-        <div className="mb-5 mt-4">
-          <ViewPortfolioButton />
-          <LinkContainer to={`/edit`}>
-            <Button>Edit Portfolio</Button>
-          </LinkContainer>
-        </div>
-      )}
-
-      <div className="mb-3">
-        <LinkContainer to={`/`}>
-          <Button variant="info">Return to Homepage</Button>
-        </LinkContainer>
+    <BackgroundContainer background={GradientBackground}>
+      <div className="m-3 text-right">
+        <SignOutButton />
       </div>
-      <SignOutButton />
+      <Container className="">
+        <Row css={topMarginStyle}></Row>
+        <Row>
+          <Col>
+            <h2 className="mt-5">
+              <b>Welcome back, {given_name}</b>
+            </h2>
+            <p>
+              <b>What would you like to do today?</b>
+            </p>
+            {!registrationComplete ? (
+              <UrlForm
+                onSubmit={registerUser}
+                errorMessage={errorMessage}
+                setErrorMessage={setErrorMessage}
+              />
+            ) : (
+              <div className="mb-5 mt-4">
+                <ViewPortfolioButton />
+                <LinkContainer to={`/edit`}>
+                  <Button>Edit Portfolio</Button>
+                </LinkContainer>
+              </div>
+            )}
+            <div className="mb-3">
+              <LinkContainer to={`/`}>
+                <Button variant="info">Return to Homepage</Button>
+              </LinkContainer>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <AdminButton label="test" />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <AdminButton label="test" />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <AdminButton label="test" />
+          </Col>
+        </Row>
+      </Container>
     </BackgroundContainer>
   );
 };
