@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
-interface AdminButton {
+interface AdminLink {
   label: string;
+  to: string;
 }
 
-const AdminButton = (props: AdminButton) => {
+const AdminLink = (props: AdminLink) => {
   const [hover, setHover] = useState(false);
 
   const handleClick = () => {
@@ -28,17 +30,19 @@ const AdminButton = (props: AdminButton) => {
           onMouseOver={handleMouseOver}
           onMouseLeave={handleMouseLeave}
         >
-          {hover ? (
-            <Button variant="link" className="pl-4">
-              → {props.label}
-            </Button>
-          ) : (
-            <Button variant="link">→ {props.label}</Button>
-          )}
+          <LinkContainer to={props.to}>
+            {hover ? (
+              <Button variant="link" className="pl-4">
+                → {props.label}
+              </Button>
+            ) : (
+              <Button variant="link">→ {props.label}</Button>
+            )}
+          </LinkContainer>
         </Col>
       </Row>
     </Container>
   );
 };
 
-export { AdminButton };
+export { AdminLink };

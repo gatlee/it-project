@@ -9,7 +9,7 @@ import ViewPortfolioButton from '../buttons/ViewPortfolioButton';
 import UrlForm from '../input/UrlForm';
 import SignOutButton from '../buttons/SignOutButton';
 import useAuth0Api from '../api/useAuth0Api';
-import { AdminButton } from './AdminButton';
+import { AdminLink } from './AdminLink';
 
 // Axios Documentation: https://github.com/axios/axios
 
@@ -82,40 +82,28 @@ const AdminPage = () => {
             <p>
               <b>What would you like to do today?</b>
             </p>
-            {!registrationComplete ? (
+            {!registrationComplete && (
               <UrlForm
                 onSubmit={registerUser}
                 errorMessage={errorMessage}
                 setErrorMessage={setErrorMessage}
               />
-            ) : (
-              <div className="mb-5 mt-4">
-                <ViewPortfolioButton />
-                <LinkContainer to={`/edit`}>
-                  <Button>Edit Portfolio</Button>
-                </LinkContainer>
-              </div>
             )}
-            <div className="mb-3">
-              <LinkContainer to={`/`}>
-                <Button variant="info">Return to Homepage</Button>
-              </LinkContainer>
-            </div>
           </Col>
         </Row>
         <Row>
           <Col>
-            <AdminButton label="test" />
+            <AdminLink to={`/edit`} label="Edit Portfolio" />
           </Col>
         </Row>
         <Row>
           <Col>
-            <AdminButton label="test" />
+            <AdminLink to={`/u/${given_name}`} label="View Portfolio" />
           </Col>
         </Row>
         <Row>
           <Col>
-            <AdminButton label="test" />
+            <AdminLink to={`/admin/manage`} label="Manage Public Information" />
           </Col>
         </Row>
       </Container>
