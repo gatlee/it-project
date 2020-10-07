@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { BackgroundContainer } from './BackgroundContainer';
-import GradientBackground from '../assets/GradientBackground.png';
+import { BackgroundContainer } from '../BackgroundContainer';
+import GradientBackground from '../../assets/GradientBackground.png';
 import { useAuth0 } from '@auth0/auth0-react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button } from 'react-bootstrap';
-import ViewPortfolioButton from './buttons/ViewPortfolioButton';
-import UrlForm from './input/UrlForm';
-import SignOutButton from './buttons/SignOutButton';
-import useAuth0Api from './api/useAuth0Api';
+import ViewPortfolioButton from '../buttons/ViewPortfolioButton';
+import UrlForm from '../input/UrlForm';
+import SignOutButton from '../buttons/SignOutButton';
+import useAuth0Api from '../api/useAuth0Api';
 
 // Axios Documentation: https://github.com/axios/axios
 
@@ -40,7 +40,6 @@ const AdminPage = () => {
         // or just call `setRegistrationComplete(true)`
       }
     } catch (error) {
-
       const errorData = error.response.data;
       if (errorData === 'username taken') {
         setErrorMessage('URL is already taken');

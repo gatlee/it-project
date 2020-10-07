@@ -7,7 +7,7 @@ import SignUp from './signup';
 import { PortfolioIndex } from './portfolio-shared/PortfolioIndex';
 import CoolBackground from '../assets/CoolBackground.png';
 import GradientBackground from '../assets/GradientBackground.png';
-import AdminPage from './AdminPage';
+import AdminPage from './admin/AdminPage';
 import PrivateRoute from './PrivateRoute';
 import { NotFound } from './NotFound';
 
