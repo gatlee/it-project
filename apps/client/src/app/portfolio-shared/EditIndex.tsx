@@ -10,7 +10,7 @@ import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
 import { UserContext } from './UserContext';
-import useAuth0Api from "../api/useAuth0Api";
+import useAuth0Api from '../api/useAuth0Api';
 
 const EditIndex = () => {
   const isEditMode = true;
@@ -44,18 +44,18 @@ const EditIndex = () => {
         setIsLoaded(true);
       })
       .catch();
-  }, []);
+  }, [getRegistrationStatus]);
 
   useEffect(() => {
     findUser();
   }, [findUser, user, isLoaded, registrationComplete]);
 
   if (!isLoaded) {
-    return null
+    return null;
   }
 
   if (!registrationComplete) {
-    return <Redirect to='/admin' />
+    return <Redirect to="/admin" />;
   }
 
   const footer: React.ReactNode = <PortfolioEditFooter />;
