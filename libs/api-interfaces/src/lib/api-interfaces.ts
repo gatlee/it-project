@@ -15,6 +15,7 @@ interface PortfolioItem {
   content: string;
   created?: Date;
   lastModified?: Date;
+  image?: string;
 }
 
 interface UserProfile {
@@ -23,6 +24,7 @@ interface UserProfile {
   name?: string;
   dateJoined: Date;
   description?: string;
+  profilePicture?: string;
 }
 
 export { Message, PortfolioItem, PortfolioCategory, UserProfile };

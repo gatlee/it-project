@@ -10,6 +10,7 @@ import { PortfolioAddButton } from '../portfolio-shared/PortfolioAddButton';
 const ProjectItemList = () => {
   const getUrl = (username: string): string =>
     `/api/portfolio/${username}/all?category=projects`;
+
   const createProjectItem = (
     item: PortfolioItem,
     index: React.Key,
@@ -30,6 +31,7 @@ const ProjectItemList = () => {
       <PortfolioAddButton onAdd={onAdd} category={PortfolioCategory.PROJECTS} />
     );
   };
+
   return (
     <ItemList
       fetchUrl={getUrl}

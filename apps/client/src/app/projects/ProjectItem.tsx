@@ -1,9 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState } from 'react';
-import { ProjectItemDisplay } from './ProjectItemDisplay';
-import { ProjectItemEditor } from './editor/ProjectItemEditor';
-import { deleteProjectItem, updateProjectItem } from './ProjectUtils';
 import { useLocation } from 'react-router-dom';
+import { ProjectItemEditor } from './editor/ProjectItemEditor';
+import { ProjectItemDisplay } from './ProjectItemDisplay';
+import { deleteProjectItem, updateProjectItem } from './ProjectUtils';
 
 interface ProjectItem {
   id: string;
@@ -20,6 +20,7 @@ const ProjectItem = (props: ProjectItem) => {
   const [editorTitle, setEditorTitle] = useState(props.title);
   const [editorDescription, setEditorDescription] = useState(props.description);
   const [editorContent, setEditorContent] = useState(props.content);
+  const [editorSaveButtonDisabled, setSaveButtonDisabled] = useState(false);
 
   const handleCancel = () => setEditorOpen(false);
   const handleOpenEditor = () => setEditorOpen(true);
@@ -27,6 +28,7 @@ const ProjectItem = (props: ProjectItem) => {
   const { pathname } = useLocation();
   const contentURL = pathname + '/' + props.id;
   const handleSave = async () => {
+    setSaveButtonDisabled(true);
     try {
       await updateProjectItem(
         editorTitle,
@@ -39,6 +41,7 @@ const ProjectItem = (props: ProjectItem) => {
       console.log(e);
     }
     setEditorOpen(false);
+    setSaveButtonDisabled(false);
     props.onUpdate();
   };
 
@@ -58,6 +61,7 @@ const ProjectItem = (props: ProjectItem) => {
       <ProjectItemEditor
         title={props.title}
         editorTitle={editorTitle}
+        editorSaveButtonDisabled={editorSaveButtonDisabled}
         onTitleChange={setEditorTitle}
         description={editorDescription}
         onDescriptionChange={setEditorDescription}
