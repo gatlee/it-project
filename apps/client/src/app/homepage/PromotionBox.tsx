@@ -3,7 +3,6 @@ import { Col, Container, Row, Image } from 'react-bootstrap';
 import GetStartedButton from '../buttons/GetStartedButton';
 import SignInButton from '../buttons/SignInButton';
 import SignOutButton from '../buttons/SignOutButton';
-import ViewPortfolioButton from '../buttons/ViewPortfolioButton';
 import AdminButton from '../buttons/AdminButton';
 import DemoImage from '../../assets/PortfolioDemo.png';
 import MobileDemo from '../../assets/MobileDemo.png';
@@ -66,7 +65,6 @@ const PromotionBox = () => {
           {isAuthenticated ? (
             <>
               <p> Welcome back, {name}!</p>
-              <ViewPortfolioButton />
               <AdminButton />
               <SignOutButton />
             </>

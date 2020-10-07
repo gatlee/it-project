@@ -29,7 +29,7 @@ makeTestSuite('Auth Tests', () => {
         auth0Id: 'yeah alright',
         email: 'bad@gmail.com',
       },
-      400
+      409
     );
   });
 
@@ -40,7 +40,7 @@ makeTestSuite('Auth Tests', () => {
         auth0Id: userData.auth0Id,
         email: 'bad2@gmail.com',
       },
-      400
+      409
     );
   });
 
