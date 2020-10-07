@@ -6,7 +6,6 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button } from 'react-bootstrap';
 import ViewPortfolioButton from './buttons/ViewPortfolioButton';
-import LoadingScreen from './LoadingScreen';
 import UrlForm from './input/UrlForm';
 import SignOutButton from './buttons/SignOutButton';
 import useAuth0Api from './api/useAuth0Api';
@@ -61,7 +60,7 @@ const AdminPage = () => {
   }, []);
 
   if (!isLoaded) {
-    return <LoadingScreen />;
+    return null;
   }
 
   return (

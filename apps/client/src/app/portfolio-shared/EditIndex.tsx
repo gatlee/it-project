@@ -10,7 +10,6 @@ import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
 import { UserContext } from './UserContext';
-import LoadingScreen from "../LoadingScreen";
 import useAuth0Api from "../api/useAuth0Api";
 
 const EditIndex = () => {
@@ -52,7 +51,7 @@ const EditIndex = () => {
   }, [findUser, user, isLoaded, registrationComplete]);
 
   if (!isLoaded) {
-    return <LoadingScreen />
+    return null
   }
 
   if (!registrationComplete) {
