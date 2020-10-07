@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Route, Switch, useRouteMatch, Redirect } from 'react-router-dom';
 import { BlogPage } from '../blog/BlogPage';
 import { FooterWrapper } from '../layout/FooterWrapper';
 import { About } from './about/About';
@@ -10,6 +10,7 @@ import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
 import { UserContext } from './UserContext';
+import useAuth0Api from "../api/useAuth0Api";
 
 const EditIndex = () => {
   const isEditMode = true;
@@ -22,16 +23,40 @@ const EditIndex = () => {
     description: '',
   });
 
+  const [registrationComplete, setRegistrationComplete] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
   const { user } = useAuth0();
+  const { getRegistrationStatus } = useAuth0Api();
+
   const findUser = useCallback(() => {
-    fetch(`/api/portfolio/${user.nickname}/profile`)
-      .then((r) => r.json())
-      .then((r) => setUser(r));
-  }, [setUser, user.nickname]);
+    if (isLoaded && registrationComplete) {
+      fetch(`/api/portfolio/${user.nickname}/profile`)
+        .then((r) => r.json())
+        .then((r) => setUser(r));
+    }
+  }, [setUser, user.nickname, isLoaded, registrationComplete]);
+
+  useEffect(() => {
+    getRegistrationStatus()
+      .then((registrationStatus) => {
+        setRegistrationComplete(registrationStatus);
+        setIsLoaded(true);
+      })
+      .catch();
+  }, []);
 
   useEffect(() => {
     findUser();
-  }, [findUser, user]);
+  }, [findUser, user, isLoaded, registrationComplete]);
+
+  if (!isLoaded) {
+    return null
+  }
+
+  if (!registrationComplete) {
+    return <Redirect to='/admin' />
+  }
 
   const footer: React.ReactNode = <PortfolioEditFooter />;
 
