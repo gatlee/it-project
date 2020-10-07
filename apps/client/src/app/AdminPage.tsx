@@ -34,15 +34,13 @@ const AdminPage = () => {
         },
       });
 
-      console.log('response:', response);
-
       if (response.status === 201) {
         await updateRegistrationStatus();
         window.location.reload();
         // instead of reloading we can call `await getRegistrationStatus()`
+        // or just call `setRegistrationComplete(true)`
       }
     } catch (error) {
-      console.log(error.response);
 
       const errorData = error.response.data;
       if (errorData === 'username taken') {

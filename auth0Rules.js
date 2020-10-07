@@ -14,13 +14,11 @@ function (user, context, callback) {
   // Set registration status
   user.user_metadata = user.user_metadata || {};
   user.user_metadata.registration_complete = false;
-  console.log("updating user_metadata");
   auth0.users.updateUserMetadata(user.user_id, user.user_metadata)
     .then(function(){
       callback(null, user, context);
     })
     .catch(function(err){
-      console.log(err.message);
       callback(err);
     });
 }

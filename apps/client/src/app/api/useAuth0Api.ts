@@ -1,8 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 
-// I will remove comments from here before merging to master
-
 export const useAuth0Api = () => {
   const { user, getAccessTokenSilently, getAccessTokenWithPopup } = useAuth0();
 
@@ -17,19 +15,16 @@ export const useAuth0Api = () => {
         audience: audience,
         scope: 'read:current_user update:current_user_metadata',
       });
-      console.log('got access token silently');
       return Promise.resolve(accessToken);
     } catch (e) {
-      console.log('failed silent attempt', e.message);
+      // Fallback to retrieving access token with consent form popup
       try {
         const accessToken = await getAccessTokenWithPopup({
           audience: audience,
           scope: 'read:current_user update:current_user_metadata',
         });
-        console.log('got access token via popup');
         return Promise.resolve(accessToken);
       } catch (e) {
-        console.log(e.message);
         return Promise.reject(e);
       }
     }
@@ -39,8 +34,6 @@ export const useAuth0Api = () => {
     try {
       const accessToken = await getAccessToken();
 
-      console.log('userDetailsByIdUrl:', userDetailsByIdUrl);
-
       const response = await axios( {
         method: "GET",
         url: userDetailsByIdUrl,
@@ -48,11 +41,9 @@ export const useAuth0Api = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log('got userData response', response);
 
       return Promise.resolve(response.data.user_metadata.registration_complete);
     } catch (e) {
-      console.log('getRegistrationStatus error', e.message);
       return Promise.reject(e);
     }
   };
@@ -67,7 +58,7 @@ export const useAuth0Api = () => {
         },
       };
 
-      const response = await axios({
+      await axios({
         method: 'PATCH',
         url: userDetailsByIdUrl,
         headers: {
@@ -77,13 +68,11 @@ export const useAuth0Api = () => {
         data: updatedData,
       });
 
-      console.log('patch response:', response);
     } catch (e) {
-      console.log('updateRegistrationStatus error', e.message);
       return Promise.reject(e);
     }
-  };
-
+  }
+  //
   return {
     getRegistrationStatus,
     updateRegistrationStatus,

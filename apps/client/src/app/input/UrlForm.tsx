@@ -16,14 +16,12 @@ export const UrlForm = (props: UrlForm) => {
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUrlPath(event.target.value);
     props.setErrorMessage('');
-    console.log(urlPath);
   };
 
   const handleSubmit = async (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     event.preventDefault();
-    console.log('urlPath:', urlPath);
     props.onSubmit(urlPath);
   };
 
