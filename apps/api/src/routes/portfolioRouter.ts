@@ -38,6 +38,9 @@ import {
  *         lastModified:
  *           type: string
  *           format: date-time
+ *         image:
+ *           type: string
+ *           format: uri
  *     UserProfile:
  *       type: object
  *       required:
@@ -56,6 +59,9 @@ import {
  *           format: date-time
  *         description:
  *           type: string
+ *         profilePicture:
+ *           type: string
+ *           format: uri
  *   parameters:
  *     usernameParam:
  *       name: username
