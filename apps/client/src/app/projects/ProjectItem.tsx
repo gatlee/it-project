@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { ProjectItemDisplay } from './ProjectItemDisplay';
 import { ProjectItemEditor } from './editor/ProjectItemEditor';
 import { deleteProjectItem, updateProjectItem } from './ProjectUtils';
+import { useLocation } from 'react-router-dom';
 
 interface ProjectItem {
   id: string;
@@ -19,11 +20,12 @@ const ProjectItem = (props: ProjectItem) => {
   const [editorTitle, setEditorTitle] = useState(props.title);
   const [editorDescription, setEditorDescription] = useState(props.description);
   const [editorContent, setEditorContent] = useState(props.content);
-  //TODO pull in body
 
   const handleCancel = () => setEditorOpen(false);
   const handleOpenEditor = () => setEditorOpen(true);
 
+  const { pathname } = useLocation();
+  const contentURL = pathname + '/' + props.id;
   const handleSave = async () => {
     try {
       await updateProjectItem(
@@ -67,6 +69,7 @@ const ProjectItem = (props: ProjectItem) => {
       />
       <ProjectItemDisplay
         title={props.title}
+        link={contentURL}
         description={props.description}
         onOpenEditor={handleOpenEditor}
         onDelete={handleDelete}
