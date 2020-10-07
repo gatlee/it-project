@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 
 interface AdminButton {
   label: string;
@@ -13,7 +13,6 @@ const AdminButton = (props: AdminButton) => {
   };
 
   const handleMouseOver = () => {
-    console.log('Yeet');
     setHover(true);
   };
 
@@ -22,19 +21,23 @@ const AdminButton = (props: AdminButton) => {
   };
 
   return (
-    <div
-      className="m-1"
-      onMouseOver={handleMouseOver}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div onClick={handleClick}>
-        {hover ? (
-          <Button className="ml-3">→ {props.label}</Button>
-        ) : (
-          <Button>→ {props.label}</Button>
-        )}
-      </div>
-    </div>
+    <Container className="m-1">
+      <Row>
+        <Col
+          sm="auto"
+          onMouseOver={handleMouseOver}
+          onMouseLeave={handleMouseLeave}
+        >
+          {hover ? (
+            <Button variant="link" className="pl-4">
+              → {props.label}
+            </Button>
+          ) : (
+            <Button variant="link">→ {props.label}</Button>
+          )}
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
