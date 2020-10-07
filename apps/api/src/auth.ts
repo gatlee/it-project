@@ -1,6 +1,5 @@
 import * as jwt from 'express-jwt';
 import * as jwksRsa from 'jwks-rsa';
-import { UserModel } from './models/user';
 
 // See https://auth0.com/docs/quickstart/backend/nodejs/01-authorization
 const auth0Domain = 'pure-and-lazy.au.auth0.com';

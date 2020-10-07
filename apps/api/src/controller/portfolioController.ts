@@ -128,7 +128,7 @@ const viewProfile = async (req: Req<{}>, res: Res<UserProfile>) => {
 
 const editProfile = async (req: Req<UserProfile>, res: Res<never>) => {
   try {
-    let profile = {};
+    const profile = {};
     let gotField = false;
     for (const field of ['name', 'description', 'profilePicture']) {
       if (req.body[field] !== undefined) {
