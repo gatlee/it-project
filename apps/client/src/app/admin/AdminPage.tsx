@@ -17,6 +17,7 @@ const AdminPage = () => {
   const { user } = useAuth0();
   const { given_name, picture, email } = user;
   const { getRegistrationStatus, updateRegistrationStatus } = useAuth0Api();
+  const { logout } = useAuth0();
 
   const [registrationComplete, setRegistrationComplete] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -70,7 +71,19 @@ const AdminPage = () => {
   return (
     <BackgroundContainer background={GradientBackground}>
       <div className="m-3 text-right">
-        <SignOutButton />
+        <span
+          className="p-2 pointer"
+          onClick={() =>
+            logout({
+              returnTo: window.location.origin,
+              // window.location.origin stores the domain of the current page/window
+              // https://developer.mozilla.org/en-US/docs/Web/API/Location/origin
+              // thus, logging out redirects to the origin.
+            })
+          }
+        >
+          <b>Sign Out</b>
+        </span>
       </div>
       <Container className="">
         <Row css={topMarginStyle}></Row>
