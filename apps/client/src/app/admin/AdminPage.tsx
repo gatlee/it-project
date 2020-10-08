@@ -108,11 +108,9 @@ const AdminPage = () => {
         <Row className="mb-3">
           <Col>
             <h2 className="mt-5" css={headerStyle}>
-              <b>Welcome back, {given_name}</b>
+              Welcome back, {given_name}
             </h2>
-            <p css={subtitleStyle}>
-              <b>What would you like to do today?</b>
-            </p>
+            <p css={subtitleStyle}>What would you like to do today?</p>
             {!registrationComplete && (
               <UrlForm
                 onSubmit={registerUser}
