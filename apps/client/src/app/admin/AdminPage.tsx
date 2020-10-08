@@ -10,7 +10,6 @@ import UrlForm from '../input/UrlForm';
 import SignOutButton from '../buttons/SignOutButton';
 import useAuth0Api from '../api/useAuth0Api';
 import { AdminLink } from './AdminLink';
-import 'typeface-roboto';
 
 // Axios Documentation: https://github.com/axios/axios
 
@@ -70,7 +69,6 @@ const AdminPage = () => {
   };
 
   const headerStyle = {
-    fontFamily: 'Roboto',
     fontWeight: 500,
     '@media (max-width: 992px)': {
       fontSize: 48,
@@ -81,8 +79,6 @@ const AdminPage = () => {
   };
 
   const subtitleStyle = {
-    fontFamily: 'Roboto',
-    fontWeight: 700,
     '@media (max-width: 992px)': {
       fontSize: 16,
     },

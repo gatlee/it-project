@@ -19,7 +19,6 @@ const AdminLink = (props: AdminLink) => {
   };
 
   const textStyle = {
-    fontFamily: 'Roboto',
     fontWeight: 500,
     '@media (max-width: 992px)': {
       fontSize: 22,
