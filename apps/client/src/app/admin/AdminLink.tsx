@@ -10,10 +10,6 @@ interface AdminLink {
 const AdminLink = (props: AdminLink) => {
   const [hover, setHover] = useState(false);
 
-  const handleClick = () => {
-    console.log('I CLICKED MATE');
-  };
-
   const handleMouseOver = () => {
     setHover(true);
   };
