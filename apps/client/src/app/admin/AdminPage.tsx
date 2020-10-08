@@ -79,6 +79,7 @@ const AdminPage = () => {
   };
 
   const subtitleStyle = {
+    fontWeight: 400,
     '@media (max-width: 992px)': {
       fontSize: 16,
     },
