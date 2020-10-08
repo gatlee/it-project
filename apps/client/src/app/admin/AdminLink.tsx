@@ -20,8 +20,13 @@ const AdminLink = (props: AdminLink) => {
 
   const textStyle = {
     fontFamily: 'Roboto',
-    fontSize: 36,
     fontWeight: 500,
+    '@media (max-width: 992px)': {
+      fontSize: 22,
+    },
+    '@media (min-width: 992px)': {
+      fontSize: 36,
+    },
   };
 
   return (

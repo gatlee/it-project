@@ -82,8 +82,13 @@ const AdminPage = () => {
 
   const subtitleStyle = {
     fontFamily: 'Roboto',
-    fontSize: 24,
     fontWeight: 700,
+    '@media (max-width: 992px)': {
+      fontSize: 16,
+    },
+    '@media (min-width: 992px)': {
+      fontSize: 24,
+    },
   };
 
   return (
