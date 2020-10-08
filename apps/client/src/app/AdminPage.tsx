@@ -14,14 +14,14 @@ import useAuth0Api from './api/useAuth0Api';
 
 const AdminPage = () => {
   const { user } = useAuth0();
-  const { given_name, picture, email } = user;
+  const { given_name: givenName, picture, email } = user;
   const { getRegistrationStatus, updateRegistrationStatus } = useAuth0Api();
 
   const [registrationComplete, setRegistrationComplete] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const registerUser = async (username: String) => {
+  const registerUser = async (username: string) => {
     try {
       const response = await axios({
         method: 'POST',
@@ -40,7 +40,6 @@ const AdminPage = () => {
         // or just call `setRegistrationComplete(true)`
       }
     } catch (error) {
-
       const errorData = error.response.data;
       if (errorData === 'username taken') {
         setErrorMessage('URL is already taken');
@@ -57,7 +56,7 @@ const AdminPage = () => {
         setIsLoaded(true);
       })
       .catch();
-  }, []);
+  }, [getRegistrationStatus]);
 
   if (!isLoaded) {
     return null;
@@ -70,7 +69,7 @@ const AdminPage = () => {
     >
       <img src={picture} alt="Profile" style={{ maxWidth: '100px' }} />
       <p>{email}</p>
-      <h2>Hi {given_name}, welcome to ePortfolio Maker by Pure && Lazy</h2>
+      <h2>Hi {givenName}, welcome to ePortfolio Maker by Pure && Lazy</h2>
 
       {!registrationComplete ? (
         <UrlForm
