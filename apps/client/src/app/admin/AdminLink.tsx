@@ -22,6 +22,12 @@ const AdminLink = (props: AdminLink) => {
     setHover(false);
   };
 
+  const textStyle = {
+    fontFamily: 'Roboto',
+    fontSize: 36,
+    fontWeight: 500,
+  };
+
   return (
     <Container className="m-1">
       <Row>
@@ -29,14 +35,15 @@ const AdminLink = (props: AdminLink) => {
           sm="auto"
           onMouseOver={handleMouseOver}
           onMouseLeave={handleMouseLeave}
+          className="pointer"
         >
           <LinkContainer to={props.to}>
             {hover ? (
-              <Button variant="link" className="pl-4">
+              <span className="pl-4" css={textStyle}>
                 → {props.label}
-              </Button>
+              </span>
             ) : (
-              <Button variant="link">→ {props.label}</Button>
+              <span css={textStyle}>→ {props.label}</span>
             )}
           </LinkContainer>
         </Col>

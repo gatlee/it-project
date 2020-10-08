@@ -10,6 +10,7 @@ import UrlForm from '../input/UrlForm';
 import SignOutButton from '../buttons/SignOutButton';
 import useAuth0Api from '../api/useAuth0Api';
 import { AdminLink } from './AdminLink';
+import 'typeface-roboto';
 
 // Axios Documentation: https://github.com/axios/axios
 
@@ -68,6 +69,23 @@ const AdminPage = () => {
     marginTop: '20vh',
   };
 
+  const headerStyle = {
+    fontFamily: 'Roboto',
+    fontWeight: 500,
+    '@media (max-width: 992px)': {
+      fontSize: 48,
+    },
+    '@media (min-width: 992px)': {
+      fontSize: 72,
+    },
+  };
+
+  const subtitleStyle = {
+    fontFamily: 'Roboto',
+    fontSize: 24,
+    fontWeight: 700,
+  };
+
   return (
     <BackgroundContainer background={GradientBackground}>
       <div className="m-3 text-right">
@@ -85,14 +103,14 @@ const AdminPage = () => {
           <b>Sign Out</b>
         </span>
       </div>
-      <Container className="">
+      <Container>
         <Row css={topMarginStyle}></Row>
-        <Row>
+        <Row className="mb-3">
           <Col>
-            <h2 className="mt-5">
+            <h2 className="mt-5" css={headerStyle}>
               <b>Welcome back, {given_name}</b>
             </h2>
-            <p>
+            <p css={subtitleStyle}>
               <b>What would you like to do today?</b>
             </p>
             {!registrationComplete && (
@@ -104,17 +122,17 @@ const AdminPage = () => {
             )}
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-1">
           <Col>
             <AdminLink to={`/edit`} label="Edit Portfolio" />
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-1">
           <Col>
             <AdminLink to={`/u/${given_name}`} label="View Portfolio" />
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-1">
           <Col>
             <AdminLink to={`/admin/manage`} label="Manage Public Information" />
           </Col>
