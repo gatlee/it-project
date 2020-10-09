@@ -15,7 +15,7 @@ import { AdminLink } from './AdminLink';
 
 const AdminPage = () => {
   const { user } = useAuth0();
-  const { given_name, picture, email } = user;
+  const { given_name: givenName, picture, email } = user;
   const { getRegistrationStatus, updateRegistrationStatus } = useAuth0Api();
   const { logout } = useAuth0();
 
@@ -23,7 +23,7 @@ const AdminPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const registerUser = async (username: String) => {
+  const registerUser = async (username: string) => {
     try {
       const response = await axios({
         method: 'POST',
@@ -58,7 +58,7 @@ const AdminPage = () => {
         setIsLoaded(true);
       })
       .catch();
-  }, []);
+  }, [getRegistrationStatus]);
 
   if (!isLoaded) {
     return null;
@@ -110,7 +110,7 @@ const AdminPage = () => {
         <Row className="mb-3">
           <Col>
             <h2 className="mt-5" css={headerStyle}>
-              Welcome back, {given_name}
+              Welcome back, {givenName}
             </h2>
             <p css={subtitleStyle}>What would you like to do today?</p>
             {!registrationComplete && (
