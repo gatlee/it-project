@@ -14,6 +14,7 @@ import {
   viewAllItems,
   viewItem,
   viewProfile,
+  viewProfileByJwt,
 } from './portfolioController';
 
 const username = 'test';
@@ -54,6 +55,15 @@ makeTestSuite('Portfolio Tests', () => {
     const { data: actualProfile, status } = await callEndpoint(
       viewProfile,
       usernameReq
+    );
+    expect(status).toBe(200);
+    expectJSONMatching(actualProfile, userProfile);
+  });
+
+  it('should return the same user profile when accessing via auth', async () => {
+    const { data: actualProfile, status } = await callEndpoint(
+      viewProfileByJwt,
+      authReq
     );
     expect(status).toBe(200);
     expectJSONMatching(actualProfile, userProfile);
@@ -214,6 +224,19 @@ makeTestSuite('Portfolio Tests', () => {
       ...defaultReq,
       params: { portfolioItemId },
       body: portfolioItem,
+      user: { sub: 'wrong id' },
+    });
+    expect(status).toBe(404);
+  });
+
+  it('should reject viewing a profile with neither a username nor proper authentication', async () => {
+    const { status } = await callEndpoint(viewProfileByJwt, defaultReq);
+    expect(status).toBe(400);
+  });
+
+  it('should return a 404 for unknown user profiles', async () => {
+    const { status } = await callEndpoint(viewProfileByJwt, {
+      ...defaultReq,
       user: { sub: 'wrong id' },
     });
     expect(status).toBe(404);

@@ -2,6 +2,7 @@ import { jsonMangle } from './testUtil';
 
 interface Res<T> {
   send: (res: T) => void;
+  status: (res: number) => void;
   sendStatus: (code: number) => void;
 }
 
@@ -13,7 +14,12 @@ const callEndpoint = async <T, U>(
   const res: Res<U> = {
     send: (object) => {
       result.data = jsonMangle(object);
-      result.status = 200;
+      if (!result.status) {
+        result.status = 200;
+      }
+    },
+    status: (status) => {
+      result.status = status;
     },
     sendStatus: (status) => {
       result.status = status;
