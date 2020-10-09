@@ -39,6 +39,9 @@ import {
  *         lastModified:
  *           type: string
  *           format: date-time
+ *         image:
+ *           type: string
+ *           format: uri
  *     UserProfile:
  *       type: object
  *       required:
@@ -55,6 +58,11 @@ import {
  *         dateJoined:
  *           type: string
  *           format: date-time
+ *         description:
+ *           type: string
+ *         profilePicture:
+ *           type: string
+ *           format: uri
  *   parameters:
  *     usernameParam:
  *       name: username
@@ -86,6 +94,14 @@ import {
  *       type: object
  *       schema:
  *         $ref: '#/components/schemas/UserProfile'
+ *     categoryParam:
+ *       name: category
+ *       description: Portfolio category
+ *       in: query
+ *       required: false
+ *       type: string
+ *       schema:
+ *         enum: [projects, blog]
  */
 
 const router = Router();
@@ -100,7 +116,7 @@ router.all('/*', (req, res, next) => {
 
 /**
  * @swagger
- * /{username}/profile:
+ * /api/portfolio/{username}/profile:
  *   get:
  *     description: View user profile information.
  *     parameters:
@@ -117,13 +133,13 @@ router.all('/*', (req, res, next) => {
  *       400:
  *         description: Malformed input.
  *     tags:
- *       - /api/portfolio
+ *       - Portfolio
  */
 router.get('/:username/profile', viewProfile);
 
 /**
  * @swagger
- * /profile:
+ * /api/portfolio/profile:
  *   get:
  *     description: View a user's profile (given only a JWT).
  *     responses:
@@ -147,17 +163,18 @@ router.get('/:username/profile', viewProfile);
  *       400:
  *         description: Malformed input.
  *     tags:
- *       - /api/portfolio
+ *       - Portfolio
  */
 router.route('/profile').get(checkJwt, viewProfileByJwt).put(editProfile);
 
 /**
  * @swagger
- * /{username}/all:
+ * /api/portfolio/{username}/all:
  *   get:
  *     description: Get all portfolio items for a user.
  *     parameters:
  *       - $ref: '#/components/parameters/usernameParam'
+ *       - $ref: '#/components/parameters/categoryParam'
  *     responses:
  *       200:
  *         description: An array of portfolio items.
@@ -170,13 +187,13 @@ router.route('/profile').get(checkJwt, viewProfileByJwt).put(editProfile);
  *       404:
  *         description: Unknown user.
  *     tags:
- *       - /api/portfolio
+ *       - Portfolio
  */
 router.get('/:username/all', viewAllItems);
 
 /**
  * @swagger
- * /create:
+ * /api/portfolio/create:
  *   post:
  *     description: Create a portfolio item.
  *     parameters:
@@ -189,13 +206,13 @@ router.get('/:username/all', viewAllItems);
  *       400:
  *         description: Malformed input.
  *     tags:
- *       - /api/portfolio
+ *       - Portfolio
  */
 router.post('/create', createItem);
 
 /**
  * @swagger
- * /{portfolioItemId}:
+ * /api/portfolio/{portfolioItemId}:
  *   get:
  *     description: Get an individual portfolio item.
  *     parameters:
@@ -210,7 +227,7 @@ router.post('/create', createItem);
  *       404:
  *         description: Unknown portfolio item.
  *     tags:
- *       - /api/portfolio
+ *       - Portfolio
  *   put:
  *     description: Edit a portfolio item.
  *     parameters:
@@ -226,7 +243,7 @@ router.post('/create', createItem);
  *       401:
  *         description: Portfolio item belongs to another user.
  *     tags:
- *       - /api/portfolio
+ *       - Portfolio
  *   delete:
  *     description: Delete a portfolio item.
  *     parameters:
@@ -239,7 +256,7 @@ router.post('/create', createItem);
  *       401:
  *         description: Portfolio item belongs to another user.
  *     tags:
- *       - /api/portfolio
+ *       - Portfolio
  */
 router
   .route('/:portfolioItemId')

@@ -12,7 +12,7 @@ const PortfolioAvatar = () => {
   return (
     <Image
       fluid
-      className="mt-5"
+      className="mt-5 shadow-lg"
       src={JaneDoe}
       style={imageStyle}
       roundedCircle

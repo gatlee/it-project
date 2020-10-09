@@ -5,7 +5,7 @@ const router = Router();
 
 /**
  * @swagger
- * /create-user:
+ * /api/auth/create-user:
  *   post:
  *     description:
  *       Create a new user.
@@ -29,18 +29,15 @@ const router = Router();
  *             auth0Id:
  *               type: string
  *     responses:
- *       200:
- *         description: The user's profile.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/UserProfile'
- *       404:
- *         description: Unknown user.
+ *       201:
+ *         description: User successfully created.
+ *       400:
+ *         description: Malformed input.
+ *       409:
+ *         description: \"username taken\" or \"auth0Id conflict\".
  *     tags:
- *       - /api/auth
+ *       - Auth
  */
-// FIXME: authenticate that the request is coming from the Auth0 rule
 router.post('/create-user', createUser);
 
 export default router;

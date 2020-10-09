@@ -5,9 +5,14 @@ import SignInButton from '../buttons/SignInButton';
 import SignOutButton from '../buttons/SignOutButton';
 import AdminButton from '../buttons/AdminButton';
 import DemoImage from '../../assets/PortfolioDemo.png';
+import MobileDemo from '../../assets/MobileDemo.png';
+import { useAuth0 } from '@auth0/auth0-react';
 import { css } from '@emotion/core';
 
 const PromotionBox = () => {
+  const { user, isAuthenticated } = useAuth0();
+  const { name } = user;
+
   const titleStyle = {
     fontSize: '3.4em',
     fontFamily: 'Segoe UI Semibold',
@@ -56,14 +61,35 @@ const PromotionBox = () => {
           <h2 className="display-4" css={subtitleStyle}>
             Create your own ePortfolio in minutes.
           </h2>
-          <SignInButton />
-          <SignOutButton />
-          <GetStartedButton />
-          <AdminButton />
+
+          {isAuthenticated ? (
+            <>
+              <p> Welcome back, {name}!</p>
+              <AdminButton />
+              <SignOutButton />
+            </>
+          ) : (
+            <>
+              <p></p>
+              <GetStartedButton />
+              <SignInButton />
+            </>
+          )}
         </Col>
 
-        <Col lg={6} md={12} className="py-3 align-self-center">
-          <Image src={DemoImage} css={imageStyle} fluid />
+        <Col lg={6} md={12} className="p-4 align-self-center">
+          <Image
+            src={DemoImage}
+            css={imageStyle}
+            className="shadow-lg d-none d-lg-block"
+            fluid
+          />
+          <Image
+            src={MobileDemo}
+            css={imageStyle}
+            className="shadow-lg d-block d-lg-none"
+            fluid
+          />
         </Col>
       </Row>
     </Container>

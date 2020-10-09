@@ -2,12 +2,14 @@ import { prop, getModelForClass } from '@typegoose/typegoose';
 import { PortfolioCategory } from '@pure-and-lazy/api-interfaces';
 
 class PortfolioItem {
-  @prop() category: PortfolioCategory;
-  @prop() name: string;
-  @prop() description: string;
-  @prop() content: string;
-  @prop() created: Date;
-  @prop() lastModified: Date;
+  @prop({ required: true, type: String, enum: PortfolioCategory })
+  category!: PortfolioCategory;
+  @prop({ required: true }) name!: string;
+  @prop({ required: true }) description!: string;
+  @prop({ required: true }) content!: string;
+  @prop({ required: true }) created!: Date;
+  @prop({ required: true }) lastModified!: Date;
+  @prop() image?: string;
 }
 
 const PortfolioItemModel = getModelForClass(PortfolioItem);

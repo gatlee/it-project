@@ -1,18 +1,13 @@
 import React from 'react';
-import {
-  Button,
-  Col,
-  Container,
-  Form,
-  Image,
-  Modal,
-  Row,
-} from 'react-bootstrap';
+import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import { EditorBody } from './EditorBody';
+import { ProjectItemImage } from './ProjectItemImage';
 
 interface ProjectItemEditor {
   title: string;
+  editorTitle: string;
+  editorSaveButtonDisabled: boolean;
   onTitleChange: (title: string) => void;
   description: string;
   onDescriptionChange: (description: string) => void;
@@ -48,16 +43,13 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
       >
         <Row>
           <Col>
-            <h2>Edit Portfolio Item</h2>
+            <h2>{props.title === '' ? 'Create New' : `Edit ${props.title}`}</h2>
           </Col>
         </Row>
         <Row className="py-3">
           <Col xs={12} sm={12} md={4}>
-            <Image
-              src="https://picsum.photos/180/180"
-              fluid
-              className="w-100 p-3"
-            />
+            {/* TODO: Hookup this image to backend */}
+            <ProjectItemImage src="https://picsum.photos/180/180" />
           </Col>
           <Col xs={12} sm={12} md={8}>
             <Form>
@@ -66,7 +58,7 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
                 <Form.Control
                   onChange={handleTitleChange}
                   size="lg"
-                  value={props.title}
+                  value={props.editorTitle}
                 />
               </Form.Group>
               <Form.Group controlId="formGroupDescription">
@@ -89,7 +81,12 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
         </Row>
         <Row>
           <Col>
-            <Button onClick={handleSave}>Save</Button>
+            <Button
+              disabled={props.editorSaveButtonDisabled}
+              onClick={handleSave}
+            >
+              Save
+            </Button>
             <Button onClick={props.onCancel} variant="Secondary">
               Cancel
             </Button>

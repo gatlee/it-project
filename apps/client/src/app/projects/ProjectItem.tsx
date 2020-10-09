@@ -19,25 +19,36 @@ const ProjectItem = (props: ProjectItem) => {
   const [editorTitle, setEditorTitle] = useState(props.title);
   const [editorDescription, setEditorDescription] = useState(props.description);
   const [editorContent, setEditorContent] = useState(props.content);
+  const [editorSaveButtonDisabled, setSaveButtonDisabled] = useState(false);
   //TODO pull in body
 
   const handleCancel = () => setEditorOpen(false);
   const handleOpenEditor = () => setEditorOpen(true);
 
   const handleSave = async () => {
-    await updateProjectItem(
-      editorTitle,
-      editorDescription,
-      editorContent,
-      props.id,
-      getAccessTokenSilently
-    );
+    setSaveButtonDisabled(true);
+    try {
+      await updateProjectItem(
+        editorTitle,
+        editorDescription,
+        editorContent,
+        props.id,
+        getAccessTokenSilently
+      );
+    } catch (e) {
+      console.log(e);
+    }
     setEditorOpen(false);
+    setSaveButtonDisabled(false);
     props.onUpdate();
   };
 
   const handleDelete = async () => {
-    await deleteProjectItem(props.id, getAccessTokenSilently);
+    try {
+      await deleteProjectItem(props.id, getAccessTokenSilently);
+    } catch (e) {
+      console.log(e);
+    }
 
     props.onUpdate();
     setEditorOpen(false);
@@ -46,7 +57,9 @@ const ProjectItem = (props: ProjectItem) => {
   return (
     <>
       <ProjectItemEditor
-        title={editorTitle}
+        title={props.title}
+        editorTitle={editorTitle}
+        editorSaveButtonDisabled={editorSaveButtonDisabled}
         onTitleChange={setEditorTitle}
         description={editorDescription}
         onDescriptionChange={setEditorDescription}
