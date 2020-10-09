@@ -20,6 +20,14 @@ const ContentPage = () => {
   };
   const [content, setContent] = useState(defaultState);
 
+  const contentStyle = {
+    img: {
+      maxWidth: '100%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      display: 'block',
+    },
+  };
   useEffect(() => {
     getPortfolioItem(contentID).then((res: PortfolioItem) => {
       setContent(res);
@@ -35,7 +43,7 @@ const ContentPage = () => {
         image={content.image || ''}
       />
       <Container className="mt-5">
-        <ReactMarkdown source={content.content} />
+        <ReactMarkdown css={contentStyle} source={content.content} />
       </Container>
     </>
   );
