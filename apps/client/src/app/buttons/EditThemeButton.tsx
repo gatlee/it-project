@@ -6,9 +6,9 @@ import { ChevronUp } from 'react-bootstrap-icons';
 const EditThemeButton = () => {
   return (
     <Button variant="light" className="">
-      <span>
+      <span className="mx-1">
         Edit Theme
-        <ChevronUp className="ml-1" />
+        <ChevronUp className="ml-2" style={{ marginBottom: '0.1rem' }} />
       </span>
     </Button>
   );

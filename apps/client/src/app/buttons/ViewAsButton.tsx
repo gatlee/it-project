@@ -12,10 +12,10 @@ interface ViewAsButton {
 const ViewAsButton = (props: ViewAsButton) => {
   return (
     <LinkContainer to={props.target} className="pointer">
-      <Button variant="light">
-        <span>
+      <Button variant="light mr-4">
+        <span className="mx-1">
           {props.content}
-          <BoxArrowUpRight className="ml-1" />
+          <BoxArrowUpRight className="ml-2 mb-1" />
         </span>
       </Button>
     </LinkContainer>
