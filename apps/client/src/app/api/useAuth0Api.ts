@@ -34,8 +34,8 @@ export const useAuth0Api = () => {
     try {
       const accessToken = await getAccessToken();
 
-      const response = await axios( {
-        method: "GET",
+      const response = await axios({
+        method: 'GET',
         url: userDetailsByIdUrl,
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -53,7 +53,9 @@ export const useAuth0Api = () => {
       const accessToken = await getAccessToken();
 
       const updatedData = {
+        // eslint-disable-next-line @typescript-eslint/camelcase
         user_metadata: {
+          // eslint-disable-next-line @typescript-eslint/camelcase
           registration_complete: true,
         },
       };
@@ -67,11 +69,10 @@ export const useAuth0Api = () => {
         },
         data: updatedData,
       });
-
     } catch (e) {
       return Promise.reject(e);
     }
-  }
+  };
   //
   return {
     getRegistrationStatus,
