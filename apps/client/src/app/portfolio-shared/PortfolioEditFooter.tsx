@@ -1,13 +1,14 @@
-import React from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
+import React, { useContext } from 'react';
 import FooterAdminButton from '../buttons/FooterAdminButton';
 import EditThemeButton from '../buttons/EditThemeButton';
 import ViewAsButton from '../buttons/ViewAsButton';
+import { UserContext } from './UserContext';
 
 // Footer displayed on the edit page
 const PortfolioEditFooter = () => {
-  const { user } = useAuth0();
-  const link = `/u/${user.nickname}`;
+  const { username } = useContext(UserContext);
+  console.log(username);
+  const link = `/u/${username}`;
 
   return (
     <span>

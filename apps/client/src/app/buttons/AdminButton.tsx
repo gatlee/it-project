@@ -1,17 +1,15 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { ChevronUp } from 'react-bootstrap-icons';
+import { LinkContainer } from 'react-router-bootstrap';
 
-// Button to trigger the theme editor modal
-const EditThemeButton = () => {
+const AdminButton = () => {
   return (
-    <Button variant="light" className="">
-      <span>
+    <LinkContainer to="/admin">
+      <Button variant="secondary" className="mr-2">
         Admin
-        <ChevronUp className="ml-1" />
-      </span>
-    </Button>
+      </Button>
+    </LinkContainer>
   );
 };
 
-export default EditThemeButton;
+export default AdminButton;
