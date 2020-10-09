@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 interface AdminLink {

@@ -3,19 +3,14 @@ import axios from 'axios';
 import { BackgroundContainer } from '../BackgroundContainer';
 import GradientBackground from '../../assets/GradientBackground.png';
 import { useAuth0 } from '@auth0/auth0-react';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Button, Container, Row, Col } from 'react-bootstrap';
-import ViewPortfolioButton from '../buttons/ViewPortfolioButton';
+import { Container, Row, Col } from 'react-bootstrap';
 import UrlForm from '../input/UrlForm';
-import SignOutButton from '../buttons/SignOutButton';
 import useAuth0Api from '../api/useAuth0Api';
 import { AdminLink } from './AdminLink';
 
-// Axios Documentation: https://github.com/axios/axios
-
 const AdminPage = () => {
   const { user } = useAuth0();
-  const { given_name: givenName, picture, email } = user;
+  const { given_name: givenName, email } = user;
   const { getRegistrationStatus, updateRegistrationStatus } = useAuth0Api();
   const { logout } = useAuth0();
 
@@ -24,6 +19,7 @@ const AdminPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const registerUser = async (username: string) => {
+    // Axios Documentation: https://github.com/axios/axios
     try {
       const response = await axios({
         method: 'POST',
@@ -129,7 +125,7 @@ const AdminPage = () => {
         </Row>
         <Row className="mb-1">
           <Col>
-            <AdminLink to={`/u/${given_name}`} label="View Portfolio" />
+            <AdminLink to={`/u/${givenName}`} label="View Portfolio" />
           </Col>
         </Row>
         <Row className="mb-1">
