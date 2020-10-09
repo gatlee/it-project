@@ -153,6 +153,8 @@ router.get('/:username/profile', viewProfile);
  *         description: Unknown user.
  *       400:
  *         description: Malformed input.
+ *     tags:
+ *       - Portfolio
  *   put:
  *     description: Edit a user's profile.
  *     parameters:
