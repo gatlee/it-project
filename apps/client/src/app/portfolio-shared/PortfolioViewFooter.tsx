@@ -2,6 +2,7 @@ import React from 'react';
 import { BoxArrowUpRight } from 'react-bootstrap-icons';
 import { LinkContainer } from 'react-router-bootstrap';
 
+// Footer displayed when viewing your own portfolio as a visitor
 const PortfolioViewFooter = () => {
   const link = `/edit`;
 

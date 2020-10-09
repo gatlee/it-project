@@ -7,7 +7,7 @@ const EditThemeButton = () => {
   return (
     <Button variant="light" className="">
       <span>
-        Admin
+        Edit Theme
         <ChevronUp className="ml-1" />
       </span>
     </Button>
