@@ -114,6 +114,8 @@ router.all('/*', (req, res, next) => {
  *               $ref: '#/components/schemas/UserProfile'
  *       404:
  *         description: Unknown user.
+ *       400:
+ *         description: Malformed input.
  *     tags:
  *       - /api/portfolio
  */
@@ -122,6 +124,19 @@ router.get('/:username/profile', viewProfile);
 /**
  * @swagger
  * /profile:
+ *   get:
+ *     description: View a user's profile (given only a JWT).
+ *     responses:
+ *       200:
+ *         description: The user's profile.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserProfile'
+ *       404:
+ *         description: Unknown user.
+ *       400:
+ *         description: Malformed input.
  *   put:
  *     description: Edit a user's profile.
  *     parameters:
