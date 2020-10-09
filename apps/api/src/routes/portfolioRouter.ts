@@ -4,6 +4,7 @@ import {
   viewAllItems,
   createItem,
   viewProfile,
+  viewProfileByJwt,
   editProfile,
   viewItem,
   editItem,
@@ -129,6 +130,8 @@ router.all('/*', (req, res, next) => {
  *               $ref: '#/components/schemas/UserProfile'
  *       404:
  *         description: Unknown user.
+ *       400:
+ *         description: Malformed input.
  *     tags:
  *       - Portfolio
  */
@@ -137,6 +140,21 @@ router.get('/:username/profile', viewProfile);
 /**
  * @swagger
  * /api/portfolio/profile:
+ *   get:
+ *     description: View a user's profile (given only a JWT).
+ *     responses:
+ *       200:
+ *         description: The user's profile.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserProfile'
+ *       404:
+ *         description: Unknown user.
+ *       400:
+ *         description: Malformed input.
+ *     tags:
+ *       - Portfolio
  *   put:
  *     description: Edit a user's profile.
  *     parameters:
@@ -149,7 +167,7 @@ router.get('/:username/profile', viewProfile);
  *     tags:
  *       - Portfolio
  */
-router.put('/profile', editProfile);
+router.route('/profile').get(checkJwt, viewProfileByJwt).put(editProfile);
 
 /**
  * @swagger

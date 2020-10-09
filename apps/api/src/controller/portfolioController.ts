@@ -126,6 +126,19 @@ const viewProfile = async (req: Req<{}>, res: Res<UserProfile>) => {
   }
 };
 
+const viewProfileByJwt = async (req: Req<{}>, res: Res<UserProfile>) => {
+  try {
+    const user = await UserModel.findOne({ auth0Id: req.user.sub });
+    if (user) {
+      res.send(user.toProfile());
+    } else {
+      res.sendStatus(404);
+    }
+  } catch {
+    res.sendStatus(400);
+  }
+};
+
 const editProfile = async (req: Req<UserProfile>, res: Res<never>) => {
   try {
     const profile = {};
@@ -154,6 +167,7 @@ export {
   viewAllItems,
   deleteItem,
   viewProfile,
+  viewProfileByJwt,
   editProfile,
   Req,
 };
