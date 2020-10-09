@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { getPortfolioItem } from '../projects/ProjectUtils';
-import { Container } from 'react-bootstrap';
-import { TitleBox } from '../portfolio-shared/TitleBox';
 import { PortfolioItem } from '@pure-and-lazy/api-interfaces';
+import React, { useEffect, useState } from 'react';
+import { Container } from 'react-bootstrap';
 import ReactMarkdown from 'react-markdown/umd/react-markdown';
+import { useParams } from 'react-router-dom';
+import { ContentHeader } from '../content/ContentHeader';
+import { getPortfolioItem } from '../projects/ProjectUtils';
 
 const ContentPage = () => {
   const { contentID } = useParams();
@@ -27,7 +27,7 @@ const ContentPage = () => {
 
   return (
     <>
-      <TitleBox
+      <ContentHeader
         title={content.name}
         subtitle={content.description}
         date={content.created.toLocaleDateString('en-AU')}
