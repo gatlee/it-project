@@ -4,6 +4,7 @@ import {
   viewAllItems,
   createItem,
   viewProfile,
+  viewProfileByJwt,
   editProfile,
   viewItem,
   editItem,
@@ -133,7 +134,7 @@ router.get('/:username/profile', viewProfile);
  *     tags:
  *       - /api/portfolio
  */
-router.put('/profile', editProfile);
+router.route('/profile').get(checkJwt, viewProfileByJwt).put(editProfile);
 
 /**
  * @swagger
