@@ -8,6 +8,7 @@ import UrlForm from '../input/UrlForm';
 import useAuth0Api from '../api/useAuth0Api';
 import { AdminLink } from './AdminLink';
 import { AdminTitle } from './AdminTitle';
+import { AdminSignOut } from './AdminSignOut';
 
 const AdminPage = () => {
   const { user } = useAuth0();
@@ -68,19 +69,7 @@ const AdminPage = () => {
   return (
     <BackgroundContainer background={GradientBackground}>
       <div className="m-3 text-right">
-        <span
-          className="p-2 pointer"
-          onClick={() =>
-            logout({
-              returnTo: window.location.origin,
-              // window.location.origin stores the domain of the current page/window
-              // https://developer.mozilla.org/en-US/docs/Web/API/Location/origin
-              // thus, logging out redirects to the origin.
-            })
-          }
-        >
-          <b>Sign Out</b>
-        </span>
+        <AdminSignOut />
       </div>
       <Container>
         <Row css={topMarginStyle}></Row>
