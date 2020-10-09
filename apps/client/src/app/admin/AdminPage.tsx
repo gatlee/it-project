@@ -7,6 +7,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import UrlForm from '../input/UrlForm';
 import useAuth0Api from '../api/useAuth0Api';
 import { AdminLink } from './AdminLink';
+import { AdminTitle } from './AdminTitle';
 
 const AdminPage = () => {
   const { user } = useAuth0();
@@ -61,27 +62,7 @@ const AdminPage = () => {
   }
 
   const topMarginStyle = {
-    marginTop: '20vh',
-  };
-
-  const headerStyle = {
-    fontWeight: 500,
-    '@media (max-width: 992px)': {
-      fontSize: 48,
-    },
-    '@media (min-width: 992px)': {
-      fontSize: 72,
-    },
-  };
-
-  const subtitleStyle = {
-    fontWeight: 400,
-    '@media (max-width: 992px)': {
-      fontSize: 16,
-    },
-    '@media (min-width: 992px)': {
-      fontSize: 24,
-    },
+    marginTop: '22vh',
   };
 
   return (
@@ -105,10 +86,10 @@ const AdminPage = () => {
         <Row css={topMarginStyle}></Row>
         <Row className="mb-3">
           <Col>
-            <h2 className="mt-5" css={headerStyle}>
-              Welcome back, {givenName}
-            </h2>
-            <p css={subtitleStyle}>What would you like to do today?</p>
+            <AdminTitle
+              title={`Welcome back, ${givenName}`}
+              subtitle="What would you like to do today?"
+            />
             {!registrationComplete && (
               <UrlForm
                 onSubmit={registerUser}
