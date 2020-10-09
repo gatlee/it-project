@@ -1,20 +1,22 @@
 import { css } from 'emotion';
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
-import BackgroundImage from './../../assets/landscape.png';
 import { CenteredRowContent } from '../layout/CenteredRowContent';
 import { ClockFill } from 'react-bootstrap-icons';
 
 interface ContentHeader {
   title: string;
+  image?: string;
   subtitle?: string;
   date?: string;
 }
 
 const ContentHeader = (props: ContentHeader) => {
   const style = css({
-    background: 'white',
-    backgroundImage: ` linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${BackgroundImage})`,
+    background: '#aaa',
+    backgroundImage: props.image
+      ? `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${props.image})`
+      : null,
     backgroundPosition: 'center',
     width: '100%',
     height: 'auto',

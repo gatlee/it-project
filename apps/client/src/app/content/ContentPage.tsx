@@ -16,6 +16,7 @@ const ContentPage = () => {
     content: '',
     created: new Date(),
     lastModified: new Date(),
+    image: '',
   };
   const [content, setContent] = useState(defaultState);
 
@@ -31,6 +32,7 @@ const ContentPage = () => {
         title={content.name}
         subtitle={content.description}
         date={content.created.toLocaleDateString('en-AU')}
+        image={content.image || ''}
       />
       <Container className="mt-5">
         <ReactMarkdown source={content.content} />
