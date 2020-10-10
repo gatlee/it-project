@@ -98,7 +98,7 @@ const PostSignUpPage = () => {
             </Form.Group>
 
             <Form.Group className="mt-4" controlId="username">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>Username</Form.Label>
               <Form.Control
                 onChange={handleUsernameChange}
                 type="text"
