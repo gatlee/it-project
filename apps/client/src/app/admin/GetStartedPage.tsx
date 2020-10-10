@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 import useAuth0Api from '../api/useAuth0Api';
 
-const PostSignUpPage = () => {
+const GetStartedPage = () => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
 
@@ -129,4 +129,4 @@ const PostSignUpPage = () => {
   );
 };
 
-export { PostSignUpPage };
+export { GetStartedPage };
