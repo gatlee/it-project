@@ -3,13 +3,7 @@ import FooterAdminButton from '../buttons/FooterAdminButton';
 import EditThemeButton from '../buttons/EditThemeButton';
 import ViewAsButton from '../buttons/ViewAsButton';
 import { UserContext } from './UserContext';
-import {
-  Container,
-  Col,
-  ButtonToolbar,
-  ButtonGroup,
-  Row,
-} from 'react-bootstrap';
+import { Container, Col, ButtonToolbar, Row } from 'react-bootstrap';
 
 // Footer displayed on the edit page
 const PortfolioEditFooter = () => {
