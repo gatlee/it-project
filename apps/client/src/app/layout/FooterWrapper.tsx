@@ -10,8 +10,8 @@ const FooterWrapper = (props: FooterWrapper): React.ReactElement => {
   const footerStyle = {
     backgroundColor: '#f8f9fa',
     color: 'white',
-    height: '50px',
-    lineHeight: '45px',
+    minHeight: '50px',
+    lineHeight: '50px',
     background: '#0275D8',
     boxShadow: '0px 0 20px rgba(0, 0, 0, 0.8)',
   };
