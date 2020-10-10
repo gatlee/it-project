@@ -49,6 +49,26 @@ export const useAuth0Api = () => {
     }
   };
 
+  const getRegistrationStatusWithRateLimit = async (): Promise<boolean> => {
+    const attempt = 0;
+    const limit = 2;
+
+    const attemptGet = async () => {
+      try {
+        const registrationCompleted = await getRegistrationStatus();
+        return Promise.resolve(registrationCompleted);
+      } catch (e) {
+        if (e.response.status !== 429 || attempt >= limit) {
+          return Promise.reject(e);
+        }
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        return attemptGet();
+      }
+    };
+
+    return await attemptGet();
+  };
+
   const getRegistrationStatusWithCache = async () => {
     try {
       const accessToken = await getAccessToken();
@@ -56,7 +76,7 @@ export const useAuth0Api = () => {
       if (Cookies.get('userRegistered') === accessToken) {
         return Promise.resolve(true);
       }
-      const registrationCompleted = await getRegistrationStatus();
+      const registrationCompleted = await getRegistrationStatusWithRateLimit();
 
       if (registrationCompleted) {
         Cookies.set('userRegistered', accessToken);
