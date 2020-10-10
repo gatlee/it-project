@@ -10,10 +10,11 @@ const FooterWrapper = (props: FooterWrapper): React.ReactElement => {
   const footerStyle = {
     backgroundColor: '#f8f9fa',
     color: 'white',
-    minHeight: '50px',
-    lineHeight: '50px',
+    minHeight: '40px',
+    lineHeight: '40px',
     background: '#0275D8',
     boxShadow: '0px 0 20px rgba(0, 0, 0, 0.8)',
+    fontFamily: 'roboto',
   };
 
   return !props.hidden ? (

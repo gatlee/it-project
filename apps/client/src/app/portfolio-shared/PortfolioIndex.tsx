@@ -11,6 +11,7 @@ import { PortfolioViewFooter } from './PortfolioViewFooter';
 import { useAuth0 } from '@auth0/auth0-react';
 import { UserContext } from './UserContext';
 import { Container } from 'react-bootstrap';
+import { ContentPage } from '../content/ContentPage';
 
 const PortfolioIndex = () => {
   const [redirect, setRedirect] = useState(false);
@@ -66,6 +67,12 @@ const PortfolioIndex = () => {
           </Route>
           <Route exact path={`${path}/blog`}>
             <BlogPage />
+          </Route>
+          <Route exact path={`${path}/projects/:contentID`}>
+            <ContentPage />
+          </Route>
+          <Route exact path={`${path}/blog/:contentID`}>
+            <ContentPage />
           </Route>
           <Route exact path={`${path}/about`}>
             <About />

@@ -1,7 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState } from 'react';
-import { ProjectItemDisplay } from './ProjectItemDisplay';
+import { useLocation } from 'react-router-dom';
 import { ProjectItemEditor } from './editor/ProjectItemEditor';
+import { ProjectItemDisplay } from './ProjectItemDisplay';
 import { deleteProjectItem, updateProjectItem } from './ProjectUtils';
 
 interface ProjectItem {
@@ -20,11 +21,12 @@ const ProjectItem = (props: ProjectItem) => {
   const [editorDescription, setEditorDescription] = useState(props.description);
   const [editorContent, setEditorContent] = useState(props.content);
   const [editorSaveButtonDisabled, setSaveButtonDisabled] = useState(false);
-  //TODO pull in body
 
   const handleCancel = () => setEditorOpen(false);
   const handleOpenEditor = () => setEditorOpen(true);
 
+  const { pathname } = useLocation();
+  const contentURL = pathname + '/' + props.id;
   const handleSave = async () => {
     setSaveButtonDisabled(true);
     try {
@@ -71,6 +73,7 @@ const ProjectItem = (props: ProjectItem) => {
       />
       <ProjectItemDisplay
         title={props.title}
+        link={contentURL}
         description={props.description}
         onOpenEditor={handleOpenEditor}
         onDelete={handleDelete}
