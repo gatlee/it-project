@@ -14,6 +14,7 @@ import { NotFound } from './NotFound';
 // Note: Auth0ProviderWithHistory needs to be a child of BrowserRouter
 import Auth0ProviderWithHistory from './Auth0ProviderWithHistory';
 import { EditIndex } from './portfolio-shared/EditIndex';
+import { PostSignUpPage } from './admin/PostSignUpPage';
 
 export const App = () => {
   // Backgrounds for home page and portfolio currently
@@ -38,6 +39,7 @@ export const App = () => {
             <Home />
           </Route>
           <PrivateRoute path="/admin" component={AdminPage} />
+          <PrivateRoute path="/getstarted" component={PostSignUpPage} />
           <Route path="/signup">
             <SignUp />
           </Route>
