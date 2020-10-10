@@ -10,7 +10,7 @@ interface TitleBox {
 
 // Pretty box with title and subheading
 const TitleBox = (props: TitleBox) => {
-  const foo = css({
+  const style = css({
     background: 'white',
     backgroundImage: ` linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${BackgroundImage})`,
     backgroundPosition: 'center',
@@ -20,7 +20,7 @@ const TitleBox = (props: TitleBox) => {
   });
 
   return (
-    <div className={foo + ' shadow-lg'}>
+    <div className={style + ' shadow-lg'}>
       <Container fluid>
         <Container>
           <Row>

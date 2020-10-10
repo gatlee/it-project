@@ -92,4 +92,19 @@ const addPortfolioItem = async (
     body: JSON.stringify(body),
   });
 };
-export { updateProjectItem, deleteProjectItem, addPortfolioItem };
+
+const getPortfolioItem = async (contentID: string): Promise<PortfolioItem> => {
+  return fetch(`/api/portfolio/${contentID}`)
+    .then((res) => res.json())
+    .then((obj) => {
+      obj.created = new Date(Date.parse(obj.created));
+      obj.lastModified = new Date(Date.parse(obj.lastModified));
+      return obj;
+    });
+};
+export {
+  updateProjectItem,
+  deleteProjectItem,
+  addPortfolioItem,
+  getPortfolioItem,
+};

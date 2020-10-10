@@ -1,7 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Route, Switch, useRouteMatch, Redirect } from 'react-router-dom';
+import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
+import useAuth0Api from '../api/useAuth0Api';
 import { BlogPage } from '../blog/BlogPage';
+import { ContentPage } from '../content/ContentPage';
 import { FooterWrapper } from '../layout/FooterWrapper';
 import { About } from './about/About';
 import { EditContext } from './EditContext';
@@ -10,7 +12,6 @@ import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
 import { UserContext } from './UserContext';
-import useAuth0Api from '../api/useAuth0Api';
 
 const EditIndex = () => {
   const isEditMode = true;
@@ -43,7 +44,7 @@ const EditIndex = () => {
         setRegistrationComplete(registrationStatus);
         setIsLoaded(true);
       })
-      .catch();
+      .catch((e) => console.log(e));
   }, [getRegistrationStatus]);
 
   useEffect(() => {
@@ -74,6 +75,12 @@ const EditIndex = () => {
             </Route>
             <Route exact path={`${path}/blog`}>
               <BlogPage />
+            </Route>
+            <Route exact path={`${path}/projects/:contentID`}>
+              <ContentPage />
+            </Route>
+            <Route exact path={`${path}/blog/:contentID`}>
+              <ContentPage />
             </Route>
             <Route exact path={`${path}/about`}>
               <About />
