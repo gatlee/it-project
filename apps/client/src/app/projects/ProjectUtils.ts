@@ -10,6 +10,7 @@ import {
 // Update the title and description of a project item with the given id
 const updateProjectItem = async (
   title: string,
+  image: string,
   description: string,
   content: string,
   id: string,
@@ -24,6 +25,7 @@ const updateProjectItem = async (
   }
   const data: PortfolioItem = {
     name: title,
+    image: image,
     description: description,
     content: content,
     category: PortfolioCategory.PROJECTS,

@@ -6,10 +6,11 @@ import { ProjectItemImage } from './ProjectItemImage';
 
 interface ProjectItemEditor {
   title: string;
-  imageUrl: string;
   editorTitle: string;
   editorSaveButtonDisabled: boolean;
   onTitleChange: (title: string) => void;
+  image: string;
+  onImageChange: (image: string) => void;
   description: string;
   onDescriptionChange: (description: string) => void;
   content: string;
@@ -18,6 +19,7 @@ interface ProjectItemEditor {
   onSave: () => void;
   show: boolean;
 }
+
 const ProjectItemEditor = (props: ProjectItemEditor) => {
   const handleDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -30,6 +32,10 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
 
   const handleSave = () => {
     props.onSave();
+  };
+
+  const handleImageChange = (image: string) => {
+    props.onImageChange(image);
   };
 
   return (
@@ -49,7 +55,10 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
         </Row>
         <Row className="py-3">
           <Col xs={12} sm={12} md={4}>
-            <ProjectItemImage src={props.imageUrl} />
+            <ProjectItemImage
+              onImageChange={handleImageChange}
+              image={props.image}
+            />
           </Col>
           <Col xs={12} sm={12} md={8}>
             <Form>

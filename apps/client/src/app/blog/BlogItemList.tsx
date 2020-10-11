@@ -19,7 +19,7 @@ const BlogItemList = () => {
       id={item._id}
       key={index}
       title={item.name}
-      imageUrl={item.image}
+      image={item.image}
       description={item.description}
       content={item.content}
       onUpdate={onUpdate}
