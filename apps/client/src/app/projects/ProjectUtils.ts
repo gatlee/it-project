@@ -63,6 +63,7 @@ const deleteProjectItem = async (
 // Create new project
 const addPortfolioItem = async (
   title: string,
+  image: string,
   description: string,
   content: string,
   category: PortfolioCategory,
@@ -71,6 +72,7 @@ const addPortfolioItem = async (
 ) => {
   const body: PortfolioItem = {
     name: title,
+    image: image,
     description: description,
     content: content,
     category: category,
