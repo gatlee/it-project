@@ -20,6 +20,7 @@ const ProjectItemList = () => {
       id={item._id}
       key={index}
       title={item.name}
+      imageUrl={item.image}
       description={item.description}
       content={item.content}
       onUpdate={onUpdate}

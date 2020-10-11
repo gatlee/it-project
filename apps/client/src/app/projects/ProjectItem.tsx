@@ -7,6 +7,7 @@ import { deleteProjectItem, updateProjectItem } from './ProjectUtils';
 
 interface ProjectItem {
   id: string;
+  imageUrl: string;
   title: string;
   description: string;
   content: string;
@@ -60,6 +61,7 @@ const ProjectItem = (props: ProjectItem) => {
     <>
       <ProjectItemEditor
         title={props.title}
+        imageUrl={props.imageUrl}
         editorTitle={editorTitle}
         editorSaveButtonDisabled={editorSaveButtonDisabled}
         onTitleChange={setEditorTitle}
@@ -73,6 +75,7 @@ const ProjectItem = (props: ProjectItem) => {
       />
       <ProjectItemDisplay
         title={props.title}
+        imageUrl={props.imageUrl}
         link={contentURL}
         description={props.description}
         onOpenEditor={handleOpenEditor}

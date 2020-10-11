@@ -53,6 +53,7 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
       </CenteredRowContent>
       <ProjectItemEditor
         title=""
+        imageUrl=""
         editorTitle={editorTitle}
         editorSaveButtonDisabled={editorSaveButtonDisabled}
         onTitleChange={setEditorTitle}

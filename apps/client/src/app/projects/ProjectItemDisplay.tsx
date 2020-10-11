@@ -5,6 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 interface ProjectItemDisplay {
   title: string;
+  imageUrl: string;
   description: string;
   link: string;
   onOpenEditor: () => void;
@@ -25,7 +26,7 @@ const ProjectItemDisplay = (props: ProjectItemDisplay) => {
     <Col sm="4" className="py-2">
       <Card style={cardNew} className="h-100">
         <LinkContainer to={props.link} className="pointer">
-          <Card.Img variant="top" src="https://picsum.photos/180/100" />
+          <Card.Img variant="top" src={props.imageUrl} />
         </LinkContainer>
         <Card.Body>
           <LinkContainer to={props.link} className="pointer">
