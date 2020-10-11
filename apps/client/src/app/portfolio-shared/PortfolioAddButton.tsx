@@ -44,7 +44,6 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
         getAccessTokenSilently
       );
     } catch (e) {
-      console.log('test');
       console.log(e);
     }
     props.onAdd();
