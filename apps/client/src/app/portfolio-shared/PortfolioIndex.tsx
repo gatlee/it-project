@@ -26,8 +26,7 @@ const PortfolioIndex = () => {
   const { path } = useRouteMatch();
   const { id } = useParams();
   const { isAuthenticated, user: authUser } = useAuth0();
-  console.log(authUser.nickname);
-  console.log(user.username);
+
   const footer: React.ReactNode = <PortfolioViewFooter />;
 
   const findUser = useCallback(() => {
