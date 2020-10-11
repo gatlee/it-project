@@ -14,7 +14,7 @@ const EditThemeButton = (props: EditThemeButton) => {
       {props.isSmall ? (
         <Button variant="light px-3 py-0 mx-2" size="sm">
           <FontAwesomeIcon icon={faChevronUp} />
-          <p className="my-0 font-weight-bold">Edit Theme</p>
+          <p className="my-0">Edit Theme</p>
         </Button>
       ) : (
         <Button variant="light" className="py-1 px-3">
