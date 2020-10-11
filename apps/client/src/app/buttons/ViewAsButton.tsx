@@ -19,7 +19,7 @@ const ViewAsButton = (props: ViewAsButton) => {
           <p className="my-0">{props.content}</p>
         </Button>
       ) : (
-        <Button variant="light mr-4" className="py-1">
+        <Button variant="light mr-4" className="py-1 px-3">
           <span className="mx-1">
             {props.content}
             <BoxArrowUpRight className="ml-2 mb-1" />

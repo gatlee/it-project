@@ -17,8 +17,8 @@ const FooterAdminButton = (props: EditThemeButton) => {
           <p className="my-0">Admin</p>
         </Button>
       ) : (
-        <Button variant="light" className="mr-3 ml-4 py-1">
-          <span className="mx-1 font-weight-bold">
+        <Button variant="light" className="mr-3 ml-4 py-1 px-3">
+          <span className="mx-1">
             <ArrowLeft className="mr-2" style={{ marginBottom: '0.1rem' }} />
             Admin
           </span>

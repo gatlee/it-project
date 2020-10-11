@@ -16,8 +16,8 @@ const EditThemeButton = (props: EditThemeButton) => {
           <p className="my-0 font-weight-bold">Edit Theme</p>
         </Button>
       ) : (
-        <Button variant="light" className="py-1">
-          <span className="mx-1 font-weight-bold">
+        <Button variant="light" className="py-1 px-3">
+          <span className="mx-1">
             Edit Theme
             <ChevronUp className="ml-2" style={{ marginBottom: '0.1rem' }} />
           </span>

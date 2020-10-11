@@ -40,7 +40,7 @@ const PortfolioViewFooter = () => {
         </Row>
 
         <Row>
-          <ButtonToolbar className="mx-auto">
+          <ButtonToolbar className="mx-auto mb-2">
             <FooterAdminButton isSmall={true} />
             <EditThemeButton isSmall={true} />
             <ViewAsButton

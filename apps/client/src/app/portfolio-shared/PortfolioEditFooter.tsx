@@ -24,9 +24,7 @@ const PortfolioEditFooter = () => {
           </span>
         </Col>
 
-        <Col style={{ marginTop: '0.1rem' }}>
-          You are editing this portfolio
-        </Col>
+        <Col>You are editing this portfolio</Col>
 
         <Col>
           <span className="float-right">
@@ -42,7 +40,7 @@ const PortfolioEditFooter = () => {
         </Row>
 
         <Row>
-          <ButtonToolbar className="mx-auto">
+          <ButtonToolbar className="mx-auto mb-2">
             <FooterAdminButton isSmall={true} />
             <EditThemeButton isSmall={true} />
             <ViewAsButton
