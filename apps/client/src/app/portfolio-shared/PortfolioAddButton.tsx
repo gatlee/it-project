@@ -16,6 +16,9 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
   const { getAccessTokenSilently } = useAuth0();
   const [editorOpen, setEditorOpen] = useState(false);
   const [editorTitle, setEditorTitle] = useState('');
+  const [editorImage, setEditorImage] = useState(
+    'https://picsum.photos/180/180'
+  );
   const [editorDescription, setEditorDescription] = useState('');
   const [editorContent, setEditorContent] = useState('');
   const [editorSaveButtonDisabled, setSaveButtonDisabled] = useState(false);
@@ -25,6 +28,8 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
     setEditorTitle('');
     setEditorDescription('');
     setSaveButtonDisabled(false);
+    setEditorContent('');
+    setEditorImage('https://picsum.photos/180/180');
   };
 
   const handleSave = async () => {
@@ -32,6 +37,7 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
     try {
       await addPortfolioItem(
         editorTitle,
+        editorImage,
         editorDescription,
         editorContent,
         props.category,
@@ -58,6 +64,8 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
         onTitleChange={setEditorTitle}
         description={editorDescription}
         onDescriptionChange={setEditorDescription}
+        image={editorImage}
+        onImageChange={setEditorImage}
         content={editorContent}
         onContentChange={setEditorContent}
         onCancel={closeEditor}

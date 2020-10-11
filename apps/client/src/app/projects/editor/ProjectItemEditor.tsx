@@ -9,6 +9,8 @@ interface ProjectItemEditor {
   editorTitle: string;
   editorSaveButtonDisabled: boolean;
   onTitleChange: (title: string) => void;
+  image: string;
+  onImageChange: (image: string) => void;
   description: string;
   onDescriptionChange: (description: string) => void;
   content: string;
@@ -17,6 +19,7 @@ interface ProjectItemEditor {
   onSave: () => void;
   show: boolean;
 }
+
 const ProjectItemEditor = (props: ProjectItemEditor) => {
   const handleDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -29,6 +32,10 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
 
   const handleSave = () => {
     props.onSave();
+  };
+
+  const handleImageChange = (image: string) => {
+    props.onImageChange(image);
   };
 
   return (
@@ -48,8 +55,10 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
         </Row>
         <Row className="py-3">
           <Col xs={12} sm={12} md={4}>
-            {/* TODO: Hookup this image to backend */}
-            <ProjectItemImage src="https://picsum.photos/180/180" />
+            <ProjectItemImage
+              onImageChange={handleImageChange}
+              image={props.image}
+            />
           </Col>
           <Col xs={12} sm={12} md={8}>
             <Form>

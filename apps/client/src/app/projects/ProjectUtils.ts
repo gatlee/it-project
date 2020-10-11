@@ -10,6 +10,7 @@ import {
 // Update the title and description of a project item with the given id
 const updateProjectItem = async (
   title: string,
+  image: string,
   description: string,
   content: string,
   id: string,
@@ -24,6 +25,7 @@ const updateProjectItem = async (
   }
   const data: PortfolioItem = {
     name: title,
+    image: image,
     description: description,
     content: content,
     category: PortfolioCategory.PROJECTS,
@@ -63,6 +65,7 @@ const deleteProjectItem = async (
 // Create new project
 const addPortfolioItem = async (
   title: string,
+  image: string,
   description: string,
   content: string,
   category: PortfolioCategory,
@@ -71,6 +74,7 @@ const addPortfolioItem = async (
 ) => {
   const body: PortfolioItem = {
     name: title,
+    image: image,
     description: description,
     content: content,
     category: category,
