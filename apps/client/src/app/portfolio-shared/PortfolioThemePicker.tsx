@@ -31,7 +31,9 @@ const PortfolioThemePicker = (props: PortfolioThemePicker) => {
   });
 
   const modalStyle = css({
-    width: '40vw',
+    '@media (min-width: 576px)': {
+      width: '40vw',
+    },
     maxWidth: 'none',
   });
 
@@ -43,7 +45,10 @@ const PortfolioThemePicker = (props: PortfolioThemePicker) => {
       dialogClassName={modalStyle}
       aria-labelledby="example-custom-modal-styling-title"
     >
-      <Modal.Body className="m-3" id="example-custom-modal-styling-title">
+      <Modal.Body
+        className="m-3 text-center"
+        id="example-custom-modal-styling-title"
+      >
         <h3 className="mb-3">Color Scheme</h3>
         <button className={themeButtonStyle('white') + ' mr-3'} />
         <button className={themeButtonStyle('black')} />
