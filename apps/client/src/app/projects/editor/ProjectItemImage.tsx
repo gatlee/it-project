@@ -5,6 +5,8 @@ import { Upload } from 'react-bootstrap-icons';
 import { generateCloudinaryUrl } from '../../cloudinaryUtility';
 import { css } from 'emotion';
 
+/* CSS adapted from: https://www.w3schools.com/howto/howto_css_image_overlay_icon.asp */
+
 interface ProjectItemImage {
   onImageChange: (image: string) => void;
   image: string;
