@@ -18,7 +18,7 @@ const PortfolioViewFooter = () => {
         <Col>
           <span className="float-left">
             <FooterAdminButton />
-            <EditThemeButton />
+            {/*<EditThemeButton />*/}
           </span>
         </Col>
 
@@ -42,7 +42,7 @@ const PortfolioViewFooter = () => {
         <Row>
           <ButtonToolbar className="mx-auto mb-2">
             <FooterAdminButton isSmall={true} />
-            <EditThemeButton isSmall={true} />
+            {/*<EditThemeButton isSmall={true} />*/}
             <ViewAsButton
               target={link}
               content={'View as editor'}
