@@ -1,4 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 
 export const useAuth0Api = () => {
@@ -30,7 +31,7 @@ export const useAuth0Api = () => {
     }
   };
 
-  const getRegistrationStatus = async () => {
+  const getRegistrationStatus = async (): Promise<boolean> => {
     try {
       const accessToken = await getAccessToken();
 
@@ -43,6 +44,26 @@ export const useAuth0Api = () => {
       });
 
       return Promise.resolve(response.data.user_metadata.registration_complete);
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  };
+
+  const getRegistrationStatusWithCache = async () => {
+    try {
+      const accessToken = await getAccessToken();
+
+      if (Cookies.get('userRegistered') === accessToken) {
+        return Promise.resolve(true);
+      }
+      const registrationCompleted = await getRegistrationStatus();
+
+      if (registrationCompleted) {
+        // We only want the cache to apply to the current user
+        Cookies.set('userRegistered', accessToken);
+      }
+
+      return Promise.resolve(registrationCompleted);
     } catch (e) {
       return Promise.reject(e);
     }
@@ -75,8 +96,8 @@ export const useAuth0Api = () => {
   };
   //
   return {
-    getRegistrationStatus,
     updateRegistrationStatus,
+    getRegistrationStatusWithCache,
   };
 };
 

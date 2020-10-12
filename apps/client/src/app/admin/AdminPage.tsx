@@ -11,7 +11,10 @@ import { AdminLink } from './AdminLink';
 const AdminPage = () => {
   const { user } = useAuth0();
   const { given_name: givenName, email } = user;
-  const { getRegistrationStatus, updateRegistrationStatus } = useAuth0Api();
+  const {
+    getRegistrationStatusWithCache,
+    updateRegistrationStatus,
+  } = useAuth0Api();
   const { logout } = useAuth0();
 
   const [registrationComplete, setRegistrationComplete] = useState(false);
@@ -48,13 +51,13 @@ const AdminPage = () => {
   };
 
   useEffect(() => {
-    getRegistrationStatus()
+    getRegistrationStatusWithCache()
       .then((registrationStatus) => {
         setRegistrationComplete(registrationStatus);
         setIsLoaded(true);
       })
       .catch();
-  }, [getRegistrationStatus]);
+  }, [getRegistrationStatusWithCache]);
 
   if (!isLoaded) {
     return null;
