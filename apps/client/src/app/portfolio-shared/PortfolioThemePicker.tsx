@@ -52,7 +52,7 @@ const PortfolioThemePicker = (props: PortfolioThemePicker) => {
         <h3 className="mb-3">Color Scheme</h3>
         <button className={themeButtonStyle('white') + ' mr-3'} />
         <button className={themeButtonStyle('black')} />
-        <h3 className="mt-3 mb-3">Theme Image</h3>
+        <h3 className="my-3">Theme Image</h3>
 
         <Container>
           <Row>
