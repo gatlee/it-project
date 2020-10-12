@@ -29,8 +29,12 @@ const ProjectItemImage = (props: ProjectItemImage) => {
     height: '100%',
     width: '100%',
     opacity: 0,
-    backgroundColor: 'gray',
-    ':hover': { opacity: 0.6, transiton: 'opacity 350ms ease' },
+    '-webkit-transition': '.3s ease',
+    backgroundColor: 'black',
+    ':hover': {
+      opacity: 0.6,
+      '-webkit-transition': '.3s ease',
+    },
   });
 
   const iconStyle = css({
