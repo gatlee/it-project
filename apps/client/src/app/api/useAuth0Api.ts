@@ -59,6 +59,7 @@ export const useAuth0Api = () => {
       const registrationCompleted = await getRegistrationStatus();
 
       if (registrationCompleted) {
+        // We only want the cache to apply to the current user
         Cookies.set('userRegistered', accessToken);
       }
 
