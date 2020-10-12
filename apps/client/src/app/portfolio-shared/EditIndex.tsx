@@ -29,7 +29,7 @@ const EditIndex = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const { user } = useAuth0();
-  const { getRegistrationStatus } = useAuth0Api();
+  const { getRegistrationStatusWithCache } = useAuth0Api();
 
   const findUser = useCallback(() => {
     if (isLoaded && registrationComplete) {
@@ -40,13 +40,13 @@ const EditIndex = () => {
   }, [setUser, user.nickname, isLoaded, registrationComplete]);
 
   useEffect(() => {
-    getRegistrationStatus()
+    getRegistrationStatusWithCache()
       .then((registrationStatus) => {
         setRegistrationComplete(registrationStatus);
         setIsLoaded(true);
       })
       .catch((e) => console.log(e));
-  }, [getRegistrationStatus]);
+  }, [getRegistrationStatusWithCache]);
 
   useEffect(() => {
     findUser();

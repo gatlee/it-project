@@ -6,15 +6,14 @@ import './ProjectItemImage.css';
 import { generateCloudinaryUrl } from '../../cloudinaryUtility';
 
 interface ProjectItemImage {
-  src: string;
+  onImageChange: (image: string) => void;
+  image: string;
 }
 
 const ProjectItemImage = (props: ProjectItemImage) => {
-  const [imgUrl, setImgUrl] = useState(props.src);
-
   const handleFileDrop = async (file) => {
-    const url = await generateCloudinaryUrl(file);
-    setImgUrl(url);
+    const imageUrl = await generateCloudinaryUrl(file);
+    props.onImageChange(imageUrl);
   };
 
   return (
@@ -30,7 +29,7 @@ const ProjectItemImage = (props: ProjectItemImage) => {
         <div {...getRootProps()}>
           <input {...getInputProps()} />
           <div className="w-100 project-image-container">
-            <Image src={imgUrl} fluid className="w-100" />
+            <Image src={props.image} fluid className="w-100" />
             <div className="project-image-overlay">
               <Upload className="upload-icon" />
             </div>

@@ -7,6 +7,7 @@ import { deleteProjectItem, updateProjectItem } from './ProjectUtils';
 
 interface ProjectItem {
   id: string;
+  image: string;
   title: string;
   description: string;
   content: string;
@@ -18,6 +19,7 @@ const ProjectItem = (props: ProjectItem) => {
 
   const [editorOpen, setEditorOpen] = useState(false);
   const [editorTitle, setEditorTitle] = useState(props.title);
+  const [editorImage, setEditorImage] = useState(props.image);
   const [editorDescription, setEditorDescription] = useState(props.description);
   const [editorContent, setEditorContent] = useState(props.content);
   const [editorSaveButtonDisabled, setSaveButtonDisabled] = useState(false);
@@ -32,6 +34,7 @@ const ProjectItem = (props: ProjectItem) => {
     try {
       await updateProjectItem(
         editorTitle,
+        editorImage,
         editorDescription,
         editorContent,
         props.id,
@@ -60,6 +63,8 @@ const ProjectItem = (props: ProjectItem) => {
     <>
       <ProjectItemEditor
         title={props.title}
+        image={editorImage}
+        onImageChange={setEditorImage}
         editorTitle={editorTitle}
         editorSaveButtonDisabled={editorSaveButtonDisabled}
         onTitleChange={setEditorTitle}
@@ -73,6 +78,7 @@ const ProjectItem = (props: ProjectItem) => {
       />
       <ProjectItemDisplay
         title={props.title}
+        image={props.image}
         link={contentURL}
         description={props.description}
         onOpenEditor={handleOpenEditor}
