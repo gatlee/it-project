@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { BackgroundContainer } from '../BackgroundContainer';
 import GradientBackground from '../../assets/GradientBackground.png';
@@ -9,15 +9,16 @@ import useAuth0Api from '../api/useAuth0Api';
 import { AdminLink } from './AdminLink';
 import { AdminTitle } from './AdminTitle';
 import { AdminSignOut } from './AdminSignOut';
+import { UserContext } from '../portfolio-shared/UserContext';
 
 const AdminPage = () => {
+  const { username } = useContext(UserContext);
   const { user } = useAuth0();
   const { given_name: givenName, email } = user;
   const {
     getRegistrationStatusWithCache,
     updateRegistrationStatus,
   } = useAuth0Api();
-  const { logout } = useAuth0();
 
   const [registrationComplete, setRegistrationComplete] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -98,7 +99,7 @@ const AdminPage = () => {
         </Row>
         <Row className="mb-1">
           <Col>
-            <AdminLink to={`/u/${givenName}`} label="View Portfolio" />
+            <AdminLink to={`/u/${username}`} label="View Portfolio" />
           </Col>
         </Row>
         <Row className="mb-1">
