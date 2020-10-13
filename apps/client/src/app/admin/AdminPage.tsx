@@ -17,7 +17,6 @@ const AdminPage = () => {
     getRegistrationStatusWithCache,
     updateRegistrationStatus,
   } = useAuth0Api();
-  const { logout } = useAuth0();
 
   const [registrationComplete, setRegistrationComplete] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
