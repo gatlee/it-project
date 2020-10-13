@@ -21,7 +21,9 @@ const ProjectItemImage = (props: ProjectItemImage) => {
   /* Container needed to position the overlay. Adjust the width as needed */
   const projectImageContainerStyle = css({
     width: '100%',
-    height: 'auto',
+    // If image exists, keep ratio
+    // otherwise, need to fill parent div to have an overlay without image
+    height: `${props.image ? 'auto' : '100%'}`,
     position: 'relative',
     backgroundColor: 'gray',
   });
