@@ -21,7 +21,7 @@ const ProjectItemImage = (props: ProjectItemImage) => {
   /* Container needed to position the overlay. Adjust the width as needed */
   const projectImageContainerStyle = css({
     width: '100%',
-    height: '100%',
+    height: 'auto',
     position: 'relative',
     backgroundColor: 'gray',
   });
@@ -59,7 +59,6 @@ const ProjectItemImage = (props: ProjectItemImage) => {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
-    backgroundColor: 'gray',
   });
 
   return (
