@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
-import useAuth0Api from '../api/useAuth0Api';
+// import useAuth0Api from '../api/useAuth0Api';
 import { BlogPage } from '../blog/BlogPage';
 import { ContentPage } from '../content/ContentPage';
 import { FooterWrapper } from '../layout/FooterWrapper';
@@ -12,8 +12,10 @@ import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
 import { UserContext } from './UserContext';
+import { AuthContext} from "../AuthContext";
 
 const EditIndex = () => {
+  const { registrationComplete, isLoaded } = useContext(AuthContext);
   const isEditMode = true;
   const { path } = useRouteMatch();
   const [desiredUser, setUser] = useState({
@@ -24,11 +26,7 @@ const EditIndex = () => {
     description: '',
   });
 
-  const [registrationComplete, setRegistrationComplete] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-
   const { user } = useAuth0();
-  const { getRegistrationStatusWithCache } = useAuth0Api();
 
   const findUser = useCallback(() => {
     if (isLoaded && registrationComplete) {
@@ -37,15 +35,6 @@ const EditIndex = () => {
         .then((r) => setUser(r));
     }
   }, [setUser, user.nickname, isLoaded, registrationComplete]);
-
-  useEffect(() => {
-    getRegistrationStatusWithCache()
-      .then((registrationStatus) => {
-        setRegistrationComplete(registrationStatus);
-        setIsLoaded(true);
-      })
-      .catch((e) => console.log(e));
-  }, [getRegistrationStatusWithCache]);
 
   useEffect(() => {
     findUser();
