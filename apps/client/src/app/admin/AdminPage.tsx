@@ -17,8 +17,6 @@ const AdminPage = () => {
   const { updateRegistrationStatus } = useAuth0Api();
   const { registrationComplete, isLoaded } = useContext(AuthContext);
 
-  // const [registrationComplete, setRegistrationComplete] = useState(false);
-  // const [isLoaded, setIsLoaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const registerUser = async (username: string) => {
@@ -49,15 +47,6 @@ const AdminPage = () => {
       }
     }
   };
-
-  // useEffect(() => {
-  //   getRegistrationStatusWithCache()
-  //     .then((registrationStatus) => {
-  //       setRegistrationComplete(registrationStatus);
-  //       setIsLoaded(true);
-  //     })
-  //     .catch();
-  // }, [getRegistrationStatusWithCache]);
 
   if (!isLoaded) {
     return null;
