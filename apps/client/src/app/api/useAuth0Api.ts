@@ -17,6 +17,7 @@ export const useAuth0Api = () => {
   const userDetailsByIdUrl = isAuthenticated
     ? `https://${auth0Domain}/api/v2/users/${user.sub}`
     : '';
+  // functions that rely on userDetailsByIdUrl should not be called is auth0 is not authenticated
 
   const getAccessToken = useCallback(async () => {
     try {
