@@ -1,8 +1,8 @@
 import React from 'react';
+import { css } from '@emotion/core';
 
 interface FooterWrapper {
   footer: React.ReactNode;
-  children: React.ReactNode;
   hidden?: boolean;
 }
 
@@ -10,19 +10,23 @@ interface FooterWrapper {
 const FooterWrapper = (props: FooterWrapper): React.ReactElement => {
   const footerStyle = {
     backgroundColor: '#f8f9fa',
-    color: 'black',
+    color: 'white',
+    minHeight: '43px',
+    lineHeight: '43px',
+    background: '#0275D8',
+    boxShadow: '0px 0 10px rgba(0, 0, 0, 0.6)',
+    fontFamily: 'roboto',
+    '.btn': {
+      color: '#373A3C',
+      fontWeight: 'bold' as const,
+    },
   };
 
   return !props.hidden ? (
-    <div className="d-flex flex-column min-vh-100">
-      {props.children}
-      <footer className="fixed-bottom text-center p-1" style={footerStyle}>
-        {props.footer}
-      </footer>
-    </div>
-  ) : (
-    <div className="d-flex flex-column min-vh-100">{props.children}</div>
-  );
+    <footer className="fixed-bottom text-center pb-1" css={footerStyle}>
+      {props.footer}
+    </footer>
+  ) : null;
 };
 
 export { FooterWrapper };
