@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { BackgroundContainer } from '../BackgroundContainer';
 import GradientBackground from '../../assets/GradientBackground.png';
@@ -9,17 +9,16 @@ import useAuth0Api from '../api/useAuth0Api';
 import { AdminLink } from './AdminLink';
 import { AdminTitle } from './AdminTitle';
 import { AdminSignOut } from './AdminSignOut';
+import { AuthContext } from '../AuthContext';
 
 const AdminPage = () => {
   const { user } = useAuth0();
   const { given_name: givenName, email } = user;
-  const {
-    getRegistrationStatusWithCache,
-    updateRegistrationStatus,
-  } = useAuth0Api();
+  const { updateRegistrationStatus } = useAuth0Api();
+  const { registrationComplete, isLoaded } = useContext(AuthContext);
 
-  const [registrationComplete, setRegistrationComplete] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  // const [registrationComplete, setRegistrationComplete] = useState(false);
+  // const [isLoaded, setIsLoaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const registerUser = async (username: string) => {
@@ -51,14 +50,14 @@ const AdminPage = () => {
     }
   };
 
-  useEffect(() => {
-    getRegistrationStatusWithCache()
-      .then((registrationStatus) => {
-        setRegistrationComplete(registrationStatus);
-        setIsLoaded(true);
-      })
-      .catch();
-  }, [getRegistrationStatusWithCache]);
+  // useEffect(() => {
+  //   getRegistrationStatusWithCache()
+  //     .then((registrationStatus) => {
+  //       setRegistrationComplete(registrationStatus);
+  //       setIsLoaded(true);
+  //     })
+  //     .catch();
+  // }, [getRegistrationStatusWithCache]);
 
   if (!isLoaded) {
     return null;
