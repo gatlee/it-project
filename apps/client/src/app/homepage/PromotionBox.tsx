@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Col, Container, Row, Image } from 'react-bootstrap';
 import GetStartedButton from '../buttons/GetStartedButton';
 import SignInButton from '../buttons/SignInButton';
@@ -8,10 +8,11 @@ import DemoImage from '../../assets/PortfolioDemo.png';
 import MobileDemo from '../../assets/MobileDemo.png';
 import { useAuth0 } from '@auth0/auth0-react';
 import { css } from '@emotion/core';
+import { UserContext } from '../portfolio-shared/UserContext';
 
 const PromotionBox = () => {
-  const { user, isAuthenticated } = useAuth0();
-  const { name } = user;
+  const { isAuthenticated } = useAuth0();
+  const { name } = useContext(UserContext);
 
   const titleStyle = {
     fontSize: '3.4em',
