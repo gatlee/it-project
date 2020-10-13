@@ -41,6 +41,7 @@ export const useAuth0Api = () => {
   }, [audience, getAccessTokenSilently, getAccessTokenWithPopup]);
 
   const getRegistrationStatus = useCallback(async (): Promise<boolean> => {
+    console.log('calling getRegistrationStatus');
     try {
       const accessToken = await getAccessToken();
 
@@ -59,6 +60,7 @@ export const useAuth0Api = () => {
   }, [getAccessToken, userDetailsByIdUrl]);
 
   const getRegistrationStatusWithCache = useCallback(async () => {
+    console.log('calling getRegistrationStatusWithCache');
     try {
       const accessToken = await getAccessToken();
 
@@ -78,6 +80,7 @@ export const useAuth0Api = () => {
     }
   }, [getAccessToken, getRegistrationStatus]);
 
+  // Update Auth0 user data to indicate that registration is complete
   const updateRegistrationStatus = async () => {
     try {
       const accessToken = await getAccessToken();
@@ -103,7 +106,7 @@ export const useAuth0Api = () => {
       return Promise.reject(e);
     }
   };
-  //
+
   return {
     updateRegistrationStatus,
     getRegistrationStatusWithCache,

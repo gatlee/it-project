@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import useAuth0Api from './api/useAuth0Api';
+import useAuth0Api from '../api/useAuth0Api';
 import { AuthContext } from './AuthContext';
 
 // Note: AuthContextProvider needs to be a child of Auth0ProviderWithHistory

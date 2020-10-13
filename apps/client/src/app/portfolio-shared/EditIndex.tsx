@@ -12,7 +12,7 @@ import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
 import { UserContext } from './UserContext';
-import { AuthContext } from '../AuthContext';
+import { AuthContext } from '../auth/AuthContext';
 import { Container } from 'react-bootstrap';
 
 const EditIndex = () => {

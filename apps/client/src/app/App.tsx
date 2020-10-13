@@ -8,12 +8,12 @@ import { PortfolioIndex } from './portfolio-shared/PortfolioIndex';
 import CoolBackground from '../assets/CoolBackground.png';
 import GradientBackground from '../assets/GradientBackground.png';
 import AdminPage from './admin/AdminPage';
-import PrivateRoute from './PrivateRoute';
-import AuthContextProvider from './AuthContextProvider';
+import PrivateRoute from './auth/PrivateRoute';
+import AuthContextProvider from './auth/AuthContextProvider';
 import { NotFound } from './NotFound';
 
 // Note: Auth0ProviderWithHistory needs to be a child of BrowserRouter
-import Auth0ProviderWithHistory from './Auth0ProviderWithHistory';
+import Auth0ProviderWithHistory from './auth/Auth0ProviderWithHistory';
 import { EditIndex } from './portfolio-shared/EditIndex';
 import { GetStartedPage } from './admin/GetStartedPage';
 

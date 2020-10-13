@@ -9,7 +9,7 @@ import useAuth0Api from '../api/useAuth0Api';
 import { AdminLink } from './AdminLink';
 import { AdminTitle } from './AdminTitle';
 import { AdminSignOut } from './AdminSignOut';
-import { AuthContext } from '../AuthContext';
+import { AuthContext } from '../auth/AuthContext';
 
 const AdminPage = () => {
   const { user } = useAuth0();
