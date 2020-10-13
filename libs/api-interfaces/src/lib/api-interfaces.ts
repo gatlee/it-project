@@ -25,6 +25,13 @@ interface UserProfile {
   dateJoined: Date;
   description?: string;
   profilePicture?: string;
+  theme?: UserTheme;
+  themeDark?: boolean;
 }
 
-export { Message, PortfolioItem, PortfolioCategory, UserProfile };
+enum UserTheme {
+  DEFAULT,
+  // TODO: add more themes here
+}
+
+export { Message, PortfolioItem, PortfolioCategory, UserProfile, UserTheme };

@@ -63,6 +63,12 @@ import {
  *         profilePicture:
  *           type: string
  *           format: uri
+ *         theme:
+ *           type: integer
+ *           default: 0
+ *         themeDark:
+ *           type: boolean
+ *           default: false
  *   parameters:
  *     usernameParam:
  *       name: username
