@@ -1,24 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { BackgroundContainer } from '../BackgroundContainer';
-import GradientBackground from '../../assets/GradientBackground.png';
-import { AdminSignOut } from './AdminSignOut';
-import { Container, Row, Form, Button, FormControl } from 'react-bootstrap';
-import { AdminTitle } from './AdminTitle';
-import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { Button, Container, Form, FormControl, Row } from 'react-bootstrap';
+import GradientBackground from '../../assets/GradientBackground.png';
 import useAuth0Api from '../api/useAuth0Api';
+import { BackgroundContainer } from '../BackgroundContainer';
+import { AdminSignOut } from './AdminSignOut';
+import { AdminTitle } from './AdminTitle';
 
 const GetStartedPage = () => {
+  // TODO: Use name from db
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
 
   // TODO: Client side validation
-  const [isInvalid, setIsInvalid] = useState(false);
+  const [isInvalid] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const { updateRegistrationStatus } = useAuth0Api();
 
   const { user } = useAuth0();
-  const { given_name: givenName, email } = user;
+  const { given_name: email } = user;
 
   // TODO: Make use of this
   const registerUser = async (username: string) => {
@@ -62,6 +64,7 @@ const GetStartedPage = () => {
   };
 
   // TODO: Implement this
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSubmit = async (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
