@@ -11,7 +11,8 @@ class User {
   @prop({ required: true, unique: true }) auth0Id!: string;
   @prop() profilePicture?: string;
   @prop({ ref: PortfolioItem }) portfolio: Ref<PortfolioItem>[];
-  @prop({ default: UserTheme.DEFAULT }) theme?: UserTheme;
+  @prop({ enum: UserTheme, type: Number, default: UserTheme.DEFAULT })
+  theme?: UserTheme;
   @prop({ default: false }) themeDark?: boolean;
 
   toProfile(): UserProfile {
