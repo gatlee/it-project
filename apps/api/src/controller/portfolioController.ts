@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import { isDocument } from '@typegoose/typegoose';
 import { PortfolioItemModel } from '../models/portfolioItem';
-import { UserModel } from '../models/user';
+import { User, UserModel } from '../models/user';
 import {
   UserProfile,
   PortfolioItem,
@@ -143,7 +143,7 @@ const editProfile = async (req: Req<UserProfile>, res: Res<never>) => {
   try {
     const profile = {};
     let gotField = false;
-    for (const field of ['name', 'description', 'profilePicture']) {
+    for (const field of User.editableFields) {
       if (req.body[field] !== undefined) {
         profile[field] = req.body[field];
         gotField = true;

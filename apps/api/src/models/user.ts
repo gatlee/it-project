@@ -15,6 +15,14 @@ class User {
   theme?: UserTheme;
   @prop({ default: false }) themeDark?: boolean;
 
+  static editableFields = [
+    'name',
+    'description',
+    'profilePicture',
+    'theme',
+    'themeDark',
+  ];
+
   toProfile(): UserProfile {
     return {
       username: this.username,
