@@ -19,7 +19,12 @@ const ProjectItemImage = (props: ProjectItemImage) => {
   };
 
   /* Container needed to position the overlay. Adjust the width as needed */
-  const projectImageContainerStyle = css({ position: 'relative' });
+  const projectImageContainerStyle = css({
+    width: '100%',
+    height: '100%',
+    position: 'relative',
+    backgroundColor: 'gray',
+  });
 
   /* The overlay effect (full height and width) - lays on top of the container and over the image */
   const projectImageOverlay = css({
@@ -50,6 +55,13 @@ const ProjectItemImage = (props: ProjectItemImage) => {
     textAlign: 'center',
   });
 
+  const imageStyle = css({
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    backgroundColor: 'gray',
+  });
+
   return (
     <Dropzone
       maxFiles={1}
@@ -60,13 +72,11 @@ const ProjectItemImage = (props: ProjectItemImage) => {
       accept="image/*"
     >
       {({ getRootProps, getInputProps }) => (
-        <div {...getRootProps()}>
+        <div {...getRootProps()} className={projectImageContainerStyle}>
           <input {...getInputProps()} />
-          <div className={'w-100 ' + projectImageContainerStyle}>
-            <Image src={props.image} fluid className="w-100" />
-            <div className={projectImageOverlay}>
-              <Upload className={iconStyle} />
-            </div>
+          {props.image && <Image src={props.image} className={imageStyle} />}
+          <div className={projectImageOverlay}>
+            <Upload className={iconStyle} />
           </div>
         </div>
       )}
