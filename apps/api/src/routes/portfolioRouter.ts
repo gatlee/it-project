@@ -42,6 +42,9 @@ import {
  *         image:
  *           type: string
  *           format: uri
+ *         public:
+ *           type: boolean
+ *           default: true
  *     UserProfile:
  *       type: object
  *       required:
