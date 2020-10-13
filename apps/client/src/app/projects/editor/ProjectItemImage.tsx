@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Image } from 'react-bootstrap';
-import Dropzone from 'react-dropzone';
 import { Upload } from 'react-bootstrap-icons';
+import Dropzone from 'react-dropzone';
 import { generateCloudinaryUrl } from '../../cloudinaryUtility';
 import { css } from 'emotion';
 

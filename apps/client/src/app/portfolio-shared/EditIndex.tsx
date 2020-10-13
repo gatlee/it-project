@@ -12,6 +12,7 @@ import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
 import { UserContext } from './UserContext';
+import { Container } from 'react-bootstrap';
 
 const EditIndex = () => {
   const isEditMode = true;
@@ -64,7 +65,7 @@ const EditIndex = () => {
   return (
     <UserContext.Provider value={desiredUser}>
       <EditContext.Provider value={true}>
-        <FooterWrapper footer={footer} hidden={!isEditMode}>
+        <Container className="d-flex flex-column min-vh-100 p-0" fluid>
           <PortfolioNavBar />
           <Switch>
             <Route exact path={`${path}`}>
@@ -86,7 +87,8 @@ const EditIndex = () => {
               <About />
             </Route>
           </Switch>
-        </FooterWrapper>
+          <FooterWrapper footer={footer} hidden={!isEditMode} />
+        </Container>
       </EditContext.Provider>
     </UserContext.Provider>
   );
