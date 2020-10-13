@@ -27,16 +27,23 @@ const EditIndex = () => {
   const [registrationComplete, setRegistrationComplete] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const { user } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
   const { getRegistrationStatusWithCache } = useAuth0Api();
 
-  const findUser = useCallback(() => {
+  const findUser = useCallback(async () => {
     if (isLoaded && registrationComplete) {
-      fetch(`/api/portfolio/${user.nickname}/profile`)
-        .then((r) => r.json())
-        .then((r) => setUser(r));
+      const token = await getAccessTokenSilently();
+      const response = await fetch(`/api/portfolio/profile`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      const js = await response.json();
+      setUser(js);
     }
-  }, [setUser, user.nickname, isLoaded, registrationComplete]);
+  }, [setUser, isLoaded, registrationComplete, getAccessTokenSilently]);
 
   useEffect(() => {
     getRegistrationStatusWithCache()
@@ -49,7 +56,7 @@ const EditIndex = () => {
 
   useEffect(() => {
     findUser();
-  }, [findUser, user, isLoaded, registrationComplete]);
+  }, [findUser]);
 
   if (!isLoaded) {
     return null;
