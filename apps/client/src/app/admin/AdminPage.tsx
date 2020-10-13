@@ -19,6 +19,8 @@ const AdminPage = () => {
 
   const [errorMessage, setErrorMessage] = useState('');
 
+  // TODO: Redirect to /getstarted if registration not complete
+
   const registerUser = async (username: string) => {
     // Axios Documentation: https://github.com/axios/axios
     try {
