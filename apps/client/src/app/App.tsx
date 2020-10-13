@@ -9,6 +9,7 @@ import CoolBackground from '../assets/CoolBackground.png';
 import GradientBackground from '../assets/GradientBackground.png';
 import AdminPage from './admin/AdminPage';
 import PrivateRoute from './PrivateRoute';
+import AuthContextProvider from './AuthContextProvider';
 import { NotFound } from './NotFound';
 
 // Note: Auth0ProviderWithHistory needs to be a child of BrowserRouter
@@ -33,22 +34,24 @@ export const App = () => {
   return (
     <Router>
       <Auth0ProviderWithHistory>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <PrivateRoute path="/admin" component={AdminPage} />
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-          <Route path="/u/:id">
-            <PortfolioIndex />
-          </Route>
-          <PrivateRoute path="/edit" component={EditIndex} />
-          <Route>
-            <NotFound />
-          </Route>
-        </Switch>
+        <AuthContextProvider>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <PrivateRoute path="/admin" component={AdminPage} />
+            <Route path="/signup">
+              <SignUp />
+            </Route>
+            <Route path="/u/:id">
+              <PortfolioIndex />
+            </Route>
+            <PrivateRoute path="/edit" component={EditIndex} />
+            <Route>
+              <NotFound />
+            </Route>
+          </Switch>
+        </AuthContextProvider>
       </Auth0ProviderWithHistory>
     </Router>
   );
