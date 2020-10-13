@@ -10,9 +10,7 @@ export const AuthContextProvider = ({ children }) => {
   const [authData, setAuthData] = useState(useContext(AuthContext));
 
   useEffect(() => {
-    console.log('run useEffect');
     if (isAuthenticated) {
-      console.log('calling getRegistration');
       getRegistrationStatusWithCache()
         .then((registrationStatus) => {
           setAuthData((prevState) => ({
