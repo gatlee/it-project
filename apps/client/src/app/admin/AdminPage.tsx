@@ -7,6 +7,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import UrlForm from '../input/UrlForm';
 import useAuth0Api from '../api/useAuth0Api';
 import { AdminLink } from './AdminLink';
+import { AdminTitle } from './AdminTitle';
+import { AdminSignOut } from './AdminSignOut';
 
 const AdminPage = () => {
   const { user } = useAuth0();
@@ -64,54 +66,22 @@ const AdminPage = () => {
   }
 
   const topMarginStyle = {
-    marginTop: '20vh',
-  };
-
-  const headerStyle = {
-    fontWeight: 500,
-    '@media (max-width: 992px)': {
-      fontSize: 48,
-    },
-    '@media (min-width: 992px)': {
-      fontSize: 72,
-    },
-  };
-
-  const subtitleStyle = {
-    fontWeight: 400,
-    '@media (max-width: 992px)': {
-      fontSize: 16,
-    },
-    '@media (min-width: 992px)': {
-      fontSize: 24,
-    },
+    marginTop: '22vh',
   };
 
   return (
     <BackgroundContainer background={GradientBackground}>
       <div className="m-3 text-right">
-        <span
-          className="p-2 pointer"
-          onClick={() =>
-            logout({
-              returnTo: window.location.origin,
-              // window.location.origin stores the domain of the current page/window
-              // https://developer.mozilla.org/en-US/docs/Web/API/Location/origin
-              // thus, logging out redirects to the origin.
-            })
-          }
-        >
-          <b>Sign Out</b>
-        </span>
+        <AdminSignOut />
       </div>
       <Container>
         <Row css={topMarginStyle}></Row>
         <Row className="mb-3">
           <Col>
-            <h2 className="mt-5" css={headerStyle}>
-              Welcome back, {givenName}
-            </h2>
-            <p css={subtitleStyle}>What would you like to do today?</p>
+            <AdminTitle
+              title={`Welcome back, ${givenName}`}
+              subtitle="What would you like to do today?"
+            />
             {!registrationComplete && (
               <UrlForm
                 onSubmit={registerUser}

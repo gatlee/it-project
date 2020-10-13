@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import FooterAdminButton from '../buttons/FooterAdminButton';
-import EditThemeButton from '../buttons/EditThemeButton';
 import ViewAsButton from '../buttons/ViewAsButton';
 import { Container, Col, ButtonToolbar, Row } from 'react-bootstrap';
 import { PortfolioThemePicker } from './PortfolioThemePicker';
@@ -26,7 +25,6 @@ const PortfolioViewFooter = () => {
         <Col>
           <span className="float-left">
             <FooterAdminButton />
-            <EditThemeButton onClick={handleThemeOpen} />
           </span>
         </Col>
 
@@ -50,7 +48,6 @@ const PortfolioViewFooter = () => {
         <Row>
           <ButtonToolbar className="mx-auto mb-2">
             <FooterAdminButton isSmall={true} />
-            <EditThemeButton isSmall={true} onClick={handleThemeOpen} />
             <ViewAsButton
               target={link}
               content={'View as editor'}
