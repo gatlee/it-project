@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 // import useAuth0Api from '../api/useAuth0Api';
 import { BlogPage } from '../blog/BlogPage';
@@ -12,7 +12,8 @@ import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
 import { UserContext } from './UserContext';
-import { AuthContext} from "../AuthContext";
+import { AuthContext } from '../AuthContext';
+import { Container } from 'react-bootstrap';
 
 const EditIndex = () => {
   const { registrationComplete, isLoaded } = useContext(AuthContext);
@@ -53,7 +54,7 @@ const EditIndex = () => {
   return (
     <UserContext.Provider value={desiredUser}>
       <EditContext.Provider value={true}>
-        <FooterWrapper footer={footer} hidden={!isEditMode}>
+        <Container className="d-flex flex-column min-vh-100 p-0" fluid>
           <PortfolioNavBar />
           <Switch>
             <Route exact path={`${path}`}>
@@ -75,7 +76,8 @@ const EditIndex = () => {
               <About />
             </Route>
           </Switch>
-        </FooterWrapper>
+          <FooterWrapper footer={footer} hidden={!isEditMode} />
+        </Container>
       </EditContext.Provider>
     </UserContext.Provider>
   );
