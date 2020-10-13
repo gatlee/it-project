@@ -15,20 +15,22 @@ const LoggedInUserContextProvider = (props: LoggedInUserContextProvider) => {
     description: '',
   });
 
-  const { getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   const findUser = useCallback(async () => {
-    const token = await getAccessTokenSilently();
-    const response = await fetch(`/api/portfolio/profile`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    const js = await response.json();
-    setUser(js);
-  }, [setUser, getAccessTokenSilently]);
+    if (isAuthenticated) {
+      const token = await getAccessTokenSilently();
+      const response = await fetch(`/api/portfolio/profile`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      const js = await response.json();
+      setUser(js);
+    }
+  }, [setUser, getAccessTokenSilently, isAuthenticated]);
 
   useEffect(() => {
     findUser();
