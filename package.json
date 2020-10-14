@@ -25,7 +25,8 @@
     "update": "nx migrate latest",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "cypress": "cypress open"
   },
   "private": true,
   "dependencies": {
