@@ -40,3 +40,5 @@ globalConfig.json
 Thumbs.db
 
 .env
+
+debug.log
