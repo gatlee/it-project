@@ -24,38 +24,6 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-// Cypress.Commands.add('login', (overrides = {}) => {
-//   Cypress.log({
-//     name: 'loginViaAuth0',
-//   });
-
-//   const options = {
-//     method: 'POST',
-//     url: Cypress.env('auth_url'),
-//     body: {
-//       grant_type: 'password',
-//       username: Cypress.env('auth_username'),
-//       password: Cypress.env('auth_password'),
-//       audience: Cypress.env('auth_audience'),
-//       scope: 'openid profile email',
-//       client_id: Cypress.env('auth_client_id'),
-//       client_secret: Cypress.env('auth_client_secret'),
-//     },
-//   };
-
-//   cy.request(options)
-//     .then((resp) => {
-//       return resp.body;
-//     })
-//     .then((body) => {
-//       const { access_token, expires_in, id_token } = body;
-//       const key = `@@auth0spajs@@::${Cypress.env(
-//         'auth_client_id'
-//       )}::default::${'openid profile email'}`;
-//       window.localStorage.setItem(key, JSON.stringify({ body: body }));
-//     });
-// });
-
 import jwt_decode from 'jwt-decode';
 
 Cypress.Commands.add('login', () => {
@@ -132,61 +100,3 @@ Cypress.Commands.add('restoreLocalStorageCache', () => {
     localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key]);
   });
 });
-
-// Cypress.Commands.add('login', () => {
-//   const client_id = Cypress.env('auth_client_id');
-//   const scope = 'openid profile email';
-//   const token_type = 'Bearer';
-//   const audience = 'default';
-//   const username = Cypress.env('auth_username');
-//   const password = Cypress.env('auth_password');
-
-//   const options = {
-//     method: 'POST',
-//     url: Cypress.env('auth_url'),
-//     body: {
-//       grant_type: 'password',
-//       client_id,
-//       username,
-//       password,
-//     },
-//   };
-
-//   cy.request(options)
-//     .then((resp) => {
-//       return resp.body;
-//     })
-//     .then(({ body }) => {
-//       const { access_token, expires_in, id_token } = body;
-//       const [header, payload, signature] = id_token.split('.');
-//       const tokenData = jwt.decode(id_token);
-
-//       window.localStorage.setItem(
-//         `@@auth0spajs@@::${client_id}::${audience}::${scope}`,
-//         JSON.stringify({
-//           body: {
-//             access_token,
-//             id_token,
-//             scope,
-//             expires_in,
-//             token_type,
-//             decodedToken: {
-//               encoded: { header, payload, signature },
-//               header: {
-//                 alg: 'RS256',
-//                 typ: 'JWT',
-//               },
-//               claims: {
-//                 __raw: payload,
-//                 ...tokenData,
-//               },
-//               user: tokenData,
-//             },
-//             audience,
-//             client_id,
-//           },
-//           expiresAt: Math.floor(Date.now() / 1000) + expires_in,
-//         })
-//       );
-//     });
-// });
