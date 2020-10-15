@@ -1,7 +1,6 @@
 describe('login', () => {
   before(() => {
-    cy.getFirstToken();
-    cy.getSecondToken();
+    cy.authenticate();
     cy.saveLocalStorageCache();
   });
 
