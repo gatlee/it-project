@@ -44,3 +44,5 @@ Thumbs.db
 debug.log
 
 cypress.env.json
+
+cypress/videos/
