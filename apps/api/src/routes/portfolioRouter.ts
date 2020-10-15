@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { checkJwt } from '../auth';
 import {
-  viewAllItems,
+  viewAllPublicItems,
   createItem,
   viewProfile,
   viewProfileByJwt,
@@ -176,7 +176,7 @@ router.route('/profile').get(checkJwt, viewProfileByJwt).put(editProfile);
  * @swagger
  * /api/portfolio/{username}/all:
  *   get:
- *     description: Get all portfolio items for a user.
+ *     description: Get all (public) portfolio items for a user.
  *     parameters:
  *       - $ref: '#/components/parameters/usernameParam'
  *       - $ref: '#/components/parameters/categoryParam'
@@ -194,7 +194,7 @@ router.route('/profile').get(checkJwt, viewProfileByJwt).put(editProfile);
  *     tags:
  *       - Portfolio
  */
-router.get('/:username/all', viewAllItems);
+router.get('/:username/all', viewAllPublicItems);
 
 /**
  * @swagger

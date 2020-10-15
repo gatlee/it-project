@@ -78,16 +78,40 @@ const editItem = async (req: Req<PortfolioItem>, res: Res<never>) => {
   }
 };
 
-const viewAllItems = async (req: Req<{}>, res: Res<PortfolioItem[]>) => {
+const viewFilteredItems = (
+  user: User,
+  predicate: (item: PortfolioItem) => boolean = (_) => true
+): PortfolioItem[] => {
+  return user.portfolio.filter(
+    (doc) => isDocument(doc) && predicate(doc)
+  ) as PortfolioItem[];
+};
+
+const viewAllPublicItems = async (req: Req<{}>, res: Res<PortfolioItem[]>) => {
   const { username } = req.params;
   try {
     const user = await UserModel.findOne({ username }).populate('portfolio');
-    const docFilter = req.query.category
-      ? (doc) => isDocument(doc) && doc.category == req.query.category
-      : isDocument;
-    res.send(user.portfolio.filter(docFilter) as PortfolioItem[]);
+    const predicate = req.query.category
+      ? (item) => item.public && item.category == req.query.category
+      : (item) => item.public;
+    res.send(viewFilteredItems(user, predicate));
   } catch {
     res.sendStatus(404);
+  }
+};
+
+const viewAllItemsByJwt = async (req: Req<{}>, res: Res<PortfolioItem[]>) => {
+  try {
+    const user = await UserModel.findOne({ auth0Id: req.user.sub }).populate(
+      'portfolio'
+    );
+    if (user) {
+      res.send(viewFilteredItems(user));
+    } else {
+      res.sendStatus(404);
+    }
+  } catch {
+    res.sendStatus(400);
   }
 };
 
@@ -164,7 +188,8 @@ export {
   createItem,
   viewItem,
   editItem,
-  viewAllItems,
+  viewAllPublicItems,
+  viewAllItemsByJwt,
   deleteItem,
   viewProfile,
   viewProfileByJwt,

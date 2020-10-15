@@ -11,7 +11,7 @@ import {
   deleteItem,
   editItem,
   editProfile,
-  viewAllItems,
+  viewAllPublicItems,
   viewItem,
   viewProfile,
   viewProfileByJwt,
@@ -109,7 +109,7 @@ makeTestSuite('Portfolio Tests', () => {
 
   it("should display the user's portfolio items", async () => {
     const { data: items, status } = await callEndpoint(
-      viewAllItems,
+      viewAllPublicItems,
       usernameReq
     );
     expect(status).toBe(200);
@@ -126,10 +126,13 @@ makeTestSuite('Portfolio Tests', () => {
     });
     expect(status).toBe(201);
 
-    const { data: items, status: status2 } = await callEndpoint(viewAllItems, {
-      ...usernameReq,
-      query: { category: PortfolioCategory.PROJECTS },
-    });
+    const { data: items, status: status2 } = await callEndpoint(
+      viewAllPublicItems,
+      {
+        ...usernameReq,
+        query: { category: PortfolioCategory.PROJECTS },
+      }
+    );
     expect(status2).toBe(200);
     expect(items).toHaveLength(2);
     expectJSONMatching(items[0], portfolioItem);
@@ -137,7 +140,7 @@ makeTestSuite('Portfolio Tests', () => {
   });
 
   it('should display 0 portfolio items (filtered by blog)', async () => {
-    const { data: items, status } = await callEndpoint(viewAllItems, {
+    const { data: items, status } = await callEndpoint(viewAllPublicItems, {
       ...usernameReq,
       query: { category: PortfolioCategory.BLOG },
     });
@@ -193,7 +196,7 @@ makeTestSuite('Portfolio Tests', () => {
 
   it("should have removed the item from the user's portfolio", async () => {
     const { data: items, status } = await callEndpoint(
-      viewAllItems,
+      viewAllPublicItems,
       usernameReq
     );
     expect(status).toBe(200);
