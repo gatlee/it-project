@@ -1,6 +1,7 @@
 describe('login', () => {
   before(() => {
-    cy.login();
+    cy.getFirstToken();
+    cy.getSecondToken();
     cy.saveLocalStorageCache();
   });
 
@@ -11,5 +12,10 @@ describe('login', () => {
   it('visit /', () => {
     cy.visit('/');
     cy.contains('Signed In');
+  });
+
+  it('visit /edit', () => {
+    cy.visit('/edit');
+    cy.contains('e2e');
   });
 });
