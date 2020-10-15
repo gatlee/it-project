@@ -5,6 +5,6 @@ describe('smoke', () => {
 
   it('handle unknown route', () => {
     cy.visit('/idontexist');
-    cy.contain('404');
+    cy.contains('404');
   });
 });
