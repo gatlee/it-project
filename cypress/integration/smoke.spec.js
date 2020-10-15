@@ -1,3 +1,5 @@
-it('visits the app', () => {
-  cy.visit('/');
+describe('smoke', () => {
+  it('visits the app', () => {
+    cy.visit('/');
+  });
 });
