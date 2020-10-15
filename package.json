@@ -11,6 +11,7 @@
     "test": "npx nx run-many --all --target=test --code-coverage && npm run e2e",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e client-e2e --headless",
+    "e2e-head": "nx e2e client-e2e",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",
