@@ -4,7 +4,7 @@ import {
   PortfolioItem,
   UserProfile,
 } from '@pure-and-lazy/api-interfaces';
-import { makeTestSuite, expectJSONMatching } from './testUtil';
+import { expectJSONMatching, makeTestSuite } from './testUtil';
 import { callEndpoint } from './controllerUtil';
 import {
   createItem,
@@ -12,10 +12,12 @@ import {
   editItem,
   editProfile,
   viewAllPublicItems,
+  viewAllItemsByJwt,
   viewItem,
   viewProfile,
   viewProfileByJwt,
 } from './portfolioController';
+import { extraEslintDependencies } from '@nrwl/react';
 
 const username = 'test';
 const auth0Id = 'some_id';
@@ -43,6 +45,14 @@ const portfolioItem2: PortfolioItem = {
   name: 'Good first line',
   content:
     'The Waystone Inn lay in silence, and it was a silence of three parts.',
+};
+
+const privateItem: PortfolioItem = {
+  public: false,
+  category: PortfolioCategory.BLOG,
+  name: 'Private blog post',
+  description: 'Only people with the link can view this!',
+  content: 'Nothing special',
 };
 
 makeTestSuite('Portfolio Tests', () => {
@@ -243,5 +253,32 @@ makeTestSuite('Portfolio Tests', () => {
       user: { sub: 'wrong id' },
     });
     expect(status).toBe(404);
+  });
+
+  it('should not display private items from `viewAllPublicItems`', async () => {
+    const { status } = await callEndpoint(createItem, {
+      ...authReq,
+      body: privateItem,
+    });
+    expect(status).toBe(201);
+
+    const { data: items, status: status2 } = await callEndpoint(
+      viewAllPublicItems,
+      usernameReq
+    );
+    expect(status2).toBe(200);
+    expect(items).toHaveLength(1);
+    expectJSONMatching(items[0], portfolioItem2);
+  });
+
+  it('should display both public and private items from `viewAllItemsByJwt`', async () => {
+    const { data: items, status } = await callEndpoint(
+      viewAllItemsByJwt,
+      authReq
+    );
+    expect(status).toBe(200);
+    expect(items).toHaveLength(2);
+    expectJSONMatching(items[0], portfolioItem2);
+    expectJSONMatching(items[1], privateItem);
   });
 });
