@@ -87,6 +87,8 @@ Cypress.Commands.add('login', () => {
     const [header, payload, signature] = id_token.split('.');
     const tokenData = jwt_decode(id_token);
 
+    cy.setCookie('auth0.is.authenticated', 'true');
+    cy.setCookie('userRegistered', id_token);
     window.localStorage.setItem(
       key,
       JSON.stringify({
