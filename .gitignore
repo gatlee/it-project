@@ -46,3 +46,7 @@ cypress.env.json
 cypress/videos/
 
 debug.log
+
+apps/client-e2e/coverage/
+
+apps/client-e2e/.nyc_output/
