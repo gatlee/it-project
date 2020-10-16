@@ -1,4 +1,4 @@
-describe('login', () => {
+describe('Authenticated Visitor', () => {
   before(() => {
     cy.authenticate();
     cy.saveLocalStorageCache();
