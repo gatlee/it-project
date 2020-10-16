@@ -40,3 +40,9 @@ globalConfig.json
 Thumbs.db
 
 .env
+
+cypress.env.json
+
+cypress/videos/
+
+debug.log
