@@ -10,7 +10,7 @@
     "heroku-postbuild": "nx build api --prod && nx build client --prod",
     "test": "npx nx run-many --all --target=test --code-coverage",
     "lint": "nx workspace-lint && nx lint",
-    "e2e": "nx e2e client-e2e --headless",
+    "e2e": "nx run client-e2e:e2e --record --key $CYPRESS_KEY --headless",
     "e2e-head": "nx e2e client-e2e",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",

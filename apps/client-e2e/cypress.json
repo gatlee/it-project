@@ -9,5 +9,6 @@
   "videosFolder": "../../dist/cypress/apps/portfolio-e2e/videos",
   "screenshotsFolder": "../../dist/cypress/apps/portfolio-e2e/screenshots",
   "chromeWebSecurity": false,
-  "baseUrl": "http://localhost:4200"
+  "baseUrl": "http://localhost:4200",
+  "projectId": "vhf8va"
 }
