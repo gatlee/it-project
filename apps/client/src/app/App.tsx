@@ -16,6 +16,7 @@ import Auth0ProviderWithHistory from './Auth0ProviderWithHistory';
 import { EditIndex } from './portfolio-shared/EditIndex';
 import { GetStartedPage } from './admin/GetStartedPage';
 import { LoggedInUserContextProvider } from './portfolio-shared/LoggedInUserContextProvider';
+import 'typeface-roboto';
 
 export const App = () => {
   // Backgrounds for home page and portfolio currently
