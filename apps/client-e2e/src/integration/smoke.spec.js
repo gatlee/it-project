@@ -7,4 +7,9 @@ describe('Unauthenticated Visitor', () => {
     cy.visit('/idontexist');
     cy.contains('404');
   });
+
+  it('will fail the test', () => {
+    cy.visit('/');
+    cy.contains('404');
+  });
 });
