@@ -92,7 +92,7 @@ const AdminPage = () => {
         </Row>
         <Row className="mb-1">
           <Col>
-            <AdminLink to={`/edit`} label="Edit Portfolio" />
+            <AdminLink to={`/edit`} label="Edit Portfolio!" />
           </Col>
         </Row>
         <Row className="mb-1">
