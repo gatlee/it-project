@@ -30,3 +30,6 @@ jobs:
           cypress_auth_username: e2e@cypress.com
           cypress_auth_password: ${{ secrets.AUTH_PASSWORD }}
           CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_SECRET}}
+          MONGODB_PASSWORD: ${{secrets.MONGODB_PASSWORD}}
+          NX_AUTH0_DOMAIN: pure-and-lazy.au.auth0.com
+          NX_AUTH0_CLIENT: ID=dvv0VQp1XRJGwhppPeUvMTTebM2zEDE8
