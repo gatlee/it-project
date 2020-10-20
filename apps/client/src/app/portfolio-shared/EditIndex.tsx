@@ -10,7 +10,6 @@ import { PortfolioEditFooter } from './PortfolioEditFooter';
 import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
-import { UserContext } from './UserContext';
 import { AuthContext } from '../auth/AuthContext';
 import { Container } from 'react-bootstrap';
 
@@ -18,8 +17,6 @@ const EditIndex = () => {
   const { registrationComplete, isLoaded } = useContext(AuthContext);
   const isEditMode = true;
   const { path } = useRouteMatch();
-
-  const { user } = useAuth0();
 
   if (!isLoaded) {
     return null;
