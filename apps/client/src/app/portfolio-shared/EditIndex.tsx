@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import React, { useContext, useState } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
-import useAuth0Api from '../api/useAuth0Api';
 import { BlogPage } from '../blog/BlogPage';
 import { ContentPage } from '../content/ContentPage';
 import { FooterWrapper } from '../layout/FooterWrapper';
@@ -10,25 +10,16 @@ import { PortfolioEditFooter } from './PortfolioEditFooter';
 import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
+import { UserContext } from './UserContext';
+import { AuthContext } from '../auth/AuthContext';
 import { Container } from 'react-bootstrap';
 
 const EditIndex = () => {
+  const { registrationComplete, isLoaded } = useContext(AuthContext);
   const isEditMode = true;
   const { path } = useRouteMatch();
 
-  const [registrationComplete, setRegistrationComplete] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  const { getRegistrationStatusWithCache } = useAuth0Api();
-
-  useEffect(() => {
-    getRegistrationStatusWithCache()
-      .then((registrationStatus) => {
-        setRegistrationComplete(registrationStatus);
-        setIsLoaded(true);
-      })
-      .catch((e) => console.log(e));
-  }, [getRegistrationStatusWithCache]);
+  const { user } = useAuth0();
 
   if (!isLoaded) {
     return null;

@@ -9,20 +9,19 @@ import useAuth0Api from '../api/useAuth0Api';
 import { AdminLink } from './AdminLink';
 import { AdminTitle } from './AdminTitle';
 import { AdminSignOut } from './AdminSignOut';
+import { AuthContext } from '../auth/AuthContext';
 import { UserContext } from '../portfolio-shared/UserContext';
 
 const AdminPage = () => {
-  const { username } = useContext(UserContext);
   const { user } = useAuth0();
   const { given_name: givenName, email } = user;
-  const {
-    getRegistrationStatusWithCache,
-    updateRegistrationStatus,
-  } = useAuth0Api();
+  const { updateRegistrationStatus } = useAuth0Api();
+  const { username } = useContext(UserContext);
+  const { registrationComplete, isLoaded } = useContext(AuthContext);
 
-  const [registrationComplete, setRegistrationComplete] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  // TODO: Redirect to /getstarted if registration not complete
 
   const registerUser = async (username: string) => {
     // Axios Documentation: https://github.com/axios/axios
@@ -52,15 +51,6 @@ const AdminPage = () => {
       }
     }
   };
-
-  useEffect(() => {
-    getRegistrationStatusWithCache()
-      .then((registrationStatus) => {
-        setRegistrationComplete(registrationStatus);
-        setIsLoaded(true);
-      })
-      .catch();
-  }, [getRegistrationStatusWithCache]);
 
   if (!isLoaded) {
     return null;

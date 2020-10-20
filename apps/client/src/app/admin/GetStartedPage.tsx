@@ -22,6 +22,8 @@ const GetStartedPage = () => {
   const { user } = useAuth0();
   const { given_name: email } = user;
 
+  // TODO: Redirect to /admin if registration already complete
+
   // TODO: Make use of this
   const registerUser = async (username: string) => {
     // Axios Documentation: https://github.com/axios/axios
