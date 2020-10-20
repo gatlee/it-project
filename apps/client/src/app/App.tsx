@@ -16,6 +16,8 @@ import { NotFound } from './NotFound';
 import Auth0ProviderWithHistory from './auth/Auth0ProviderWithHistory';
 import { EditIndex } from './portfolio-shared/EditIndex';
 import { GetStartedPage } from './admin/GetStartedPage';
+import { LoggedInUserContextProvider } from './portfolio-shared/LoggedInUserContextProvider';
+import 'typeface-roboto';
 
 export const App = () => {
   // Backgrounds for home page and portfolio currently
@@ -36,23 +38,25 @@ export const App = () => {
     <Router>
       <Auth0ProviderWithHistory>
         <AuthContextProvider>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <PrivateRoute path="/admin" component={AdminPage} />
-            <PrivateRoute path="/getstarted" component={GetStartedPage} />
-            <Route path="/signup">
-              <SignUp />
-            </Route>
-            <Route path="/u/:id">
-              <PortfolioIndex />
-            </Route>
-            <PrivateRoute path="/edit" component={EditIndex} />
-            <Route>
-              <NotFound />
-            </Route>
-          </Switch>
+          <LoggedInUserContextProvider>
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <PrivateRoute path="/admin" component={AdminPage} />
+              <PrivateRoute path="/getstarted" component={GetStartedPage} />
+              <Route path="/signup">
+                <SignUp />
+              </Route>
+              <Route path="/u/:id">
+                <PortfolioIndex />
+              </Route>
+              <PrivateRoute path="/edit" component={EditIndex} />
+              <Route>
+                <NotFound />
+              </Route>
+            </Switch>
+          </LoggedInUserContextProvider>
         </AuthContextProvider>
       </Auth0ProviderWithHistory>
     </Router>

@@ -1,0 +1,35 @@
+name: Node CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm install, build, and test
+        run: |
+          npm i
+          npm run e2e
+        env:
+          CI: true
+          cypress_auth_auth_url: https://pure-and-lazy-backend
+          cypress_auth_api_url: https://pure-and-lazy.au.auth0.com/api/v2/
+          cypress_auth_url: https://pure-and-lazy.au.auth0.com/oauth/token
+          cypress_auth_client_id: dvv0VQp1XRJGwhppPeUvMTTebM2zEDE8
+          cypress_auth_client_secret: ${{ secrets.AUTH_CLIENT_SECRET }}
+          cypress_auth_username: e2e@cypress.com
+          cypress_auth_password: ${{ secrets.AUTH_PASSWORD }}
+          CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_SECRET}}
+          MONGODB_PASSWORD: ${{secrets.MONGODB_PASSWORD}}
+          NX_AUTH0_DOMAIN: pure-and-lazy.au.auth0.com
+          NX_AUTH0_CLIENT: ID=dvv0VQp1XRJGwhppPeUvMTTebM2zEDE8

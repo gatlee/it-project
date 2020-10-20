@@ -16,6 +16,7 @@ interface PortfolioItem {
   created?: Date;
   lastModified?: Date;
   image?: string;
+  public?: boolean;
 }
 
 interface UserProfile {
