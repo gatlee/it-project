@@ -1,5 +1,4 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { BlogPage } from '../blog/BlogPage';
 import { ContentPage } from '../content/ContentPage';
@@ -23,7 +22,7 @@ const EditIndex = () => {
   }
 
   if (!registrationComplete) {
-    return <Redirect to="/admin" />;
+    return <Redirect to="/getstarted" />;
   }
 
   const footer: React.ReactNode = <PortfolioEditFooter />;
