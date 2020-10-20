@@ -11,6 +11,7 @@ import { AdminTitle } from './AdminTitle';
 import { AdminSignOut } from './AdminSignOut';
 import { AuthContext } from '../auth/AuthContext';
 import { UserContext } from '../portfolio-shared/UserContext';
+import { Redirect } from 'react-router-dom';
 
 const AdminPage = () => {
   const { user } = useAuth0();
@@ -54,6 +55,10 @@ const AdminPage = () => {
 
   if (!isLoaded) {
     return null;
+  }
+
+  if (!registrationComplete) {
+    return <Redirect to="/getstarted" />;
   }
 
   const topMarginStyle = {

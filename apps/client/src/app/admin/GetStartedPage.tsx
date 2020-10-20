@@ -1,12 +1,14 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Container, Form, FormControl, Row } from 'react-bootstrap';
 import GradientBackground from '../../assets/GradientBackground.png';
 import useAuth0Api from '../api/useAuth0Api';
 import { BackgroundContainer } from '../BackgroundContainer';
 import { AdminSignOut } from './AdminSignOut';
 import { AdminTitle } from './AdminTitle';
+import { AuthContext } from '../auth/AuthContext';
+import { Redirect } from 'react-router-dom';
 
 const GetStartedPage = () => {
   // TODO: Use name from db
@@ -21,6 +23,8 @@ const GetStartedPage = () => {
 
   const { user } = useAuth0();
   const { given_name: email } = user;
+
+  const { registrationComplete, isLoaded } = useContext(AuthContext);
 
   // TODO: Redirect to /admin if registration already complete
 
@@ -77,6 +81,14 @@ const GetStartedPage = () => {
   const topMarginStyle = {
     marginTop: '20vh',
   };
+
+  if (!isLoaded) {
+    return null;
+  }
+
+  if (registrationComplete) {
+    return <Redirect to="/admin" />;
+  }
 
   return (
     <BackgroundContainer background={GradientBackground}>
