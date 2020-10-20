@@ -6,13 +6,17 @@ import SignOutButton from '../buttons/SignOutButton';
 import AdminButton from '../buttons/AdminButton';
 import DemoImage from '../../assets/PortfolioDemo.png';
 import MobileDemo from '../../assets/MobileDemo.png';
+import { useAuth0 } from '@auth0/auth0-react';
 import { css } from '@emotion/core';
 import { UserContext } from '../portfolio-shared/UserContext';
 import { AuthContext } from "../auth/AuthContext";
 
 const PromotionBox = () => {
-  const { registrationComplete } = useContext(AuthContext);
+  const { isAuthenticated } = useAuth0();
+  const { registrationComplete} = useContext(AuthContext);
   const { name } = useContext(UserContext);
+
+  const welcomeMessage = registrationComplete ? `Welcome back, ${name}!` : `Welcome back!`
 
   const titleStyle = {
     fontSize: '3.4em',
@@ -63,9 +67,9 @@ const PromotionBox = () => {
             Create your own ePortfolio in minutes.
           </h2>
 
-          {registrationComplete ? (
+          {isAuthenticated ? (
             <>
-              <p> Welcome back, {name}!</p>
+              <p>{welcomeMessage}</p>
               <AdminButton />
               <SignOutButton />
             </>
