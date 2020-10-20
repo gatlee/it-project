@@ -5,7 +5,7 @@ import { AuthContext } from './AuthContext';
 
 // Note: AuthContextProvider needs to be a child of Auth0ProviderWithHistory
 export const AuthContextProvider = ({ children }) => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
   const { getRegistrationStatusWithCache } = useAuth0Api();
   const [authData, setAuthData] = useState(useContext(AuthContext));
 
@@ -24,10 +24,10 @@ export const AuthContextProvider = ({ children }) => {
       setAuthData((prevState) => ({
         ...prevState,
         registrationComplete: false,
-        isLoaded: true,
+        isLoaded: !isLoading,
       }));
     }
-  }, [getRegistrationStatusWithCache, isAuthenticated]);
+  }, [getRegistrationStatusWithCache, isAuthenticated, isLoading]);
 
   return (
     <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>
