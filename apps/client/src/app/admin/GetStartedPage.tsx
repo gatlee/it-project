@@ -9,6 +9,7 @@ import { AdminSignOut } from './AdminSignOut';
 import { AdminTitle } from './AdminTitle';
 import { AuthContext } from '../auth/AuthContext';
 import { Redirect } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const GetStartedPage = () => {
   // TODO: Client side validation
@@ -45,8 +46,8 @@ const GetStartedPage = () => {
           },
           data: {
             name: name,
-          }
-        })
+          },
+        });
 
         if (nameEditResponse.status === 200) {
           await updateRegistrationStatus();
@@ -54,7 +55,7 @@ const GetStartedPage = () => {
         }
       }
     } catch (error) {
-      console.log("Error registering user", error);
+      console.log('Error registering user', error);
       const errorData = error.response.data;
       console.log(errorData);
       if (errorData === 'username taken') {
@@ -86,9 +87,8 @@ const GetStartedPage = () => {
     try {
       await registerUser(name, username);
     } catch (error) {
-      console.log("Error during submission", error);
+      console.log('Error during submission', error);
     }
-
   };
 
   const topMarginStyle = {
@@ -148,9 +148,11 @@ const GetStartedPage = () => {
               <Button className="border" variant="primary" type="submit">
                 Save
               </Button>
-              <Button className="ml-3 border" variant="light">
-                Cancel
-              </Button>
+              <LinkContainer to="/">
+                <Button variant="light" className="ml-3 border">
+                  Cancel
+                </Button>
+              </LinkContainer>
             </div>
           </Form>
         </Row>
