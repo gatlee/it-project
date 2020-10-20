@@ -20,6 +20,12 @@ export const AuthContextProvider = ({ children }) => {
           }));
         })
         .catch((e) => console.log(e));
+    } else {
+      setAuthData((prevState) => ({
+        ...prevState,
+        registrationComplete: false,
+        isLoaded: true,
+      }));
     }
   }, [getRegistrationStatusWithCache, isAuthenticated]);
 
