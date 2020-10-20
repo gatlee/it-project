@@ -71,7 +71,7 @@ const GetStartedPage = () => {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     event.preventDefault();
-    registerUser(username);
+    await registerUser(username);
   };
 
   const topMarginStyle = {
