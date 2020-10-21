@@ -1,5 +1,3 @@
-import { truncateSync } from 'fs';
-
 const CLOUDINARY_API_URL =
   'https://api.cloudinary.com/v1_1/pure-and-lazy/upload';
 
@@ -8,6 +6,7 @@ interface CloudinaryResponse {
   pages?: number;
 }
 
+// Handles PDFs as well as images
 const generateCloudinaryUrls = async (
   data: Blob
 ): Promise<CloudinaryResponse> => {
@@ -29,6 +28,7 @@ const generateCloudinaryUrls = async (
   }
 };
 
+// Handles just images
 const generateCloudinaryUrl = async (data: Blob): Promise<string> => {
   const payload = new FormData();
   payload.append('file', data);
