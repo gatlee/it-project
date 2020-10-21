@@ -21,7 +21,7 @@ const PromotionBox = () => {
 
   const subtitleStyle = {
     fontSize: '1.7em',
-    paddingBottom: '17vh',
+    paddingBottom: '14vh',
     '@media (max-width: 1200px)': {
       paddingBottom: '5vh',
     },
@@ -33,7 +33,7 @@ const PromotionBox = () => {
     width: '100%',
     imageRendering: '-webkit-optimize-contrast' as const,
     '@media (max-width: 576px)': {
-      maxWidth: '225px',
+      maxWidth: '215px',
       minWidth: '100px',
     },
   };
