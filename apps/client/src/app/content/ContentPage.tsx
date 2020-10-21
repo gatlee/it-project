@@ -42,9 +42,10 @@ const ContentPage = () => {
         date={content.created.toLocaleDateString('en-AU')}
         image={content.image || ''}
       />
-      <Container className="mt-5">
+      <Container className="my-5 p-5 shadow-lg">
         <ReactMarkdown css={contentStyle} source={content.content} />
       </Container>
+      <div className="mt-5" />
     </>
   );
 };
