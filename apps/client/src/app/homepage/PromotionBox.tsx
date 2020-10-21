@@ -22,12 +22,18 @@ const PromotionBox = () => {
   const subtitleStyle = {
     fontSize: '1.7em',
     paddingBottom: '10vh',
+    '@media (max-width: 576px)': {
+      paddingBottom: '5vh',
+    },
   };
 
   const imageStyle = {
     maxWidth: '700px',
     width: '100%',
     imageRendering: '-webkit-optimize-contrast' as const,
+    '@media (max-width: 576px)': {
+      maxWidth: '225px',
+    },
   };
 
   const topMarginStyle = {
@@ -36,7 +42,7 @@ const PromotionBox = () => {
       height: '5vh',
     },
     '@media (min-width: 992px)': {
-      height: '20vh',
+      height: '25vh',
     },
   };
 
@@ -63,32 +69,34 @@ const PromotionBox = () => {
             Create your own ePortfolio in minutes.
           </h2>
 
-          {isAuthenticated ? (
-            <>
-              <p> Welcome back, {name}!</p>
-              <AdminButton />
-              <SignOutButton />
-            </>
-          ) : (
-            <>
-              <p></p>
-              <GetStartedButton />
-              <SignInButton />
-            </>
-          )}
+          <div className="mb-0">
+            {isAuthenticated ? (
+              <>
+                <p> Welcome back, {name}!</p>
+                <AdminButton />
+                <SignOutButton />
+              </>
+            ) : (
+              <>
+                <p></p>
+                <GetStartedButton />
+                <SignInButton />
+              </>
+            )}
+          </div>
         </Col>
 
         <Col lg={6} md={12} className="p-4 align-self-center">
           <Image
             src={DemoImage}
             css={imageStyle}
-            className="shadow-lg d-none d-lg-block"
+            className="shadow-lg d-none d-sm-block mx-auto"
             fluid
           />
           <Image
             src={MobileDemo}
             css={imageStyle}
-            className="shadow-lg d-block d-lg-none"
+            className="shadow-lg d-block d-sm-none mx-auto"
             fluid
           />
         </Col>
