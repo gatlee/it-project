@@ -17,7 +17,13 @@ const EditorBody = (props: EditorBody) => {
   const saveImage = async function* (
     data: ArrayBuffer
   ): AsyncGenerator<string, boolean, void> {
-    const url = await generateCloudinaryUrl(new Blob([data]));
+    let url = await generateCloudinaryUrl(new Blob([data]));
+
+    // If a PDF has been uploaded, get Cloudinary to transform into a .png
+    if (url.endsWith('.pdf')) {
+      url = url.substring(0, url.length - 4) + '.png';
+    }
+
     yield url;
 
     // Return true on a success
