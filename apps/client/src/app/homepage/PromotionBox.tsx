@@ -21,18 +21,20 @@ const PromotionBox = () => {
 
   const subtitleStyle = {
     fontSize: '1.7em',
-    paddingBottom: '10vh',
-    '@media (max-width: 576px)': {
+    paddingBottom: '17vh',
+    '@media (max-width: 1200px)': {
       paddingBottom: '5vh',
     },
   };
 
   const imageStyle = {
     maxWidth: '700px',
+    minWidth: '450px',
     width: '100%',
     imageRendering: '-webkit-optimize-contrast' as const,
     '@media (max-width: 576px)': {
       maxWidth: '225px',
+      minWidth: '100px',
     },
   };
 
@@ -69,21 +71,18 @@ const PromotionBox = () => {
             Create your own ePortfolio in minutes.
           </h2>
 
-          <div className="mb-0">
-            {isAuthenticated ? (
-              <>
-                <p> Welcome back, {name}!</p>
-                <AdminButton />
-                <SignOutButton />
-              </>
-            ) : (
-              <>
-                <p></p>
-                <GetStartedButton />
-                <SignInButton />
-              </>
-            )}
-          </div>
+          {isAuthenticated ? (
+            <>
+              <p> Welcome back, {name}!</p>
+              <AdminButton />
+              <SignOutButton />
+            </>
+          ) : (
+            <>
+              <GetStartedButton />
+              <SignInButton />
+            </>
+          )}
         </Col>
 
         <Col lg={6} md={12} className="p-4 align-self-center">
