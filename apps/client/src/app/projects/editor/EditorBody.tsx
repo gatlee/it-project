@@ -27,16 +27,19 @@ const EditorBody = (props: EditorBody) => {
     return pngUrl;
   };
 
+  // This function is specced from React-Markdown-Editor
+  // It expects a string to be filled inside
+  // ![image](__STRING__HERE__)
   const saveImage = async function* (
     data: ArrayBuffer
   ): AsyncGenerator<string, boolean, void> {
     const response = await generateCloudinaryUrls(new Blob([data]));
     const url = response.url;
 
-    // This is really bastardised, but like no customisation of React Markdown Editor to be able to replace all text
-    let fillText = '';
     // If a PDF has been uploaded, get Cloudinary to transform all pages into pngs
     if (url.endsWith('.pdf')) {
+      let fillText = '';
+
       // Single page, just yield it
       if (response.pages === 1) {
         fillText = linkParser(1, url);
@@ -44,6 +47,7 @@ const EditorBody = (props: EditorBody) => {
       }
 
       // Otherwise gotta disgustingly fill this text in
+      // Create a ![image](url) for each page
       let i = 1;
       fillText += linkParser(i, url) + ')\n';
       while (i !== response.pages) {
@@ -51,7 +55,7 @@ const EditorBody = (props: EditorBody) => {
         i++;
       }
 
-      // Last one so don't add the final bracket
+      // Last one so don't add the final parenthesis and \n unlike inside the while loop
       fillText += `![image](${linkParser(i, url)}`;
       yield fillText;
     } else {
