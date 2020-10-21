@@ -21,7 +21,7 @@ const PromotionBox = () => {
 
   const subtitleStyle = {
     fontSize: '1.7em',
-    paddingBottom: '14vh',
+    paddingBottom: '10vh',
     '@media (max-width: 1200px)': {
       paddingBottom: '5vh',
     },
