@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import ReactMde, { Command, getDefaultToolbarCommands } from 'react-mde';
 import ReactMarkdown from 'react-markdown/umd/react-markdown';
-import { generateCloudinaryUrl } from '../../cloudinaryUtility';
+import { generateCloudinaryUrls } from '../../cloudinaryUtility';
 import { PlayFill } from 'react-bootstrap-icons';
 
 interface EditorBody {
@@ -14,17 +14,50 @@ interface EditorBody {
 const EditorBody = (props: EditorBody) => {
   const [selectedTab, setSelectedTab] = useState<'write' | 'preview'>('write');
 
+  // Converts a pdf url into into a .png url of a particular page
+  const linkParser = (page: number, url: string) => {
+    const secondLastSlashIndex = url.lastIndexOf('/', url.lastIndexOf('/') - 1);
+    const pagedUrl =
+      url.substring(0, secondLastSlashIndex) +
+      `/pg_${page}` +
+      url.substring(secondLastSlashIndex);
+    const pngUrl = pagedUrl.substring(0, pagedUrl.length - 4) + '.png';
+
+    console.log(pngUrl);
+    return pngUrl;
+  };
+
   const saveImage = async function* (
     data: ArrayBuffer
   ): AsyncGenerator<string, boolean, void> {
-    let url = await generateCloudinaryUrl(new Blob([data]));
+    const response = await generateCloudinaryUrls(new Blob([data]));
+    const url = response.url;
 
-    // If a PDF has been uploaded, get Cloudinary to transform into a .png
+    // This is really bastardised, but like no customisation of React Markdown Editor to be able to replace all text
+    let fillText = '';
+    // If a PDF has been uploaded, get Cloudinary to transform all pages into pngs
     if (url.endsWith('.pdf')) {
-      url = url.substring(0, url.length - 4) + '.png';
-    }
+      // Single page, just yield it
+      if (response.pages === 1) {
+        fillText = linkParser(1, url);
+        yield fillText;
+      }
 
-    yield url;
+      // Otherwise gotta disgustingly fill this text in
+      let i = 1;
+      fillText += linkParser(i, url) + ')\n';
+      while (i !== response.pages) {
+        fillText += `![image](${linkParser(i, url)})\n`;
+        i++;
+      }
+
+      // Last one so don't add the final bracket
+      fillText += `![image](${linkParser(i, url)}`;
+      yield fillText;
+    } else {
+      // Just a image so just yield the url
+      yield url;
+    }
 
     // Return true on a success
     return true;
