@@ -10,7 +10,7 @@ describe('Authenticated Visitor', () => {
 
   it('visit /', () => {
     cy.visit('/');
-    cy.contains('Signed In');
+    cy.contains('Welcome back');
   });
 
   it('visit /edit', () => {
