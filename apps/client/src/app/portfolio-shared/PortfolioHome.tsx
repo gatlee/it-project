@@ -1,18 +1,14 @@
 import React, { useContext, useState } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Col, Container, Row, Image } from 'react-bootstrap';
 import BackgroundImage from '../../assets/landscape.png';
 import { BackgroundContainer } from '../BackgroundContainer';
-import { CenteredRowContent } from '../layout/CenteredRowContent';
-import { UploadBox } from '../UploadBox';
 import { EditContext } from './EditContext';
-import { PortfolioAvatar } from './PortfolioAvatar';
 import { UserContext } from './UserContext';
-import { css } from '@emotion/core';
 import { ProjectItemImage } from '../projects/editor/ProjectItemImage';
 
 const PortfolioHome = () => {
   const { name, username } = useContext(UserContext);
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState();
   const editMode = useContext(EditContext);
 
   const nameStyle = {
@@ -22,7 +18,23 @@ const PortfolioHome = () => {
   };
 
   const handleImageChange = (newImage: string) => {
-    setImage(newImage);
+    // Crop image using Cloudinary Transformations before setting it
+    // Do note: It's quite powerful, there are transformations where it
+    // finds your face and crops it
+    //
+    // For now now just getting it rudimentary, I do not want to deal with the library this late
+    const secondLastSlash = newImage.lastIndexOf(
+      '/',
+      newImage.lastIndexOf('/') - 1
+    );
+
+    setImage(
+      [
+        newImage.slice(0, secondLastSlash),
+        '/c_lfill,h_500,w_500/',
+        newImage.slice(secondLastSlash),
+      ].join('')
+    );
   };
 
   return (
@@ -33,27 +45,33 @@ const PortfolioHome = () => {
       }}
     >
       <Container>
-        <Row>
-          <CenteredRowContent>
+        <Row className="mt-5 mh-40">
+          <Col className="mx-auto text-center" sm={10} md={6} lg={4}>
             {editMode ? (
               <ProjectItemImage
                 image={image}
                 onImageChange={handleImageChange}
+                rounded={true}
               />
             ) : (
-              <PortfolioAvatar />
+              <Image
+                fluid
+                className="mt-5 shadow-lg"
+                src={image}
+                roundedCircle
+              />
             )}
-          </CenteredRowContent>
+          </Col>
         </Row>
         <Row>
-          <CenteredRowContent>
+          <Col className="mx-auto">
             <h1
               className="text-white display-1 mt-5 text-center"
               css={nameStyle}
             >
               {name || username}
             </h1>
-          </CenteredRowContent>
+          </Col>
         </Row>
       </Container>
     </BackgroundContainer>

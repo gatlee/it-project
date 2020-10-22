@@ -10,6 +10,7 @@ import { css } from 'emotion';
 interface ProjectItemImage {
   onImageChange: (image: string) => void;
   image: string;
+  rounded?: boolean;
 }
 
 const ProjectItemImage = (props: ProjectItemImage) => {
@@ -26,6 +27,8 @@ const ProjectItemImage = (props: ProjectItemImage) => {
     height: `${props.image ? 'auto' : '100%'}`,
     position: 'relative',
     backgroundColor: 'gray',
+    borderRadius: `${props.rounded ? '50%' : 0}`,
+    outline: 'none',
   });
 
   /* The overlay effect (full height and width) - lays on top of the container and over the image */
@@ -44,6 +47,7 @@ const ProjectItemImage = (props: ProjectItemImage) => {
       opacity: 0.6,
       '-webkit-transition': '.3s ease',
     },
+    borderRadius: `${props.rounded ? '50%' : 0}`,
   });
 
   const iconStyle = css({
@@ -74,7 +78,13 @@ const ProjectItemImage = (props: ProjectItemImage) => {
       {({ getRootProps, getInputProps }) => (
         <div {...getRootProps()} className={projectImageContainerStyle}>
           <input {...getInputProps()} />
-          {props.image && <Image src={props.image} className={imageStyle} />}
+          {props.image && (
+            <Image
+              roundedCircle={props.rounded}
+              src={props.image}
+              className={imageStyle}
+            />
+          )}
           <div className={projectImageOverlay}>
             <Upload className={iconStyle} />
           </div>
