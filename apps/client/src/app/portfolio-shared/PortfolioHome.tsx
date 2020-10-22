@@ -42,13 +42,6 @@ const PortfolioHome = () => {
             </h1>
           </CenteredRowContent>
         </Row>
-        {editMode && (
-          <Row>
-            <CenteredRowContent>
-              <UploadBox />
-            </CenteredRowContent>
-          </Row>
-        )}
       </Container>
     </BackgroundContainer>
   );
