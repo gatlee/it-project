@@ -1,17 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Col, Container, Row, Image } from 'react-bootstrap';
 import BackgroundImage from '../../assets/landscape.png';
 import { BackgroundContainer } from '../BackgroundContainer';
 import { EditContext } from './EditContext';
 import { UserContext } from './UserContext';
 import { ProjectItemImage } from '../projects/editor/ProjectItemImage';
+import { useAuth0 } from '@auth0/auth0-react';
+import { updateProfilePicture } from '../admin/AdminUtils';
 
 const DEFAULT_BACKGROUND =
   'https://res.cloudinary.com/pure-and-lazy/image/upload/v1603370613/greybackground_aiad1y.png';
 
 const PortfolioHome = () => {
-  const { name, username, profilePicture } = useContext(UserContext);
-  const [image, setImage] = useState(profilePicture);
+  const { name, username } = useContext(UserContext);
+  const { getAccessTokenSilently } = useAuth0();
+  const [image, setImage] = useState('');
   const editMode = useContext(EditContext);
 
   const nameStyle = {
@@ -20,7 +23,23 @@ const PortfolioHome = () => {
     },
   };
 
-  const handleImageChange = (newImage: string) => {
+  // TODO: How to update the UserContext data? Current is bandaiding
+
+  const loadProfilePicture = useCallback(() => {
+    fetch(`/api/portfolio/${username}/profile`)
+      .then((r) => r.json())
+      .then((r) => setImage(r.profilePicture))
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [username]);
+
+  //Update Items on Load
+  useEffect(() => {
+    loadProfilePicture();
+  }, [loadProfilePicture]);
+
+  const handleImageChange = async (newImage: string) => {
     // Crop image using Cloudinary Transformations before setting it
     // Do note: It's quite powerful, there are transformations where it
     // finds your face and crops it
@@ -31,12 +50,19 @@ const PortfolioHome = () => {
       newImage.lastIndexOf('/') - 1
     );
 
-    setImage(
-      [
-        newImage.slice(0, secondLastSlash),
-        '/c_lfill,h_500,w_500/',
-        newImage.slice(secondLastSlash),
-      ].join('')
+    const croppedImage = [
+      newImage.slice(0, secondLastSlash),
+      '/c_lfill,h_500,w_500/',
+      newImage.slice(secondLastSlash),
+    ].join('');
+
+    updateProfilePicture(croppedImage, getAccessTokenSilently).then(
+      (response) => {
+        if (response.ok) {
+          setImage(croppedImage);
+        }
+        console.log(response);
+      }
     );
   };
 
