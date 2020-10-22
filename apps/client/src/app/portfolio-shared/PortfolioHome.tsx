@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import BackgroundImage from '../../assets/landscape.png';
 import { BackgroundContainer } from '../BackgroundContainer';
@@ -8,15 +8,21 @@ import { EditContext } from './EditContext';
 import { PortfolioAvatar } from './PortfolioAvatar';
 import { UserContext } from './UserContext';
 import { css } from '@emotion/core';
+import { ProjectItemImage } from '../projects/editor/ProjectItemImage';
 
 const PortfolioHome = () => {
   const { name, username } = useContext(UserContext);
+  const [image, setImage] = useState('');
   const editMode = useContext(EditContext);
 
   const nameStyle = {
     '@media (max-width: 576px)': {
       fontSize: '4rem',
     },
+  };
+
+  const handleImageChange = (newImage: string) => {
+    setImage(newImage);
   };
 
   return (
@@ -29,7 +35,14 @@ const PortfolioHome = () => {
       <Container>
         <Row>
           <CenteredRowContent>
-            <PortfolioAvatar />
+            {editMode ? (
+              <ProjectItemImage
+                image={image}
+                onImageChange={handleImageChange}
+              />
+            ) : (
+              <PortfolioAvatar />
+            )}
           </CenteredRowContent>
         </Row>
         <Row>
