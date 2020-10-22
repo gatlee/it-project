@@ -4,6 +4,7 @@ const UserContext = React.createContext({
   email: '',
   name: '',
   dateJoined: undefined,
+  profilePicture: '',
   description: '',
 });
 export { UserContext };

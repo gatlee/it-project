@@ -12,6 +12,7 @@ const LoggedInUserContextProvider = (props: LoggedInUserContextProvider) => {
     email: '',
     name: '',
     dateJoined: undefined,
+    profilePicture: '',
     description: '',
   });
 

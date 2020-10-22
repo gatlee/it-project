@@ -21,6 +21,7 @@ const PortfolioIndex = () => {
     email: '',
     name: '',
     dateJoined: undefined,
+    profilePicture: '',
     description: '',
   });
   const { path } = useRouteMatch();
