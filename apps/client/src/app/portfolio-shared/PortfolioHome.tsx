@@ -6,9 +6,12 @@ import { EditContext } from './EditContext';
 import { UserContext } from './UserContext';
 import { ProjectItemImage } from '../projects/editor/ProjectItemImage';
 
+const DEFAULT_BACKGROUND =
+  'https://res.cloudinary.com/pure-and-lazy/image/upload/v1603370613/greybackground_aiad1y.png';
+
 const PortfolioHome = () => {
-  const { name, username } = useContext(UserContext);
-  const [image, setImage] = useState();
+  const { name, username, profilePicture } = useContext(UserContext);
+  const [image, setImage] = useState(profilePicture);
   const editMode = useContext(EditContext);
 
   const nameStyle = {
@@ -49,15 +52,15 @@ const PortfolioHome = () => {
           <Col className="mx-auto text-center" sm={10} md={6} lg={4}>
             {editMode ? (
               <ProjectItemImage
-                image={image}
+                image={image || DEFAULT_BACKGROUND}
                 onImageChange={handleImageChange}
-                rounded={true}
+                avatar={true}
               />
             ) : (
               <Image
                 fluid
-                className="mt-5 shadow-lg"
-                src={image}
+                className="shadow-lg"
+                src={image || DEFAULT_BACKGROUND}
                 roundedCircle
               />
             )}
