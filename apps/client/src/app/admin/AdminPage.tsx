@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { BackgroundContainer } from '../BackgroundContainer';
 import GradientBackground from '../../assets/GradientBackground.png';
