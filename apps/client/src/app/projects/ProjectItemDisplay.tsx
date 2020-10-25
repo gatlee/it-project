@@ -34,7 +34,7 @@ const ProjectItemDisplay = (props: ProjectItemDisplay) => {
     <Col sm="4" className="py-2">
       <Card style={cardNew} className="h-100">
         <LinkContainer to={props.link} className="pointer">
-          <Card.Img variant="top" src={props.image} css={imageStyle} />
+          <Card.Img variant="top" src={props.image || null} css={imageStyle} />
         </LinkContainer>
         <Card.Body>
           <LinkContainer to={props.link} className="pointer">
