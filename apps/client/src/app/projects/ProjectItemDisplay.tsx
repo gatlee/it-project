@@ -25,7 +25,8 @@ const ProjectItemDisplay = (props: ProjectItemDisplay) => {
 
   const imageStyle = {
     background: 'gray',
-    objectFit: 'cover',
+    //Don't attempt to use objectFit, breaks the compiler
+    'object-fit': 'cover',
     height: '25vh',
   };
 
