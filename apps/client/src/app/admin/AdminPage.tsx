@@ -14,9 +14,9 @@ import { UserContext } from '../portfolio-shared/UserContext';
 
 const AdminPage = () => {
   const { user } = useAuth0();
-  const { given_name: givenName, email } = user;
+  const { email } = user;
   const { updateRegistrationStatus } = useAuth0Api();
-  const { username } = useContext(UserContext);
+  const { username, name } = useContext(UserContext);
   const { registrationComplete, isLoaded } = useContext(AuthContext);
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -70,7 +70,7 @@ const AdminPage = () => {
         <Row className="mb-3">
           <Col>
             <AdminTitle
-              title={`Welcome back, ${givenName}`}
+              title={`Welcome back, ${name}`}
               subtitle="What would you like to do today?"
             />
             {!registrationComplete && (
