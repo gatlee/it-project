@@ -25,11 +25,6 @@ export const Home = () => {
         style={{ textAlign: 'center' }}
       >
         <PromotionBox />
-        <div>{isAuthenticated ? 'Signed In' : 'Not Signed In'}</div>
-        <div>{m.message}</div>
-        <Link to="/u/gkaw">
-          <h2>Example</h2>
-        </Link>
       </BackgroundContainer>
     </Container>
   );
