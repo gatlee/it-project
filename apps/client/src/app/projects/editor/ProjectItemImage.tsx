@@ -10,7 +10,6 @@ import { css } from 'emotion';
 interface ProjectItemImage {
   onImageChange: (image: string) => void;
   image: string;
-  avatar?: boolean;
 }
 
 const ProjectItemImage = (props: ProjectItemImage) => {
@@ -27,8 +26,6 @@ const ProjectItemImage = (props: ProjectItemImage) => {
     height: `${props.image ? 'auto' : '100%'}`,
     position: 'relative',
     backgroundColor: 'gray',
-    borderRadius: `${props.avatar ? '50%' : 0}`,
-    outline: 'none',
   });
 
   /* The overlay effect (full height and width) - lays on top of the container and over the image */
@@ -47,7 +44,6 @@ const ProjectItemImage = (props: ProjectItemImage) => {
       opacity: 0.6,
       '-webkit-transition': '.3s ease',
     },
-    borderRadius: `${props.avatar ? '50%' : 0}`,
   });
 
   const iconStyle = css({
@@ -59,6 +55,11 @@ const ProjectItemImage = (props: ProjectItemImage) => {
     transform: 'translate(-50%, -50%)',
     '-ms-transform': 'translate(-50%, -50%)',
     textAlign: 'center',
+  });
+
+  const imageStyle = css({
+    width: '100%',
+    height: '100%',
   });
 
   return (
@@ -73,13 +74,7 @@ const ProjectItemImage = (props: ProjectItemImage) => {
       {({ getRootProps, getInputProps }) => (
         <div {...getRootProps()} className={projectImageContainerStyle}>
           <input {...getInputProps()} />
-          {props.image && (
-            <Image
-              roundedCircle={props.avatar}
-              src={props.image}
-              className={props.avatar ? 'shadow-lg w-100 h-100' : ''}
-            />
-          )}
+          {props.image && <Image src={props.image} className={imageStyle} />}
           <div className={projectImageOverlay}>
             <Upload className={iconStyle} />
           </div>
