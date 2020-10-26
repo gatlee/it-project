@@ -11,6 +11,8 @@ import { HomeAvatar } from '../homepage/HomeAvatar';
 const DEFAULT_BACKGROUND =
   'https://res.cloudinary.com/pure-and-lazy/image/upload/v1603370613/greybackground_aiad1y.png';
 
+const AVATAR_WIDTH = 256;
+
 const PortfolioHome = () => {
   const { name, username } = useContext(UserContext);
   const { getAccessTokenSilently } = useAuth0();
@@ -52,7 +54,7 @@ const PortfolioHome = () => {
 
     const croppedImage = [
       newImage.slice(0, secondLastSlash),
-      '/c_lfill,h_256,w_256/',
+      `/c_lfill,h_${AVATAR_WIDTH},w_${AVATAR_WIDTH}/`,
       newImage.slice(secondLastSlash),
     ].join('');
 
@@ -94,4 +96,4 @@ const PortfolioHome = () => {
   );
 };
 
-export { PortfolioHome };
+export { PortfolioHome, AVATAR_WIDTH };

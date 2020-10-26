@@ -5,6 +5,7 @@ import Dropzone from 'react-dropzone';
 import { css } from 'emotion';
 import { generateCloudinaryUrl } from '../cloudinaryUtility';
 import { EditContext } from '../portfolio-shared/EditContext';
+import { AVATAR_WIDTH } from '../portfolio-shared/PortfolioHome';
 
 /* CSS adapted from: https://www.w3schools.com/howto/howto_css_image_overlay_icon.asp */
 
@@ -25,7 +26,7 @@ const HomeAvatar = (props: HomeAvatar) => {
   const projectImageContainerStyle = css({
     width: '100%',
     height: '100%',
-    maxWidth: '500px',
+    maxWidth: `${AVATAR_WIDTH}px`,
     // If image exists, keep ratio
     // otherwise, need to fill parent div to have an overlay without image
     position: 'relative',
