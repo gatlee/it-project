@@ -1,5 +1,4 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { BlogPage } from '../blog/BlogPage';
 import { ContentPage } from '../content/ContentPage';
@@ -10,7 +9,6 @@ import { PortfolioEditFooter } from './PortfolioEditFooter';
 import { PortfolioHome } from './PortfolioHome';
 import { PortfolioNavBar } from './PortfolioNavBar';
 import { ProjectPage } from './ProjectPage';
-import { UserContext } from './UserContext';
 import { AuthContext } from '../auth/AuthContext';
 import { Container } from 'react-bootstrap';
 
@@ -18,8 +16,6 @@ const EditIndex = () => {
   const { registrationComplete, isLoaded } = useContext(AuthContext);
   const isEditMode = true;
   const { path } = useRouteMatch();
-
-  const { user } = useAuth0();
 
   if (!isLoaded) {
     return null;
