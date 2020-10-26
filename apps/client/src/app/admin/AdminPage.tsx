@@ -14,9 +14,8 @@ import { UserContext } from '../portfolio-shared/UserContext';
 
 const AdminPage = () => {
   const { user } = useAuth0();
-  const { email } = user;
   const { updateRegistrationStatus } = useAuth0Api();
-  const { username, name } = useContext(UserContext);
+  const { username, name, email } = useContext(UserContext);
   const { registrationComplete, isLoaded } = useContext(AuthContext);
 
   const [errorMessage, setErrorMessage] = useState('');
