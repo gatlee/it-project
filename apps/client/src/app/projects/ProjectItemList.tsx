@@ -15,17 +15,7 @@ const ProjectItemList = () => {
     item: PortfolioItem,
     index: React.Key,
     onUpdate: () => void
-  ) => (
-    <ProjectItem
-      id={item._id}
-      key={index}
-      title={item.name}
-      image={item.image}
-      description={item.description}
-      content={item.content}
-      onUpdate={onUpdate}
-    />
-  );
+  ) => <ProjectItem key={index} onUpdate={onUpdate} itemInfo={item} />;
 
   const createProjectButton = (onAdd: () => void) => {
     return (

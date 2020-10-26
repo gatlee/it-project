@@ -4,31 +4,29 @@ import { useLocation } from 'react-router-dom';
 import { ProjectItemEditor } from './editor/ProjectItemEditor';
 import { ProjectItemDisplay } from './ProjectItemDisplay';
 import { deleteProjectItem, updateProjectItem } from './ProjectUtils';
+import { PortfolioItem } from '@pure-and-lazy/api-interfaces';
 
 interface ProjectItem {
-  id: string;
-  image: string;
-  title: string;
-  description: string;
-  content: string;
   onUpdate: () => void;
+  itemInfo: PortfolioItem;
 }
 
 const ProjectItem = (props: ProjectItem) => {
+  const { _id: id, name: title, image, description, content } = props.itemInfo;
   const { getAccessTokenSilently } = useAuth0();
 
   const [editorOpen, setEditorOpen] = useState(false);
-  const [editorTitle, setEditorTitle] = useState(props.title);
-  const [editorImage, setEditorImage] = useState(props.image);
-  const [editorDescription, setEditorDescription] = useState(props.description);
-  const [editorContent, setEditorContent] = useState(props.content);
+  const [editorTitle, setEditorTitle] = useState(title);
+  const [editorImage, setEditorImage] = useState(image);
+  const [editorDescription, setEditorDescription] = useState(description);
+  const [editorContent, setEditorContent] = useState(content);
   const [editorSaveButtonDisabled, setSaveButtonDisabled] = useState(false);
 
   const handleCancel = () => setEditorOpen(false);
   const handleOpenEditor = () => setEditorOpen(true);
 
   const { pathname } = useLocation();
-  const contentURL = pathname + '/' + props.id;
+  const contentURL = pathname + '/' + id;
   const handleSave = async () => {
     setSaveButtonDisabled(true);
     try {
@@ -37,7 +35,7 @@ const ProjectItem = (props: ProjectItem) => {
         editorImage,
         editorDescription,
         editorContent,
-        props.id,
+        id,
         getAccessTokenSilently
       );
     } catch (e) {
@@ -50,7 +48,7 @@ const ProjectItem = (props: ProjectItem) => {
 
   const handleDelete = async () => {
     try {
-      await deleteProjectItem(props.id, getAccessTokenSilently);
+      await deleteProjectItem(id, getAccessTokenSilently);
     } catch (e) {
       console.log(e);
     }
@@ -62,7 +60,7 @@ const ProjectItem = (props: ProjectItem) => {
   return (
     <>
       <ProjectItemEditor
-        title={props.title}
+        title={title}
         image={editorImage}
         onImageChange={setEditorImage}
         editorTitle={editorTitle}
@@ -77,10 +75,10 @@ const ProjectItem = (props: ProjectItem) => {
         show={editorOpen}
       />
       <ProjectItemDisplay
-        title={props.title}
-        image={props.image}
+        title={title}
+        image={image}
         link={contentURL}
-        description={props.description}
+        description={description}
         onOpenEditor={handleOpenEditor}
         onDelete={handleDelete}
       />
