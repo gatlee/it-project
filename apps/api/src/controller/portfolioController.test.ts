@@ -17,7 +17,6 @@ import {
   viewProfile,
   viewProfileByJwt,
 } from './portfolioController';
-import { extraEslintDependencies } from '@nrwl/react';
 
 const username = 'test';
 const auth0Id = 'some_id';
