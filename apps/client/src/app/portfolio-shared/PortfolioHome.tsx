@@ -1,12 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { Col, Container, Row, Image } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import BackgroundImage from '../../assets/landscape.png';
 import { BackgroundContainer } from '../BackgroundContainer';
 import { EditContext } from './EditContext';
 import { UserContext } from './UserContext';
-import { ProjectItemImage } from '../projects/editor/ProjectItemImage';
 import { useAuth0 } from '@auth0/auth0-react';
 import { updateProfilePicture } from '../admin/AdminUtils';
+import { HomeAvatar } from '../homepage/HomeAvatar';
 
 const DEFAULT_BACKGROUND =
   'https://res.cloudinary.com/pure-and-lazy/image/upload/v1603370613/greybackground_aiad1y.png';
@@ -76,26 +76,13 @@ const PortfolioHome = () => {
       <Container>
         <Row className="mt-5 mh-40">
           <Col className="mx-auto text-center" sm={10} lg={6}>
-            {editMode ? (
-              <ProjectItemImage
-                image={image || DEFAULT_BACKGROUND}
-                onImageChange={handleImageChange}
-                avatar={true}
-              />
-            ) : (
-              <Image
-                fluid
-                className="shadow-lg"
-                src={image || DEFAULT_BACKGROUND}
-                roundedCircle
-              />
-            )}
+            <HomeAvatar image={image} onImageChange={handleImageChange} />
           </Col>
         </Row>
         <Row>
           <Col className="mx-auto">
             <h1
-              className="text-white display-1 mt-5 text-center"
+              className="text-white display-1 mt-5 text-center user-select-none"
               css={nameStyle}
             >
               {name || username}
