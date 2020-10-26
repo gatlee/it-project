@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import BackgroundImage from '../../assets/landscape.png';
 import { BackgroundContainer } from '../BackgroundContainer';
-import { EditContext } from './EditContext';
 import { UserContext } from './UserContext';
 import { useAuth0 } from '@auth0/auth0-react';
 import { updateProfilePicture } from '../admin/AdminUtils';

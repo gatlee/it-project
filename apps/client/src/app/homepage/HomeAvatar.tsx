@@ -5,7 +5,7 @@ import Dropzone from 'react-dropzone';
 import { css } from 'emotion';
 import { generateCloudinaryUrl } from '../cloudinaryUtility';
 import { EditContext } from '../portfolio-shared/EditContext';
-import { AVATAR_WIDTH, DEFAULT_BACKGROUND } from './HomeConstants';
+import { AVATAR_WIDTH } from './HomeConstants';
 
 /* CSS adapted from: https://www.w3schools.com/howto/howto_css_image_overlay_icon.asp */
 
@@ -64,6 +64,18 @@ const HomeAvatar = (props: HomeAvatar) => {
     textAlign: 'center',
   });
 
+  // To render instead of image on empty profile picture
+  const FallbackAvatar = () => (
+    <div
+      className={css({
+        width: `${AVATAR_WIDTH}px`,
+        height: `${AVATAR_WIDTH}px`,
+        background: 'gray',
+        borderRadius: '50%',
+      })}
+    />
+  );
+
   return (
     <Dropzone
       maxFiles={1}
@@ -76,12 +88,17 @@ const HomeAvatar = (props: HomeAvatar) => {
       {({ getRootProps, getInputProps }) => (
         <div {...getRootProps()} className={css({ outline: 'none' })}>
           <div className={projectImageContainerStyle + ' mx-auto'}>
-            <Image
-              fluid
-              className="shadow-lg"
-              roundedCircle={true}
-              src={props.image || DEFAULT_BACKGROUND}
-            />
+            {props.image ? (
+              <Image
+                fluid
+                className="shadow-lg"
+                roundedCircle={true}
+                src={props.image}
+              />
+            ) : (
+              <FallbackAvatar />
+            )}
+
             {editMode && (
               <div className={projectImageOverlay}>
                 <input {...getInputProps()} />
