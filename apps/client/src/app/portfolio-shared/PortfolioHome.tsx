@@ -17,7 +17,6 @@ const PortfolioHome = () => {
   const { name, username } = useContext(UserContext);
   const { getAccessTokenSilently } = useAuth0();
   const [image, setImage] = useState('');
-  const editMode = useContext(EditContext);
 
   const nameStyle = {
     '@media (max-width: 576px)': {
