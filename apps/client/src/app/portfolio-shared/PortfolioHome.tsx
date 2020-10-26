@@ -75,7 +75,7 @@ const PortfolioHome = () => {
     >
       <Container>
         <Row className="mt-5 mh-40">
-          <Col className="mx-auto text-center" sm={10} md={6} lg={4}>
+          <Col className="mx-auto text-center" sm={10} lg={6}>
             {editMode ? (
               <ProjectItemImage
                 image={image || DEFAULT_BACKGROUND}
