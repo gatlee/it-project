@@ -52,7 +52,7 @@ const PortfolioHome = () => {
 
     const croppedImage = [
       newImage.slice(0, secondLastSlash),
-      '/c_lfill,h_500,w_500/',
+      '/c_lfill,h_256,w_256/',
       newImage.slice(secondLastSlash),
     ].join('');
 
