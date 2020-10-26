@@ -7,11 +7,7 @@ import { UserContext } from './UserContext';
 import { useAuth0 } from '@auth0/auth0-react';
 import { updateProfilePicture } from '../admin/AdminUtils';
 import { HomeAvatar } from '../homepage/HomeAvatar';
-
-const DEFAULT_BACKGROUND =
-  'https://res.cloudinary.com/pure-and-lazy/image/upload/v1603370613/greybackground_aiad1y.png';
-
-const AVATAR_WIDTH = 256;
+import { AVATAR_WIDTH } from '../homepage/HomeConstants';
 
 const PortfolioHome = () => {
   const { name, username } = useContext(UserContext);
@@ -83,7 +79,7 @@ const PortfolioHome = () => {
         <Row>
           <Col className="mx-auto">
             <h1
-              className="text-white display-1 mt-5 text-center user-select-none"
+              className="text-white display-1 mt-5 text-center"
               css={nameStyle}
             >
               {name || username}
@@ -95,4 +91,4 @@ const PortfolioHome = () => {
   );
 };
 
-export { PortfolioHome, AVATAR_WIDTH };
+export { PortfolioHome };

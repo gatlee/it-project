@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import { Container, Image } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import { Upload } from 'react-bootstrap-icons';
 import Dropzone from 'react-dropzone';
 import { css } from 'emotion';
 import { generateCloudinaryUrl } from '../cloudinaryUtility';
 import { EditContext } from '../portfolio-shared/EditContext';
-import { AVATAR_WIDTH } from '../portfolio-shared/PortfolioHome';
+import { AVATAR_WIDTH, DEFAULT_BACKGROUND } from './HomeConstants';
 
 /* CSS adapted from: https://www.w3schools.com/howto/howto_css_image_overlay_icon.asp */
 
@@ -76,14 +76,12 @@ const HomeAvatar = (props: HomeAvatar) => {
       {({ getRootProps, getInputProps }) => (
         <div {...getRootProps()} className={css({ outline: 'none' })}>
           <div className={projectImageContainerStyle + ' mx-auto'}>
-            {props.image && (
-              <Image
-                fluid
-                className="shadow-lg"
-                roundedCircle={true}
-                src={props.image}
-              />
-            )}
+            <Image
+              fluid
+              className="shadow-lg"
+              roundedCircle={true}
+              src={props.image || DEFAULT_BACKGROUND}
+            />
             {editMode && (
               <div className={projectImageOverlay}>
                 <input {...getInputProps()} />
