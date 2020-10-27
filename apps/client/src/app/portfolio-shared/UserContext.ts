@@ -4,6 +4,8 @@ const UserContext = React.createContext({
   email: '',
   name: '',
   dateJoined: undefined,
+  profilePicture: '',
   description: '',
+  setProfilePicture: (profilePicture) => null,
 });
 export { UserContext };
