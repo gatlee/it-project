@@ -1,55 +1,69 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Container, Form, FormControl, Row } from 'react-bootstrap';
 import GradientBackground from '../../assets/GradientBackground.png';
 import useAuth0Api from '../api/useAuth0Api';
 import { BackgroundContainer } from '../BackgroundContainer';
 import { AdminSignOut } from './AdminSignOut';
 import { AdminTitle } from './AdminTitle';
+import { AuthContext } from '../auth/AuthContext';
+import { Redirect } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const GetStartedPage = () => {
-  // TODO: Use name from db
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // TODO: Client side validation
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
 
-  // TODO: Client side validation
-  const [isInvalid] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const { user, getAccessTokenSilently } = useAuth0();
   const { updateRegistrationStatus } = useAuth0Api();
+  const { registrationComplete, isLoaded } = useContext(AuthContext);
 
-  const { user } = useAuth0();
-  const { given_name: email } = user;
-
-  // TODO: Redirect to /admin if registration already complete
-
-  // TODO: Make use of this
-  const registerUser = async (username: string) => {
+  const registerUser = async (name: string, username: string) => {
     // Axios Documentation: https://github.com/axios/axios
     try {
-      const response = await axios({
+      const userCreationResponse = await axios({
         method: 'POST',
         url: '/api/auth/create-user',
         data: {
           username: username,
-          email: email,
+          email: user.email,
           auth0Id: user.sub,
         },
       });
 
-      if (response.status === 201) {
-        await updateRegistrationStatus();
-        window.location.reload();
-        // instead of reloading we can call `await getRegistrationStatus()`
-        // or just call `setRegistrationComplete(true)`
+      if (userCreationResponse.status === 201) {
+        const token = await getAccessTokenSilently();
+        const nameEditResponse = await axios({
+          method: 'PUT',
+          url: '/api/portfolio/profile',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data: {
+            name: name,
+          },
+        });
+
+        if (nameEditResponse.status === 200) {
+          await updateRegistrationStatus();
+          window.location.reload();
+        }
       }
     } catch (error) {
+      console.log('Error registering user', error);
       const errorData = error.response.data;
+      console.log(errorData);
       if (errorData === 'username taken') {
         setErrorMessage('URL is already taken');
+        setIsInvalid(true);
       } else if (errorData === 'auth0Id conflict') {
         setErrorMessage('ID conflict. Please contact Pure && Lazy.');
+        setIsInvalid(true);
       }
     }
   };
@@ -62,21 +76,32 @@ const GetStartedPage = () => {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setUsername(event.target.value);
-    // props.setErrorMessage('');
+    setErrorMessage('');
+    setIsInvalid(false);
   };
 
-  // TODO: Implement this
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSubmit = async (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     event.preventDefault();
-    registerUser(username);
+    try {
+      await registerUser(name, username);
+    } catch (error) {
+      console.log('Error during submission', error);
+    }
   };
 
   const topMarginStyle = {
     marginTop: '20vh',
   };
+
+  if (!isLoaded) {
+    return null;
+  }
+
+  if (registrationComplete) {
+    return <Redirect to="/admin" />;
+  }
 
   return (
     <BackgroundContainer background={GradientBackground}>
@@ -92,7 +117,7 @@ const GetStartedPage = () => {
           />
         </Row>
         <Row>
-          <Form onSubmit={() => alert('Functionality Not Done Yet')}>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mt-2" controlId="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
@@ -123,9 +148,11 @@ const GetStartedPage = () => {
               <Button className="border" variant="primary" type="submit">
                 Save
               </Button>
-              <Button className="ml-3 border" variant="light">
-                Cancel
-              </Button>
+              <LinkContainer to="/">
+                <Button variant="light" className="ml-3 border">
+                  Cancel
+                </Button>
+              </LinkContainer>
             </div>
           </Form>
         </Row>
