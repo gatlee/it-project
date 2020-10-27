@@ -6,6 +6,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Auth0Provider } from '@auth0/auth0-react';
 
+// Note: Auth0ProviderWithHistory needs to be a child of BrowserRouter
 const Auth0ProviderWithHistory = ({ children }) => {
   const auth0Domain = 'pure-and-lazy.au.auth0.com';
   const auth0ClientId = 'dvv0VQp1XRJGwhppPeUvMTTebM2zEDE8';

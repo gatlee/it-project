@@ -1,16 +1,25 @@
+import { useCallback } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
 export const useAuth0Api = () => {
-  const { user, getAccessTokenSilently, getAccessTokenWithPopup } = useAuth0();
+  const {
+    isAuthenticated,
+    user,
+    getAccessTokenSilently,
+    getAccessTokenWithPopup,
+  } = useAuth0();
 
   // Auth0 Management API constants
   const auth0Domain = 'pure-and-lazy.au.auth0.com';
   const audience = `https://${auth0Domain}/api/v2/`;
-  const userDetailsByIdUrl = `https://${auth0Domain}/api/v2/users/${user.sub}`;
+  const userDetailsByIdUrl = isAuthenticated
+    ? `https://${auth0Domain}/api/v2/users/${user.sub}`
+    : '';
+  // functions that rely on userDetailsByIdUrl should not be called is auth0 is not authenticated
 
-  const getAccessToken = async () => {
+  const getAccessToken = useCallback(async () => {
     try {
       const accessToken = await getAccessTokenSilently({
         audience: audience,
@@ -29,9 +38,9 @@ export const useAuth0Api = () => {
         return Promise.reject(e);
       }
     }
-  };
+  }, [audience, getAccessTokenSilently, getAccessTokenWithPopup]);
 
-  const getRegistrationStatus = async (): Promise<boolean> => {
+  const getRegistrationStatus = useCallback(async (): Promise<boolean> => {
     try {
       const accessToken = await getAccessToken();
 
@@ -47,9 +56,9 @@ export const useAuth0Api = () => {
     } catch (e) {
       return Promise.reject(e);
     }
-  };
+  }, [getAccessToken, userDetailsByIdUrl]);
 
-  const getRegistrationStatusWithCache = async () => {
+  const getRegistrationStatusWithCache = useCallback(async () => {
     try {
       const accessToken = await getAccessToken();
 
@@ -67,8 +76,9 @@ export const useAuth0Api = () => {
     } catch (e) {
       return Promise.reject(e);
     }
-  };
+  }, [getAccessToken, getRegistrationStatus]);
 
+  // Update Auth0 user data to indicate that registration is complete
   const updateRegistrationStatus = async () => {
     try {
       const accessToken = await getAccessToken();
@@ -94,7 +104,7 @@ export const useAuth0Api = () => {
       return Promise.reject(e);
     }
   };
-  //
+
   return {
     updateRegistrationStatus,
     getRegistrationStatusWithCache,

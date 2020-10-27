@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useContext } from 'react';
 import { Route, Switch, useParams, useRouteMatch } from 'react-router-dom';
 import { BlogPage } from '../blog/BlogPage';
 import { NotFound } from '../NotFound';
@@ -16,21 +16,16 @@ import { ContentPage } from '../content/ContentPage';
 const PortfolioIndex = () => {
   const [redirect, setRedirect] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [user, setUser] = useState({
-    username: '',
-    email: '',
-    name: '',
-    dateJoined: undefined,
-    description: '',
-  });
+  const [user, setUser] = useState(useContext(UserContext));
   const { path } = useRouteMatch();
-  const { id } = useParams();
-  const { isAuthenticated, user: authUser } = useAuth0();
+  const { id: pageUsername } = useParams();
+  const { isAuthenticated } = useAuth0();
+  const { username: authUsername } = useContext(UserContext);
 
   const footer: React.ReactNode = <PortfolioViewFooter />;
 
   const findUser = useCallback(() => {
-    fetch(`/api/portfolio/${id}/profile`)
+    fetch(`/api/portfolio/${pageUsername}/profile`)
       .then((r) => {
         // User not found, we should redirect
         if (r.status !== 200) {
@@ -42,7 +37,7 @@ const PortfolioIndex = () => {
         setUser(r);
         setLoaded(true);
       });
-  }, [setRedirect, setUser, setLoaded, id]);
+  }, [setRedirect, setUser, setLoaded, pageUsername]);
 
   useEffect(() => {
     findUser();
@@ -80,7 +75,7 @@ const PortfolioIndex = () => {
         </Switch>
         <FooterWrapper
           footer={footer}
-          hidden={!isAuthenticated || authUser.nickname !== user.username}
+          hidden={!isAuthenticated || authUsername !== pageUsername}
         />
       </Container>
     </UserContext.Provider>
