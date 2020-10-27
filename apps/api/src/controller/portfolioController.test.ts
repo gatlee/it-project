@@ -17,7 +17,6 @@ import {
   viewProfile,
   viewProfileByJwt,
 } from './portfolioController';
-import { extraEslintDependencies } from '@nrwl/react';
 
 const username = 'test';
 const auth0Id = 'some_id';
@@ -280,5 +279,15 @@ makeTestSuite('Portfolio Tests', () => {
     expect(items).toHaveLength(2);
     expectJSONMatching(items[0], portfolioItem2);
     expectJSONMatching(items[1], privateItem);
+  });
+
+  it('should allow filtering by blog in `viewAllItemsByJwt`', async () => {
+    const { data: items, status } = await callEndpoint(viewAllItemsByJwt, {
+      ...authReq,
+      query: { category: PortfolioCategory.BLOG },
+    });
+    expect(status).toBe(200);
+    expect(items).toHaveLength(1);
+    expectJSONMatching(items[0], privateItem);
   });
 });

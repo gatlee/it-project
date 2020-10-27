@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import ReactMde, { Command, getDefaultToolbarCommands } from 'react-mde';
 import ReactMarkdown from 'react-markdown/umd/react-markdown';
-import { generateCloudinaryUrl } from '../../cloudinaryUtility';
+import { generateCloudinaryUrls } from '../../cloudinaryUtility';
 import { PlayFill } from 'react-bootstrap-icons';
 
 interface EditorBody {
@@ -14,11 +14,54 @@ interface EditorBody {
 const EditorBody = (props: EditorBody) => {
   const [selectedTab, setSelectedTab] = useState<'write' | 'preview'>('write');
 
+  // Converts a pdf url into into a .png url of a particular page
+  const linkParser = (page: number, url: string) => {
+    const secondLastSlashIndex = url.lastIndexOf('/', url.lastIndexOf('/') - 1);
+    const pagedUrl =
+      url.substring(0, secondLastSlashIndex) +
+      `/pg_${page}` +
+      url.substring(secondLastSlashIndex);
+    const pngUrl = pagedUrl.substring(0, pagedUrl.length - 4) + '.png';
+
+    console.log(pngUrl);
+    return pngUrl;
+  };
+
+  // This function is specced from React-Markdown-Editor
+  // It expects a string to be filled inside
+  // ![image](__STRING__HERE__)
   const saveImage = async function* (
     data: ArrayBuffer
   ): AsyncGenerator<string, boolean, void> {
-    const url = await generateCloudinaryUrl(new Blob([data]));
-    yield url;
+    const response = await generateCloudinaryUrls(new Blob([data]));
+    const url = response.url;
+
+    // If a PDF has been uploaded, get Cloudinary to transform all pages into pngs
+    if (url.endsWith('.pdf')) {
+      let fillText = '';
+
+      // Single page, just yield it
+      if (response.pages === 1) {
+        fillText = linkParser(1, url);
+        yield fillText;
+      }
+
+      // Otherwise gotta disgustingly fill this text in
+      // Create a ![image](url) for each page
+      let i = 1;
+      fillText += linkParser(i, url) + ')\n';
+      while (i !== response.pages) {
+        fillText += `![image](${linkParser(i, url)})\n`;
+        i++;
+      }
+
+      // Last one so don't add the final parenthesis and \n unlike inside the while loop
+      fillText += `![image](${linkParser(i, url)}`;
+      yield fillText;
+    } else {
+      // Just a image so just yield the url
+      yield url;
+    }
 
     // Return true on a success
     return true;

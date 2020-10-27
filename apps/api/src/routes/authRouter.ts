@@ -9,7 +9,6 @@ const router = Router();
  *   post:
  *     description:
  *       Create a new user.
- *       Should only be called from the Auth0 post-registration rule to handle a newly-registered user.
  *     parameters:
  *       - name: userInfo
  *         in: body
