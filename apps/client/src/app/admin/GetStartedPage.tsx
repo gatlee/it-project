@@ -101,7 +101,7 @@ const GetStartedPage = () => {
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col lg={6} md={8}>
             <Form onSubmit={() => alert('Functionality Not Done Yet')}>
               <Form.Group className="mt-2" controlId="name">
                 <Form.Label>Name</Form.Label>
