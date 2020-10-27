@@ -6,5 +6,6 @@ const UserContext = React.createContext({
   dateJoined: undefined,
   profilePicture: '',
   description: '',
+  setProfilePicture: (profilePicture) => null,
 });
 export { UserContext };

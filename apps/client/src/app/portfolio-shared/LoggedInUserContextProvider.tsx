@@ -16,6 +16,13 @@ const LoggedInUserContextProvider = (props: LoggedInUserContextProvider) => {
     description: '',
   });
 
+  const setProfilePicture = (profilePicture: string) => {
+    setUser((prevState) => {
+      return { ...prevState, profilePicture: profilePicture };
+    });
+  };
+  const contextState = { ...user, setProfilePicture };
+
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   const findUser = useCallback(async () => {
@@ -38,7 +45,9 @@ const LoggedInUserContextProvider = (props: LoggedInUserContextProvider) => {
   }, [findUser]);
 
   return (
-    <UserContext.Provider value={user}>{props.children}</UserContext.Provider>
+    <UserContext.Provider value={contextState}>
+      {props.children}
+    </UserContext.Provider>
   );
 };
 
