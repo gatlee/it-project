@@ -106,9 +106,22 @@ const getPortfolioItem = async (contentID: string): Promise<PortfolioItem> => {
       return obj;
     });
 };
+
+const getPortfolioItems = async (
+  username: string,
+  category: PortfolioCategory
+): Promise<Array<PortfolioItem>> => {
+  const categoryFilter =
+    category === PortfolioCategory.BLOG ? 'blog' : 'projects';
+  return fetch(
+    `/api/portfolio/${username}/all?category=${categoryFilter}`
+  ).then((r) => r.json());
+};
+
 export {
   updateProjectItem,
   deleteProjectItem,
   addPortfolioItem,
   getPortfolioItem,
+  getPortfolioItems,
 };

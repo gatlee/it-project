@@ -6,6 +6,7 @@ import { EditContext } from '../portfolio-shared/EditContext';
 import { PortfolioAddButton } from '../portfolio-shared/PortfolioAddButton';
 import { UserContext } from '../portfolio-shared/UserContext';
 import { ProjectItem } from './ProjectItem';
+import { getPortfolioItems } from './ProjectUtils';
 
 interface ItemList {
   category: PortfolioCategory;
@@ -18,10 +19,7 @@ const ItemList = (props: ItemList) => {
   const [loaded, setLoaded] = useState(false);
 
   const loadItems = useCallback(() => {
-    const categoryFilter =
-      props.category === PortfolioCategory.BLOG ? 'blog' : 'projects';
-    fetch(`/api/portfolio/${username}/all?category=${categoryFilter}`)
-      .then((r) => r.json())
+    getPortfolioItems(username, props.category)
       .then((r) => setItems(r))
       .then(() => setLoaded(true))
       .catch((e) => {
