@@ -9,6 +9,8 @@ import { UserContext } from '../portfolio-shared/UserContext';
 import { LinkContainer } from 'react-router-bootstrap';
 import { updateName } from './AdminUtils';
 import { useAuth0 } from '@auth0/auth0-react';
+import { Redirect } from 'react-router-dom';
+import { AuthContext } from '../auth/AuthContext';
 
 // Manage Public Information Page
 
@@ -18,6 +20,16 @@ const ManagePage = () => {
   const { getAccessTokenSilently } = useAuth0();
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  const { registrationComplete, isLoaded } = useContext(AuthContext);
+
+  if (!isLoaded) {
+    return null;
+  }
+
+  if (!registrationComplete) {
+    return <Redirect to="/getstarted" />;
+  }
 
   useEffect(() => {
     setFormName(name);
