@@ -1,5 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { PortfolioCategory } from '@pure-and-lazy/api-interfaces';
+import {
+  PortfolioCategory,
+  PortfolioItem,
+  PortfolioItemValue,
+} from '@pure-and-lazy/api-interfaces';
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { CenteredRowContent } from '../layout/CenteredRowContent';
@@ -14,31 +18,33 @@ interface ProjectAddButton {
 // Add button at the bottom of projects tab and blog tab
 const PortfolioAddButton = (props: ProjectAddButton) => {
   const { getAccessTokenSilently } = useAuth0();
+  const initialInfo: PortfolioItem = {
+    category: props.category,
+    name: '',
+    description: '',
+    content: '',
+    image: '',
+  };
+
+  const [info, setInfo] = useState(initialInfo);
   const [editorOpen, setEditorOpen] = useState(false);
-  const [editorTitle, setEditorTitle] = useState('');
-  const [editorImage, setEditorImage] = useState('');
-  const [editorDescription, setEditorDescription] = useState('');
-  const [editorContent, setEditorContent] = useState('');
   const [editorSaveButtonDisabled, setSaveButtonDisabled] = useState(false);
 
   const closeEditor = () => {
+    setInfo(initialInfo);
     setEditorOpen(false);
-    setEditorTitle('');
-    setEditorDescription('');
     setSaveButtonDisabled(false);
-    setEditorContent('');
-    setEditorImage('');
   };
 
   const handleSave = async () => {
     setSaveButtonDisabled(true);
     try {
       await addPortfolioItem(
-        editorTitle,
-        editorImage,
-        editorDescription,
-        editorContent,
-        props.category,
+        info.name,
+        info.image,
+        info.description,
+        info.content,
+        info.category,
         getAccessTokenSilently
       );
     } catch (e) {
@@ -46,6 +52,13 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
     }
     props.onAdd();
     closeEditor();
+  };
+
+  const handleUpdateItem = (
+    key: keyof PortfolioItem,
+    value: PortfolioItemValue
+  ) => {
+    setInfo({ ...info, [key]: value });
   };
 
   return (
@@ -56,16 +69,10 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
         </Button>
       </CenteredRowContent>
       <ProjectItemEditor
-        title=""
-        editorTitle={editorTitle}
+        initialInfo={initialInfo}
+        infoState={info}
+        onUpdateItem={handleUpdateItem}
         editorSaveButtonDisabled={editorSaveButtonDisabled}
-        onTitleChange={setEditorTitle}
-        description={editorDescription}
-        onDescriptionChange={setEditorDescription}
-        image={editorImage}
-        onImageChange={setEditorImage}
-        content={editorContent}
-        onContentChange={setEditorContent}
         onCancel={closeEditor}
         onSave={handleSave}
         show={editorOpen}

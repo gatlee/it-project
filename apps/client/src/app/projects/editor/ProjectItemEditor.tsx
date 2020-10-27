@@ -3,18 +3,16 @@ import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import { EditorBody } from './EditorBody';
 import { ProjectItemImage } from './ProjectItemImage';
+import {
+  PortfolioItem,
+  PortfolioItemValue,
+} from '@pure-and-lazy/api-interfaces';
 
 interface ProjectItemEditor {
-  title: string;
-  editorTitle: string;
+  initialInfo: PortfolioItem;
+  infoState: PortfolioItem;
+  onUpdateItem: (key: keyof PortfolioItem, value: PortfolioItemValue) => void;
   editorSaveButtonDisabled: boolean;
-  onTitleChange: (title: string) => void;
-  image: string;
-  onImageChange: (image: string) => void;
-  description: string;
-  onDescriptionChange: (description: string) => void;
-  content: string;
-  onContentChange: (content: string) => void;
   onCancel: () => void;
   onSave: () => void;
   show: boolean;
@@ -24,10 +22,10 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
   const handleDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    props.onDescriptionChange(event.target.value);
+    props.onUpdateItem('description', event.target.value);
   };
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    props.onTitleChange(event.target.value);
+    props.onUpdateItem('name', event.target.value);
   };
 
   const handleSave = () => {
@@ -35,9 +33,14 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
   };
 
   const handleImageChange = (image: string) => {
-    props.onImageChange(image);
+    props.onUpdateItem('image', image);
   };
 
+  const handleContentChange = (content: string) => {
+    props.onUpdateItem('content', content);
+  };
+
+  const { name, image, description, content } = props.infoState;
   return (
     <Modal show={props.show} centered dialogClassName="modal-xl">
       <Container
@@ -50,15 +53,16 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
       >
         <Row>
           <Col>
-            <h2>{props.title === '' ? 'Create New' : `Edit ${props.title}`}</h2>
+            <h2>
+              {props.initialInfo.name === ''
+                ? 'Create New'
+                : `Edit ${props.initialInfo.name}`}
+            </h2>
           </Col>
         </Row>
         <Row className="py-3">
           <Col xs={12} sm={12} md={4}>
-            <ProjectItemImage
-              onImageChange={handleImageChange}
-              image={props.image}
-            />
+            <ProjectItemImage onImageChange={handleImageChange} image={image} />
           </Col>
           <Col xs={12} sm={12} md={8}>
             <Form>
@@ -67,14 +71,14 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
                 <Form.Control
                   onChange={handleTitleChange}
                   size="lg"
-                  value={props.editorTitle}
+                  value={name}
                 />
               </Form.Group>
               <Form.Group controlId="formGroupDescription">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   as="textarea"
-                  value={props.description}
+                  value={description}
                   onChange={handleDescriptionChange}
                   style={{ minHeight: '100px' }}
                 />
@@ -83,10 +87,7 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
           </Col>
         </Row>
         <Row className="w-100 mx-0 py-3">
-          <EditorBody
-            content={props.content}
-            onContentChange={props.onContentChange}
-          />
+          <EditorBody content={content} onContentChange={handleContentChange} />
         </Row>
         <Row>
           <Col>
