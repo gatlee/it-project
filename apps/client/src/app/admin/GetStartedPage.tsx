@@ -12,7 +12,6 @@ import { Redirect } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 
 const GetStartedPage = () => {
-  // TODO: Client side validation
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
 
