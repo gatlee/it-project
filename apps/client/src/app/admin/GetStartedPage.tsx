@@ -158,14 +158,14 @@ const GetStartedPage = () => {
               </Form.Group>
 
               <div className="mt-5">
-                <Button className="border" variant="primary" type="submit">
-                  Save
-                </Button>
                 <LinkContainer to="/">
-                  <Button variant="light" className="ml-3 border">
+                  <Button variant="light" className="mr-3 border">
                     Cancel
                   </Button>
                 </LinkContainer>
+                <Button className="border" variant="primary" type="submit">
+                  Save
+                </Button>
               </div>
             </Form>
           </Col>

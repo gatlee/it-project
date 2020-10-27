@@ -132,12 +132,12 @@ const ManagePage = () => {
               </Form.Group>
 
               <div className="mt-5">
-                <SaveButton />
                 <LinkContainer to="/admin" style={buttonStyle}>
-                  <Button variant="light" className="ml-3 border">
+                  <Button variant="light" className="mr-3 border">
                     Back
                   </Button>
                 </LinkContainer>
+                <SaveButton />
               </div>
             </Form>
           </Col>
