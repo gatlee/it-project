@@ -39,14 +39,7 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
   const handleSave = async () => {
     setSaveButtonDisabled(true);
     try {
-      await addPortfolioItem(
-        info.name,
-        info.image,
-        info.description,
-        info.content,
-        info.category,
-        getAccessTokenSilently
-      );
+      await addPortfolioItem(info, getAccessTokenSilently);
     } catch (e) {
       console.log(e);
     }

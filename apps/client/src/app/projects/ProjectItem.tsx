@@ -34,14 +34,7 @@ const ProjectItem = (props: ProjectItem) => {
   const handleSave = async () => {
     setSaveButtonDisabled(true);
     try {
-      await updateProjectItem(
-        info.name,
-        info.image,
-        info.description,
-        info.content,
-        id,
-        getAccessTokenSilently
-      );
+      await updateProjectItem(props.itemInfo, id, getAccessTokenSilently);
     } catch (e) {
       console.log(e);
     }
