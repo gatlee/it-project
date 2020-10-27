@@ -31,7 +31,6 @@ const updateProfile = async (
     return Promise.reject('Failed to get access token');
   }
 
-  // Does this handle undefined?
   const body = {
     ...newProfile,
   };
