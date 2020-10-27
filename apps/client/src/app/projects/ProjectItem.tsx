@@ -14,7 +14,6 @@ interface ProjectItem {
 const ProjectItem = (props: ProjectItem) => {
   const { _id: id, name: title, image, description, content } = props.itemInfo;
   const isPublic = !!props.itemInfo.public;
-  console.log('info' + isPublic);
   const { getAccessTokenSilently } = useAuth0();
 
   const [editorOpen, setEditorOpen] = useState(false);
