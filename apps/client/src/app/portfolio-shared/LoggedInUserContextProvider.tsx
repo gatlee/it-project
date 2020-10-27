@@ -21,7 +21,13 @@ const LoggedInUserContextProvider = (props: LoggedInUserContextProvider) => {
       return { ...prevState, profilePicture: profilePicture };
     });
   };
-  const contextState = { ...user, setProfilePicture };
+
+  const setName = (name: string) => {
+    setUser((prevState) => {
+      return { ...prevState, name: name };
+    });
+  };
+  const contextState = { ...user, setProfilePicture, setName };
 
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
