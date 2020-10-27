@@ -115,7 +115,11 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
         </Row>
         <Row className="float-right">
           <Col sm="auto">
-            <Button className="mx-1" onClick={handleCancel} variant="secondary">
+            <Button
+              className="mx-1"
+              onClick={handleCancel}
+              variant="outline-secondary"
+            >
               Cancel
             </Button>
             <PrivacyToggle
