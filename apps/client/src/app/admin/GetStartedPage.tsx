@@ -59,8 +59,8 @@ const GetStartedPage = () => {
       const errorData = error.response.data;
       console.log(errorData);
       if (errorData === 'username taken') {
-        setErrorMessage('URL is already taken');
         setIsInvalid(true);
+        setErrorMessage('Username is already taken');
       } else if (errorData === 'auth0Id conflict') {
         setErrorMessage('ID conflict. Please contact Pure && Lazy.');
         setIsInvalid(true);
