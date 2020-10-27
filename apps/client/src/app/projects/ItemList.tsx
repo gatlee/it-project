@@ -1,24 +1,14 @@
-import { PortfolioItem } from '@pure-and-lazy/api-interfaces';
-import React, {
-  ReactElement,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { PortfolioCategory } from '@pure-and-lazy/api-interfaces';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { Loader } from '../layout/Loader';
 import { EditContext } from '../portfolio-shared/EditContext';
+import { PortfolioAddButton } from '../portfolio-shared/PortfolioAddButton';
 import { UserContext } from '../portfolio-shared/UserContext';
+import { ProjectItem } from './ProjectItem';
 
 interface ItemList {
-  createItem: (
-    item: PortfolioItem,
-    index: React.Key,
-    onUpdate: () => void
-  ) => ReactElement;
-  fetchUrl: (username: string) => string;
-  createAddButton: (onAdd: () => void) => React.ReactElement;
+  category: PortfolioCategory;
 }
 const ItemList = (props: ItemList) => {
   const editMode = useContext(EditContext);
@@ -28,7 +18,9 @@ const ItemList = (props: ItemList) => {
   const [loaded, setLoaded] = useState(false);
 
   const loadItems = useCallback(() => {
-    fetch(props.fetchUrl(username))
+    const categoryFilter =
+      props.category === PortfolioCategory.BLOG ? 'blog' : 'projects';
+    fetch(`/api/portfolio/${username}/all?category=${categoryFilter}`)
       .then((r) => r.json())
       .then((r) => setItems(r))
       .then(() => setLoaded(true))
@@ -42,9 +34,9 @@ const ItemList = (props: ItemList) => {
     loadItems();
   }, [loadItems]);
 
-  const itemComponents = items.map((item, index) =>
-    props.createItem(item, index, loadItems)
-  );
+  const itemComponents = items.map((item, index) => (
+    <ProjectItem key={index} onUpdate={loadItems} itemInfo={item} />
+  ));
 
   return (
     <Container className="pt-5">
@@ -53,7 +45,7 @@ const ItemList = (props: ItemList) => {
       </Loader>
       {editMode && (
         <Row className="align-items-center my-5">
-          {props.createAddButton(loadItems)}
+          <PortfolioAddButton onAdd={loadItems} category={props.category} />
         </Row>
       )}
     </Container>
