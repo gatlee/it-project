@@ -106,7 +106,10 @@ const viewAllItemsByJwt = async (req: Req<{}>, res: Res<PortfolioItem[]>) => {
       'portfolio'
     );
     if (user) {
-      res.send(viewFilteredItems(user));
+      const predicate = req.query.category
+        ? (item) => item.category == req.query.category
+        : undefined;
+      res.send(viewFilteredItems(user, predicate));
     } else {
       res.sendStatus(404);
     }
