@@ -1,4 +1,7 @@
-import { PortfolioCategory } from '@pure-and-lazy/api-interfaces';
+import {
+  PortfolioCategory,
+  PortfolioItem,
+} from '@pure-and-lazy/api-interfaces';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { Loader } from '../layout/Loader';
@@ -6,7 +9,8 @@ import { EditContext } from '../portfolio-shared/EditContext';
 import { PortfolioAddButton } from '../portfolio-shared/PortfolioAddButton';
 import { UserContext } from '../portfolio-shared/UserContext';
 import { ProjectItem } from './ProjectItem';
-import { getPortfolioItems } from './ProjectUtils';
+import { getPortfolioItems, getOwnPortfolioItems } from './ProjectUtils';
+import { useAuth0 } from '@auth0/auth0-react';
 
 interface ItemList {
   category: PortfolioCategory;
@@ -18,14 +22,20 @@ const ItemList = (props: ItemList) => {
   const [items, setItems] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
+  const { getAccessTokenSilently } = useAuth0();
+
+  // This is kinda gross
   const loadItems = useCallback(() => {
-    getPortfolioItems(username, props.category)
+    const promise: Promise<Array<PortfolioItem>> = editMode
+      ? getOwnPortfolioItems(props.category, getAccessTokenSilently)
+      : getPortfolioItems(username, props.category);
+    promise
       .then((r) => setItems(r))
       .then(() => setLoaded(true))
       .catch((e) => {
         console.log(e);
       });
-  }, [props, username]);
+  }, [props, username, editMode, getAccessTokenSilently]);
 
   //Update Items on Load
   useEffect(() => {

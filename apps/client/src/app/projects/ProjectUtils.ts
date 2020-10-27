@@ -118,10 +118,35 @@ const getPortfolioItems = async (
   ).then((r) => r.json());
 };
 
+// This is like calling getPortfolioItems on the logged in user except you can see private items
+const getOwnPortfolioItems = async (
+  category: PortfolioCategory,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getAccessTokenSilently: (options?: any) => Promise<string>
+): Promise<Array<PortfolioItem>> => {
+  const categoryFilter =
+    category === PortfolioCategory.BLOG ? 'blog' : 'projects';
+
+  let token: string;
+  try {
+    token = await getAccessTokenSilently();
+  } catch (error) {
+    return Promise.reject('Failed to get access token');
+  }
+
+  return fetch(`/api/portfolio/all?category=${categoryFilter}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  }).then((r) => r.json());
+};
+
 export {
   updateProjectItem,
   deleteProjectItem,
   addPortfolioItem,
   getPortfolioItem,
   getPortfolioItems,
+  getOwnPortfolioItems,
 };
