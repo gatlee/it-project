@@ -1,24 +1,19 @@
-import { PortfolioItem } from '@pure-and-lazy/api-interfaces';
-import React, {
-  ReactElement,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import {
+  PortfolioCategory,
+  PortfolioItem,
+} from '@pure-and-lazy/api-interfaces';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { Loader } from '../layout/Loader';
 import { EditContext } from '../portfolio-shared/EditContext';
+import { PortfolioAddButton } from '../portfolio-shared/PortfolioAddButton';
 import { UserContext } from '../portfolio-shared/UserContext';
+import { ProjectItem } from './ProjectItem';
+import { getPortfolioItems, getOwnPortfolioItems } from './ProjectUtils';
+import { useAuth0 } from '@auth0/auth0-react';
 
 interface ItemList {
-  createItem: (
-    item: PortfolioItem,
-    index: React.Key,
-    onUpdate: () => void
-  ) => ReactElement;
-  fetchUrl: (username: string) => string;
-  createAddButton: (onAdd: () => void) => React.ReactElement;
+  category: PortfolioCategory;
 }
 const ItemList = (props: ItemList) => {
   const editMode = useContext(EditContext);
@@ -27,24 +22,29 @@ const ItemList = (props: ItemList) => {
   const [items, setItems] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
+  const { getAccessTokenSilently } = useAuth0();
+
+  // This is kinda gross
   const loadItems = useCallback(() => {
-    fetch(props.fetchUrl(username))
-      .then((r) => r.json())
+    const promise: Promise<Array<PortfolioItem>> = editMode
+      ? getOwnPortfolioItems(props.category, getAccessTokenSilently)
+      : getPortfolioItems(username, props.category);
+    promise
       .then((r) => setItems(r))
       .then(() => setLoaded(true))
       .catch((e) => {
         console.log(e);
       });
-  }, [props, username]);
+  }, [props, username, editMode, getAccessTokenSilently]);
 
   //Update Items on Load
   useEffect(() => {
     loadItems();
   }, [loadItems]);
 
-  const itemComponents = items.map((item, index) =>
-    props.createItem(item, index, loadItems)
-  );
+  const itemComponents = items.map((item, index) => (
+    <ProjectItem key={index} onUpdate={loadItems} itemInfo={item} />
+  ));
 
   return (
     <Container className="pt-5">
@@ -53,7 +53,7 @@ const ItemList = (props: ItemList) => {
       </Loader>
       {editMode && (
         <Row className="align-items-center my-5">
-          {props.createAddButton(loadItems)}
+          <PortfolioAddButton onAdd={loadItems} category={props.category} />
         </Row>
       )}
     </Container>
