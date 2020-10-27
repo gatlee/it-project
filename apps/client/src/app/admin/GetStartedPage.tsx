@@ -16,7 +16,8 @@ const GetStartedPage = () => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
 
-  const [isInvalid, setIsInvalid] = useState(false);
+  const [isInvalidName, setIsInvalidName] = useState(false);
+  const [isInvalidUsername, setIsInvalidUsername] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const { user, getAccessTokenSilently } = useAuth0();
@@ -59,17 +60,19 @@ const GetStartedPage = () => {
       const errorData = error.response.data;
       console.log(errorData);
       if (errorData === 'username taken') {
-        setIsInvalid(true);
         setErrorMessage('Username is already taken');
+        setIsInvalidUsername(true);
       } else if (errorData === 'auth0Id conflict') {
         setErrorMessage('ID conflict. Please contact Pure && Lazy.');
-        setIsInvalid(true);
+        setIsInvalidUsername(true);
       }
     }
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setName(event.target.value);
+    const regEx = new RegExp('^[a-z0-9/ /-]+$', 'i');
+    setIsInvalidName(!regEx.test(event.target.value));
   };
 
   const handleUsernameChange = (
@@ -77,7 +80,13 @@ const GetStartedPage = () => {
   ) => {
     setUsername(event.target.value);
     setErrorMessage('');
-    setIsInvalid(false);
+    setIsInvalidUsername(false);
+
+    const regEx = new RegExp('^[a-z0-9]+$', 'i');
+    setIsInvalidUsername(regEx.test(event.target.value));
+    setErrorMessage(
+      'Username must only be made of letters [a-z] and numbers [0-9]'
+    );
   };
 
   const handleSubmit = async (
@@ -128,8 +137,12 @@ const GetStartedPage = () => {
                 onChange={handleNameChange}
                 type="text"
                 placeholder="Enter name"
+                isInvalid={isInvalidName}
                 required
               />
+              <FormControl.Feedback type="invalid" tooltip>
+                Name must only be made of letters [a-z] and numbers [0-9]
+              </FormControl.Feedback>
             </Form.Group>
 
             <Form.Group
@@ -142,7 +155,7 @@ const GetStartedPage = () => {
                 onChange={handleUsernameChange}
                 type="text"
                 placeholder="Enter username"
-                isInvalid={isInvalid}
+                isInvalid={isInvalidUsername}
                 required
               />
               <Form.Text className="text-muted">
