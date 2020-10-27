@@ -82,7 +82,7 @@ const GetStartedPage = () => {
     setIsInvalidUsername(false);
 
     const regEx = new RegExp('^[a-z0-9]+$', 'i');
-    setIsInvalidUsername(regEx.test(event.target.value));
+    setIsInvalidUsername(!regEx.test(event.target.value));
     setErrorMessage(
       'Username must only be made of letters [a-z] and numbers [0-9]'
     );
