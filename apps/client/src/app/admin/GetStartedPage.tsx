@@ -128,6 +128,7 @@ const GetStartedPage = () => {
                 onChange={handleNameChange}
                 type="text"
                 placeholder="Enter name"
+                required
               />
             </Form.Group>
 
@@ -142,6 +143,7 @@ const GetStartedPage = () => {
                 type="text"
                 placeholder="Enter username"
                 isInvalid={isInvalid}
+                required
               />
               <Form.Text className="text-muted">
                 This will be used to access your public profile. This{' '}
