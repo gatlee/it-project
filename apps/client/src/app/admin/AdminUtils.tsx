@@ -1,7 +1,28 @@
 const updateProfilePicture = async (
-  newImage: string,
+  profilePicture: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getAccessTokenSilently: (options?: any) => Promise<string>
+) => {
+  return updateProfile(getAccessTokenSilently, {
+    profilePicture: profilePicture,
+  });
+};
+
+const updateName = async (
+  name: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getAccessTokenSilently: (options?: any) => Promise<string>
+) => {
+  return updateProfile(getAccessTokenSilently, {
+    name: name,
+  });
+};
+
+// Not Exported
+const updateProfile = async (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getAccessTokenSilently: (options?: any) => Promise<string>,
+  newProfile
 ) => {
   let token: string;
   try {
@@ -10,8 +31,9 @@ const updateProfilePicture = async (
     return Promise.reject('Failed to get access token');
   }
 
+  // Does this handle undefined?
   const body = {
-    profilePicture: newImage,
+    ...newProfile,
   };
 
   return fetch('/api/portfolio/profile', {
@@ -24,4 +46,4 @@ const updateProfilePicture = async (
   });
 };
 
-export { updateProfilePicture };
+export { updateProfilePicture, updateName };
