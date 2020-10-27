@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { BackgroundContainer } from '../BackgroundContainer';
 import { AdminSignOut } from './AdminSignOut';
 import GradientBackground from '../../assets/GradientBackground.png';
 import { AdminTitle } from './AdminTitle';
-import { Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { css } from 'emotion';
+import { UserContext } from '../portfolio-shared/UserContext';
+import { LinkContainer } from 'react-router-bootstrap';
 
 // Manage Public Information Page
 
 const ManagePage = () => {
-  const [name, setName] = useState('');
+  const { name } = useContext(UserContext);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setName(event.target.value);
@@ -40,11 +42,26 @@ const ManagePage = () => {
               <Form.Group className="mt-2" controlId="name">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
+                  value={name}
                   onChange={handleNameChange}
                   type="text"
                   placeholder="Enter name"
                 />
+                <Form.Text className="text-muted">
+                  This will be shown on your profile
+                </Form.Text>
               </Form.Group>
+
+              <div className="mt-5">
+                <Button className="border" variant="primary" type="submit">
+                  Save
+                </Button>
+                <LinkContainer to="/admin">
+                  <Button variant="light" className="ml-3 border">
+                    Cancel
+                  </Button>
+                </LinkContainer>
+              </div>
             </Form>
           </Col>
         </Row>
