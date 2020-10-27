@@ -22,7 +22,7 @@ const updateName = async (
 const updateProfile = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getAccessTokenSilently: (options?: any) => Promise<string>,
-  newProfile
+  newProfile // NOTE: There's no interface for this right?
 ) => {
   let token: string;
   try {
