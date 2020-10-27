@@ -135,6 +135,9 @@ const GetStartedPage = () => {
                   type="text"
                   placeholder="Enter name"
                 />
+                <Form.Text className="text-muted">
+                  This will be shown on your profile
+                </Form.Text>
               </Form.Group>
 
               <Form.Group className="mt-4" controlId="username">
