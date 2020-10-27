@@ -16,7 +16,7 @@ interface PortfolioItem {
   created?: Date;
   lastModified?: Date;
   image?: string;
-  public?: boolean;
+  public: boolean;
 }
 type PortfolioItemValue = PortfolioItem[keyof PortfolioItem];
 

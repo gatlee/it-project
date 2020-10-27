@@ -7,6 +7,7 @@ import {
   PortfolioItem,
   PortfolioItemValue,
 } from '@pure-and-lazy/api-interfaces';
+import { PrivacyToggle } from './PrivacyToggle';
 
 interface ProjectItemEditor {
   initialInfo: PortfolioItem;
@@ -27,6 +28,10 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
     setInfo({ ...info, [key]: value });
   };
 
+  const handlePublicChange = (newPublic: boolean) => {
+    handleUpdateItem('public', newPublic);
+  };
+
   const handleDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -45,7 +50,6 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
   };
 
   const handleSave = () => {
-    setInfo(props.initialInfo);
     props.onSave(info);
   };
 
@@ -110,6 +114,10 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
         </Row>
         <Row>
           <Col>
+            <PrivacyToggle
+              isPublic={info.public}
+              onPublicChange={handlePublicChange}
+            />
             <Button
               disabled={props.editorSaveButtonDisabled}
               onClick={handleSave}
