@@ -1,16 +1,15 @@
 import React from 'react';
 import {
   Button,
+  ButtonGroup,
   Card,
   Col,
-  ButtonGroup,
-  Row,
   Container,
+  Row,
 } from 'react-bootstrap';
-import { EditContext } from '../portfolio-shared/EditContext';
 import { LinkContainer } from 'react-router-bootstrap';
-import { css } from '@emotion/core';
-import { Lock } from 'react-bootstrap-icons';
+import { EditContext } from '../portfolio-shared/EditContext';
+import { PrivacyIcon } from '../portfolio-shared/PrivacyIcon';
 
 interface ProjectItemDisplay {
   title: string;
@@ -74,7 +73,9 @@ const ProjectItemDisplay = (props: ProjectItemDisplay) => {
                         </Button>
                       </ButtonGroup>
                     </Col>
-                    <Col sm={1}>{!props.isPublic && <Lock />}</Col>
+                    <Col sm={1}>
+                      <PrivacyIcon hidden={props.isPublic} />
+                    </Col>
                   </Row>
                 </Container>
               )
