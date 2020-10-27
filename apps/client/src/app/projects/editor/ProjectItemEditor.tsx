@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import { EditorBody } from './EditorBody';
@@ -10,37 +10,50 @@ import {
 
 interface ProjectItemEditor {
   initialInfo: PortfolioItem;
-  infoState: PortfolioItem;
-  onUpdateItem: (key: keyof PortfolioItem, value: PortfolioItemValue) => void;
   editorSaveButtonDisabled: boolean;
   onCancel: () => void;
-  onSave: () => void;
+  onSave: (newInfo: PortfolioItem) => void;
   show: boolean;
 }
 
 const ProjectItemEditor = (props: ProjectItemEditor) => {
+  const [info, setInfo] = useState(props.initialInfo);
+
+  const handleUpdateItem = (
+    key: keyof PortfolioItem,
+    value: PortfolioItemValue
+  ) => {
+    // Update key value pair while preserving other values
+    setInfo({ ...info, [key]: value });
+  };
+
   const handleDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    props.onUpdateItem('description', event.target.value);
+    handleUpdateItem('description', event.target.value);
   };
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    props.onUpdateItem('name', event.target.value);
-  };
-
-  const handleSave = () => {
-    props.onSave();
+    handleUpdateItem('name', event.target.value);
   };
 
   const handleImageChange = (image: string) => {
-    props.onUpdateItem('image', image);
+    handleUpdateItem('image', image);
   };
 
   const handleContentChange = (content: string) => {
-    props.onUpdateItem('content', content);
+    handleUpdateItem('content', content);
   };
 
-  const { name, image, description, content } = props.infoState;
+  const handleSave = () => {
+    setInfo(props.initialInfo);
+    props.onSave(info);
+  };
+
+  const handleCancel = () => {
+    setInfo(props.initialInfo);
+    props.onCancel();
+  };
+
   return (
     <Modal show={props.show} centered dialogClassName="modal-xl">
       <Container
@@ -62,7 +75,10 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
         </Row>
         <Row className="py-3">
           <Col xs={12} sm={12} md={4}>
-            <ProjectItemImage onImageChange={handleImageChange} image={image} />
+            <ProjectItemImage
+              onImageChange={handleImageChange}
+              image={info.image}
+            />
           </Col>
           <Col xs={12} sm={12} md={8}>
             <Form>
@@ -71,14 +87,14 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
                 <Form.Control
                   onChange={handleTitleChange}
                   size="lg"
-                  value={name}
+                  value={info.name}
                 />
               </Form.Group>
               <Form.Group controlId="formGroupDescription">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   as="textarea"
-                  value={description}
+                  value={info.description}
                   onChange={handleDescriptionChange}
                   style={{ minHeight: '100px' }}
                 />
@@ -87,7 +103,10 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
           </Col>
         </Row>
         <Row className="w-100 mx-0 py-3">
-          <EditorBody content={content} onContentChange={handleContentChange} />
+          <EditorBody
+            content={info.content}
+            onContentChange={handleContentChange}
+          />
         </Row>
         <Row>
           <Col>
@@ -97,7 +116,7 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
             >
               Save
             </Button>
-            <Button onClick={props.onCancel} variant="Secondary">
+            <Button onClick={handleCancel} variant="Secondary">
               Cancel
             </Button>
           </Col>
