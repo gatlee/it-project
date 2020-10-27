@@ -106,6 +106,11 @@ import {
  *       type: string
  *       schema:
  *         enum: [projects, blog]
+ *   securitySchemas:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
 
 const router = Router();
@@ -159,6 +164,8 @@ router.get('/:username/profile', viewProfile);
  *         description: Malformed input.
  *     tags:
  *       - Portfolio
+ *     security:
+ *       - bearerAuth: []
  *   put:
  *     description: Edit a user's profile.
  *     parameters:
@@ -170,6 +177,8 @@ router.get('/:username/profile', viewProfile);
  *         description: Malformed input.
  *     tags:
  *       - Portfolio
+ *     security:
+ *       - bearerAuth: []
  */
 router.route('/profile').get(checkJwt, viewProfileByJwt).put(editProfile);
 
@@ -219,6 +228,8 @@ router.get('/:username/all', viewAllPublicItems);
  *         description: Malformed input.
  *     tags:
  *       - Portfolio
+ *     security:
+ *       - bearerAuth: []
  */
 router.get('/all', checkJwt, viewAllItemsByJwt);
 
@@ -238,6 +249,8 @@ router.get('/all', checkJwt, viewAllItemsByJwt);
  *         description: Malformed input.
  *     tags:
  *       - Portfolio
+ *     security:
+ *       - bearerAuth: []
  */
 router.post('/create', createItem);
 
@@ -275,6 +288,8 @@ router.post('/create', createItem);
  *         description: Portfolio item belongs to another user.
  *     tags:
  *       - Portfolio
+ *     security:
+ *       - bearerAuth: []
  *   delete:
  *     description: Delete a portfolio item.
  *     parameters:
@@ -288,6 +303,8 @@ router.post('/create', createItem);
  *         description: Portfolio item belongs to another user.
  *     tags:
  *       - Portfolio
+ *     security:
+ *       - bearerAuth: []
  */
 router
   .route('/:portfolioItemId')
