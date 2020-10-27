@@ -1,7 +1,14 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Button, Container, Form, FormControl, Row } from 'react-bootstrap';
+import {
+  Button,
+  Container,
+  Form,
+  FormControl,
+  Row,
+  Col,
+} from 'react-bootstrap';
 import GradientBackground from '../../assets/GradientBackground.png';
 import useAuth0Api from '../api/useAuth0Api';
 import { BackgroundContainer } from '../BackgroundContainer';
@@ -86,48 +93,52 @@ const GetStartedPage = () => {
       <Container>
         <Row css={topMarginStyle}></Row>
         <Row className="mb-3">
-          <AdminTitle
-            title="Welcome to Pure & Lazy!"
-            subtitle="Before you get started, we need to know a few things about you"
-          />
+          <Col>
+            <AdminTitle
+              title="Welcome to Pure & Lazy!"
+              subtitle="Before you get started, we need to know a few things about you"
+            />
+          </Col>
         </Row>
         <Row>
-          <Form onSubmit={() => alert('Functionality Not Done Yet')}>
-            <Form.Group className="mt-2" controlId="name">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                onChange={handleNameChange}
-                type="text"
-                placeholder="Enter name"
-              />
-            </Form.Group>
+          <Col>
+            <Form onSubmit={() => alert('Functionality Not Done Yet')}>
+              <Form.Group className="mt-2" controlId="name">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  onChange={handleNameChange}
+                  type="text"
+                  placeholder="Enter name"
+                />
+              </Form.Group>
 
-            <Form.Group className="mt-4" controlId="username">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                onChange={handleUsernameChange}
-                type="text"
-                placeholder="Enter username"
-                isInvalid={isInvalid}
-              />
-              <Form.Text className="text-muted">
-                This will be used to access your public profile. This{' '}
-                <b>can't</b> be changed in the future.
-              </Form.Text>
-              <FormControl.Feedback type="invalid" tooltip>
-                {errorMessage}
-              </FormControl.Feedback>
-            </Form.Group>
+              <Form.Group className="mt-4" controlId="username">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                  onChange={handleUsernameChange}
+                  type="text"
+                  placeholder="Enter username"
+                  isInvalid={isInvalid}
+                />
+                <Form.Text className="text-muted">
+                  This will be used to access your public profile. This{' '}
+                  <b>can't</b> be changed in the future.
+                </Form.Text>
+                <FormControl.Feedback type="invalid" tooltip>
+                  {errorMessage}
+                </FormControl.Feedback>
+              </Form.Group>
 
-            <div className="mt-5">
-              <Button className="border" variant="primary" type="submit">
-                Save
-              </Button>
-              <Button className="ml-3 border" variant="light">
-                Cancel
-              </Button>
-            </div>
-          </Form>
+              <div className="mt-5">
+                <Button className="border" variant="primary" type="submit">
+                  Save
+                </Button>
+                <Button className="ml-3 border" variant="light">
+                  Cancel
+                </Button>
+              </div>
+            </Form>
+          </Col>
         </Row>
       </Container>
     </BackgroundContainer>
