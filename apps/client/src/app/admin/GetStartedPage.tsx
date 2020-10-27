@@ -93,10 +93,12 @@ const GetStartedPage = () => {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     event.preventDefault();
-    try {
-      await registerUser(name, username);
-    } catch (error) {
-      console.log('Error during submission', error);
+    if (!(isInvalidName || isInvalidUsername)) {
+      try {
+        await registerUser(name, username);
+      } catch (error) {
+        console.log('Error during submission', error);
+      }
     }
   };
 
