@@ -22,7 +22,7 @@ const EditIndex = () => {
   }
 
   if (!registrationComplete) {
-    return <Redirect to="/admin" />;
+    return <Redirect to="/getstarted" />;
   }
 
   const footer: React.ReactNode = <PortfolioEditFooter />;

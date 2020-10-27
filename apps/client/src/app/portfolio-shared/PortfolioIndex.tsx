@@ -16,13 +16,7 @@ import { ContentPage } from '../content/ContentPage';
 const PortfolioIndex = () => {
   const [redirect, setRedirect] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [user, setUser] = useState({
-    username: '',
-    email: '',
-    name: '',
-    dateJoined: undefined,
-    description: '',
-  });
+  const [user, setUser] = useState(useContext(UserContext));
   const { path } = useRouteMatch();
   const { id: pageUsername } = useParams();
   const { isAuthenticated } = useAuth0();
