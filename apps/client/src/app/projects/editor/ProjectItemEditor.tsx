@@ -77,6 +77,7 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
             </h2>
           </Col>
         </Row>
+        <hr />
         <Row className="py-3">
           <Col xs={12} sm={12} md={4}>
             <ProjectItemImage
@@ -112,8 +113,11 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
             onContentChange={handleContentChange}
           />
         </Row>
-        <Row>
-          <Col>
+        <Row className="float-right">
+          <Col sm="auto">
+            <Button className="mx-1" onClick={handleCancel} variant="secondary">
+              Cancel
+            </Button>
             <PrivacyToggle
               isPublic={info.public}
               onPublicChange={handlePublicChange}
@@ -121,11 +125,9 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
             <Button
               disabled={props.editorSaveButtonDisabled}
               onClick={handleSave}
+              className="ml-1"
             >
               Save
-            </Button>
-            <Button onClick={handleCancel} variant="Secondary">
-              Cancel
             </Button>
           </Col>
         </Row>
