@@ -118,7 +118,11 @@ const GetStartedPage = () => {
         </Row>
         <Row>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mt-2" controlId="name">
+            <Form.Group
+              className="mt-2"
+              controlId="name"
+              style={{ position: 'relative' }}
+            >
               <Form.Label>Name</Form.Label>
               <Form.Control
                 onChange={handleNameChange}
@@ -127,7 +131,11 @@ const GetStartedPage = () => {
               />
             </Form.Group>
 
-            <Form.Group className="mt-4" controlId="username">
+            <Form.Group
+              className="mt-4"
+              controlId="username"
+              style={{ position: 'relative' }}
+            >
               <Form.Label>Username</Form.Label>
               <Form.Control
                 onChange={handleUsernameChange}
