@@ -6,7 +6,7 @@ class PortfolioItem {
   category!: PortfolioCategory;
   @prop({ required: true }) name!: string;
   @prop({ required: true }) description!: string;
-  @prop({ required: false }) content!: string;
+  @prop() content?: string;
   @prop({ required: true }) created!: Date;
   @prop({ required: true }) lastModified!: Date;
   @prop() image?: string;
