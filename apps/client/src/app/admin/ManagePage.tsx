@@ -47,6 +47,7 @@ const ManagePage = () => {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setSaving(true);
+    setSuccess(false);
     event.preventDefault();
     updateName(formName, getAccessTokenSilently).then((response) => {
       if (response.ok) {
