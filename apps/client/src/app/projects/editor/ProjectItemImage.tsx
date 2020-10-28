@@ -21,8 +21,8 @@ const ProjectItemImage = (props: ProjectItemImage) => {
   /* Container needed to position the overlay. Adjust the width as needed */
   const projectImageContainerStyle = css({
     width: '100%',
-    // Force Square, child elements need to be absolute position to overlay the padding
-    paddingTop: '100%',
+    // Force Square, child elements need to be absolute position overlay on top of the padding
+    paddingTop: '100%', // Padding by percentage is based on width, you can do aspect ratios with this
     position: 'relative',
     backgroundColor: 'gray',
     outline: 'none',
