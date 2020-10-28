@@ -16,12 +16,16 @@ import { AuthContext } from '../auth/AuthContext';
 
 const ManagePage = () => {
   const { name, setName } = useContext(UserContext);
-  const [formName, setFormName] = useState(name);
+  const [formName, setFormName] = useState('');
   const { getAccessTokenSilently } = useAuth0();
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const { registrationComplete, isLoaded } = useContext(AuthContext);
+
+  useEffect(() => {
+    setFormName(name);
+  }, [name]);
 
   if (!isLoaded) {
     return null;
@@ -30,10 +34,6 @@ const ManagePage = () => {
   if (!registrationComplete) {
     return <Redirect to="/getstarted" />;
   }
-
-  useEffect(() => {
-    setFormName(name);
-  }, [name]);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setFormName(event.target.value);
