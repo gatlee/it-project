@@ -33,7 +33,9 @@ interface UserProfile {
 
 enum UserTheme {
   DEFAULT,
-  // TODO: add more themes here
+  SILVA,
+  BEAN,
+  JILDEN,
 }
 
 export {

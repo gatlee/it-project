@@ -4,6 +4,7 @@ interface BackgroundContainer {
   background: string;
   children: React.ReactNode;
   style?: React.CSSProperties;
+  className: string;
 }
 
 const BackgroundContainer = (props: BackgroundContainer) => {

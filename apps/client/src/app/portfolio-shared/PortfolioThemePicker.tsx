@@ -1,6 +1,10 @@
+import { UserTheme } from '@pure-and-lazy/api-interfaces';
 import { css } from 'emotion';
 import React from 'react';
-import { Container, Modal, Col, Row } from 'react-bootstrap';
+import { Col, Container, Modal, Row } from 'react-bootstrap';
+import Bean from '../../assets/Bean.png';
+import Jilden from '../../assets/landscape.png';
+import Silva from '../../assets/Silva.png';
 
 interface PortfolioThemePicker {
   show: boolean;
@@ -37,6 +41,10 @@ const PortfolioThemePicker = (props: PortfolioThemePicker) => {
     maxWidth: 'none',
   });
 
+  const changeUserTheme = (theme: UserTheme) => {
+    console.log('change');
+  };
+
   return (
     <Modal
       show={props.show}
@@ -56,14 +64,29 @@ const PortfolioThemePicker = (props: PortfolioThemePicker) => {
 
         <Container>
           <Row>
-            <Col className="text-center mb-3">
-              <img className={themeStyle + ' shadow '} />
+            <Col className="text-center mb-3 mx-1">
+              <img
+                className={themeStyle}
+                src={Jilden}
+                onClick={() => changeUserTheme(UserTheme.JILDEN)}
+                alt=""
+              />
             </Col>
-            <Col className="text-center mb-3">
-              <img className={themeStyle + ' shadow '} />
+            <Col className="text-center mb-3 mx-1">
+              <img
+                className={themeStyle}
+                src={Silva}
+                onClick={() => changeUserTheme(UserTheme.SILVA)}
+                alt=""
+              />
             </Col>
-            <Col className="text-center mb-3">
-              <img className={themeStyle + ' shadow '} />
+            <Col className="text-center mb-3 mx-1">
+              <img
+                className={themeStyle}
+                src={Bean}
+                onClick={() => changeUserTheme(UserTheme.BEAN)}
+                alt=""
+              />
             </Col>
           </Row>
         </Container>

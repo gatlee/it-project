@@ -10,7 +10,6 @@ const PortfolioViewFooter = () => {
 
   const [showThemePicker, setThemePicker] = useState(false);
 
-  const handleThemeOpen = () => setThemePicker(true);
   const handleThemeClose = () => setThemePicker(false);
 
   return (

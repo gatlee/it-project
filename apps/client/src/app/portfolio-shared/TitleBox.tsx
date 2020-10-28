@@ -1,7 +1,6 @@
-import { css } from 'emotion';
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
-import BackgroundImage from './../../assets/landscape.png';
+import { ThemedBackgroundContainer } from './ThemedBackgroundContainer';
 
 interface TitleBox {
   title: string;
@@ -10,17 +9,15 @@ interface TitleBox {
 
 // Pretty box with title and subheading
 const TitleBox = (props: TitleBox) => {
-  const style = css({
-    background: 'white',
-    backgroundImage: ` linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${BackgroundImage})`,
+  const style = {
     backgroundPosition: 'center',
     width: '100%',
     height: 'auto',
     backgroundSize: 'cover',
-  });
+  };
 
   return (
-    <div className={style + ' shadow-lg'}>
+    <ThemedBackgroundContainer style={style}>
       <Container fluid>
         <Container>
           <Row>
@@ -35,7 +32,7 @@ const TitleBox = (props: TitleBox) => {
           </Row>
         </Container>
       </Container>
-    </div>
+    </ThemedBackgroundContainer>
   );
 };
 
