@@ -23,7 +23,7 @@ const EmptyList = (props: EmptyList) => {
     <Container>
       <Row className="mt-3">
         <h1
-          className="text-center m-auto display-3"
+          className="text-center m-auto display-4"
           css={{ font: 'Roboto', fontWeight: 600 }}
         >
           {largeText}
