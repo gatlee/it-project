@@ -99,18 +99,18 @@ const GetStartedPage = () => {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     event.preventDefault();
-    if (!(isInvalidName || isInvalidUsername)) {
-      try {
-        await registerUser(name, username);
-      } catch (error) {
-        console.log('Error during submission', error);
-      }
+    try {
+      await registerUser(name, username);
+    } catch (error) {
+      console.log('Error during submission', error);
     }
   };
 
   const topMarginStyle = {
     marginTop: '20vh',
   };
+
+  const isInvalid = isInvalidName || isInvalidUsername;
 
   if (!isLoaded) {
     return null;
@@ -188,8 +188,8 @@ const GetStartedPage = () => {
                     Cancel
                   </Button>
                 </LinkContainer>
-                <Button className="border" variant="primary" type="submit">
-                  Save
+                <Button className="border" variant="primary" type="submit" disabled={isInvalid}>
+                  Submit
                 </Button>
               </div>
             </Form>
