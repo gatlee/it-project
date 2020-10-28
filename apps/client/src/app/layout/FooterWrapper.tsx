@@ -14,7 +14,6 @@ const FooterWrapper = (props: FooterWrapper): React.ReactElement => {
     minHeight: '43px',
     lineHeight: '43px',
     background: '#0275D8',
-    boxShadow: '0px 0 10px rgba(0, 0, 0, 0.6)',
     fontFamily: 'roboto',
     '.btn': {
       color: '#373A3C',

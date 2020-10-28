@@ -27,7 +27,9 @@ const PortfolioEditFooter = () => {
           </span>
         </Col>
 
-        <Col>You are editing this portfolio</Col>
+        <Col style={{ marginTop: '0.1rem' }}>
+          You are editing this portfolio
+        </Col>
 
         <Col>
           <span className="float-right">
