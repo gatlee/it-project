@@ -1,6 +1,11 @@
-import React from 'react';
+import { css } from 'emotion';
+import React, { useContext } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import { ThemedBackgroundContainer } from './ThemedBackgroundContainer';
+import { UserContext } from './UserContext';
+import { UserTheme } from '@pure-and-lazy/api-interfaces';
+import Bean from '../../assets/Bean.png';
+import Jilden from '../../assets/landscape.png';
+import Silva from '../../assets/Silva.png';
 
 interface TitleBox {
   title: string;
@@ -9,15 +14,26 @@ interface TitleBox {
 
 // Pretty box with title and subheading
 const TitleBox = (props: TitleBox) => {
-  const style = {
+  const { theme } = useContext(UserContext);
+  let image;
+  if (theme === UserTheme.JILDEN) {
+    image = Jilden;
+  } else if (theme === UserTheme.BEAN) image = Bean;
+  else {
+    image = Silva;
+  }
+
+  const style = css({
+    background: 'white',
+    backgroundImage: ` linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${image})`,
     backgroundPosition: 'center',
     width: '100%',
     height: 'auto',
     backgroundSize: 'cover',
-  };
+  });
 
   return (
-    <ThemedBackgroundContainer style={style}>
+    <div className={style + ' shadow-lg'}>
       <Container fluid>
         <Container>
           <Row>
@@ -32,7 +48,7 @@ const TitleBox = (props: TitleBox) => {
           </Row>
         </Container>
       </Container>
-    </ThemedBackgroundContainer>
+    </div>
   );
 };
 

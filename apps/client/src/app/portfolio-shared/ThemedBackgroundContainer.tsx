@@ -18,11 +18,8 @@ const ThemedBackgroundContainer = (props: ThemedBackgroundContainer) => {
     image = Jilden;
   } else if (theme === UserTheme.BEAN) image = Bean;
   else {
-    image = Jilden;
+    image = Silva;
   }
-  image = Silva;
-  console.log('!!!');
-  console.log(image);
 
   return (
     <BackgroundContainer
