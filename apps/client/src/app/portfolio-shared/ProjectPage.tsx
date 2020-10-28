@@ -1,6 +1,7 @@
+import { PortfolioCategory } from '@pure-and-lazy/api-interfaces';
 import React from 'react';
+import { ItemList } from '../projects/ItemList';
 import { TitleBox } from './TitleBox';
-import { ProjectItemList } from '../projects/ProjectItemList';
 
 // Content of the project tab
 const ProjectPage = () => {
@@ -10,7 +11,7 @@ const ProjectPage = () => {
         title="Projects"
         subtitle="Lorem Ipsum Dolor (who knows what to write here?)"
       />
-      <ProjectItemList />
+      <ItemList category={PortfolioCategory.PROJECTS} />
     </>
   );
 };

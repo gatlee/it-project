@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { checkJwt } from '../auth';
 import {
-  viewAllItems,
+  viewAllPublicItems,
+  viewAllItemsByJwt,
   createItem,
   viewProfile,
   viewProfileByJwt,
@@ -42,6 +43,9 @@ import {
  *         image:
  *           type: string
  *           format: uri
+ *         public:
+ *           type: boolean
+ *           default: true
  *     UserProfile:
  *       type: object
  *       required:
@@ -108,6 +112,11 @@ import {
  *       type: string
  *       schema:
  *         enum: [projects, blog]
+ *   securitySchemas:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
 
 const router = Router();
@@ -161,6 +170,8 @@ router.get('/:username/profile', viewProfile);
  *         description: Malformed input.
  *     tags:
  *       - Portfolio
+ *     security:
+ *       - bearerAuth: []
  *   put:
  *     description: Edit a user's profile.
  *     parameters:
@@ -172,6 +183,8 @@ router.get('/:username/profile', viewProfile);
  *         description: Malformed input.
  *     tags:
  *       - Portfolio
+ *     security:
+ *       - bearerAuth: []
  */
 router.route('/profile').get(checkJwt, viewProfileByJwt).put(editProfile);
 
@@ -179,7 +192,7 @@ router.route('/profile').get(checkJwt, viewProfileByJwt).put(editProfile);
  * @swagger
  * /api/portfolio/{username}/all:
  *   get:
- *     description: Get all portfolio items for a user.
+ *     description: Get all (public) portfolio items for a user.
  *     parameters:
  *       - $ref: '#/components/parameters/usernameParam'
  *       - $ref: '#/components/parameters/categoryParam'
@@ -197,7 +210,34 @@ router.route('/profile').get(checkJwt, viewProfileByJwt).put(editProfile);
  *     tags:
  *       - Portfolio
  */
-router.get('/:username/all', viewAllItems);
+router.get('/:username/all', viewAllPublicItems);
+
+/**
+ * @swagger
+ * /api/portfolio/all:
+ *   get:
+ *     description: Get all (both public and private) portfolio items for a user (given a JWT).
+ *     parameters:
+ *       - $ref: '#/components/parameters/categoryParam'
+ *     responses:
+ *       200:
+ *         description: An array of portfolio items.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/PortfolioItem'
+ *       404:
+ *         description: Unknown user.
+ *       400:
+ *         description: Malformed input.
+ *     tags:
+ *       - Portfolio
+ *     security:
+ *       - bearerAuth: []
+ */
+router.get('/all', checkJwt, viewAllItemsByJwt);
 
 /**
  * @swagger
@@ -215,6 +255,8 @@ router.get('/:username/all', viewAllItems);
  *         description: Malformed input.
  *     tags:
  *       - Portfolio
+ *     security:
+ *       - bearerAuth: []
  */
 router.post('/create', createItem);
 
@@ -252,6 +294,8 @@ router.post('/create', createItem);
  *         description: Portfolio item belongs to another user.
  *     tags:
  *       - Portfolio
+ *     security:
+ *       - bearerAuth: []
  *   delete:
  *     description: Delete a portfolio item.
  *     parameters:
@@ -265,6 +309,8 @@ router.post('/create', createItem);
  *         description: Portfolio item belongs to another user.
  *     tags:
  *       - Portfolio
+ *     security:
+ *       - bearerAuth: []
  */
 router
   .route('/:portfolioItemId')

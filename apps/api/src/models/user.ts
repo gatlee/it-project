@@ -23,6 +23,8 @@ class User {
     'themeDark',
   ];
 
+  static editableFields = ['name', 'description', 'profilePicture'];
+
   toProfile(): UserProfile {
     return {
       username: this.username,

@@ -16,7 +16,9 @@ interface PortfolioItem {
   created?: Date;
   lastModified?: Date;
   image?: string;
+  public?: boolean;
 }
+type PortfolioItemValue = PortfolioItem[keyof PortfolioItem];
 
 interface UserProfile {
   username: string;
@@ -34,4 +36,11 @@ enum UserTheme {
   // TODO: add more themes here
 }
 
-export { Message, PortfolioItem, PortfolioCategory, UserProfile, UserTheme };
+export {
+  Message,
+  PortfolioItem,
+  PortfolioItemValue,
+  PortfolioCategory,
+  UserProfile,
+  UserTheme,
+};

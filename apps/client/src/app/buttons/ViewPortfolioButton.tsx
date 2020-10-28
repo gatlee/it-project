@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useAuth0 } from '@auth0/auth0-react';
+import { UserContext } from '../portfolio-shared/UserContext';
 
 const ViewPortfolioButton = () => {
-  const { user } = useAuth0();
-  const { nickname } = user;
+  const { username } = useContext(UserContext);
 
   return (
-    <LinkContainer to={`/u/${nickname}`}>
+    <LinkContainer to={`/u/${username}`}>
       <Button variant="primary" className="mr-2">
         Your Portfolio
       </Button>

@@ -10,6 +10,7 @@ class PortfolioItem {
   @prop({ required: true }) created!: Date;
   @prop({ required: true }) lastModified!: Date;
   @prop() image?: string;
+  @prop({ default: true }) public?: boolean;
 }
 
 const PortfolioItemModel = getModelForClass(PortfolioItem);

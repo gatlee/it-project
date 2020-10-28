@@ -7,7 +7,8 @@ interface AdminTitle {
 
 const AdminTitle = (props: AdminTitle) => {
   const headerStyle = {
-    fontWeight: 500,
+    font: 'Roboto',
+    fontWeight: 400,
     '@media (max-width: 992px)': {
       fontSize: 48,
     },
@@ -17,7 +18,8 @@ const AdminTitle = (props: AdminTitle) => {
   };
 
   const subtitleStyle = {
-    fontWeight: 400,
+    font: 'Roboto',
+    fontWeight: 300,
     '@media (max-width: 992px)': {
       fontSize: 16,
     },
