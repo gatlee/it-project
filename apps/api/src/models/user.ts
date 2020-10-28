@@ -12,6 +12,8 @@ class User {
   @prop() profilePicture?: string;
   @prop({ ref: PortfolioItem }) portfolio: Ref<PortfolioItem>[];
 
+  static editableFields = ['name', 'description', 'profilePicture'];
+
   toProfile(): UserProfile {
     return {
       username: this.username,

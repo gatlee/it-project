@@ -1,12 +1,17 @@
 import { useAuth0 } from '@auth0/auth0-react';
+import { css } from 'emotion';
 import React from 'react';
 
 const AdminSignOut = () => {
   const { logout } = useAuth0();
 
+  const style = css({
+    font: 'Roboto',
+  });
+
   return (
     <span
-      className="p-2 pointer"
+      className={'p-2 pointer ' + style}
       onClick={() =>
         logout({
           returnTo: window.location.origin,

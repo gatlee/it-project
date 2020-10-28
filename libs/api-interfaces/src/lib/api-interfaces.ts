@@ -16,7 +16,9 @@ interface PortfolioItem {
   created?: Date;
   lastModified?: Date;
   image?: string;
+  public?: boolean;
 }
+type PortfolioItemValue = PortfolioItem[keyof PortfolioItem];
 
 interface UserProfile {
   username: string;
@@ -27,4 +29,10 @@ interface UserProfile {
   profilePicture?: string;
 }
 
-export { Message, PortfolioItem, PortfolioCategory, UserProfile };
+export {
+  Message,
+  PortfolioItem,
+  PortfolioItemValue,
+  PortfolioCategory,
+  UserProfile,
+};

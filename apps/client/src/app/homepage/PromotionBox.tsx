@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Col, Container, Row, Image } from 'react-bootstrap';
 import GetStartedButton from '../buttons/GetStartedButton';
 import SignInButton from '../buttons/SignInButton';
@@ -8,10 +8,17 @@ import DemoImage from '../../assets/PortfolioDemo.png';
 import MobileDemo from '../../assets/MobileDemo.png';
 import { useAuth0 } from '@auth0/auth0-react';
 import { css } from '@emotion/core';
+import { UserContext } from '../portfolio-shared/UserContext';
+import { AuthContext } from '../auth/AuthContext';
 
 const PromotionBox = () => {
-  const { user, isAuthenticated } = useAuth0();
-  const { name } = user;
+  const { isAuthenticated } = useAuth0();
+  const { registrationComplete } = useContext(AuthContext);
+  const { name } = useContext(UserContext);
+
+  const welcomeMessage = registrationComplete
+    ? `Welcome back, ${name}!`
+    : `Welcome back!`;
 
   const titleStyle = {
     fontSize: '3.4em',
@@ -21,12 +28,20 @@ const PromotionBox = () => {
   const subtitleStyle = {
     fontSize: '1.7em',
     paddingBottom: '10vh',
+    '@media (max-width: 1200px)': {
+      paddingBottom: '5vh',
+    },
   };
 
   const imageStyle = {
     maxWidth: '700px',
+    minWidth: '450px',
     width: '100%',
     imageRendering: '-webkit-optimize-contrast' as const,
+    '@media (max-width: 576px)': {
+      maxWidth: '215px',
+      minWidth: '100px',
+    },
   };
 
   const topMarginStyle = {
@@ -35,7 +50,7 @@ const PromotionBox = () => {
       height: '5vh',
     },
     '@media (min-width: 992px)': {
-      height: '20vh',
+      height: '25vh',
     },
   };
 
@@ -64,13 +79,12 @@ const PromotionBox = () => {
 
           {isAuthenticated ? (
             <>
-              <p> Welcome back, {name}!</p>
+              <p>{welcomeMessage}</p>
               <AdminButton />
               <SignOutButton />
             </>
           ) : (
             <>
-              <p></p>
               <GetStartedButton />
               <SignInButton />
             </>
@@ -81,13 +95,13 @@ const PromotionBox = () => {
           <Image
             src={DemoImage}
             css={imageStyle}
-            className="shadow-lg d-none d-lg-block"
+            className="shadow-lg d-none d-sm-block mx-auto"
             fluid
           />
           <Image
             src={MobileDemo}
             css={imageStyle}
-            className="shadow-lg d-block d-lg-none"
+            className="shadow-lg d-block d-sm-none mx-auto"
             fluid
           />
         </Col>

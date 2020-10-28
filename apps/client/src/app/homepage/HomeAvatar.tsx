@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image } from 'react-bootstrap';
 import { Upload } from 'react-bootstrap-icons';
 import Dropzone from 'react-dropzone';
-import { generateCloudinaryUrl } from '../../cloudinaryUtility';
 import { css } from 'emotion';
+import { generateCloudinaryUrl } from '../cloudinaryUtility';
+import { EditContext } from '../portfolio-shared/EditContext';
+import { AVATAR_WIDTH } from './HomeConstants';
 
 /* CSS adapted from: https://www.w3schools.com/howto/howto_css_image_overlay_icon.asp */
 
-interface ProjectItemImage {
+interface HomeAvatar {
   onImageChange: (image: string) => void;
   image: string;
 }
 
-const ProjectItemImage = (props: ProjectItemImage) => {
+const HomeAvatar = (props: HomeAvatar) => {
+  const editMode = useContext(EditContext);
+
   const handleFileDrop = async (file) => {
     const imageUrl = await generateCloudinaryUrl(file);
     props.onImageChange(imageUrl);
@@ -21,11 +25,13 @@ const ProjectItemImage = (props: ProjectItemImage) => {
   /* Container needed to position the overlay. Adjust the width as needed */
   const projectImageContainerStyle = css({
     width: '100%',
+    height: '100%',
+    maxWidth: `${AVATAR_WIDTH}px`,
     // If image exists, keep ratio
     // otherwise, need to fill parent div to have an overlay without image
-    height: `${props.image ? 'auto' : '100%'}`,
     position: 'relative',
-    backgroundColor: 'gray',
+    outline: 'none',
+    userSelect: 'none',
   });
 
   /* The overlay effect (full height and width) - lays on top of the container and over the image */
@@ -44,6 +50,7 @@ const ProjectItemImage = (props: ProjectItemImage) => {
       opacity: 0.6,
       '-webkit-transition': '.3s ease',
     },
+    borderRadius: '50%',
   });
 
   const iconStyle = css({
@@ -57,10 +64,17 @@ const ProjectItemImage = (props: ProjectItemImage) => {
     textAlign: 'center',
   });
 
-  const imageStyle = css({
-    width: '100%',
-    height: '100%',
-  });
+  // To render instead of image on empty profile picture
+  const FallbackAvatar = () => (
+    <div
+      className={css({
+        width: `${AVATAR_WIDTH}px`,
+        height: `${AVATAR_WIDTH}px`,
+        background: 'gray',
+        borderRadius: '50%',
+      })}
+    />
+  );
 
   return (
     <Dropzone
@@ -72,11 +86,25 @@ const ProjectItemImage = (props: ProjectItemImage) => {
       accept="image/*"
     >
       {({ getRootProps, getInputProps }) => (
-        <div {...getRootProps()} className={projectImageContainerStyle}>
-          <input {...getInputProps()} />
-          {props.image && <Image src={props.image} className={imageStyle} />}
-          <div className={projectImageOverlay}>
-            <Upload className={iconStyle} />
+        <div {...getRootProps()} className={css({ outline: 'none' })}>
+          <div className={projectImageContainerStyle + ' mx-auto'}>
+            {props.image ? (
+              <Image
+                fluid
+                className="shadow-lg"
+                roundedCircle={true}
+                src={props.image}
+              />
+            ) : (
+              <FallbackAvatar />
+            )}
+
+            {editMode && (
+              <div className={projectImageOverlay}>
+                <input {...getInputProps()} />
+                <Upload className={iconStyle} />
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -84,4 +112,4 @@ const ProjectItemImage = (props: ProjectItemImage) => {
   );
 };
 
-export { ProjectItemImage };
+export { HomeAvatar };
