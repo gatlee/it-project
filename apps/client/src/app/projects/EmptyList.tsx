@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { PortfolioCategory } from '@pure-and-lazy/api-interfaces';
 import { Container, Row } from 'react-bootstrap';
+import { EditContext } from '../portfolio-shared/EditContext';
 
 interface EmptyList {
   category: PortfolioCategory;
 }
 
 const EmptyList = (props: EmptyList) => {
+  const isEditMode = useContext(EditContext);
   const largeText =
     props.category === PortfolioCategory.BLOG
       ? 'No posts yet'
@@ -29,12 +31,14 @@ const EmptyList = (props: EmptyList) => {
           {largeText}
         </h1>
       </Row>
-      <Row className="mt-5">
-        <p className="text-center m-auto " css={{ font: 'Roboto' }}>
-          {subtext1} {'\n'} <br />
-          {subtext2}
-        </p>
-      </Row>
+      {isEditMode && (
+        <Row className="mt-5">
+          <p className="text-center m-auto " css={{ font: 'Roboto' }}>
+            {subtext1} {'\n'} <br />
+            {subtext2}
+          </p>
+        </Row>
+      )}
     </Container>
   );
 };
