@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import FooterAdminButton from '../buttons/FooterAdminButton';
 import ViewAsButton from '../buttons/ViewAsButton';
+import { UserContext } from './UserContext';
+import { useLocation } from 'react-router-dom';
 import { Container, Col, ButtonToolbar, Row } from 'react-bootstrap';
 
 // Footer displayed when viewing your own portfolio as a visitor
 const PortfolioViewFooter = () => {
-  const link = `/edit`;
+  const { pathname } = useLocation();
+  const { username } = useContext(UserContext);
+  const userPrefix: string = `/u/${username}`;
+  const link: string = `/edit${pathname.slice(userPrefix.length)}`;
 
   return (
     <>

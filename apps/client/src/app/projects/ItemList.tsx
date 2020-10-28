@@ -42,8 +42,8 @@ const ItemList = (props: ItemList) => {
     loadItems();
   }, [loadItems]);
 
-  const itemComponents = items.map((item, index) => (
-    <ProjectItem key={index} onUpdate={loadItems} itemInfo={item} />
+  const itemComponents = items.map((item) => (
+    <ProjectItem key={item._id} onUpdate={loadItems} itemInfo={item} />
   ));
 
   return (
