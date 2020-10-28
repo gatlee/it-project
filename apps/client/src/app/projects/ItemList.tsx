@@ -47,7 +47,7 @@ const ItemList = (props: ItemList) => {
   ));
 
   return (
-    <Container className="pt-5">
+    <Container className="pt-5 mb-5 pb-5">
       <Loader loaded={loaded}>
         <Row>{itemComponents} </Row>
       </Loader>
