@@ -1,8 +1,15 @@
 import React from 'react';
-import { Button, Card, Col, ButtonGroup } from 'react-bootstrap';
-import { EditContext } from '../portfolio-shared/EditContext';
+import {
+  Button,
+  ButtonGroup,
+  Card,
+  Col,
+  Container,
+  Row,
+} from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { css } from '@emotion/core';
+import { EditContext } from '../portfolio-shared/EditContext';
+import { PrivacyIcon } from '../portfolio-shared/PrivacyIcon';
 
 interface ProjectItemDisplay {
   title: string;
@@ -11,6 +18,7 @@ interface ProjectItemDisplay {
   link: string;
   onOpenEditor: () => void;
   onDelete: () => void;
+  isPublic: boolean;
 }
 
 // Card display that shows the project item
@@ -47,17 +55,29 @@ const ProjectItemDisplay = (props: ProjectItemDisplay) => {
           <EditContext.Consumer>
             {(editMode) =>
               editMode && (
-                <ButtonGroup>
-                  <Button
-                    onClick={props.onOpenEditor}
-                    variant="outline-primary"
-                  >
-                    Edit
-                  </Button>
-                  <Button onClick={props.onDelete} variant="outline-danger">
-                    Delete
-                  </Button>
-                </ButtonGroup>
+                <Container>
+                  <Row>
+                    <Col className="px-0">
+                      <ButtonGroup>
+                        <Button
+                          onClick={props.onOpenEditor}
+                          variant="outline-primary"
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          onClick={props.onDelete}
+                          variant="outline-danger"
+                        >
+                          Delete
+                        </Button>
+                      </ButtonGroup>
+                    </Col>
+                    <Col sm={1}>
+                      <PrivacyIcon hidden={props.isPublic} />
+                    </Col>
+                  </Row>
+                </Container>
               )
             }
           </EditContext.Consumer>

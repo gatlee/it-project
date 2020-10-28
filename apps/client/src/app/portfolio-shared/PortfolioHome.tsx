@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import BackgroundImage from '../../assets/landscape.png';
 import { BackgroundContainer } from '../BackgroundContainer';

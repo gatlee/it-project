@@ -1,7 +1,14 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
-import { Button, Container, Form, FormControl, Row } from 'react-bootstrap';
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  FormControl,
+  Row,
+} from 'react-bootstrap';
 import GradientBackground from '../../assets/GradientBackground.png';
 import useAuth0Api from '../api/useAuth0Api';
 import { BackgroundContainer } from '../BackgroundContainer';
@@ -121,64 +128,72 @@ const GetStartedPage = () => {
       <Container>
         <Row css={topMarginStyle}></Row>
         <Row className="mb-3">
-          <AdminTitle
-            title="Welcome to Pure & Lazy!"
-            subtitle="Before you get started, we need to know a few things about you"
-          />
+          <Col>
+            <AdminTitle
+              title="Welcome to Pure & Lazy!"
+              subtitle="Before you get started, we need to know a few things about you"
+            />
+          </Col>
         </Row>
         <Row>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group
-              className="mt-2"
-              controlId="name"
-              style={{ position: 'relative' }}
-            >
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                onChange={handleNameChange}
-                type="text"
-                placeholder="Enter name"
-                isInvalid={isInvalidName}
-                required
-              />
-              <FormControl.Feedback type="invalid" tooltip>
-                Name must only be made of letters [a-z] and numbers [0-9]
-              </FormControl.Feedback>
-            </Form.Group>
+          <Col lg={6} md={8}>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group
+                className="mt-2"
+                controlId="name"
+                style={{ position: 'relative' }}
+              >
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  onChange={handleNameChange}
+                  type="text"
+                  placeholder="Enter name"
+                  isInvalid={isInvalidName}
+                  required
+                />
+                <Form.Text className="text-muted">
+                  This will be shown on your profile
+                </Form.Text>
+                <FormControl.Feedback type="invalid" tooltip>
+                  Name must only be made of letters [a-z], numbers [0-9], spaces
+                  [ ] and hyphens [-]
+                </FormControl.Feedback>
+              </Form.Group>
 
-            <Form.Group
-              className="mt-4"
-              controlId="username"
-              style={{ position: 'relative' }}
-            >
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                onChange={handleUsernameChange}
-                type="text"
-                placeholder="Enter username"
-                isInvalid={isInvalidUsername}
-                required
-              />
-              <Form.Text className="text-muted">
-                This will be used to access your public profile. This{' '}
-                <b>can't</b> be changed in the future.
-              </Form.Text>
-              <FormControl.Feedback type="invalid" tooltip>
-                {errorMessage}
-              </FormControl.Feedback>
-            </Form.Group>
+              <Form.Group
+                className="mt-4"
+                controlId="username"
+                style={{ position: 'relative' }}
+              >
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                  onChange={handleUsernameChange}
+                  type="text"
+                  placeholder="Enter username"
+                  isInvalid={isInvalidUsername}
+                  required
+                />
+                <Form.Text className="text-muted">
+                  This will be used to access your public profile. This{' '}
+                  <b>can't</b> be changed in the future.
+                </Form.Text>
+                <FormControl.Feedback type="invalid" tooltip>
+                  {errorMessage}
+                </FormControl.Feedback>
+              </Form.Group>
 
-            <div className="mt-5">
-              <Button className="border" variant="primary" type="submit">
-                Save
-              </Button>
-              <LinkContainer to="/">
-                <Button variant="light" className="ml-3 border">
-                  Cancel
+              <div className="mt-5">
+                <LinkContainer to="/">
+                  <Button variant="light" className="mr-3 border">
+                    Cancel
+                  </Button>
+                </LinkContainer>
+                <Button className="border" variant="primary" type="submit">
+                  Save
                 </Button>
-              </LinkContainer>
-            </div>
-          </Form>
+              </div>
+            </Form>
+          </Col>
         </Row>
       </Container>
     </BackgroundContainer>
