@@ -25,6 +25,8 @@ const ProjectItemImage = (props: ProjectItemImage) => {
     paddingTop: '100%',
     position: 'relative',
     backgroundColor: 'gray',
+    outline: 'none',
+    userSelect: 'none',
   });
 
   /* The overlay effect (full height and width) - lays on top of the container and over the image */
