@@ -12,7 +12,7 @@ interface PortfolioItem {
   category: PortfolioCategory;
   name: string;
   description: string;
-  content: string;
+  content?: string;
   created?: Date;
   lastModified?: Date;
   image?: string;
