@@ -77,7 +77,7 @@ const GetStartedPage = () => {
 
   const handleNameChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setName(event.target.value);
-    const regEx = new RegExp('^[a-z0-9/ /-]+$', 'i');
+    const regEx = new RegExp('^[a-z0-9 -]+$', 'i');
     setIsInvalidName(!regEx.test(event.target.value));
   };
 
