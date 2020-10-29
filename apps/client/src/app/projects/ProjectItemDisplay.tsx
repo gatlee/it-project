@@ -23,7 +23,7 @@ interface ProjectItemDisplay {
 
 // Card display that shows the project item
 const ProjectItemDisplay = (props: ProjectItemDisplay) => {
-  // Restricts description to 3 lines of text. Anything after gets shortened and gets ... appended
+  // Restricts description to 6 lines of text. Anything after gets shortened and gets ... appended
   const clamp: React.CSSProperties = {
     display: '-webkit-box',
     WebkitLineClamp: 6,
@@ -40,7 +40,7 @@ const ProjectItemDisplay = (props: ProjectItemDisplay) => {
 
   const cardNew = {};
   return (
-    <Col sm="4" className="py-2">
+    <Col sm="6" lg="4" className="py-2">
       <Card style={cardNew} className="h-100">
         <LinkContainer to={props.link} className="pointer">
           <Card.Img variant="top" src={props.image || null} css={imageStyle} />
@@ -57,7 +57,7 @@ const ProjectItemDisplay = (props: ProjectItemDisplay) => {
               editMode && (
                 <Container>
                   <Row>
-                    <Col className="px-0">
+                    <Col className="pl-0">
                       <ButtonGroup>
                         <Button
                           onClick={props.onOpenEditor}
@@ -73,7 +73,7 @@ const ProjectItemDisplay = (props: ProjectItemDisplay) => {
                         </Button>
                       </ButtonGroup>
                     </Col>
-                    <Col sm={1}>
+                    <Col className="text-right">
                       <PrivacyIcon hidden={props.isPublic} />
                     </Col>
                   </Row>
