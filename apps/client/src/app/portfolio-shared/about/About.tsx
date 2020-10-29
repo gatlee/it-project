@@ -32,6 +32,7 @@ const About = () => {
 
   const descriptionStyle = {
     marginTop: '18%',
+    paddingBottom: '120px',
   };
 
   const [editorSaveButtonDisabled, setSaveButtonDisabled] = useState(false);
@@ -62,13 +63,13 @@ const About = () => {
         backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${BackgroundImage})`,
       }}
     >
-      <Container className="pt-5 mx-auto">
+      <Container className="pt-5">
         <Row>
           <Col sm={4} xs={12} className="pr-sm-5" css={profilePictureStyle}>
             <HomeAvatar image={profilePicture} />
           </Col>
           <Col sm={8} xs={12} className="pl-sm-5" css={descriptionStyle}>
-            <Container className="my-0 p-4" style={containerStyle}>
+            <Container className="p-4 mx-auto" style={containerStyle}>
               <AboutEditor
                 initialDescription={description}
                 editorSaveButtonDisabled={editorSaveButtonDisabled}
