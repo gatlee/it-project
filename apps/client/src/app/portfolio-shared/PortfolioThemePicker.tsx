@@ -17,19 +17,6 @@ const PortfolioThemePicker = (props: PortfolioThemePicker) => {
   const { getAccessTokenSilently } = useAuth0();
   const handleClose = () => props.onHide();
 
-  const themeButtonStyle = (color: string) =>
-    css({
-      width: '60px',
-      height: '60px',
-      borderRadius: '50%',
-      border: '4px solid #E3E3E3',
-      background: `${color}`,
-      ':hover': {
-        border: '4px solid gray',
-        '-webkit-transition': '.3s ease',
-      },
-    });
-
   const themeStyle = css({
     width: '200px',
     height: '100px',
@@ -62,14 +49,11 @@ const PortfolioThemePicker = (props: PortfolioThemePicker) => {
         className="m-3 text-center"
         id="example-custom-modal-styling-title"
       >
-        <h3 className="mb-3">Color Scheme</h3>
-        <button className={themeButtonStyle('white') + ' mr-3'} />
-        <button className={themeButtonStyle('black')} />
-        <h3 className="my-3">Theme Image</h3>
+        <h1 className="my-3">Theme Image</h1>
 
         <Container>
           <Row>
-            <Col className="text-center mb-3 mx-1">
+            <Col className="text-center mb-3 px-1" sm={12} xl={4}>
               <img
                 className={themeStyle}
                 src={Jilden}
@@ -77,7 +61,7 @@ const PortfolioThemePicker = (props: PortfolioThemePicker) => {
                 alt=""
               />
             </Col>
-            <Col className="text-center mb-3 mx-1">
+            <Col className="text-center mb-3 px-1" sm={12} xl={4}>
               <img
                 className={themeStyle}
                 src={Silva}
@@ -85,7 +69,7 @@ const PortfolioThemePicker = (props: PortfolioThemePicker) => {
                 alt=""
               />
             </Col>
-            <Col className="text-center mb-3 mx-1">
+            <Col className="text-center mb-3 px-1" sm={12} xl={4}>
               <img
                 className={themeStyle}
                 src={Bean}
