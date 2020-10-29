@@ -3,7 +3,15 @@ import { BackgroundContainer } from '../BackgroundContainer';
 import { AdminSignOut } from './AdminSignOut';
 import GradientBackground from '../../assets/GradientBackground.png';
 import { AdminTitle } from './AdminTitle';
-import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  FormControl,
+  Row,
+  Spinner,
+} from 'react-bootstrap';
 import { css } from 'emotion';
 import { UserContext } from '../portfolio-shared/UserContext';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -17,11 +25,14 @@ import { AuthContext } from '../auth/AuthContext';
 const ManagePage = () => {
   const { name, setName } = useContext(UserContext);
   const [formName, setFormName] = useState('');
+  const [isInvalidName, setIsInvalidName] = useState(false);
   const { getAccessTokenSilently } = useAuth0();
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const { registrationComplete, isLoaded } = useContext(AuthContext);
+
+  const isInvalid = isInvalidName;
 
   useEffect(() => {
     setFormName(name);
@@ -37,6 +48,8 @@ const ManagePage = () => {
 
   const handleNameChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setFormName(event.target.value);
+    const regEx = new RegExp('^[a-z0-9 -]+$', 'i');
+    setIsInvalidName(!regEx.test(event.target.value));
   };
 
   const topMarginStyle = css({
@@ -70,7 +83,11 @@ const ManagePage = () => {
     minWidth: '72px',
   };
 
-  const SaveButton = () => {
+  interface SaveButton {
+    isInvalid: boolean;
+  }
+
+  const SaveButton = (props: SaveButton) => {
     let content;
     if (saving) {
       content = (
@@ -93,7 +110,7 @@ const ManagePage = () => {
         className="border"
         variant={success ? 'success' : 'primary'}
         type="submit"
-        disabled={saving}
+        disabled={saving || isInvalid}
         style={buttonStyle}
       >
         {content}
@@ -119,17 +136,26 @@ const ManagePage = () => {
         <Row>
           <Col lg={6} md={8}>
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="mt-2" controlId="name">
+              <Form.Group
+                className="mt-2"
+                controlId="name"
+                style={{ position: 'relative' }}
+              >
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                   value={formName}
                   onChange={handleNameChange}
                   type="text"
                   placeholder="Enter name"
+                  isInvalid={isInvalidName}
                 />
                 <Form.Text className="text-muted">
                   This will be shown on your profile
                 </Form.Text>
+                <FormControl.Feedback type="invalid" tooltip>
+                  Name must only be made of letters [a-z], numbers [0-9], spaces
+                  [ ] and hyphens [-]
+                </FormControl.Feedback>
               </Form.Group>
 
               <div className="mt-5">
@@ -138,7 +164,7 @@ const ManagePage = () => {
                     Back
                   </Button>
                 </LinkContainer>
-                <SaveButton />
+                <SaveButton isInvalid={isInvalid} />
               </div>
             </Form>
           </Col>

@@ -57,13 +57,13 @@ const PortfolioThemePicker = (props: PortfolioThemePicker) => {
         <Container>
           <Row>
             <Col className="text-center mb-3">
-              <img className={themeStyle + ' shadow '} />
+              <img className={themeStyle + ' shadow '} alt="" />
             </Col>
             <Col className="text-center mb-3">
-              <img className={themeStyle + ' shadow '} />
+              <img className={themeStyle + ' shadow '} alt="" />
             </Col>
             <Col className="text-center mb-3">
-              <img className={themeStyle + ' shadow '} />
+              <img className={themeStyle + ' shadow '} alt="" />
             </Col>
           </Row>
         </Container>
