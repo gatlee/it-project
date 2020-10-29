@@ -21,11 +21,12 @@ const ProjectItemImage = (props: ProjectItemImage) => {
   /* Container needed to position the overlay. Adjust the width as needed */
   const projectImageContainerStyle = css({
     width: '100%',
-    // If image exists, keep ratio
-    // otherwise, need to fill parent div to have an overlay without image
-    height: `${props.image ? 'auto' : '100%'}`,
+    // Force Square, child elements need to be absolute position overlay on top of the padding
+    paddingTop: '100%', // Padding by percentage is based on width, you can do aspect ratios with this
     position: 'relative',
     backgroundColor: 'gray',
+    outline: 'none',
+    userSelect: 'none',
   });
 
   /* The overlay effect (full height and width) - lays on top of the container and over the image */
@@ -58,8 +59,13 @@ const ProjectItemImage = (props: ProjectItemImage) => {
   });
 
   const imageStyle = css({
+    position: 'absolute',
+    top: 0,
+    left: 0,
     width: '100%',
     height: '100%',
+    //Don't attempt to use objectFit, breaks the compiler
+    'object-fit': 'cover',
   });
 
   return (

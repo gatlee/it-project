@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useContext } from 'react';
 import { UserContext } from './UserContext';
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -7,14 +7,7 @@ interface LoggedInUserContextProvider {
 }
 
 const LoggedInUserContextProvider = (props: LoggedInUserContextProvider) => {
-  const [user, setUser] = useState({
-    username: '',
-    email: '',
-    name: '',
-    dateJoined: undefined,
-    profilePicture: '',
-    description: '',
-  });
+  const [user, setUser] = useState(useContext(UserContext));
 
   const setProfilePicture = (profilePicture: string) => {
     setUser((prevState) => {
