@@ -7,11 +7,14 @@ import { updateDescription } from '../../admin/AdminUtils';
 import { UserContext } from '../UserContext';
 import { BackgroundContainer } from '../../BackgroundContainer';
 import BackgroundImage from '../../../assets/landscape.png';
+import { HomeAvatar } from '../../homepage/HomeAvatar';
 
 const About = () => {
   const { getAccessTokenSilently } = useAuth0();
   const [editorOpen, setEditorOpen] = useState(false);
-  const { description, setDescription } = useContext(UserContext);
+  const { description, setDescription, profilePicture } = useContext(
+    UserContext
+  );
 
   const containerStyle = {
     backgroundColor: 'white',
@@ -46,22 +49,24 @@ const About = () => {
         backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${BackgroundImage})`,
       }}
     >
-      <Container className="my-3 p-4" style={containerStyle}>
-        <Col>
-          <></>
+      <Container>
+        <Col sm={3}>
+          <HomeAvatar image={profilePicture} />
         </Col>
-        <Col>
-          <AboutEditor
-            initialDescription={description}
-            editorSaveButtonDisabled={editorSaveButtonDisabled}
-            onCancel={handleCancel}
-            onSave={handleSave}
-            show={editorOpen}
-          />
-          <AboutDisplay
-            description={description}
-            onOpenEditor={handleOpenEditor}
-          />
+        <Col sm={8}>
+          <Container className="my-3 p-4" style={containerStyle}>
+            <AboutEditor
+              initialDescription={description}
+              editorSaveButtonDisabled={editorSaveButtonDisabled}
+              onCancel={handleCancel}
+              onSave={handleSave}
+              show={editorOpen}
+            />
+            <AboutDisplay
+              description={description}
+              onOpenEditor={handleOpenEditor}
+            />
+          </Container>
         </Col>
       </Container>
     </BackgroundContainer>

@@ -26,7 +26,7 @@ const AboutDisplay = (props: AboutDisplay) => {
           <h1>About Me</h1>
         </Col>
         <Col sm="auto">
-          <Container className="p-3">
+          <Container className="p-0">
             <EditContext.Consumer>
               {(editMode) =>
                 editMode && (
@@ -37,7 +37,7 @@ const AboutDisplay = (props: AboutDisplay) => {
           </Container>
         </Col>
       </Row>
-      <Row sm={10} style={{ wordWrap: 'break-word' }} className="ml-1">
+      <Row sm={10} style={{ wordWrap: 'break-word' }} className="ml-0">
         <ReactMarkdown
           source={props.description}
           escapeHtml={false}
