@@ -5,28 +5,47 @@ import { Pencil } from 'react-bootstrap-icons';
 import { EditContext } from '../EditContext';
 
 interface AboutDisplay {
-  content: string;
+  description: string;
   onOpenEditor: () => void;
 }
 
 const AboutDisplay = (props: AboutDisplay) => {
+  const contentStyle = {
+    img: {
+      maxWidth: '100%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      display: 'block',
+    },
+  };
+
   return (
-    <Row sm={10}>
-      <Col style={{ wordWrap: 'break-word' }}>
-        <ReactMarkdown source={props.content} />
-      </Col>
-      <Col sm="auto">
-        <Container className="p-3">
+    <Container>
+      <Row xs={10} className="pb-3">
+        <Col xs={10}>
+          <h1>About Me</h1>
+        </Col>
+        <Col xs={2}>
           <EditContext.Consumer>
             {(editMode) =>
               editMode && (
-                <Pencil onClick={props.onOpenEditor} className="pointer" />
+                <Pencil
+                  onClick={props.onOpenEditor}
+                  className="pointer float-right"
+                />
               )
             }
           </EditContext.Consumer>
-        </Container>
-      </Col>
-    </Row>
+        </Col>
+      </Row>
+      <Row sm={10} style={{ wordWrap: 'break-word' }} className="ml-0">
+        <ReactMarkdown
+          source={props.description}
+          escapeHtml={false}
+          css={contentStyle}
+        />
+      </Row>
+    </Container>
   );
 };
 

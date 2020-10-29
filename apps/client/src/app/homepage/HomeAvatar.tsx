@@ -6,20 +6,51 @@ import { css } from 'emotion';
 import { generateCloudinaryUrl } from '../cloudinaryUtility';
 import { EditContext } from '../portfolio-shared/EditContext';
 import { AVATAR_WIDTH } from './HomeConstants';
+import { updateProfilePicture } from '../admin/AdminUtils';
+import { UserContext } from '../portfolio-shared/UserContext';
+import { useAuth0 } from '@auth0/auth0-react';
 
 /* CSS adapted from: https://www.w3schools.com/howto/howto_css_image_overlay_icon.asp */
 
 interface HomeAvatar {
-  onImageChange: (image: string) => void;
   image: string;
 }
 
 const HomeAvatar = (props: HomeAvatar) => {
   const editMode = useContext(EditContext);
+  const { setProfilePicture } = useContext(UserContext);
+  const { getAccessTokenSilently } = useAuth0();
 
   const handleFileDrop = async (file) => {
     const imageUrl = await generateCloudinaryUrl(file);
-    props.onImageChange(imageUrl);
+    handleImageChange(imageUrl);
+  };
+
+  const handleImageChange = async (newImage: string) => {
+    // Crop image using Cloudinary Transformations before setting it
+    // Do note: It's quite powerful, there are transformations where it
+    // finds your face and crops it
+    //
+    // For now now just getting it rudimentary, I do not want to deal with the library this late
+    const secondLastSlash = newImage.lastIndexOf(
+      '/',
+      newImage.lastIndexOf('/') - 1
+    );
+
+    const croppedImage = [
+      newImage.slice(0, secondLastSlash),
+      `/c_lfill,h_${AVATAR_WIDTH},w_${AVATAR_WIDTH}/`,
+      newImage.slice(secondLastSlash),
+    ].join('');
+
+    updateProfilePicture(croppedImage, getAccessTokenSilently).then(
+      (response) => {
+        if (response.ok) {
+          setProfilePicture(croppedImage);
+        }
+        console.log(response);
+      }
+    );
   };
 
   /* Container needed to position the overlay. Adjust the width as needed */

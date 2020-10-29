@@ -20,6 +20,16 @@ const updateName = async (
   });
 };
 
+const updateDescription = async (
+  description: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getAccessTokenSilently: (options?: any) => Promise<string>
+) => {
+  return updateProfile(getAccessTokenSilently, {
+    description: description,
+  });
+};
+
 const updateTheme = async (
   theme: UserTheme,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -57,4 +67,4 @@ const updateProfile = async (
   });
 };
 
-export { updateProfilePicture, updateName, updateTheme };
+export { updateProfilePicture, updateName, updateDescription, updateTheme };

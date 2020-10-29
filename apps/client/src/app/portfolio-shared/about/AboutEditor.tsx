@@ -1,27 +1,72 @@
-import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
+import 'react-mde/lib/styles/css/react-mde-all.css';
+import { EditorBody } from '../../projects/editor/EditorBody';
 
 interface AboutEditor {
-  content: string;
-  onContentChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSave: () => void;
+  initialDescription: string;
+  editorSaveButtonDisabled: boolean;
+  onCancel: () => void;
+  onSave: (newInfo: string) => void;
+  show: boolean;
 }
 
 const AboutEditor = (props: AboutEditor) => {
+  const [description, setDescription] = useState(props.initialDescription);
+
+  useEffect(() => {
+    setDescription(props.initialDescription);
+  }, [props]);
+
+  const handleContentChange = (newDescription: string) => {
+    setDescription(newDescription);
+  };
+
+  const handleSave = () => {
+    props.onSave(description);
+  };
+
+  const handleCancel = () => {
+    props.onCancel();
+  };
+
   return (
-    <Form>
-      <Form.Group controlId="formGroupAbout">
-        <Form.Label>Edit Markdown</Form.Label>
-        <Form.Control
-          onChange={props.onContentChange}
-          size="lg"
-          value={props.content}
-          as="textarea"
-          style={{ height: '68vh' }}
-        />
-      </Form.Group>
-      <Button onClick={props.onSave}>Save</Button>
-    </Form>
+    <Modal show={props.show} centered dialogClassName="modal-xl">
+      <Container
+        style={{
+          backgroundColor: 'white',
+          borderRadius: '3px',
+        }}
+        className="p-5"
+        fluid
+      >
+        <Row>
+          <Col>
+            <h2>About You</h2>
+          </Col>
+        </Row>
+
+        <Row className="w-100 mx-0 py-3">
+          <EditorBody
+            content={description}
+            onContentChange={handleContentChange}
+          />
+        </Row>
+        <Row>
+          <Col>
+            <Button
+              disabled={props.editorSaveButtonDisabled}
+              onClick={handleSave}
+            >
+              Save
+            </Button>
+            <Button onClick={handleCancel} variant="Secondary">
+              Cancel
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+    </Modal>
   );
 };
 

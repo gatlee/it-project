@@ -7,7 +7,7 @@ import { TitleBox } from './TitleBox';
 const ProjectPage = () => {
   return (
     <>
-      <TitleBox title="Projects" subtitle="Projects I've worked on" />
+      <TitleBox title="Projects" subtitle="What I've been working on" />
       <ItemList category={PortfolioCategory.PROJECTS} />
     </>
   );

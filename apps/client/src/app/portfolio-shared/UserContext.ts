@@ -8,6 +8,7 @@ const UserContext = React.createContext({
   profilePicture: '',
   description: '',
   setProfilePicture: (profilePicture) => null,
+  setDescription: (description) => null,
   setName: (name) => null,
   theme: UserTheme.DEFAULT,
 });
