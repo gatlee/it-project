@@ -10,6 +10,15 @@ interface AboutDisplay {
 }
 
 const AboutDisplay = (props: AboutDisplay) => {
+  const contentStyle = {
+    img: {
+      maxWidth: '100%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      display: 'block',
+    },
+  };
+
   return (
     <Container>
       <Row sm={10}>
@@ -29,7 +38,11 @@ const AboutDisplay = (props: AboutDisplay) => {
         </Col>
       </Row>
       <Row sm={10} style={{ wordWrap: 'break-word' }} className="ml-1">
-        <ReactMarkdown source={props.description} />
+        <ReactMarkdown
+          source={props.description}
+          escapeHtml={false}
+          css={contentStyle}
+        />
       </Row>
     </Container>
   );
