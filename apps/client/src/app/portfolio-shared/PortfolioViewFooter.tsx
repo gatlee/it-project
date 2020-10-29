@@ -16,7 +16,7 @@ const PortfolioViewFooter = () => {
     <>
       {/* Large screen display */}
       <ButtonToolbar
-        className="justify-content-between d-none d-md-flex"
+        className="justify-content-between d-none d-lg-flex"
         as={Container}
       >
         <Col>
@@ -37,7 +37,7 @@ const PortfolioViewFooter = () => {
       </ButtonToolbar>
 
       {/* Small screen display */}
-      <Container className="d-md-none">
+      <Container className="d-lg-none">
         <Row>
           <p className="mx-auto my-0">You are viewing this portfolio</p>
         </Row>
