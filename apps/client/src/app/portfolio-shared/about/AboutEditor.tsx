@@ -1,12 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import { EditorBody } from '../../projects/editor/EditorBody';
-import {
-  PortfolioItem,
-  PortfolioItemValue,
-  UserProfile,
-} from '@pure-and-lazy/api-interfaces';
 
 interface AboutEditor {
   initialDescription: string;
@@ -17,19 +12,23 @@ interface AboutEditor {
 }
 
 const AboutEditor = (props: AboutEditor) => {
-  const [info, setInfo] = useState(props.initialDescription);
+  const [description, setDescription] = useState(props.initialDescription);
 
-  const handleContentChange = (content: string) => {
-    setInfo(content);
+  useEffect(() => {
+    setDescription(props.initialDescription);
+  }, [props]);
+
+  const handleContentChange = (newDescription: string) => {
+    setDescription(newDescription);
   };
 
   const handleSave = () => {
-    setInfo(props.initialDescription);
-    props.onSave(info);
+    setDescription(props.initialDescription);
+    props.onSave(description);
   };
 
   const handleCancel = () => {
-    setInfo(props.initialDescription);
+    setDescription(props.initialDescription);
     props.onCancel();
   };
 
@@ -50,7 +49,10 @@ const AboutEditor = (props: AboutEditor) => {
         </Row>
 
         <Row className="w-100 mx-0 py-3">
-          <EditorBody content={info} onContentChange={handleContentChange} />
+          <EditorBody
+            content={description}
+            onContentChange={handleContentChange}
+          />
         </Row>
         <Row>
           <Col>
