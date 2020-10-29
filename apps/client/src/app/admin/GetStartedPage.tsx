@@ -25,6 +25,7 @@ const GetStartedPage = () => {
   const [isInvalidName, setIsInvalidName] = useState(false);
   const [isInvalidUsername, setIsInvalidUsername] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   const { user, getAccessTokenSilently } = useAuth0();
   const { updateRegistrationStatus } = useAuth0Api();
@@ -99,11 +100,13 @@ const GetStartedPage = () => {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     event.preventDefault();
+    setSubmitting(true);
     try {
       await registerUser(name, username);
     } catch (error) {
       console.log('Error during submission', error);
     }
+    setSubmitting(false);
   };
 
   const topMarginStyle = {
@@ -192,7 +195,7 @@ const GetStartedPage = () => {
                   className="border"
                   variant="primary"
                   type="submit"
-                  disabled={isInvalid}
+                  disabled={isInvalid || submitting}
                 >
                   Submit
                 </Button>
