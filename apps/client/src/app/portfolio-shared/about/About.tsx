@@ -39,23 +39,22 @@ const About = () => {
   return (
     <Container className="my-3 p-4" style={containerStyle}>
       <AboutEditor
-        initialDescription={''}
+        initialDescription={'editor'}
         editorSaveButtonDisabled={editorSaveButtonDisabled}
         onCancel={handleCancel}
         onSave={handleSave}
         show={editorOpen}
       />
-      {editorOpen ? (
-        {
-          /* <AboutEditor
+      <AboutDisplay description={'viewer'} onOpenEditor={handleOpenEditor} />
+      {/*       {editorOpen ? (
+         <AboutEditor
           content={content}
           onSave={handleSave}
           onContentChange={handleContentChange}
-        /> */
-        }
+        />
       ) : (
         <AboutDisplay onOpenEditor={handleOpenEditor} content={content} />
-      )}
+      )} */}
     </Container>
   );
 };

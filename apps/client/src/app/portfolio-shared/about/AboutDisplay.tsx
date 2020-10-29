@@ -5,7 +5,7 @@ import { Pencil } from 'react-bootstrap-icons';
 import { EditContext } from '../EditContext';
 
 interface AboutDisplay {
-  content: string;
+  description: string;
   onOpenEditor: () => void;
 }
 
@@ -13,7 +13,7 @@ const AboutDisplay = (props: AboutDisplay) => {
   return (
     <Row sm={10}>
       <Col style={{ wordWrap: 'break-word' }}>
-        <ReactMarkdown source={props.content} />
+        <ReactMarkdown source={props.description} />
       </Col>
       <Col sm="auto">
         <Container className="p-3">
