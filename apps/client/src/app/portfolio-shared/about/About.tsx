@@ -64,10 +64,10 @@ const About = () => {
     >
       <Container className="pt-5 mx-auto">
         <Row>
-          <Col sm={3} xs={12} className="pr-sm-5" css={profilePictureStyle}>
+          <Col sm={4} xs={12} className="pr-sm-5" css={profilePictureStyle}>
             <HomeAvatar image={profilePicture} />
           </Col>
-          <Col sm={9} xs={12} className="pl-sm-5" css={descriptionStyle}>
+          <Col sm={8} xs={12} className="pl-sm-5" css={descriptionStyle}>
             <Container className="my-0 p-4" style={containerStyle}>
               <AboutEditor
                 initialDescription={description}

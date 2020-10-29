@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
+import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import { EditorBody } from '../../projects/editor/EditorBody';
 
