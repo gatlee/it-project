@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import { isDocument } from '@typegoose/typegoose';
 import { PortfolioItemModel } from '../models/portfolioItem';
-import { UserModel, User } from '../models/user';
+import { User, UserModel } from '../models/user';
 import {
   UserProfile,
   PortfolioItem,

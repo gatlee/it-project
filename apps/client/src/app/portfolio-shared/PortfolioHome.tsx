@@ -1,12 +1,11 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import BackgroundImage from '../../assets/landscape.png';
-import { BackgroundContainer } from '../BackgroundContainer';
-import { UserContext } from './UserContext';
-import { useAuth0 } from '@auth0/auth0-react';
 import { updateProfilePicture } from '../admin/AdminUtils';
 import { HomeAvatar } from '../homepage/HomeAvatar';
 import { AVATAR_WIDTH } from '../homepage/HomeConstants';
+import { ThemedBackgroundContainer } from './ThemedBackgroundContainer';
+import { UserContext } from './UserContext';
 
 const PortfolioHome = () => {
   const { name, username, profilePicture, setProfilePicture } = useContext(
@@ -48,12 +47,7 @@ const PortfolioHome = () => {
   };
 
   return (
-    <BackgroundContainer
-      background={BackgroundImage}
-      style={{
-        backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${BackgroundImage})`,
-      }}
-    >
+    <ThemedBackgroundContainer>
       <Container>
         <Row className="mt-5 mh-40">
           <Col className="mx-auto text-center" sm={10} lg={6}>
@@ -74,7 +68,7 @@ const PortfolioHome = () => {
           </Col>
         </Row>
       </Container>
-    </BackgroundContainer>
+    </ThemedBackgroundContainer>
   );
 };
 

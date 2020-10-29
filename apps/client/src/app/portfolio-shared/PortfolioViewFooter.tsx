@@ -1,19 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import FooterAdminButton from '../buttons/FooterAdminButton';
 import ViewAsButton from '../buttons/ViewAsButton';
 import { UserContext } from './UserContext';
 import { useLocation } from 'react-router-dom';
 import { Container, Col, ButtonToolbar, Row } from 'react-bootstrap';
+import { PortfolioThemePicker } from './PortfolioThemePicker';
 
 // Footer displayed when viewing your own portfolio as a visitor
 const PortfolioViewFooter = () => {
   const { pathname } = useLocation();
   const { username } = useContext(UserContext);
-  const userPrefix: string = `/u/${username}`;
-  const link: string = `/edit${pathname.slice(userPrefix.length)}`;
+  const userPrefix = `/u/${username}`;
+  const link = `/edit${pathname.slice(userPrefix.length)}`;
+
+  const [showThemePicker, setThemePicker] = useState(false);
+
+  const handleThemeClose = () => setThemePicker(false);
 
   return (
     <>
+      <PortfolioThemePicker show={showThemePicker} onHide={handleThemeClose} />
+
       {/* Large screen display */}
       <ButtonToolbar
         className="justify-content-between d-none d-lg-flex"
