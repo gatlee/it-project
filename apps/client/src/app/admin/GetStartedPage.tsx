@@ -19,11 +19,11 @@ import { Redirect } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 
 const GetStartedPage = () => {
-  // TODO: Client side validation
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
 
-  const [isInvalid, setIsInvalid] = useState(false);
+  const [isInvalidName, setIsInvalidName] = useState(false);
+  const [isInvalidUsername, setIsInvalidUsername] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const { user, getAccessTokenSilently } = useAuth0();
@@ -66,17 +66,19 @@ const GetStartedPage = () => {
       const errorData = error.response.data;
       console.log(errorData);
       if (errorData === 'username taken') {
-        setErrorMessage('URL is already taken');
-        setIsInvalid(true);
+        setErrorMessage('Username is already taken');
+        setIsInvalidUsername(true);
       } else if (errorData === 'auth0Id conflict') {
         setErrorMessage('ID conflict. Please contact Pure && Lazy.');
-        setIsInvalid(true);
+        setIsInvalidUsername(true);
       }
     }
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setName(event.target.value);
+    const regEx = new RegExp('^[a-z0-9 -]+$', 'i');
+    setIsInvalidName(!regEx.test(event.target.value));
   };
 
   const handleUsernameChange = (
@@ -84,7 +86,13 @@ const GetStartedPage = () => {
   ) => {
     setUsername(event.target.value);
     setErrorMessage('');
-    setIsInvalid(false);
+    setIsInvalidUsername(false);
+
+    const regEx = new RegExp('^[a-z0-9]+$', 'i');
+    setIsInvalidUsername(!regEx.test(event.target.value));
+    setErrorMessage(
+      'Username must only be made of letters [a-z] and numbers [0-9]'
+    );
   };
 
   const handleSubmit = async (
@@ -101,6 +109,8 @@ const GetStartedPage = () => {
   const topMarginStyle = {
     marginTop: '20vh',
   };
+
+  const isInvalid = isInvalidName || isInvalidUsername;
 
   if (!isLoaded) {
     return null;
@@ -128,25 +138,40 @@ const GetStartedPage = () => {
         <Row>
           <Col lg={6} md={8}>
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="mt-2" controlId="name">
+              <Form.Group
+                className="mt-2"
+                controlId="name"
+                style={{ position: 'relative' }}
+              >
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                   onChange={handleNameChange}
                   type="text"
                   placeholder="Enter name"
+                  isInvalid={isInvalidName}
+                  required
                 />
                 <Form.Text className="text-muted">
                   This will be shown on your profile
                 </Form.Text>
+                <FormControl.Feedback type="invalid" tooltip>
+                  Name must only be made of letters [a-z], numbers [0-9], spaces
+                  [ ] and hyphens [-]
+                </FormControl.Feedback>
               </Form.Group>
 
-              <Form.Group className="mt-4" controlId="username">
+              <Form.Group
+                className="mt-4"
+                controlId="username"
+                style={{ position: 'relative' }}
+              >
                 <Form.Label>Username</Form.Label>
                 <Form.Control
                   onChange={handleUsernameChange}
                   type="text"
                   placeholder="Enter username"
-                  isInvalid={isInvalid}
+                  isInvalid={isInvalidUsername}
+                  required
                 />
                 <Form.Text className="text-muted">
                   This will be used to access your public profile. This{' '}
@@ -163,8 +188,13 @@ const GetStartedPage = () => {
                     Cancel
                   </Button>
                 </LinkContainer>
-                <Button className="border" variant="primary" type="submit">
-                  Save
+                <Button
+                  className="border"
+                  variant="primary"
+                  type="submit"
+                  disabled={isInvalid}
+                >
+                  Submit
                 </Button>
               </div>
             </Form>

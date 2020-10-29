@@ -55,7 +55,7 @@ const PortfolioThemePicker = (props: PortfolioThemePicker) => {
           <Row>
             <Col className="text-center mb-3 px-1" sm={12} xl={4}>
               <img
-                className={themeStyle}
+                className={themeStyle + ' shadow'}
                 src={Jilden}
                 onClick={() => changeUserTheme(UserTheme.JILDEN)}
                 alt=""
@@ -63,7 +63,7 @@ const PortfolioThemePicker = (props: PortfolioThemePicker) => {
             </Col>
             <Col className="text-center mb-3 px-1" sm={12} xl={4}>
               <img
-                className={themeStyle}
+                className={themeStyle + ' shadow'}
                 src={Silva}
                 onClick={() => changeUserTheme(UserTheme.SILVA)}
                 alt=""
@@ -71,7 +71,7 @@ const PortfolioThemePicker = (props: PortfolioThemePicker) => {
             </Col>
             <Col className="text-center mb-3 px-1" sm={12} xl={4}>
               <img
-                className={themeStyle}
+                className={themeStyle + ' shadow'}
                 src={Bean}
                 onClick={() => changeUserTheme(UserTheme.BEAN)}
                 alt=""
