@@ -5,7 +5,6 @@ import { AboutDisplay } from './AboutDisplay';
 import { AboutEditor } from './AboutEditor';
 import { updateDescription } from '../../admin/AdminUtils';
 import { UserContext } from '../UserContext';
-import BackgroundImage from '../../../assets/landscape.png';
 import { HomeAvatar } from '../../homepage/HomeAvatar';
 import { ThemedBackgroundContainer } from '../ThemedBackgroundContainer';
 import { css } from '@emotion/core';

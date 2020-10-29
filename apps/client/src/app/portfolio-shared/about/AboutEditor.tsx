@@ -23,12 +23,10 @@ const AboutEditor = (props: AboutEditor) => {
   };
 
   const handleSave = () => {
-    setDescription(props.initialDescription);
     props.onSave(description);
   };
 
   const handleCancel = () => {
-    setDescription(props.initialDescription);
     props.onCancel();
   };
 
