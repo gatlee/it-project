@@ -21,11 +21,11 @@ const AboutDisplay = (props: AboutDisplay) => {
 
   return (
     <Container>
-      <Row sm={10}>
-        <Col>
+      <Row sm={10} className="pb-3">
+        <Col xs={10}>
           <h1>About Me</h1>
         </Col>
-        <Col sm="auto">
+        <Col xs={2}>
           <Container className="p-0">
             <EditContext.Consumer>
               {(editMode) =>
