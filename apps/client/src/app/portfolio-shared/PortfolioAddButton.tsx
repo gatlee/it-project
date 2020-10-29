@@ -45,12 +45,12 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
     closeEditor();
   };
 
+  const buttonText =
+    props.category === PortfolioCategory.BLOG ? 'Add post' : 'Add project';
   return (
     <>
       <CenteredRowContent>
-        <Button size="lg" onClick={() => setEditorOpen(true)}>
-          +
-        </Button>
+        <Button onClick={() => setEditorOpen(true)}>{buttonText}</Button>
       </CenteredRowContent>
       <ProjectItemEditor
         initialInfo={initialInfo}

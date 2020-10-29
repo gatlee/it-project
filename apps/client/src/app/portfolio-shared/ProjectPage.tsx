@@ -7,10 +7,7 @@ import { TitleBox } from './TitleBox';
 const ProjectPage = () => {
   return (
     <>
-      <TitleBox
-        title="Projects"
-        subtitle="Lorem Ipsum Dolor (who knows what to write here?)"
-      />
+      <TitleBox title="Projects" subtitle="Projects I've worked on" />
       <ItemList category={PortfolioCategory.PROJECTS} />
     </>
   );

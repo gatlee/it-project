@@ -12,8 +12,22 @@ const LoggedInUserContextProvider = (props: LoggedInUserContextProvider) => {
     email: '',
     name: '',
     dateJoined: undefined,
+    profilePicture: '',
     description: '',
   });
+
+  const setProfilePicture = (profilePicture: string) => {
+    setUser((prevState) => {
+      return { ...prevState, profilePicture: profilePicture };
+    });
+  };
+
+  const setName = (name: string) => {
+    setUser((prevState) => {
+      return { ...prevState, name: name };
+    });
+  };
+  const contextState = { ...user, setProfilePicture, setName };
 
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
@@ -37,7 +51,9 @@ const LoggedInUserContextProvider = (props: LoggedInUserContextProvider) => {
   }, [findUser]);
 
   return (
-    <UserContext.Provider value={user}>{props.children}</UserContext.Provider>
+    <UserContext.Provider value={contextState}>
+      {props.children}
+    </UserContext.Provider>
   );
 };
 

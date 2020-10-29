@@ -43,7 +43,11 @@ const ContentPage = () => {
         image={content.image || ''}
       />
       <Container className="my-5 p-5 border">
-        <ReactMarkdown css={contentStyle} source={content.content} />
+        <ReactMarkdown
+          css={contentStyle}
+          source={content.content}
+          escapeHtml={false}
+        />
       </Container>
       <div className="mt-5" />
     </>

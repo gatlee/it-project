@@ -18,6 +18,7 @@ import { EditIndex } from './portfolio-shared/EditIndex';
 import { GetStartedPage } from './admin/GetStartedPage';
 import { LoggedInUserContextProvider } from './portfolio-shared/LoggedInUserContextProvider';
 import 'typeface-roboto';
+import { ManagePage } from './admin/ManagePage';
 
 export const App = () => {
   // Backgrounds for home page and portfolio currently
@@ -43,7 +44,8 @@ export const App = () => {
               <Route exact path="/">
                 <Home />
               </Route>
-              <PrivateRoute path="/admin" component={AdminPage} />
+              <PrivateRoute exact path="/admin" component={AdminPage} />
+              <PrivateRoute exact path="/admin/manage" component={ManagePage} />
               <PrivateRoute path="/getstarted" component={GetStartedPage} />
               <Route path="/signup">
                 <SignUp />

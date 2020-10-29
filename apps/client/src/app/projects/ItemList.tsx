@@ -11,6 +11,7 @@ import { UserContext } from '../portfolio-shared/UserContext';
 import { ProjectItem } from './ProjectItem';
 import { getPortfolioItems, getOwnPortfolioItems } from './ProjectUtils';
 import { useAuth0 } from '@auth0/auth0-react';
+import { EmptyList } from './EmptyList';
 
 interface ItemList {
   category: PortfolioCategory;
@@ -42,14 +43,18 @@ const ItemList = (props: ItemList) => {
     loadItems();
   }, [loadItems]);
 
-  const itemComponents = items.map((item, index) => (
-    <ProjectItem key={index} onUpdate={loadItems} itemInfo={item} />
+  const itemComponents = items.map((item) => (
+    <ProjectItem key={item._id} onUpdate={loadItems} itemInfo={item} />
   ));
 
   return (
-    <Container className="pt-5">
+    <Container className="pt-5 mb-5 pb-5">
       <Loader loaded={loaded}>
-        <Row>{itemComponents} </Row>
+        {itemComponents.length === 0 ? (
+          <EmptyList category={props.category} />
+        ) : (
+          <Row>{itemComponents} </Row>
+        )}
       </Loader>
       {editMode && (
         <Row className="align-items-center my-5">
