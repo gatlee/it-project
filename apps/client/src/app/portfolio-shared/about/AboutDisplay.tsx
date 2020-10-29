@@ -21,20 +21,21 @@ const AboutDisplay = (props: AboutDisplay) => {
 
   return (
     <Container>
-      <Row sm={10} className="pb-3">
+      <Row xs={10} className="pb-3">
         <Col xs={10}>
           <h1>About Me</h1>
         </Col>
         <Col xs={2}>
-          <Container className="p-0">
-            <EditContext.Consumer>
-              {(editMode) =>
-                editMode && (
-                  <Pencil onClick={props.onOpenEditor} className="pointer" />
-                )
-              }
-            </EditContext.Consumer>
-          </Container>
+          <EditContext.Consumer>
+            {(editMode) =>
+              editMode && (
+                <Pencil
+                  onClick={props.onOpenEditor}
+                  className="pointer float-right"
+                />
+              )
+            }
+          </EditContext.Consumer>
         </Col>
       </Row>
       <Row sm={10} style={{ wordWrap: 'break-word' }} className="ml-0">
