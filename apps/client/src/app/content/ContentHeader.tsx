@@ -3,7 +3,6 @@ import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { CenteredRowContent } from '../layout/CenteredRowContent';
 import { ClockFill } from 'react-bootstrap-icons';
-import { ThemedBackgroundContainer } from '../portfolio-shared/ThemedBackgroundContainer';
 
 interface ContentHeader {
   title: string;
@@ -13,8 +12,19 @@ interface ContentHeader {
 }
 
 const ContentHeader = (props: ContentHeader) => {
+  const style = css({
+    background: '#aaa',
+    backgroundImage: props.image
+      ? `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${props.image})`
+      : null,
+    backgroundPosition: 'center',
+    width: '100%',
+    height: 'auto',
+    backgroundSize: 'cover',
+  });
+
   return (
-    <ThemedBackgroundContainer>
+    <div className={style + ' shadow-lg'}>
       <Container fluid>
         <Container>
           <Row>
@@ -42,7 +52,7 @@ const ContentHeader = (props: ContentHeader) => {
           </Row>
         </Container>
       </Container>
-    </ThemedBackgroundContainer>
+    </div>
   );
 };
 
