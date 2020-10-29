@@ -74,13 +74,13 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
           </Col>
         </Row>
         <Row className="py-3">
-          <Col xs={12} sm={12} md={4}>
+          <Col xs={12} lg={4} xl={3}>
             <ProjectItemImage
               onImageChange={handleImageChange}
               image={info.image}
             />
           </Col>
-          <Col xs={12} sm={12} md={8}>
+          <Col xs={12} lg={8} xl={9}>
             <Form>
               <Form.Group controlId="formGroupTitle">
                 <Form.Label>Title</Form.Label>
