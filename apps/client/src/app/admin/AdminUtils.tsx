@@ -11,22 +11,22 @@ const updateProfilePicture = async (
 };
 
 const updateName = async (
-  theme: UserTheme,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getAccessTokenSilently: (options?: any) => Promise<string>
-) => {
-  return updateProfile(getAccessTokenSilently, {
-    theme: theme,
-  });
-};
-
-const updateTheme = async (
   name: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getAccessTokenSilently: (options?: any) => Promise<string>
 ) => {
   return updateProfile(getAccessTokenSilently, {
     name: name,
+  });
+};
+
+const updateTheme = async (
+  theme: UserTheme,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getAccessTokenSilently: (options?: any) => Promise<string>
+) => {
+  return updateProfile(getAccessTokenSilently, {
+    theme: theme,
   });
 };
 

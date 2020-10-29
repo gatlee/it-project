@@ -5,6 +5,8 @@ import { Col, Container, Modal, Row } from 'react-bootstrap';
 import Bean from '../../assets/Bean.png';
 import Jilden from '../../assets/landscape.png';
 import Silva from '../../assets/Silva.png';
+import { updateTheme } from '../admin/AdminUtils';
+import { useAuth0 } from '@auth0/auth0-react';
 
 interface PortfolioThemePicker {
   show: boolean;
@@ -12,6 +14,7 @@ interface PortfolioThemePicker {
 }
 
 const PortfolioThemePicker = (props: PortfolioThemePicker) => {
+  const { getAccessTokenSilently } = useAuth0();
   const handleClose = () => props.onHide();
 
   const themeButtonStyle = (color: string) =>
@@ -42,7 +45,9 @@ const PortfolioThemePicker = (props: PortfolioThemePicker) => {
   });
 
   const changeUserTheme = (theme: UserTheme) => {
-    console.log('change');
+    updateTheme(theme, getAccessTokenSilently).then(() =>
+      window.location.reload()
+    );
   };
 
   return (
