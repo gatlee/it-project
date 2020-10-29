@@ -22,6 +22,7 @@ const PortfolioThemePicker = (props: PortfolioThemePicker) => {
     height: '100px',
     background: 'LightGray',
     border: 'none',
+    cursor: 'pointer',
   });
 
   const modalStyle = css({
