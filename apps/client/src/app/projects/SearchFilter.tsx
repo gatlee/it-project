@@ -11,7 +11,13 @@ const SearchFilter = (props: SearchFilter) => {
     props.onChange(event.target.value);
   };
   return (
-    <Form className="mx-auto" inline>
+    <Form
+      className="mx-auto"
+      inline
+      onSubmit={() => {
+        event.preventDefault();
+      }}
+    >
       <FormControl
         type="text"
         placeholder="Filter..."
