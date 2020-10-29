@@ -27,6 +27,15 @@ interface UserProfile {
   dateJoined: Date;
   description?: string;
   profilePicture?: string;
+  theme?: UserTheme;
+  themeDark?: boolean;
+}
+
+enum UserTheme {
+  DEFAULT,
+  SILVA,
+  BEAN,
+  JILDEN,
 }
 
 export {
@@ -35,4 +44,5 @@ export {
   PortfolioItemValue,
   PortfolioCategory,
   UserProfile,
+  UserTheme,
 };

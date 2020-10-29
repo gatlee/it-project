@@ -23,6 +23,7 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
     description: '',
     content: '',
     image: '',
+    public: true,
   };
 
   const [editorOpen, setEditorOpen] = useState(false);

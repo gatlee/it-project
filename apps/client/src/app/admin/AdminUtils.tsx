@@ -1,3 +1,5 @@
+import { UserTheme } from '@pure-and-lazy/api-interfaces';
+
 const updateProfilePicture = async (
   profilePicture: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -28,6 +30,16 @@ const updateDescription = async (
   });
 };
 
+const updateTheme = async (
+  theme: UserTheme,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getAccessTokenSilently: (options?: any) => Promise<string>
+) => {
+  return updateProfile(getAccessTokenSilently, {
+    theme: theme,
+  });
+};
+
 // Not Exported
 const updateProfile = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -55,4 +67,4 @@ const updateProfile = async (
   });
 };
 
-export { updateProfilePicture, updateName, updateDescription };
+export { updateProfilePicture, updateName, updateDescription, updateTheme };

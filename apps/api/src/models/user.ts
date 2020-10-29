@@ -1,6 +1,6 @@
 import { prop, getModelForClass, Ref } from '@typegoose/typegoose';
 import { PortfolioItem } from './portfolioItem';
-import { UserProfile } from '@pure-and-lazy/api-interfaces';
+import { UserProfile, UserTheme } from '@pure-and-lazy/api-interfaces';
 
 class User {
   @prop({ required: true, unique: true }) username!: string;
@@ -11,8 +11,17 @@ class User {
   @prop({ required: true, unique: true }) auth0Id!: string;
   @prop() profilePicture?: string;
   @prop({ ref: PortfolioItem }) portfolio: Ref<PortfolioItem>[];
+  @prop({ enum: UserTheme, type: Number, default: UserTheme.DEFAULT })
+  theme?: UserTheme;
+  @prop({ default: false }) themeDark?: boolean;
 
-  static editableFields = ['name', 'description', 'profilePicture'];
+  static editableFields = [
+    'name',
+    'description',
+    'profilePicture',
+    'theme',
+    'themeDark',
+  ];
 
   toProfile(): UserProfile {
     return {
@@ -22,6 +31,8 @@ class User {
       dateJoined: this.dateJoined,
       description: this.description,
       profilePicture: this.profilePicture,
+      theme: this.theme,
+      themeDark: this.themeDark,
     };
   }
 }

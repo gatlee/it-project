@@ -1,20 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import FooterAdminButton from '../buttons/FooterAdminButton';
 import EditThemeButton from '../buttons/EditThemeButton';
 import ViewAsButton from '../buttons/ViewAsButton';
 import { useLocation } from 'react-router-dom';
 import { UserContext } from './UserContext';
 import { Container, Col, ButtonToolbar, Row } from 'react-bootstrap';
+import { PortfolioThemePicker } from './PortfolioThemePicker';
 
 // Footer displayed on the edit page
 const PortfolioEditFooter = () => {
   const { username } = useContext(UserContext);
   const { pathname } = useLocation();
-  const editPrefix: string = '/edit';
+  const editPrefix = '/edit';
   const link = `/u/${username}${pathname.slice(editPrefix.length)}`;
+
+  const [showThemePicker, setThemePicker] = useState(false);
+
+  const handleThemeOpen = () => setThemePicker(true);
+  const handleThemeClose = () => setThemePicker(false);
 
   return (
     <>
+      <PortfolioThemePicker show={showThemePicker} onHide={handleThemeClose} />
       {/* Large screen display */}
       <ButtonToolbar
         className="justify-content-between d-none d-lg-flex"
@@ -23,7 +30,7 @@ const PortfolioEditFooter = () => {
         <Col>
           <span className="float-left">
             <FooterAdminButton />
-            <EditThemeButton />
+            <EditThemeButton onClick={handleThemeOpen} />
           </span>
         </Col>
 
@@ -47,7 +54,7 @@ const PortfolioEditFooter = () => {
         <Row>
           <ButtonToolbar className="mx-auto mb-2">
             <FooterAdminButton isSmall={true} />
-            <EditThemeButton isSmall={true} />
+            <EditThemeButton isSmall={true} onClick={handleThemeOpen} />
             <ViewAsButton
               target={link}
               content={'View as visitor'}

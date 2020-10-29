@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import BackgroundImage from '../../assets/landscape.png';
-import { BackgroundContainer } from '../BackgroundContainer';
 import { UserContext } from './UserContext';
 import { HomeAvatar } from '../homepage/HomeAvatar';
+import { ThemedBackgroundContainer } from './ThemedBackgroundContainer';
 
 const PortfolioHome = () => {
   const { name, username, profilePicture } = useContext(UserContext);
@@ -15,12 +14,7 @@ const PortfolioHome = () => {
   };
 
   return (
-    <BackgroundContainer
-      background={BackgroundImage}
-      style={{
-        backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${BackgroundImage})`,
-      }}
-    >
+    <ThemedBackgroundContainer>
       <Container>
         <Row className="mt-5 mh-40">
           <Col className="mx-auto text-center" sm={10} lg={6}>
@@ -38,7 +32,7 @@ const PortfolioHome = () => {
           </Col>
         </Row>
       </Container>
-    </BackgroundContainer>
+    </ThemedBackgroundContainer>
   );
 };
 

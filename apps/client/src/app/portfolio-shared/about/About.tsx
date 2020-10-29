@@ -5,9 +5,9 @@ import { AboutDisplay } from './AboutDisplay';
 import { AboutEditor } from './AboutEditor';
 import { updateDescription } from '../../admin/AdminUtils';
 import { UserContext } from '../UserContext';
-import { BackgroundContainer } from '../../BackgroundContainer';
 import BackgroundImage from '../../../assets/landscape.png';
 import { HomeAvatar } from '../../homepage/HomeAvatar';
+import { ThemedBackgroundContainer } from '../ThemedBackgroundContainer';
 import { css } from '@emotion/core';
 
 const About = () => {
@@ -57,12 +57,7 @@ const About = () => {
   };
 
   return (
-    <BackgroundContainer
-      background={BackgroundImage}
-      style={{
-        backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${BackgroundImage})`,
-      }}
-    >
+    <ThemedBackgroundContainer>
       <Container className="pt-5">
         <Row>
           <Col sm={4} xs={12} className="pr-sm-5" css={profilePictureStyle}>
@@ -85,7 +80,7 @@ const About = () => {
           </Col>
         </Row>
       </Container>
-    </BackgroundContainer>
+    </ThemedBackgroundContainer>
   );
 };
 

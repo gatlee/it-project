@@ -7,6 +7,7 @@ import {
   PortfolioItem,
   PortfolioItemValue,
 } from '@pure-and-lazy/api-interfaces';
+import { PrivacyToggle } from './PrivacyToggle';
 
 interface ProjectItemEditor {
   initialInfo: PortfolioItem;
@@ -27,6 +28,10 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
     setInfo({ ...info, [key]: value });
   };
 
+  const handlePublicChange = (newPublic: boolean) => {
+    handleUpdateItem('public', newPublic);
+  };
+
   const handleDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -45,7 +50,6 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
   };
 
   const handleSave = () => {
-    setInfo(props.initialInfo);
     props.onSave(info);
   };
 
@@ -73,6 +77,7 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
             </h2>
           </Col>
         </Row>
+        <hr />
         <Row className="py-3">
           <Col xs={12} lg={4} xl={3}>
             <ProjectItemImage
@@ -108,16 +113,25 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
             onContentChange={handleContentChange}
           />
         </Row>
-        <Row>
-          <Col>
+        <Row className="float-right">
+          <Col sm="auto">
+            <Button
+              className="mx-1"
+              onClick={handleCancel}
+              variant="outline-secondary"
+            >
+              Cancel
+            </Button>
+            <PrivacyToggle
+              isPublic={info.public}
+              onPublicChange={handlePublicChange}
+            />
             <Button
               disabled={props.editorSaveButtonDisabled}
               onClick={handleSave}
+              className="ml-1"
             >
               Save
-            </Button>
-            <Button onClick={handleCancel} variant="Secondary">
-              Cancel
             </Button>
           </Col>
         </Row>
