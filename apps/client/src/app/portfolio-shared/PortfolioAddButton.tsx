@@ -2,6 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import {
   PortfolioCategory,
   PortfolioItem,
+  PortfolioItemValue,
 } from '@pure-and-lazy/api-interfaces';
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
@@ -26,15 +27,17 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
     public: true,
   };
 
+  const [info, setInfo] = useState(initialInfo);
   const [editorOpen, setEditorOpen] = useState(false);
   const [editorSaveButtonDisabled, setSaveButtonDisabled] = useState(false);
 
   const closeEditor = () => {
+    setInfo(initialInfo);
     setEditorOpen(false);
     setSaveButtonDisabled(false);
   };
 
-  const handleSave = async (info: PortfolioItem) => {
+  const handleSave = async () => {
     setSaveButtonDisabled(true);
     try {
       await addPortfolioItem(info, getAccessTokenSilently);
@@ -47,6 +50,14 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
 
   const buttonText =
     props.category === PortfolioCategory.BLOG ? 'Add post' : 'Add project';
+
+  const handleUpdateItem = (
+    key: keyof PortfolioItem,
+    value: PortfolioItemValue
+  ) => {
+    setInfo({ ...info, [key]: value });
+  };
+
   return (
     <>
       <CenteredRowContent>
@@ -54,6 +65,8 @@ const PortfolioAddButton = (props: ProjectAddButton) => {
       </CenteredRowContent>
       <ProjectItemEditor
         initialInfo={initialInfo}
+        infoState={info}
+        onUpdateItem={handleUpdateItem}
         editorSaveButtonDisabled={editorSaveButtonDisabled}
         onCancel={closeEditor}
         onSave={handleSave}

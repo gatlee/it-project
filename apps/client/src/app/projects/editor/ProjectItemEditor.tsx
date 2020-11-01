@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import { EditorBody } from './EditorBody';
@@ -11,53 +11,42 @@ import { PrivacyToggle } from './PrivacyToggle';
 
 interface ProjectItemEditor {
   initialInfo: PortfolioItem;
+  infoState: PortfolioItem;
+  onUpdateItem: (key: keyof PortfolioItem, value: PortfolioItemValue) => void;
   editorSaveButtonDisabled: boolean;
   onCancel: () => void;
-  onSave: (newInfo: PortfolioItem) => void;
+  onSave: () => void;
   show: boolean;
 }
 
 const ProjectItemEditor = (props: ProjectItemEditor) => {
-  const [info, setInfo] = useState(props.initialInfo);
-
-  const handleUpdateItem = (
-    key: keyof PortfolioItem,
-    value: PortfolioItemValue
-  ) => {
-    // Update key value pair while preserving other values
-    setInfo({ ...info, [key]: value });
-  };
-
-  const handlePublicChange = (newPublic: boolean) => {
-    handleUpdateItem('public', newPublic);
-  };
-
   const handleDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    handleUpdateItem('description', event.target.value);
+    props.onUpdateItem('description', event.target.value);
   };
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleUpdateItem('name', event.target.value);
-  };
-
-  const handleImageChange = (image: string) => {
-    handleUpdateItem('image', image);
-  };
-
-  const handleContentChange = (content: string) => {
-    handleUpdateItem('content', content);
+    props.onUpdateItem('name', event.target.value);
   };
 
   const handleSave = () => {
-    props.onSave(info);
+    props.onSave();
   };
 
-  const handleCancel = () => {
-    setInfo(props.initialInfo);
-    props.onCancel();
+  const handleImageChange = (image: string) => {
+    props.onUpdateItem('image', image);
   };
 
+  const handleContentChange = (content: string) => {
+    props.onUpdateItem('content', content);
+  };
+
+  const handlePublicChange = (newPublic: boolean) => {
+    props.onUpdateItem('public', newPublic);
+  };
+
+  const { name, image, description, content } = props.infoState;
+  const isPublic = props.infoState.public;
   return (
     <Modal show={props.show} centered dialogClassName="modal-xl">
       <Container
@@ -80,10 +69,7 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
         <hr />
         <Row className="py-3">
           <Col xs={12} lg={4} xl={3}>
-            <ProjectItemImage
-              onImageChange={handleImageChange}
-              image={info.image}
-            />
+            <ProjectItemImage onImageChange={handleImageChange} image={image} />
           </Col>
           <Col xs={12} lg={8} xl={9}>
             <Form>
@@ -92,14 +78,14 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
                 <Form.Control
                   onChange={handleTitleChange}
                   size="lg"
-                  value={info.name}
+                  value={name}
                 />
               </Form.Group>
               <Form.Group controlId="formGroupDescription">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   as="textarea"
-                  value={info.description}
+                  value={description}
                   onChange={handleDescriptionChange}
                   style={{ minHeight: '100px' }}
                 />
@@ -108,22 +94,19 @@ const ProjectItemEditor = (props: ProjectItemEditor) => {
           </Col>
         </Row>
         <Row className="w-100 mx-0 py-3">
-          <EditorBody
-            content={info.content}
-            onContentChange={handleContentChange}
-          />
+          <EditorBody content={content} onContentChange={handleContentChange} />
         </Row>
         <Row className="float-right">
           <Col sm="auto">
             <Button
               className="mx-1"
-              onClick={handleCancel}
+              onClick={props.onCancel}
               variant="outline-secondary"
             >
               Cancel
             </Button>
             <PrivacyToggle
-              isPublic={info.public}
+              isPublic={isPublic}
               onPublicChange={handlePublicChange}
             />
             <Button

@@ -14,7 +14,7 @@ const SearchFilter = (props: SearchFilter) => {
     <Form
       className="mx-auto"
       inline
-      onSubmit={() => {
+      onSubmit={(event) => {
         event.preventDefault();
       }}
     >
