@@ -55,14 +55,13 @@ const HomeAvatar = (props: HomeAvatar) => {
 
   /* Container needed to position the overlay. Adjust the width as needed */
   const projectImageContainerStyle = css({
-    width: '100%',
-    height: '100%',
-    maxWidth: `${AVATAR_WIDTH}px`,
-    // If image exists, keep ratio
-    // otherwise, need to fill parent div to have an overlay without image
+    width: `${AVATAR_WIDTH}px`,
+    height: `${AVATAR_WIDTH}px`,
     position: 'relative',
     outline: 'none',
     userSelect: 'none',
+    borderRadius: '50%',
+    background: 'gray',
   });
 
   /* The overlay effect (full height and width) - lays on top of the container and over the image */
@@ -95,18 +94,6 @@ const HomeAvatar = (props: HomeAvatar) => {
     textAlign: 'center',
   });
 
-  // To render instead of image on empty profile picture
-  const FallbackAvatar = () => (
-    <div
-      className={css({
-        width: `${AVATAR_WIDTH}px`,
-        height: `${AVATAR_WIDTH}px`,
-        background: 'gray',
-        borderRadius: '50%',
-      })}
-    />
-  );
-
   return (
     <Dropzone
       maxFiles={1}
@@ -117,17 +104,18 @@ const HomeAvatar = (props: HomeAvatar) => {
       accept="image/*"
     >
       {({ getRootProps, getInputProps }) => (
-        <div {...getRootProps()} className={css({ outline: 'none' })}>
+        <div
+          {...getRootProps()}
+          className={css({ outline: 'none', userSelect: 'none' })}
+        >
           <div className={projectImageContainerStyle + ' mx-auto'}>
-            {props.image ? (
+            {props.image && (
               <Image
                 fluid
                 className="shadow-lg"
                 roundedCircle={true}
                 src={props.image}
               />
-            ) : (
-              <FallbackAvatar />
             )}
 
             {editMode && (
