@@ -74,7 +74,7 @@ const PromotionBox = () => {
             Pure &amp;&amp; Lazy
           </h1>
           <h2 className="display-4" css={subtitleStyle}>
-            Create your own ePortfolio in minutes.
+            Create your own ePortfolio in minutes
           </h2>
 
           {isAuthenticated ? (
